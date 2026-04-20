@@ -84,11 +84,16 @@ class LLMHuggingFace(LLMBase):
         """Return the device of the first model parameter (used as input device)."""
         return next(self.model.parameters()).device
 
-    def _apply_template(self, prompt) -> torch.Tensor:
+    def _apply_template(self, prompt):
         """Tokenize *prompt* with the model's chat template and move to device.
 
         Accepts either a :class:`Prompt` object (calls ``.to_messages()``) or a
         plain :class:`str` (wrapped as a single user message).
+
+        Returns
+        -------
+        input_ids : torch.Tensor  shape (1, seq_len)
+        attention_mask : torch.Tensor  shape (1, seq_len), all-ones (no padding)
         """
         if isinstance(prompt, str):
             messages = [{"role": "user", "content": prompt}]
@@ -98,24 +103,28 @@ class LLMHuggingFace(LLMBase):
             messages,
             add_generation_prompt=True,
             return_tensors="pt",
-        )
-        return input_ids.to(self._first_device())
+        ).to(self._first_device())
+        # apply_chat_template returns only input_ids; build an explicit all-ones
+        # attention_mask so generate() does not confuse pad tokens with eos tokens.
+        attention_mask = torch.ones_like(input_ids)
+        return input_ids, attention_mask
 
     # ------------------------------------------------------------------ #
     #  LLMBase interface                                                  #
     # ------------------------------------------------------------------ #
 
     def get_text_completion(
-        self, prompts: List[Prompt], max_new_tokens: int = 512
+        self, prompts: List[Prompt], max_new_tokens: int = 50
     ) -> List[str]:
         completions: List[str] = []
         for prompt in prompts:
             try:
-                input_ids = self._apply_template(prompt)
+                input_ids, attention_mask = self._apply_template(prompt)
                 n_input = input_ids.shape[1]
                 with torch.no_grad():
                     output_ids = self.model.generate(
                         input_ids,
+                        attention_mask=attention_mask,
                         max_new_tokens=max_new_tokens,
                         do_sample=False,
                         pad_token_id=self.tokenizer.eos_token_id,
@@ -140,9 +149,9 @@ class LLMHuggingFace(LLMBase):
         scores: List[float] = []
         for prompt in prompts:
             try:
-                input_ids = self._apply_template(prompt)
+                input_ids, attention_mask = self._apply_template(prompt)
                 with torch.no_grad():
-                    outputs = self.model(input_ids=input_ids)
+                    outputs = self.model(input_ids=input_ids, attention_mask=attention_mask)
                 # logits: (1, seq_len, vocab_size) → last position
                 next_token_logits = outputs.logits[0, -1, :]  # (vocab_size,)
                 probs = torch.softmax(next_token_logits, dim=-1).cpu()
