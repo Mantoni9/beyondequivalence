@@ -2,8 +2,8 @@
 #SBATCH --job-name=olala-70b
 #SBATCH --partition=gpu_a100_il
 #SBATCH --gres=gpu:2
-#SBATCH --mem=300G
-#SBATCH --time=48:00:00
+#SBATCH --mem=200G
+#SBATCH --time=24:00:00
 #SBATCH --output=logs/olala_70b_%j.out
 #SBATCH --error=logs/olala_70b_%j.err
 
