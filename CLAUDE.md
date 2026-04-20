@@ -89,7 +89,7 @@ Three execution environments are supported. Each has a corresponding `.env.<clus
 |---|---|---|---|---|
 | **Local** (MacBook M4 Max) | — | `~/` | `~/models/Llama-3.1-8B-Instruct` | `mps` |
 | **bwUniCluster** | `ma_amarkic` | `uc3.scc.kit.edu` · `/pfs/data6/home/ma/ma_ma/ma_amarkic/melt-project/src` | `$WORK/models/Llama-3.3-70B-Instruct` | `cuda` |
-| **DWS** (Uni Mannheim) | `amarkic` | `dws-login-01.informatik.uni-mannheim.de` · `/work/amarkic/olala` | `/work/amarkic/models/Llama-3.3-70B-Instruct` (8-bit, bitsandbytes) | `cuda` |
+| **DWS** (Uni Mannheim) | `amarkic` | `dws-login-01.informatik.uni-mannheim.de` · `/work/amarkic/beyondequivalence` | `/work/amarkic/models/Llama-3.3-70B-Instruct` (NF4 4-bit + Flash Attention 2) | `cuda` |
 
 > **DWS login nodes:** `dws-login-01` is tried first; on SSH timeout (5 s) the script automatically falls back to `dws-login-02.informatik.uni-mannheim.de`.
 
@@ -98,12 +98,17 @@ Three execution environments are supported. Each has a corresponding `.env.<clus
 ```
 .env.local.template   → copy to .env.local   (DEVICE=mps,  CLUSTER=local)
 .env.bwuni.template   → copy to .env.bwuni   (DEVICE=cuda, CLUSTER=bwuni)
-.env.dws.template     → copy to .env.dws     (DEVICE=cuda, CLUSTER=dws, LOAD_IN_8BIT=true)
+.env.dws.template     → copy to .env.dws     (DEVICE=cuda, CLUSTER=dws, LOAD_IN_4BIT=true)
 ```
 
 `run_experiment.py` calls `load_dotenv()` at startup and reads `MODEL_PATH`, `DEVICE`, `CLUSTER` from whichever `.env` file is present.
 
-`LOAD_IN_8BIT=true` in `.env.dws` activates 8-bit quantization via `bitsandbytes` in `LLMHuggingFace`, allowing the 70B model to run on 2× A6000 (96 GB VRAM total). The MPS/CPU fallback to float32 only applies in the non-8-bit path.
+`LOAD_IN_4BIT=true` activates NF4 4-bit quantization (`bnb_4bit_quant_type="nf4"`, `compute_dtype=bfloat16`) via `bitsandbytes`. The 70B model requires ~35 GB VRAM in NF4 — fits on a single A6000 (48 GB). Flash Attention 2 is enabled automatically whenever CUDA is available. The MPS/CPU fallback to float32 only applies when neither `LOAD_IN_4BIT` nor `LOAD_IN_8BIT` is set and CUDA is absent.
+
+> **flash-attn installation on the cluster:** `conda env update` may fail for `flash-attn` because it requires CUDA toolkit headers. Install manually after env creation:
+> ```bash
+> pip install flash-attn --no-build-isolation
+> ```
 
 ### sync_clusters.sh
 

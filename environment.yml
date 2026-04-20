@@ -80,5 +80,6 @@ dependencies:
     - wandb==0.26.0
     - python-dotenv
     - bitsandbytes>=0.41.0
+    - flash-attn
 prefix: /Users/antoniomarkic/opt/anaconda3/envs/melt-olala
 

@@ -41,9 +41,33 @@ class LLMHuggingFace(LLMBase):
         )
         self._initialize_positive_negative_tokens()
 
+        load_in_4bit = os.getenv("LOAD_IN_4BIT", "false").lower() == "true"
         load_in_8bit = os.getenv("LOAD_IN_8BIT", "false").lower() == "true"
 
-        if load_in_8bit:
+        # Flash Attention 2 is only supported on CUDA.
+        use_flash_attn = torch.cuda.is_available()
+        attn_kwargs = {"attn_implementation": "flash_attention_2"} if use_flash_attn else {}
+        if use_flash_attn:
+            logger.info("Flash Attention 2 enabled.")
+
+        if load_in_4bit:
+            logger.info(
+                f"Loading model from {model_path} "
+                f"(device_map={device_map}, load_in_4bit=NF4, compute_dtype=bfloat16)"
+            )
+            quantization_config = BitsAndBytesConfig(
+                load_in_4bit=True,
+                bnb_4bit_quant_type="nf4",
+                bnb_4bit_compute_dtype=torch.bfloat16,
+            )
+            self.model = AutoModelForCausalLM.from_pretrained(
+                model_path,
+                quantization_config=quantization_config,
+                device_map=device_map,
+                trust_remote_code=True,
+                **attn_kwargs,
+            )
+        elif load_in_8bit:
             logger.info(
                 f"Loading model from {model_path} "
                 f"(device_map={device_map}, load_in_8bit=True via BitsAndBytesConfig)"
@@ -54,6 +78,7 @@ class LLMHuggingFace(LLMBase):
                 quantization_config=quantization_config,
                 device_map=device_map,
                 trust_remote_code=True,
+                **attn_kwargs,
             )
         else:
             logger.info(
@@ -74,6 +99,7 @@ class LLMHuggingFace(LLMBase):
                 dtype=dtype,
                 device_map=device_map,
                 trust_remote_code=True,
+                **attn_kwargs,
             )
         self.model.eval()
         # LLaMA 3.x ships a generation_config.json with temperature/top_p set.

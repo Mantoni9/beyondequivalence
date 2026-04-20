@@ -18,7 +18,7 @@ set -a
 source .env.dws
 set +a
 
-# Enable 8-bit quantization for the 70B model on 2x A6000 (96 GB VRAM total)
-export LOAD_IN_8BIT=true
+# 4-bit NF4 quantization + Flash Attention 2 for 70B on 2x A6000 (96 GB VRAM total)
+export LOAD_IN_4BIT=true
 
 python run_experiment.py --model "$MODEL_PATH" --wandb --threshold 0.6
