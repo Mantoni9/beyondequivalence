@@ -20,6 +20,9 @@ Options
     --top-n INT           Candidates per entity kept by MatcherTopN (default: 5)
     --embedding-model STR Sentence-transformer model for MatcherCandidateGen
                           (default: all-MiniLM-L6-v2)
+    --embedding-prompt-id ID  Query prompt key from EMBEDDING_PROMPTS passed to
+                          MatcherCandidateGen (one/two/three/four/five or empty;
+                          default: "" = no prompt)
     --timestamp STR       Fixed timestamp string for result folder (default: current time)
     --baseline-only       Run only the baseline, skip the LLM pipeline
     --pipeline-only       Run only the full pipeline, skip the baseline
@@ -96,6 +99,15 @@ def parse_args() -> argparse.Namespace:
         help="Sentence-transformer model for MatcherCandidateGen (default: all-MiniLM-L6-v2).",
     )
     parser.add_argument(
+        "--embedding-prompt-id",
+        default="",
+        metavar="ID",
+        help=(
+            "Query prompt key from EMBEDDING_PROMPTS for MatcherCandidateGen "
+            "(one/two/three/four/five or empty string for no prompt; default: \"\")."
+        ),
+    )
+    parser.add_argument(
         "--timestamp",
         default=None,
         metavar="STR",
@@ -147,6 +159,7 @@ def build_systems(args: argparse.Namespace) -> list:
         candidate_gen = MatcherCandidateGen(
             model=args.embedding_model,
             description="description_one_gen",
+            query_prompt_id=args.embedding_prompt_id,
         )
         top_n = MatcherTopN(n=args.top_n)
         reranker = MatcherLLMReranker(
@@ -185,6 +198,7 @@ def _init_wandb(args: argparse.Namespace):
             "batch_size": args.batch_size,
             "top_n": args.top_n,
             "embedding_model": args.embedding_model,
+            "embedding_prompt_id": args.embedding_prompt_id,
             "track": ANATOMY_TRACK[0],
             "baseline_only": args.baseline_only,
             "pipeline_only": args.pipeline_only,
