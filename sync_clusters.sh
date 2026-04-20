@@ -19,7 +19,7 @@ BWUNI_WORKDIR="/pfs/work9/workspace/scratch/ma_amarkic-olala_ws"
 DWS_USER="amarkic"
 DWS_HOST_PRIMARY="dws-login-01.informatik.uni-mannheim.de"
 DWS_HOST_FALLBACK="dws-login-02.informatik.uni-mannheim.de"
-DWS_WORKDIR="/work/amarkic/olala"
+DWS_WORKDIR="/work/amarkic/beyondequivalence"
 
 SSH_TIMEOUT=5
 
@@ -47,10 +47,10 @@ ssh_ok() {
 # Resolve DWS login node with automatic fallback
 resolve_dws_host() {
     if ssh_ok "$DWS_HOST_PRIMARY" "$DWS_USER"; then
-        log "DWS: using primary login node $DWS_HOST_PRIMARY"
+        log "DWS: using primary login node $DWS_HOST_PRIMARY" >&2
         echo "$DWS_HOST_PRIMARY"
     elif ssh_ok "$DWS_HOST_FALLBACK" "$DWS_USER"; then
-        log "DWS: primary unreachable, falling back to $DWS_HOST_FALLBACK"
+        log "DWS: primary unreachable, falling back to $DWS_HOST_FALLBACK" >&2
         echo "$DWS_HOST_FALLBACK"
     else
         err "DWS: both login nodes unreachable ($DWS_HOST_PRIMARY, $DWS_HOST_FALLBACK)"
