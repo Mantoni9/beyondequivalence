@@ -75,6 +75,12 @@ class LLMHuggingFace(LLMBase):
                 trust_remote_code=True,
             )
         self.model.eval()
+        # LLaMA 3.x ships a generation_config.json with temperature/top_p set.
+        # Those flags are invalid for greedy decoding (do_sample=False) and cause
+        # generate() to hang on CUDA. Clear them explicitly.
+        self.model.generation_config.temperature = None
+        self.model.generation_config.top_p = None
+        self.model.generation_config.do_sample = False
 
     # ------------------------------------------------------------------ #
     #  Internal helpers                                                   #
@@ -128,6 +134,7 @@ class LLMHuggingFace(LLMBase):
                         max_new_tokens=max_new_tokens,
                         do_sample=False,
                         pad_token_id=self.tokenizer.eos_token_id,
+                        eos_token_id=self.tokenizer.eos_token_id,
                     )
                 new_tokens = output_ids[0, n_input:]
                 completions.append(
