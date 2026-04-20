@@ -1,5 +1,6 @@
 import logging
 import os
+import time
 from typing import List, Sequence
 
 import torch
@@ -125,8 +126,12 @@ class LLMHuggingFace(LLMBase):
         completions: List[str] = []
         for prompt in prompts:
             try:
+                print("1. Applying template...", flush=True)
                 input_ids, attention_mask = self._apply_template(prompt)
+                print(f"2. Template done. input_ids shape: {input_ids.shape}, device: {input_ids.device}", flush=True)
                 n_input = input_ids.shape[1]
+                print("3. Starting generate()...", flush=True)
+                start = time.time()
                 with torch.no_grad():
                     output_ids = self.model.generate(
                         input_ids,
@@ -136,6 +141,7 @@ class LLMHuggingFace(LLMBase):
                         pad_token_id=self.tokenizer.eos_token_id,
                         eos_token_id=self.tokenizer.eos_token_id,
                     )
+                print(f"4. Generate done in {time.time()-start:.1f}s", flush=True)
                 new_tokens = output_ids[0, n_input:]
                 completions.append(
                     self.tokenizer.decode(new_tokens, skip_special_tokens=True)
