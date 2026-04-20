@@ -131,14 +131,11 @@ class MatcherCandidateGen(MatcherBase):
         return x
 
     def _get_embeddings_with_prompt(self, embedder : SentenceTransformer, text:list[str], elements:list[URIRef], prompt_id:str) -> torch.Tensor:
-        prompt = get_embedding_prompt(prompt_id)
-
-        processed_text = [prompt.format(uri=uri, text=t).to_text() for t, uri in zip(text, elements)]
-        #quick check
-        #ground_truth = embedder.encode(processed_text, convert_to_tensor=True)
-        #extracted = self._extract_embedding_less_memory(processed_text, elements, pooling_mode="mean")
-        #print(torch.allclose(ground_truth, extracted, atol=1e-6))
-        #print(torch.equal(ground_truth, extracted))
+        if prompt_id:
+            prompt = get_embedding_prompt(prompt_id)
+            processed_text = [prompt.format(uri=uri, text=t).to_text() for t, uri in zip(text, elements)]
+        else:
+            processed_text = text
 
         if self.method == "sentence":
             embeddings = embedder.encode(processed_text, convert_to_tensor=True)
