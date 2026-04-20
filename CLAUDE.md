@@ -89,7 +89,7 @@ Three execution environments are supported. Each has a corresponding `.env.<clus
 |---|---|---|---|---|
 | **Local** (MacBook M4 Max) | — | `~/` | `~/models/Llama-3.1-8B-Instruct` | `mps` |
 | **bwUniCluster** | `ma_amarkic` | `uc3.scc.kit.edu` · `/pfs/work9/workspace/scratch/ma_amarkic-olala_ws` | `$WORK/models/Llama-3.3-70B-Instruct` | `cuda` |
-| **DWS** (Uni Mannheim) | `amarkic` | `dws-login-01.informatik.uni-mannheim.de` · `/work/amarkic/olala` | `/work/amarkic/models/Llama-3.1-8B-Instruct` | `cuda` |
+| **DWS** (Uni Mannheim) | `amarkic` | `dws-login-01.informatik.uni-mannheim.de` · `/work/amarkic/olala` | `/work/amarkic/models/Llama-3.3-70B-Instruct` (8-bit, bitsandbytes) | `cuda` |
 
 > **DWS login nodes:** `dws-login-01` is tried first; on SSH timeout (5 s) the script automatically falls back to `dws-login-02.informatik.uni-mannheim.de`.
 
@@ -98,10 +98,12 @@ Three execution environments are supported. Each has a corresponding `.env.<clus
 ```
 .env.local.template   → copy to .env.local   (DEVICE=mps,  CLUSTER=local)
 .env.bwuni.template   → copy to .env.bwuni   (DEVICE=cuda, CLUSTER=bwuni)
-.env.dws.template     → copy to .env.dws     (DEVICE=cuda, CLUSTER=dws)
+.env.dws.template     → copy to .env.dws     (DEVICE=cuda, CLUSTER=dws, LOAD_IN_8BIT=true)
 ```
 
 `run_experiment.py` calls `load_dotenv()` at startup and reads `MODEL_PATH`, `DEVICE`, `CLUSTER` from whichever `.env` file is present.
+
+`LOAD_IN_8BIT=true` in `.env.dws` activates 8-bit quantization via `bitsandbytes` in `LLMHuggingFace`, allowing the 70B model to run on 2× A6000 (96 GB VRAM total). The MPS/CPU fallback to float32 only applies in the non-8-bit path.
 
 ### sync_clusters.sh
 
@@ -118,7 +120,7 @@ Three execution environments are supported. Each has a corresponding `.env.<clus
 
 # Submit a SLURM job
 ./sync_clusters.sh bwuni --job jobs/job_bwuni_70b.sh
-./sync_clusters.sh dws   --job jobs/job_dws_8b.sh
+./sync_clusters.sh dws   --job jobs/job_dws_70b.sh
 ```
 
 ### SLURM job scripts
@@ -126,10 +128,10 @@ Three execution environments are supported. Each has a corresponding `.env.<clus
 | Script | Cluster | Partition | GPUs | Mem | Time |
 |---|---|---|---|---|---|
 | `jobs/job_bwuni_70b.sh` | bwUniCluster | `gpu_a100_il` | 2× A100 | 300 G | 48 h |
-| `jobs/job_dws_8b.sh` | DWS | `gpu-vram-48gb` | 1× GPU | 64 G | 24 h |
+| `jobs/job_dws_70b.sh` | DWS | `gpu-vram-48gb` | 2× A6000 | 100 G | 24 h |
 
 ### Pending manual steps
 
 - **GitHub:** Create a remote repo and run `git remote add origin <url> && git push -u origin main`.
-- **DWS model:** Upload `Llama-3.1-8B-Instruct` to `/work/amarkic/models/` on DWS before submitting jobs.
+- **DWS model:** Upload `Llama-3.3-70B-Instruct` to `/work/amarkic/models/` on DWS before submitting jobs.
 - **bwUniCluster model:** Verify `$WORK/models/Llama-3.3-70B-Instruct` is present before submitting the 70B job.

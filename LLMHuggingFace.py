@@ -1,4 +1,5 @@
 import logging
+import os
 from typing import List, Sequence
 
 import torch
@@ -39,16 +40,39 @@ class LLMHuggingFace(LLMBase):
         )
         self._initialize_positive_negative_tokens()
 
-        logger.info(
-            f"Loading model from {model_path} "
-            f"(device_map={device_map}, dtype={dtype})"
-        )
-        self.model = AutoModelForCausalLM.from_pretrained(
-            model_path,
-            device_map=device_map,
-            dtype=dtype,
-            trust_remote_code=True,
-        )
+        load_in_8bit = os.getenv("LOAD_IN_8BIT", "false").lower() == "true"
+
+        if load_in_8bit:
+            logger.info(
+                f"Loading model from {model_path} "
+                f"(device_map={device_map}, load_in_8bit=True)"
+            )
+            self.model = AutoModelForCausalLM.from_pretrained(
+                model_path,
+                load_in_8bit=True,
+                device_map=device_map,
+                trust_remote_code=True,
+            )
+        else:
+            logger.info(
+                f"Loading model from {model_path} "
+                f"(device_map={device_map}, dtype={dtype})"
+            )
+            # On macOS/MPS, bfloat16 is not fully supported — fall back to
+            # float32 on CPU if no CUDA device is available.
+            if dtype == torch.bfloat16 and not torch.cuda.is_available():
+                logger.warning(
+                    "CUDA not available and dtype=bfloat16 requested; "
+                    "falling back to float32 on CPU."
+                )
+                dtype = torch.float32
+                device_map = "cpu"
+            self.model = AutoModelForCausalLM.from_pretrained(
+                model_path,
+                dtype=dtype,
+                device_map=device_map,
+                trust_remote_code=True,
+            )
         self.model.eval()
 
     # ------------------------------------------------------------------ #
