@@ -3,7 +3,7 @@ import os
 from typing import List, Sequence
 
 import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 from LLMBase import LLMBase
 from llm_tool import Tool
@@ -45,11 +45,12 @@ class LLMHuggingFace(LLMBase):
         if load_in_8bit:
             logger.info(
                 f"Loading model from {model_path} "
-                f"(device_map={device_map}, load_in_8bit=True)"
+                f"(device_map={device_map}, load_in_8bit=True via BitsAndBytesConfig)"
             )
+            quantization_config = BitsAndBytesConfig(load_in_8bit=True)
             self.model = AutoModelForCausalLM.from_pretrained(
                 model_path,
-                load_in_8bit=True,
+                quantization_config=quantization_config,
                 device_map=device_map,
                 trust_remote_code=True,
             )
@@ -83,10 +84,18 @@ class LLMHuggingFace(LLMBase):
         """Return the device of the first model parameter (used as input device)."""
         return next(self.model.parameters()).device
 
-    def _apply_template(self, prompt: Prompt) -> torch.Tensor:
-        """Tokenize *prompt* with the model's chat template and move to device."""
+    def _apply_template(self, prompt) -> torch.Tensor:
+        """Tokenize *prompt* with the model's chat template and move to device.
+
+        Accepts either a :class:`Prompt` object (calls ``.to_messages()``) or a
+        plain :class:`str` (wrapped as a single user message).
+        """
+        if isinstance(prompt, str):
+            messages = [{"role": "user", "content": prompt}]
+        else:
+            messages = prompt.to_messages()
         input_ids = self.tokenizer.apply_chat_template(
-            prompt.to_messages(),
+            messages,
             add_generation_prompt=True,
             return_tensors="pt",
         )
