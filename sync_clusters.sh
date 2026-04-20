@@ -58,12 +58,12 @@ resolve_dws_host() {
     fi
 }
 
-# Run a command on a remote host via SSH
+# Run a bash script on a remote host via SSH (script read from stdin)
 remote_run() {
-    local user="$1"; local host="$2"; shift 2
+    local user="$1" host="$2"
     ssh -o ConnectTimeout="$SSH_TIMEOUT" \
         -o StrictHostKeyChecking=accept-new \
-        "${user}@${host}" "$@"
+        "${user}@${host}" bash -ls
 }
 
 # ---------------------------------------------------------------------------
@@ -72,41 +72,41 @@ remote_run() {
 do_setup() {
     local user="$1" host="$2" workdir="$3"
     log "[$host] Setting up environment in $workdir ..."
-    remote_run "$user" "$host" bash -lc "
-        set -euo pipefail
-        mkdir -p '$workdir'
-        cd '$workdir'
-        mkdir -p models results logs
-        if conda env list | grep -q 'melt-olala'; then
-            echo 'Conda env melt-olala already exists, updating ...'
-            conda env update -n melt-olala -f environment.yml --prune
-        else
-            echo 'Creating conda env melt-olala ...'
-            conda env create -f environment.yml
-        fi
-        echo 'Setup complete.'
-    "
+    remote_run "$user" "$host" <<EOF
+set -euo pipefail
+mkdir -p '$workdir'
+cd '$workdir'
+mkdir -p models results logs
+if conda env list | grep -q 'melt-olala'; then
+    echo 'Conda env melt-olala already exists, updating ...'
+    conda env update -n melt-olala -f environment.yml --prune
+else
+    echo 'Creating conda env melt-olala ...'
+    conda env create -f environment.yml
+fi
+echo 'Setup complete.'
+EOF
 }
 
 do_sync() {
     local user="$1" host="$2" workdir="$3"
     log "[$host] Syncing (git pull) in $workdir ..."
-    remote_run "$user" "$host" bash -lc "
-        set -euo pipefail
-        cd '$workdir'
-        git pull
-        echo 'Sync complete.'
-    "
+    remote_run "$user" "$host" <<EOF
+set -euo pipefail
+cd '$workdir'
+git pull
+echo 'Sync complete.'
+EOF
 }
 
 do_job() {
     local user="$1" host="$2" workdir="$3" script="$4"
     log "[$host] Submitting job: sbatch $script in $workdir ..."
-    remote_run "$user" "$host" bash -lc "
-        set -euo pipefail
-        cd '$workdir'
-        sbatch '$script'
-    "
+    remote_run "$user" "$host" <<EOF
+set -euo pipefail
+cd '$workdir'
+sbatch '$script'
+EOF
 }
 
 # ---------------------------------------------------------------------------
