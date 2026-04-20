@@ -88,7 +88,7 @@ Three execution environments are supported. Each has a corresponding `.env.<clus
 | Environment | User | Host / Path | Model | Device |
 |---|---|---|---|---|
 | **Local** (MacBook M4 Max) | — | `~/` | `~/models/Llama-3.1-8B-Instruct` | `mps` |
-| **bwUniCluster** | `ma_amarkic` | `uc3.scc.kit.edu` · `/pfs/work9/workspace/scratch/ma_amarkic-olala_ws` | `$WORK/models/Llama-3.3-70B-Instruct` | `cuda` |
+| **bwUniCluster** | `ma_amarkic` | `uc3.scc.kit.edu` · `/pfs/data6/home/ma/ma_ma/ma_amarkic/melt-project/src` | `$WORK/models/Llama-3.3-70B-Instruct` | `cuda` |
 | **DWS** (Uni Mannheim) | `amarkic` | `dws-login-01.informatik.uni-mannheim.de` · `/work/amarkic/olala` | `/work/amarkic/models/Llama-3.3-70B-Instruct` (8-bit, bitsandbytes) | `cuda` |
 
 > **DWS login nodes:** `dws-login-01` is tried first; on SSH timeout (5 s) the script automatically falls back to `dws-login-02.informatik.uni-mannheim.de`.

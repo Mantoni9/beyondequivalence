@@ -14,7 +14,7 @@ set -euo pipefail
 # ---------------------------------------------------------------------------
 BWUNI_USER="ma_amarkic"
 BWUNI_HOST="uc3.scc.kit.edu"
-BWUNI_WORKDIR="/pfs/work9/workspace/scratch/ma_amarkic-olala_ws"
+BWUNI_WORKDIR="/pfs/data6/home/ma/ma_ma/ma_amarkic/melt-project/src"
 
 DWS_USER="amarkic"
 DWS_HOST_PRIMARY="dws-login-01.informatik.uni-mannheim.de"
@@ -76,6 +76,9 @@ do_setup() {
 set -euo pipefail
 mkdir -p '$workdir'
 cd '$workdir'
+if [ ! -d .git ]; then
+    git clone git@github.com:Mantoni9/beyondequivalence.git .
+fi
 mkdir -p models results logs
 if conda env list | grep -q 'melt-olala'; then
     echo 'Conda env melt-olala already exists, updating ...'
