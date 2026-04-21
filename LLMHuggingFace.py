@@ -1,5 +1,6 @@
 import logging
 import os
+import time
 import traceback
 from typing import List, Sequence
 
@@ -222,10 +223,17 @@ class LLMHuggingFace(LLMBase):
     ) -> List[str]:
         eos_ids, pad_id = self._resolve_eos_ids()
         completions: List[str] = []
-        for prompt in prompts:
+        for i, prompt in enumerate(prompts):
+            print(f"[get_text_completion] START prompt {i+1}/{len(prompts)}", flush=True)
+            t0 = time.time()
             try:
+                t_tpl = time.time()
                 input_ids, attention_mask = self._apply_template(prompt)
+                print(f"[get_text_completion]   template:  {time.time()-t_tpl:.2f}s  "
+                      f"(input_len={input_ids.shape[1]})", flush=True)
+
                 n_input = input_ids.shape[1]
+                t_gen = time.time()
                 with torch.no_grad():
                     output_ids = self.model.generate(
                         input_ids,
@@ -236,9 +244,13 @@ class LLMHuggingFace(LLMBase):
                         eos_token_id=eos_ids,
                     )
                 new_tokens = output_ids[0, n_input:]
-                completions.append(
-                    self.tokenizer.decode(new_tokens, skip_special_tokens=True)
-                )
+                print(f"[get_text_completion]   generate:  {time.time()-t_gen:.2f}s  "
+                      f"(new_tokens={new_tokens.shape[0]})", flush=True)
+
+                t_dec = time.time()
+                text = self.tokenizer.decode(new_tokens, skip_special_tokens=True)
+                print(f"[get_text_completion]   decode:    {time.time()-t_dec:.2f}s", flush=True)
+                completions.append(text)
             except Exception as e:
                 logger.error(
                     "Error in get_text_completion: %s\n%s",
@@ -246,6 +258,8 @@ class LLMHuggingFace(LLMBase):
                     traceback.format_exc(),
                 )
                 completions.append("")
+            print(f"[get_text_completion] DONE  prompt {i+1}/{len(prompts)} "
+                  f"in {time.time()-t0:.1f}s", flush=True)
         return completions
 
     def get_confidence_first_token(self, prompts: List[Prompt]) -> List[float]:
@@ -257,11 +271,20 @@ class LLMHuggingFace(LLMBase):
         defined by :meth:`LLMBase._initialize_positive_negative_tokens`.
         """
         scores: List[float] = []
-        for prompt in prompts:
+        for i, prompt in enumerate(prompts):
+            print(f"[get_confidence_first_token] START prompt {i+1}/{len(prompts)}", flush=True)
+            t0 = time.time()
             try:
+                t_tpl = time.time()
                 input_ids, attention_mask = self._apply_template(prompt)
+                print(f"[get_confidence_first_token]   template: {time.time()-t_tpl:.2f}s  "
+                      f"(input_len={input_ids.shape[1]})", flush=True)
+
+                t_fwd = time.time()
                 with torch.no_grad():
                     outputs = self.model(input_ids=input_ids, attention_mask=attention_mask)
+                print(f"[get_confidence_first_token]   forward:  {time.time()-t_fwd:.2f}s", flush=True)
+
                 # logits: (1, seq_len, vocab_size) → last position
                 next_token_logits = outputs.logits[0, -1, :]  # (vocab_size,)
                 probs = torch.softmax(next_token_logits, dim=-1).cpu()
@@ -280,7 +303,10 @@ class LLMHuggingFace(LLMBase):
                 )
 
                 total = yes_prob + no_prob
-                scores.append(yes_prob / total if total > 0 else 0.5)
+                score = yes_prob / total if total > 0 else 0.5
+                scores.append(score)
+                print(f"[get_confidence_first_token]   score:    {score:.4f}  "
+                      f"(yes={yes_prob:.4f}, no={no_prob:.4f})", flush=True)
             except Exception as e:
                 logger.error(
                     "Error in get_confidence_first_token: %s\n%s",
@@ -288,6 +314,8 @@ class LLMHuggingFace(LLMBase):
                     traceback.format_exc(),
                 )
                 scores.append(0.5)
+            print(f"[get_confidence_first_token] DONE  prompt {i+1}/{len(prompts)} "
+                  f"in {time.time()-t0:.1f}s", flush=True)
         return scores
 
     def get_confidence_with_tools(
