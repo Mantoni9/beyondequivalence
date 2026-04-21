@@ -37,7 +37,7 @@ python -m vllm.entrypoints.openai.api_server \
     --max-model-len "${VLLM_MAX_MODEL_LEN}" \
     --port "${PORT}" \
     --host 127.0.0.1 \
-    --disable-log-requests \
+    --no-enable-log-requests \
     &
 VLLM_PID=$!
 

@@ -3,7 +3,7 @@
 #SBATCH --partition=gpu-vram-48gb
 #SBATCH --gres=gpu:2
 #SBATCH --mem=100G
-#SBATCH --time=24:00:00
+#SBATCH --time=06:00:00
 #SBATCH --output=logs/olala_dws_vllm_%j.out
 #SBATCH --error=logs/olala_dws_vllm_%j.err
 
@@ -13,6 +13,17 @@ set -euo pipefail
 source "$(conda info --base)/etc/profile.d/conda.sh"
 conda activate melt-olala
 
+# DWS system libstdc++ is too old for vLLM (missing CXXABI_1.3.15).
+# Prepend the conda env lib so vLLM finds the newer libstdc++.
+export LD_LIBRARY_PATH="${CONDA_PREFIX}/lib:${LD_LIBRARY_PATH:-}"
+
+# DWS A6000 nodes: no NVLink P2P between GPUs → disable to avoid NCCL hang.
+export NCCL_P2P_DISABLE=1
+export NCCL_IB_DISABLE=1
+
+# Use vLLM V0 engine to avoid shm_broadcast deadlock after CUDA graph capture.
+export VLLM_USE_V1=0
+
 set -a
 source .env.dws
 set +a
@@ -20,7 +31,7 @@ set +a
 # Ensure vLLM is installed (CUDA-only, not in environment.yml)
 python -c "import vllm" 2>/dev/null || {
     echo "[setup] vllm not found — installing..."
-    pip install vllm --quiet
+    python -m pip install vllm --quiet
 }
 
 # ── vLLM server ────────────────────────────────────────────────────────────────
@@ -39,7 +50,7 @@ python -m vllm.entrypoints.openai.api_server \
     --max-model-len "${VLLM_MAX_MODEL_LEN}" \
     --port "${PORT}" \
     --host 127.0.0.1 \
-    --disable-log-requests \
+    --no-enable-log-requests \
     &
 VLLM_PID=$!
 
@@ -47,7 +58,7 @@ VLLM_PID=$!
 trap 'echo "[vLLM] Shutting down server (PID ${VLLM_PID})"; kill ${VLLM_PID} 2>/dev/null; wait ${VLLM_PID} 2>/dev/null || true' EXIT
 
 # ── Wait for server ready ──────────────────────────────────────────────────────
-MAX_WAIT=900   # 15 minutes — 70B model load can take a while
+MAX_WAIT=1500  # 25 minutes — 70B load + torch.compile + CUDA graph capture
 WAITED=0
 echo "[vLLM] Waiting for server to be ready (max ${MAX_WAIT}s)..."
 until curl -sf "http://localhost:${PORT}/health" > /dev/null 2>&1; do
