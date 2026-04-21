@@ -152,13 +152,17 @@ class LLMHuggingFace(LLMBase):
             messages = [{"role": "user", "content": prompt}]
         else:
             messages = prompt.to_messages()
-        input_ids = self.tokenizer.apply_chat_template(
+        result = self.tokenizer.apply_chat_template(
             messages,
             add_generation_prompt=True,
             return_tensors="pt",
-        ).to(self._first_device())
-        # apply_chat_template returns only input_ids; build an explicit all-ones
-        # attention_mask so generate() does not confuse pad tokens with eos tokens.
+        )
+        # transformers 5.x may return a BatchEncoding instead of a plain Tensor.
+        if isinstance(result, torch.Tensor):
+            input_ids = result.to(self._first_device())
+        else:
+            input_ids = result["input_ids"].to(self._first_device())
+        # Build an explicit all-ones attention_mask (no padding in single-sequence encoding).
         attention_mask = torch.ones_like(input_ids)
         return input_ids, attention_mask
 
