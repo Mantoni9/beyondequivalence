@@ -140,6 +140,95 @@ class LLMBase(ABC):
             f"{len(self.specific_positive_token_ids)} specific positive, "
             f"{len(self.specific_negative_token_ids)} specific negative"
         )
+        print(
+            f"[Token init] {self.model_name}: "
+            f"{len(self.positive_token_ids)} general positive, "
+            f"{len(self.negative_token_ids)} general negative, "
+            f"{len(self.specific_positive_token_ids)} specific positive, "
+            f"{len(self.specific_negative_token_ids)} specific negative",
+            flush=True,
+        )
+
+        # --- Fallback: direct encoding if regex scan found nothing ----------
+        # LLaMA 3.x (and other SentencePiece/tiktoken) tokenizers may produce
+        # tokens with byte-fallback prefixes that don't match the regex.  In
+        # that case, encode the canonical yes/no strings directly.
+        if not self.positive_token_ids:
+            for word in ["yes", "Yes", "YES", " yes", " Yes", "true", "True", "TRUE"]:
+                try:
+                    ids = self.tokenizer.encode(word, add_special_tokens=False)
+                    for tid in ids:
+                        if tid not in self.positive_token_ids:
+                            self.positive_token_ids.append(tid)
+                            self.positive_tokens.add(word)
+                except Exception:
+                    pass
+            logger.warning(
+                f"Regex scan found no general positive tokens for {self.model_name}. "
+                f"Direct-encode fallback: {len(self.positive_token_ids)} token(s) found."
+            )
+            print(
+                f"[Token init WARNING] No positive tokens via regex — "
+                f"direct-encode fallback: {self.positive_token_ids}",
+                flush=True,
+            )
+
+        if not self.negative_token_ids:
+            for word in ["no", "No", "NO", " no", " No", "false", "False", "FALSE"]:
+                try:
+                    ids = self.tokenizer.encode(word, add_special_tokens=False)
+                    for tid in ids:
+                        if tid not in self.negative_token_ids:
+                            self.negative_token_ids.append(tid)
+                            self.negative_tokens.add(word)
+                except Exception:
+                    pass
+            logger.warning(
+                f"Regex scan found no general negative tokens for {self.model_name}. "
+                f"Direct-encode fallback: {len(self.negative_token_ids)} token(s) found."
+            )
+            print(
+                f"[Token init WARNING] No negative tokens via regex — "
+                f"direct-encode fallback: {self.negative_token_ids}",
+                flush=True,
+            )
+
+        # Apply the same fallback for specific token sets (used by LLMOpenAI).
+        if not self.specific_positive_token_ids:
+            for word in ["yes", "Yes", " yes", " Yes"]:
+                try:
+                    ids = self.tokenizer.encode(word, add_special_tokens=False)
+                    for tid in ids:
+                        if tid not in self.specific_positive_token_ids:
+                            self.specific_positive_token_ids.append(tid)
+                            self.specific_positive_tokens.add(word)
+                except Exception:
+                    pass
+
+        if not self.specific_negative_token_ids:
+            for word in ["no", "No", " no", " No"]:
+                try:
+                    ids = self.tokenizer.encode(word, add_special_tokens=False)
+                    for tid in ids:
+                        if tid not in self.specific_negative_token_ids:
+                            self.specific_negative_token_ids.append(tid)
+                            self.specific_negative_tokens.add(word)
+                except Exception:
+                    pass
+
+        # --- Hard failure if still empty after fallback ----------------------
+        if not self.positive_token_ids:
+            raise ValueError(
+                f"No positive tokens (yes/true) found for model '{self.model_name}' "
+                f"after both regex scan and direct-encode fallback. "
+                f"Verify the tokenizer is loaded correctly."
+            )
+        if not self.negative_token_ids:
+            raise ValueError(
+                f"No negative tokens (no/false) found for model '{self.model_name}' "
+                f"after both regex scan and direct-encode fallback. "
+                f"Verify the tokenizer is loaded correctly."
+            )
 
     def count_prompt_tokens(self, prompts: List[Prompt]) -> List[int]:
         """Return the number of tokens per prompt including chat-format overhead."""
