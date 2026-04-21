@@ -86,17 +86,17 @@ class LLMHuggingFace(LLMBase):
             quantization_config = BitsAndBytesConfig(
                 load_in_4bit=True,
                 bnb_4bit_quant_type="nf4",
-                bnb_4bit_compute_dtype=torch.float16,
+                bnb_4bit_compute_dtype=torch.bfloat16,
                 bnb_4bit_use_double_quant=True,
             )
             print(
                 f"[Model] BitsAndBytesConfig: load_in_4bit=True  quant_type=nf4  "
-                f"compute_dtype=float16  double_quant=True",
+                f"compute_dtype=bfloat16  double_quant=True",
                 flush=True,
             )
             logger.info(
                 f"Loading model from {model_path} "
-                f"(device_map={device_map}, load_in_4bit=NF4, compute_dtype=float16, double_quant=True)"
+                f"(device_map={device_map}, load_in_4bit=NF4, compute_dtype=bfloat16, double_quant=True)"
             )
             self.model = AutoModelForCausalLM.from_pretrained(
                 model_path,
