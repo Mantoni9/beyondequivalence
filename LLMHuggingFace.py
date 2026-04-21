@@ -51,9 +51,35 @@ class LLMHuggingFace(LLMBase):
         except ImportError:
             use_flash_attn = False
             logger.info("flash-attn not installed — using default attention implementation.")
-        attn_kwargs = {"attn_implementation": "flash_attention_2"} if use_flash_attn else {}
+
+        # attn_implementation selection:
+        #
+        # - Non-quantized CUDA models: "flash_attention_2"
+        #     Uses the transformers FA2 wrapper for maximum control.
+        #
+        # - NF4 / 8-bit + CUDA models: "sdpa"
+        #     transformers 5.5.x has a bug in prepare_fa_kwargs_from_position_ids:
+        #     during autoregressive decoding the query length is 1, so
+        #     position_ids[0].diff() is empty → cu_seq_lens_q has one element →
+        #     cu_seq_lens_q.diff().max() raises "numel() == 0".
+        #     PyTorch SDPA (torch.nn.functional.scaled_dot_product_attention)
+        #     dispatches to the same FA2 CUDA kernels internally
+        #     (torch.backends.cuda.flash_sdp_enabled() is True by default),
+        #     so throughput is identical without the broken transformers wrapper.
+        quantized = load_in_4bit or load_in_8bit
         if use_flash_attn:
-            logger.info("Flash Attention 2 enabled.")
+            if quantized:
+                attn_kwargs = {"attn_implementation": "sdpa"}
+                logger.info(
+                    "Flash Attention 2 + NF4/8-bit triggers a transformers 5.5.x bug "
+                    "(empty cu_seq_lens_q during decode). Using SDPA instead — "
+                    "PyTorch dispatches to FA2 kernels internally."
+                )
+            else:
+                attn_kwargs = {"attn_implementation": "flash_attention_2"}
+                logger.info("Flash Attention 2 enabled.")
+        else:
+            attn_kwargs = {}
 
         if load_in_4bit:
             logger.info(
