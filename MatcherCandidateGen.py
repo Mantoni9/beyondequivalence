@@ -5,6 +5,14 @@ from sentence_transformers import SentenceTransformer, util
 from sentence_transformers.models import Pooling, Normalize
 import logging
 import torch
+
+
+def _best_device() -> str:
+    if torch.cuda.is_available():
+        return "cuda"
+    if torch.backends.mps.is_available():
+        return "mps"
+    return "cpu"
 from MatcherSimple import MatcherSimple
 
 from RDFGraphWrapper import RDFGraphWrapper
@@ -162,7 +170,7 @@ class MatcherCandidateGen(MatcherBase):
         elif self.method == "allmeanclssep":
             embeddings = self._extract_embedding_less_memory(embedder, processed_text, elements, pooling_mode="mean", find_all=True, pooling_special_tokens="clssep")
 
-        embeddings = embeddings.to("cuda")
+        embeddings = embeddings.to(_best_device())
         embeddings = util.normalize_embeddings(embeddings)
 
         return embeddings

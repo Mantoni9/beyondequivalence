@@ -1,6 +1,5 @@
 import logging
 import os
-import time
 from typing import List, Sequence
 
 import torch
@@ -86,26 +85,42 @@ class LLMHuggingFace(LLMBase):
                 **attn_kwargs,
             )
         else:
-            logger.info(
-                f"Loading model from {model_path} "
-                f"(device_map={device_map}, dtype={dtype})"
-            )
-            # On macOS/MPS, bfloat16 is not fully supported — fall back to
-            # float32 on CPU if no CUDA device is available.
-            if dtype == torch.bfloat16 and not torch.cuda.is_available():
-                logger.warning(
-                    "CUDA not available and dtype=bfloat16 requested; "
-                    "falling back to float32 on CPU."
+            if torch.cuda.is_available():
+                logger.info(
+                    f"Loading model from {model_path} "
+                    f"(device_map=auto, dtype={dtype}, CUDA)"
                 )
-                dtype = torch.float32
-                device_map = "cpu"
-            self.model = AutoModelForCausalLM.from_pretrained(
-                model_path,
-                dtype=dtype,
-                device_map=device_map,
-                trust_remote_code=True,
-                **attn_kwargs,
-            )
+                self.model = AutoModelForCausalLM.from_pretrained(
+                    model_path,
+                    dtype=dtype,
+                    device_map="auto",
+                    trust_remote_code=True,
+                    **attn_kwargs,
+                )
+            elif torch.backends.mps.is_available():
+                # device_map="auto" is not supported on MPS; load on CPU then move.
+                logger.info(
+                    f"Loading model from {model_path} "
+                    f"(dtype=bfloat16, MPS)"
+                )
+                self.model = AutoModelForCausalLM.from_pretrained(
+                    model_path,
+                    dtype=torch.bfloat16,
+                    device_map=None,
+                    trust_remote_code=True,
+                )
+                self.model = self.model.to("mps")
+            else:
+                logger.info(
+                    f"Loading model from {model_path} "
+                    f"(dtype=float32, CPU)"
+                )
+                self.model = AutoModelForCausalLM.from_pretrained(
+                    model_path,
+                    dtype=torch.float32,
+                    device_map=None,
+                    trust_remote_code=True,
+                )
         self.model.eval()
         # LLaMA 3.x ships a generation_config.json with temperature/top_p set.
         # Those flags are invalid for greedy decoding (do_sample=False) and cause
@@ -157,12 +172,8 @@ class LLMHuggingFace(LLMBase):
         completions: List[str] = []
         for prompt in prompts:
             try:
-                print("1. Applying template...", flush=True)
                 input_ids, attention_mask = self._apply_template(prompt)
-                print(f"2. Template done. input_ids shape: {input_ids.shape}, device: {input_ids.device}", flush=True)
                 n_input = input_ids.shape[1]
-                print("3. Starting generate()...", flush=True)
-                start = time.time()
                 with torch.no_grad():
                     output_ids = self.model.generate(
                         input_ids,
@@ -172,7 +183,6 @@ class LLMHuggingFace(LLMBase):
                         pad_token_id=self.tokenizer.eos_token_id,
                         eos_token_id=self.tokenizer.eos_token_id,
                     )
-                print(f"4. Generate done in {time.time()-start:.1f}s", flush=True)
                 new_tokens = output_ids[0, n_input:]
                 completions.append(
                     self.tokenizer.decode(new_tokens, skip_special_tokens=True)
