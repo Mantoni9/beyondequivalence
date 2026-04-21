@@ -44,8 +44,13 @@ class LLMHuggingFace(LLMBase):
         load_in_4bit = os.getenv("LOAD_IN_4BIT", "false").lower() == "true"
         load_in_8bit = os.getenv("LOAD_IN_8BIT", "false").lower() == "true"
 
-        # Flash Attention 2 is only supported on CUDA.
-        use_flash_attn = torch.cuda.is_available()
+        # Flash Attention 2 requires both CUDA and the flash-attn package.
+        try:
+            import flash_attn  # noqa: F401
+            use_flash_attn = torch.cuda.is_available()
+        except ImportError:
+            use_flash_attn = False
+            logger.info("flash-attn not installed — using default attention implementation.")
         attn_kwargs = {"attn_implementation": "flash_attention_2"} if use_flash_attn else {}
         if use_flash_attn:
             logger.info("Flash Attention 2 enabled.")
