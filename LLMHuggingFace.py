@@ -1,5 +1,6 @@
 import logging
 import os
+import traceback
 from typing import List, Sequence
 
 import torch
@@ -170,9 +171,30 @@ class LLMHuggingFace(LLMBase):
     #  LLMBase interface                                                  #
     # ------------------------------------------------------------------ #
 
+    def _resolve_eos_ids(self):
+        """Return (eos_token_ids, pad_token_id) as (list[int], int).
+
+        LLaMA 3.x tokenizers expose ``eos_token_id`` as a *list* of multiple
+        end-of-sequence token IDs (e.g. ``[128001, 128008, 128009]``).
+        ``generate()`` accepts a list for ``eos_token_id`` but **requires a
+        scalar int** for ``pad_token_id``; passing a list there triggers the
+        internal ``torch.max()`` call that raises
+        "max(): Expected reduction dim to be specified for input.numel() == 0".
+        """
+        raw = self.tokenizer.eos_token_id
+        eos_ids: list = raw if isinstance(raw, list) else [raw]
+        # Use the dedicated pad token when available; fall back to the first EOS.
+        pad_id: int = (
+            self.tokenizer.pad_token_id
+            if self.tokenizer.pad_token_id is not None
+            else eos_ids[0]
+        )
+        return eos_ids, pad_id
+
     def get_text_completion(
         self, prompts: List[Prompt], max_new_tokens: int = 50
     ) -> List[str]:
+        eos_ids, pad_id = self._resolve_eos_ids()
         completions: List[str] = []
         for prompt in prompts:
             try:
@@ -184,15 +206,19 @@ class LLMHuggingFace(LLMBase):
                         attention_mask=attention_mask,
                         max_new_tokens=max_new_tokens,
                         do_sample=False,
-                        pad_token_id=self.tokenizer.eos_token_id,
-                        eos_token_id=self.tokenizer.eos_token_id,
+                        pad_token_id=pad_id,
+                        eos_token_id=eos_ids,
                     )
                 new_tokens = output_ids[0, n_input:]
                 completions.append(
                     self.tokenizer.decode(new_tokens, skip_special_tokens=True)
                 )
             except Exception as e:
-                logger.error(f"Error in get_text_completion: {e}")
+                logger.error(
+                    "Error in get_text_completion: %s\n%s",
+                    e,
+                    traceback.format_exc(),
+                )
                 completions.append("")
         return completions
 
@@ -213,20 +239,28 @@ class LLMHuggingFace(LLMBase):
                 # logits: (1, seq_len, vocab_size) → last position
                 next_token_logits = outputs.logits[0, -1, :]  # (vocab_size,)
                 probs = torch.softmax(next_token_logits, dim=-1).cpu()
+                # Guard against token IDs that exceed the model's actual output
+                # vocab size (can differ from tokenizer.vocab_size when the
+                # embedding table is padded by bitsandbytes quantization).
+                vocab_size = probs.shape[0]
 
                 yes_prob = max(
-                    (probs[tid].item() for tid in self.positive_token_ids),
+                    (probs[tid].item() for tid in self.positive_token_ids if tid < vocab_size),
                     default=0.0,
                 )
                 no_prob = max(
-                    (probs[tid].item() for tid in self.negative_token_ids),
+                    (probs[tid].item() for tid in self.negative_token_ids if tid < vocab_size),
                     default=0.0,
                 )
 
                 total = yes_prob + no_prob
                 scores.append(yes_prob / total if total > 0 else 0.5)
             except Exception as e:
-                logger.error(f"Error in get_confidence_first_token: {e}")
+                logger.error(
+                    "Error in get_confidence_first_token: %s\n%s",
+                    e,
+                    traceback.format_exc(),
+                )
                 scores.append(0.5)
         return scores
 
