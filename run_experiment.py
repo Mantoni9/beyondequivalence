@@ -6,17 +6,30 @@ Pipelines
 1. MatcherSimple (Baseline)
 2. MatcherCandidateGen → MatcherTopN(5) → MatcherLLMReranker (full pipeline)
 
+LLM backend selection
+---------------------
+The backend is chosen automatically via the VLLM_BASE_URL environment variable:
+
+  VLLM_BASE_URL set  →  LLMOpenAI pointing at a local vLLM server
+                         (set by the SLURM job script before launching this process)
+  VLLM_BASE_URL unset →  LLMHuggingFace loading the model in-process
+                         (local development fallback, requires CUDA/MPS)
+
 Usage
 -----
+    # On cluster (VLLM_BASE_URL exported by job script):
+    python run_experiment.py --model /path/to/model [OPTIONS]
+
+    # Local fallback:
     python run_experiment.py --model ~/models/Llama-3.1-8B-Instruct [OPTIONS]
 
 Options
 -------
-    --model PATH          Path to a HuggingFace-compatible model directory (required)
+    --model PATH          Model path — HuggingFace directory or vLLM model name (required)
     --prompt-id ID        Reranking prompt key (default: d)
     --description NAME    RDFGraphWrapper description method (default: description_one_gen)
     --threshold FLOAT     LLM confidence threshold for filtering (default: 0.5)
-    --batch-size INT      Prompts per LLM forward pass (default: 8)
+    --batch-size INT      Prompts per LLM call (default: 8)
     --top-n INT           Candidates per entity kept by MatcherTopN (default: 5)
     --embedding-model STR Sentence-transformer model for MatcherCandidateGen
                           (default: all-MiniLM-L6-v2)
@@ -32,6 +45,7 @@ Options
 
 import argparse
 import logging
+import os
 import sys
 from pathlib import Path
 
@@ -39,7 +53,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from Evaluation import evaluate, run_oaei_tracks
-from LLMHuggingFace import LLMHuggingFace
 from MatcherCandidateGen import MatcherCandidateGen
 from MatcherLLMReranker import MatcherLLMReranker
 from MatcherSequential import MatcherSequential
@@ -57,7 +70,11 @@ def parse_args() -> argparse.Namespace:
         "--model",
         required=True,
         metavar="PATH",
-        help="Path to HuggingFace model directory for LLMHuggingFace.",
+        help=(
+            "Model path (HuggingFace directory) or vLLM model name. "
+            "When VLLM_BASE_URL is set the value is passed as model_name to LLMOpenAI; "
+            "otherwise it is loaded in-process by LLMHuggingFace."
+        ),
     )
     parser.add_argument(
         "--prompt-id",
@@ -153,8 +170,15 @@ def build_systems(args: argparse.Namespace) -> list:
     # ── 2. Full pipeline ───────────────────────────────────────────────────
     if not args.baseline_only:
         model_path = str(Path(args.model).expanduser().resolve())
-        logging.info(f"Loading LLM from {model_path} …")
-        llm = LLMHuggingFace(model_path)
+        vllm_url = os.getenv("VLLM_BASE_URL")
+        if vllm_url:
+            from LLMOpenAI import LLMOpenAI
+            logging.info(f"Backend: LLMOpenAI → vLLM at {vllm_url}  model={model_path}")
+            llm = LLMOpenAI(model_name=model_path, base_url=vllm_url, api_key="EMPTY")
+        else:
+            from LLMHuggingFace import LLMHuggingFace
+            logging.info(f"Backend: LLMHuggingFace (in-process)  model={model_path}")
+            llm = LLMHuggingFace(model_path)
 
         candidate_gen = MatcherCandidateGen(
             model=args.embedding_model,
@@ -188,10 +212,13 @@ def _init_wandb(args: argparse.Namespace):
         sys.exit(1)
 
     model_path = str(Path(args.model).expanduser().resolve())
+    vllm_url = os.getenv("VLLM_BASE_URL")
     run = wandb.init(
         project=args.wandb_project,
         config={
             "model_path": model_path,
+            "backend": "vllm" if vllm_url else "huggingface",
+            "vllm_base_url": vllm_url or "",
             "prompt_id": args.prompt_id,
             "description": args.description,
             "threshold": args.threshold,

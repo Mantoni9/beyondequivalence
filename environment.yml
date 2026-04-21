@@ -44,3 +44,7 @@ dependencies:
     # NOTE: flash-attn requires CUDA and cannot be installed on macOS/CPU.
     # Install manually on CUDA clusters after env creation:
     #   pip install flash-attn --no-build-isolation
+    #
+    # NOTE: vllm requires CUDA and cannot be installed on macOS/CPU.
+    # Install manually on CUDA clusters after env creation:
+    #   pip install vllm
