@@ -6,8 +6,12 @@ dependencies:
   - python=3.12
   - pip
   - pip:
+    # PyTorch CUDA 12.1 compatible wheels (DWS, bwUniCluster).
+    # On macOS arm64 pip ignores the cu121 index and falls back to PyPI (MPS build).
+    - --extra-index-url https://download.pytorch.org/whl/cu121
     # --- deep learning core ---
-    - torch>=2.4.0
+    # <2.11 avoids CUDA 13.0 builds that are incompatible with CUDA 12.1 clusters.
+    - "torch>=2.4.0,<2.11"
     - transformers>=4.45.0
     - accelerate>=0.34.0
     - bitsandbytes>=0.43.0
