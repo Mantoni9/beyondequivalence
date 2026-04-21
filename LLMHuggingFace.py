@@ -87,16 +87,15 @@ class LLMHuggingFace(LLMBase):
                 load_in_4bit=True,
                 bnb_4bit_quant_type="nf4",
                 bnb_4bit_compute_dtype=torch.bfloat16,
-                bnb_4bit_use_double_quant=True,
             )
             print(
                 f"[Model] BitsAndBytesConfig: load_in_4bit=True  quant_type=nf4  "
-                f"compute_dtype=bfloat16  double_quant=True",
+                f"compute_dtype=bfloat16  double_quant=False",
                 flush=True,
             )
             logger.info(
                 f"Loading model from {model_path} "
-                f"(device_map={device_map}, load_in_4bit=NF4, compute_dtype=bfloat16, double_quant=True)"
+                f"(device_map={device_map}, load_in_4bit=NF4, compute_dtype=bfloat16)"
             )
             self.model = AutoModelForCausalLM.from_pretrained(
                 model_path,
@@ -314,6 +313,18 @@ class LLMHuggingFace(LLMBase):
 
                 # logits: (1, seq_len, vocab_size) → last position
                 next_token_logits = outputs.logits[0, -1, :]  # (vocab_size,)
+                # Diagnose: detect NaN/Inf before softmax to locate the failure point.
+                has_nan = torch.isnan(next_token_logits).any().item()
+                has_inf = torch.isinf(next_token_logits).any().item()
+                logit_min = next_token_logits.min().item()
+                logit_max = next_token_logits.max().item()
+                print(
+                    f"[get_confidence_first_token]   [{i+1}/{len(prompts)}] logits: "
+                    f"shape={list(next_token_logits.shape)}  dtype={next_token_logits.dtype}  "
+                    f"min={logit_min:.2f}  max={logit_max:.2f}  "
+                    f"nan={has_nan}  inf={has_inf}",
+                    flush=True,
+                )
                 probs = torch.softmax(next_token_logits, dim=-1).cpu()
                 # Guard against token IDs that exceed the model's actual output
                 # vocab size (can differ from tokenizer.vocab_size when the
