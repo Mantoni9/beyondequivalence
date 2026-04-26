@@ -233,11 +233,12 @@ def _wrap_naive_concat(instruction: str, text: str) -> str:
 
 
 _FAMILY_FORMATTERS = {
-    "qwen3-embedding": _wrap_instruct_query,
-    "nv-embed":        _wrap_instruct_query,
-    "e5-mistral":      _wrap_instruct_query,
-    "sbert":           _wrap_naive_concat,
-    "auto":            _wrap_naive_concat,
+    "qwen3-embedding":      _wrap_instruct_query,
+    "nv-embed":             _wrap_instruct_query,
+    "llama-embed-nemotron": _wrap_instruct_query,
+    "e5-mistral":           _wrap_instruct_query,
+    "sbert":                _wrap_naive_concat,
+    "auto":                 _wrap_naive_concat,
 }
 
 # Substring-based family inference. Lower-cased haystack; first matching needle wins.
@@ -246,6 +247,8 @@ _FAMILY_INFERENCE_RULES: list[tuple[str, str]] = [
     ("qwen3-embedding",        "qwen3-embedding"),
     ("qwen3-emb",              "qwen3-embedding"),
     ("nv-embed",               "nv-embed"),
+    ("llama-embed-nemotron",   "llama-embed-nemotron"),
+    ("llama-nemotron-embed",   "llama-embed-nemotron"),
     ("e5-mistral",             "e5-mistral"),
     ("all-minilm",             "sbert"),
     ("minilm",                 "sbert"),
@@ -289,3 +292,34 @@ def format_instruction(model_family: str, instruction: str, text: str) -> str:
             f"Available: {sorted(_FAMILY_FORMATTERS.keys())}"
         )
     return formatter(instruction, text)
+
+
+# Per-family SentenceTransformer constructor kwargs. These are passed straight
+# through to SentenceTransformer(...), which forwards "model_kwargs" to
+# AutoModel.from_pretrained and "tokenizer_kwargs" to AutoTokenizer. Empty /
+# missing entry = rely on sentence-transformers defaults (correct for sbert and
+# for transformers-5.x-compatible custom models without attn-impl pinning).
+#
+# llama-embed-nemotron pins per the model card (nvidia/llama-embed-nemotron-8b):
+#   - attn_implementation="eager" — disables FA2/SDPA in transformers because
+#     the bidirectional-attention custom code is only verified against the
+#     eager kernel; FA2 path is silently broken.
+#   - torch_dtype="bfloat16" — matches the released weight dtype; avoids fp32
+#     upcast on load (an A40 OOM risk on 8B-parameter models).
+#   - tokenizer padding_side="left" — required because the encode_query /
+#     encode_document logic assumes left-padding for the latent-attention pooler.
+_FAMILY_LOADER_KWARGS: dict[str, dict[str, dict]] = {
+    "llama-embed-nemotron": {
+        "model_kwargs":     {"attn_implementation": "eager", "torch_dtype": "bfloat16"},
+        "tokenizer_kwargs": {"padding_side": "left"},
+    },
+}
+
+
+def get_loader_kwargs(model_family: str) -> dict[str, dict]:
+    """Return SentenceTransformer constructor kwargs for `model_family`.
+
+    Returns an empty dict for families with no special loading requirements.
+    The caller spreads the result with **kwargs into SentenceTransformer(...).
+    """
+    return _FAMILY_LOADER_KWARGS.get(model_family, {})
