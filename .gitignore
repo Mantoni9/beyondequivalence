@@ -22,3 +22,18 @@ oaei_track_cache/
 benchmark.zip
 results/
 logs/
+
+# W&B fallback paths — current wandb writes everything under wandb/run-*/, but
+# older versions / offline-then-sync flows occasionally drop files in cwd.
+.wandb/
+wandb-debug.log
+wandb-debug-internal.log
+wandb-metadata.json
+wandb-summary.json
+
+# Hugging Face Hub / filelock library may drop *.lock files in cwd if the
+# HF_HOME / cache redirection isn't picked up by every code path on the cluster.
+*.lock
+
+# Test runner cache — only created if pytest is run from a compute node.
+.pytest_cache/

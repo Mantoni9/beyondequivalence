@@ -62,19 +62,27 @@ DEFAULT_K_VALUES: tuple[int, ...] = (1, 5, 10, 20)
 
 # ─── small helpers ────────────────────────────────────────────────────────────
 
-def _git_sha_and_dirty() -> tuple[str, bool]:
+def _git_sha_and_dirty() -> tuple[str, bool, str]:
+    """Return (short SHA, is_dirty, dirty_paths).
+
+    `dirty_paths` is the verbatim ``git status --porcelain`` output — empty
+    when the tree is clean. We surface it in the run log so a dirty stamp
+    triggered by a stray output file can be diagnosed directly from the
+    stdout.log of the affected run, instead of requiring a manual
+    ``git status`` after the fact.
+    """
     try:
         sha = subprocess.check_output(
             ["git", "rev-parse", "--short", "HEAD"],
             stderr=subprocess.DEVNULL, text=True,
         ).strip()
-        dirty = bool(subprocess.check_output(
+        porcelain = subprocess.check_output(
             ["git", "status", "--porcelain"],
             stderr=subprocess.DEVNULL, text=True,
-        ).strip())
-        return sha, dirty
+        ).rstrip()
+        return sha, bool(porcelain), porcelain
     except Exception:
-        return "unknown", False
+        return "unknown", False, ""
 
 
 def _resolve_model(arg: str) -> str:
@@ -366,7 +374,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    sha, dirty = _git_sha_and_dirty()
+    sha, dirty, dirty_paths = _git_sha_and_dirty()
     alias_short = _alias_for_naming(args.model)
     run_name = (
         f"{alias_short}_{args.instruction_variant}_{args.dataset}_{sha}"
@@ -393,6 +401,7 @@ def main() -> None:
     logger.info("Git: sha=%s dirty=%s", sha, dirty)
     if dirty:
         logger.warning("Working tree is DIRTY — run is not reproducible from sha alone.")
+        logger.warning("git status --porcelain output:\n%s", dirty_paths)
 
     _set_seeds(args.seed)
     device = _detect_device()
