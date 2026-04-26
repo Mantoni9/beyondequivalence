@@ -20,3 +20,5 @@ oaei_track_cache/
 # root (or override via ZENODO_BENCHMARK_ZIP); on a fresh clone download it once
 # from Zenodo.
 benchmark.zip
+results/
+logs/
