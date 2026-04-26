@@ -161,8 +161,19 @@ vLLM scripts are the primary path; the `_70b.sh` scripts run the legacy in-proce
 | Script | Cluster | Backend | Partition / GPUs | Mem | Time |
 |---|---|---|---|---|---|
 | `jobs/job_bwuni_vllm.sh` | bwUniCluster | vLLM (no quantization) | `gpu_a100_il` · 2× A100 | 200 G | 48 h |
-| `jobs/job_dws_vllm.sh`   | DWS          | vLLM (`bitsandbytes`)  | `gpu-vram-48gb` · 2× A6000 | 100 G | 6 h |
+| `jobs/job_dws_vllm.sh`   | DWS          | vLLM (AWQ INT4)        | `gpu-vram-48gb` · 2× A40/A6000 | 100 G | 6 h |
 | `jobs/job_bwuni_70b.sh`  | bwUniCluster | `LLMHuggingFace` (legacy) | `gpu_a100_il` · 2× A100 | 300 G | 48 h |
 | `jobs/job_dws_70b.sh`    | DWS          | `LLMHuggingFace` NF4 (legacy) | `gpu-vram-48gb` · 2× A6000 | 100 G | 24 h |
 
 vLLM is not in `environment.yml`; the job scripts install it on first run via `python -m pip install vllm`.
+
+## DWS verified baseline (2026-04-26)
+
+First successful end-to-end run on DWS (2× A40, TP=2, AWQ-INT4, vLLM 0.19.1):
+
+- **Track**: anatomy_track / mouse-human-suite
+- **Pipeline**: `MatcherCandidateGen(all-MiniLM-L6-v2) → MatcherTopN(5) → MatcherLLMReranker(prompt=d, threshold=0.6, batch_size=2)`
+- **F1**: 0.765 (P=0.838, R=0.703, TP=1066, FP=206, FN=450)
+- **Runtime**: 22 min (~1.65 s per LLM call, sequential)
+- **W&B**: `antonio-markic-university-of-mannheim/olala-ontology-matching`
+- **Throughput bottleneck**: `MatcherLLMReranker` calls vLLM sequentially despite vLLM supporting concurrency. Parallelising with `asyncio.gather` would cut runtime by ~5×. Marlin kernels (`--quantization awq_marlin`) would add another 2–3× decode speedup. Neither is required for correctness.
