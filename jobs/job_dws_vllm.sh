@@ -51,6 +51,7 @@ python -m vllm.entrypoints.openai.api_server \
     --port "${PORT}" \
     --host 127.0.0.1 \
     --enforce-eager \
+    --gpu-memory-utilization 0.95 \
     --no-enable-log-requests \
     &
 VLLM_PID=$!

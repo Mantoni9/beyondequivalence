@@ -50,19 +50,24 @@ A typical pipeline: `MatcherSimple → MatcherCandidateGen → MatcherTopN → M
 
 ### LLM Integration
 
-`LLMBase` defines the abstract interface. Two concrete backends exist:
+`LLMBase` defines the abstract interface. Backend selection is automatic in `run_experiment.py` based on the `VLLM_BASE_URL` env var:
 
-**`LLMOpenAI`** — OpenAI-compatible HTTP backend supporting:
-- Batch processing via file uploads
-- Confidence estimation from token logprobs (scanning vocabulary for positive/negative tokens like "yes"/"no")
-- Custom base URLs for local LLM servers (e.g., vLLM, Ollama)
+- `VLLM_BASE_URL` set → **`LLMOpenAI`** against a local vLLM server (cluster default — exported by the SLURM job script).
+- `VLLM_BASE_URL` unset → **`LLMHuggingFace`** loading the model in-process (local development fallback).
 
-**`LLMHuggingFace`** — local HuggingFace Transformers backend for models such as LLaMA 3:
-- Loads model and tokenizer via `AutoModelForCausalLM` / `AutoTokenizer` with `trust_remote_code=True`
-- Uses `dtype` (not `torch_dtype`) in `from_pretrained` to avoid deprecation warnings; defaults to `torch.bfloat16`
-- `get_text_completion` runs greedy generation with `model.generate()`
+**`LLMOpenAI`** — OpenAI-compatible HTTP backend:
+- Batch processing via file uploads (when `batch_poll_interval` is set), otherwise synchronous per-request calls.
+- `get_confidence_first_token` requests `max_tokens=1, logprobs=True, top_logprobs=20`, then computes `P(yes) / (P(yes) + P(no))` from the **max** logprob across positive/negative tokens in the top-20.
+- `get_confidence_with_tools` performs batched multi-turn tool exploration before a final yes/no logprob call.
+- Custom `base_url` enables local LLM servers (vLLM, Ollama).
+
+**`LLMHuggingFace`** — local HuggingFace Transformers backend (fallback path):
+- Loads model and tokenizer via `AutoModelForCausalLM` / `AutoTokenizer` with `trust_remote_code=True`.
+- Uses `dtype` (not `torch_dtype`) in `from_pretrained` to avoid deprecation warnings; defaults to `torch.bfloat16`.
+- `get_text_completion` runs greedy generation with `model.generate()`.
 - `get_confidence_first_token` does a **single forward pass** (no generation), reads the logits at the last input position, applies softmax, and computes `P(yes) / (P(yes) + P(no))` by aggregating probabilities over all vocabulary tokens matched by regex patterns for positive ("yes"/"true") and negative ("no"/"false") tokens. Token sets are built once at init via `_initialize_positive_negative_tokens()`.
 - Chat formatting is applied via `tokenizer.apply_chat_template(add_generation_prompt=True)` before every forward pass.
+- FA2 is used only on the CUDA + full-precision path; NF4/8-bit paths use SDPA (transformers 5.5.x has an FA2 bug with bitsandbytes).
 
 `prompt.py` provides a fluent `Prompt` builder for multi-turn conversations and pre-defined templates for embedding, reranking, and SPARQL agent interactions. Reranking prompts (`RERANKING_PROMPTS`) use placeholders `{source_url}`, `{target_url}`, `{source_kg}`, `{target_kg}` and are looked up by key (e.g. `"d"`).
 
@@ -103,12 +108,29 @@ Three execution environments are supported. Each has a corresponding `.env.<clus
 
 `run_experiment.py` calls `load_dotenv()` at startup and reads `MODEL_PATH`, `DEVICE`, `CLUSTER` from whichever `.env` file is present.
 
-`LOAD_IN_4BIT=true` activates NF4 4-bit quantization (`bnb_4bit_quant_type="nf4"`, `compute_dtype=bfloat16`) via `bitsandbytes`. The 70B model requires ~35 GB VRAM in NF4 — fits on a single A6000 (48 GB). Flash Attention 2 is enabled automatically whenever CUDA is available. The MPS/CPU fallback to float32 only applies when neither `LOAD_IN_4BIT` nor `LOAD_IN_8BIT` is set and CUDA is absent.
+**vLLM env vars** (cluster `.env` files) — consumed by the `*_vllm.sh` job scripts:
+- `VLLM_TENSOR_PARALLEL` (e.g. `2`) — passed as `--tensor-parallel-size`.
+- `VLLM_QUANTIZATION` (e.g. `bitsandbytes` on DWS, unset on bwUni A100s) — passed as `--quantization`.
+- `VLLM_MAX_MODEL_LEN` (e.g. `8192`) — passed as `--max-model-len`.
+- `VLLM_BASE_URL` is **not** set in `.env` — the job script computes it as `http://localhost:$((8000 + JOB_ID % 1000))/v1` and exports it before launching `run_experiment.py`.
 
-> **flash-attn installation on the cluster:** `conda env update` may fail for `flash-attn` because it requires CUDA toolkit headers. Install manually after env creation:
-> ```bash
-> pip install flash-attn --no-build-isolation
-> ```
+**HuggingFace fallback path:** `LOAD_IN_4BIT=true` activates NF4 4-bit quantization (`bnb_4bit_quant_type="nf4"`, `compute_dtype=bfloat16`) via `bitsandbytes`. The 70B model requires ~35 GB VRAM in NF4 — fits on a single A6000 (48 GB). The MPS/CPU fallback to float32 only applies when neither `LOAD_IN_4BIT` nor `LOAD_IN_8BIT` is set and CUDA is absent.
+
+### DWS-specific vLLM workarounds
+
+`jobs/job_dws_vllm.sh` sets several environment workarounds that are mandatory on this cluster:
+
+- `LD_LIBRARY_PATH="${CONDA_PREFIX}/lib:${LD_LIBRARY_PATH:-}"` — DWS system libstdc++ is too old (missing `CXXABI_1.3.15`); the conda env's libstdc++ must come first.
+- `NCCL_P2P_DISABLE=1`, `NCCL_IB_DISABLE=1` — A6000 nodes have no NVLink P2P, NCCL hangs without this.
+- `VLLM_USE_V1=0` and `--enforce-eager` — avoids the `shm_broadcast` deadlock after CUDA-graph capture in vLLM V1.
+
+### Python package installs
+
+Always install via the conda env to avoid mixing with system Python:
+
+```bash
+conda run -n melt-olala python -m pip install <package>
+```
 
 ### sync_clusters.sh
 
@@ -130,13 +152,13 @@ Three execution environments are supported. Each has a corresponding `.env.<clus
 
 ### SLURM job scripts
 
-| Script | Cluster | Partition | GPUs | Mem | Time |
+vLLM scripts are the primary path; the `_70b.sh` scripts run the legacy in-process `LLMHuggingFace` backend.
+
+| Script | Cluster | Backend | Partition / GPUs | Mem | Time |
 |---|---|---|---|---|---|
-| `jobs/job_bwuni_70b.sh` | bwUniCluster | `gpu_a100_il` | 2× A100 | 300 G | 48 h |
-| `jobs/job_dws_70b.sh` | DWS | `gpu-vram-48gb` | 2× A6000 | 100 G | 24 h |
+| `jobs/job_bwuni_vllm.sh` | bwUniCluster | vLLM (no quantization) | `gpu_a100_il` · 2× A100 | 200 G | 48 h |
+| `jobs/job_dws_vllm.sh`   | DWS          | vLLM (`bitsandbytes`)  | `gpu-vram-48gb` · 2× A6000 | 100 G | 6 h |
+| `jobs/job_bwuni_70b.sh`  | bwUniCluster | `LLMHuggingFace` (legacy) | `gpu_a100_il` · 2× A100 | 300 G | 48 h |
+| `jobs/job_dws_70b.sh`    | DWS          | `LLMHuggingFace` NF4 (legacy) | `gpu-vram-48gb` · 2× A6000 | 100 G | 24 h |
 
-### Pending manual steps
-
-- **GitHub:** Create a remote repo and run `git remote add origin <url> && git push -u origin main`.
-- **DWS model:** Upload `Llama-3.3-70B-Instruct` to `/work/amarkic/models/` on DWS before submitting jobs.
-- **bwUniCluster model:** Verify `$WORK/models/Llama-3.3-70B-Instruct` is present before submitting the 70B job.
+vLLM is not in `environment.yml`; the job scripts install it on first run via `python -m pip install vllm`.
