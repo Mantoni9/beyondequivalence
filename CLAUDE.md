@@ -110,9 +110,12 @@ Three execution environments are supported. Each has a corresponding `.env.<clus
 
 **vLLM env vars** (cluster `.env` files) — consumed by the `*_vllm.sh` job scripts:
 - `VLLM_TENSOR_PARALLEL` (e.g. `2`) — passed as `--tensor-parallel-size`.
-- `VLLM_QUANTIZATION` (e.g. `bitsandbytes` on DWS, unset on bwUni A100s) — passed as `--quantization`.
+- `VLLM_QUANTIZATION` (e.g. `awq` on DWS, unset on bwUni A100s) — passed as `--quantization`.
+- `VLLM_DTYPE` (e.g. `float16` for AWQ, defaults to `float16`) — passed as `--dtype`.
 - `VLLM_MAX_MODEL_LEN` (e.g. `8192`) — passed as `--max-model-len`.
 - `VLLM_BASE_URL` is **not** set in `.env` — the job script computes it as `http://localhost:$((8000 + JOB_ID % 1000))/v1` and exports it before launching `run_experiment.py`.
+
+**Quantization choice on DWS:** AWQ (INT4, GEMM kernels, group_size=128). Model: `ibnzterrell/Meta-Llama-3.3-70B-Instruct-AWQ-INT4` at `/work/amarkic/models/Llama-3.3-70B-Instruct-AWQ-INT4`. Fits ~38 GB/GPU on 2× A40 with TP=2. **Do NOT use `bitsandbytes`** — produces NaN logits with Llama-3.3-70B + bf16 compute (verified on DWS 2026-04-26: greedy outputs `!!!!!`, JSON-encode fails on `nan` logprobs). AWQ produces correct outputs (`text='Yes.'`, `confidence=0.9999`) and loads in ~18 s vs. ~127 s for bnb.
 
 **HuggingFace fallback path:** `LOAD_IN_4BIT=true` activates NF4 4-bit quantization (`bnb_4bit_quant_type="nf4"`, `compute_dtype=bfloat16`) via `bitsandbytes`. The 70B model requires ~35 GB VRAM in NF4 — fits on a single A6000 (48 GB). The MPS/CPU fallback to float32 only applies when neither `LOAD_IN_4BIT` nor `LOAD_IN_8BIT` is set and CUDA is absent.
 
@@ -123,7 +126,7 @@ Three execution environments are supported. Each has a corresponding `.env.<clus
 - `LD_LIBRARY_PATH="${CONDA_PREFIX}/lib:${LD_LIBRARY_PATH:-}"` — DWS system libstdc++ is too old (missing `CXXABI_1.3.15`); the conda env's libstdc++ must come first.
 - `NCCL_P2P_DISABLE=1`, `NCCL_IB_DISABLE=1` — A6000 nodes have no NVLink P2P, NCCL hangs without this (only relevant at TP>1, but harmless to set always).
 - `--enforce-eager` — disables CUDA-graph capture; avoids the V1 `shm_broadcast` deadlock and is currently required on this cluster. (vLLM 0.19+ ignores `VLLM_USE_V1`; V1 is the only engine.)
-- `--load-format bitsandbytes` paired with `--quantization bitsandbytes` — without this, vLLM loads bf16 weights and tries to in-place quantize, which is fragile under TP>1.
+- `--gpu-memory-utilization 0.92` — leaves slack on A40 (49 GB) so the activation buffers + KV cache don't OOM under load. With AWQ-INT4 the model itself uses ~18.6 GB/GPU and KV cache gets ~24 GB, leaving headroom.
 
 ### Python package installs
 

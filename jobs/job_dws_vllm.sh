@@ -21,9 +21,8 @@ export LD_LIBRARY_PATH="${CONDA_PREFIX}/lib:${LD_LIBRARY_PATH:-}"
 export NCCL_P2P_DISABLE=1
 export NCCL_IB_DISABLE=1
 
-# Verbose NCCL output — surfaces TP=2 init issues immediately.
-export NCCL_DEBUG=INFO
-export NCCL_DEBUG_SUBSYS=INIT,COLL
+# NCCL warnings only — TP=2 path verified working on DWS A40 nodes.
+export NCCL_DEBUG=WARN
 
 # vLLM 0.19+ ignores VLLM_USE_V1; V1 engine is the only path. The shm_broadcast
 # deadlock is avoided by --enforce-eager (no CUDA graph capture).
@@ -44,19 +43,18 @@ PORT=$((8000 + (SLURM_JOB_ID % 1000)))
 export VLLM_BASE_URL="http://localhost:${PORT}/v1"
 
 echo "[vLLM] Starting server on port ${PORT}  model=${MODEL_PATH}"
-echo "[vLLM] Quantization: ${VLLM_QUANTIZATION}  tp=${VLLM_TENSOR_PARALLEL}  max_len=${VLLM_MAX_MODEL_LEN}"
+echo "[vLLM] Quantization: ${VLLM_QUANTIZATION}  dtype=${VLLM_DTYPE:-float16}  tp=${VLLM_TENSOR_PARALLEL}  max_len=${VLLM_MAX_MODEL_LEN}"
 
 python -m vllm.entrypoints.openai.api_server \
     --model "${MODEL_PATH}" \
     --tensor-parallel-size "${VLLM_TENSOR_PARALLEL}" \
     --quantization "${VLLM_QUANTIZATION}" \
-    --load-format "${VLLM_QUANTIZATION}" \
-    --dtype bfloat16 \
+    --dtype "${VLLM_DTYPE:-float16}" \
     --max-model-len "${VLLM_MAX_MODEL_LEN}" \
     --port "${PORT}" \
     --host 127.0.0.1 \
     --enforce-eager \
-    --gpu-memory-utilization 0.95 \
+    --gpu-memory-utilization 0.92 \
     --no-enable-log-requests \
     &
 VLLM_PID=$!
@@ -65,7 +63,7 @@ VLLM_PID=$!
 trap 'echo "[vLLM] Shutting down server (PID ${VLLM_PID})"; kill ${VLLM_PID} 2>/dev/null; wait ${VLLM_PID} 2>/dev/null || true' EXIT
 
 # ── Wait for server ready ──────────────────────────────────────────────────────
-MAX_WAIT=2400  # 40 min — 70B bnb-quant load + NCCL init can be slow
+MAX_WAIT=600  # 10 min — 70B AWQ load is fast (~55 s observed); leaves slack for cold cache
 WAITED=0
 echo "[vLLM] Waiting for server to be ready (max ${MAX_WAIT}s)..."
 until curl -sf "http://localhost:${PORT}/health" > /dev/null 2>&1; do
