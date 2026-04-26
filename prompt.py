@@ -180,3 +180,112 @@ def get_reranking_prompt(prompt_id: str) -> Prompt:
 
 def get_sparql_agent_prompt(prompt_id: str) -> Prompt:
     return _build_prompt(prompt_id, SPARQL_AGENT_PROMPTS)
+
+
+#### SUBSUMPTION INSTRUCTIONS ####
+
+# Versioned instruction texts for the BeyondEquivalence retrieval study.
+# Iteration policy: never edit an existing _vN entry — add a new _vN+1 next to it.
+# The instruction text lands in the W&B run config, so older runs stay reconstructible.
+SUBSUMPTION_INSTRUCTIONS: dict[str, str] = {
+    # Symmetric: same instruction for query and document side
+    "sym_v1": "Given a concept description, retrieve concept descriptions that are semantically related",
+
+    # Asymmetric: query side encodes the direction; document side stays symmetric (empty)
+    "asym_broader_v1":  "Given a concept description, retrieve more general / broader concept descriptions",
+    "asym_narrower_v1": "Given a concept description, retrieve more specific / narrower concept descriptions",
+
+    # Explicit "no instruction" marker — handy for the document side in asymmetric runs
+    "none": "",
+}
+
+
+def get_subsumption_instruction(prompt_id: str | None) -> str:
+    """Resolve a SUBSUMPTION_INSTRUCTIONS id to its instruction text.
+
+    Empty/None input or 'none' return the empty string. Unknown ids raise KeyError
+    so typos surface immediately at run-start.
+    """
+    if prompt_id is None or prompt_id == "":
+        return ""
+    if prompt_id not in SUBSUMPTION_INSTRUCTIONS:
+        raise KeyError(
+            f"Unknown subsumption instruction id '{prompt_id}'. "
+            f"Available: {sorted(SUBSUMPTION_INSTRUCTIONS.keys())}"
+        )
+    return SUBSUMPTION_INSTRUCTIONS[prompt_id]
+
+
+#### MODEL-FAMILY-AWARE INSTRUCTION FORMATTING ####
+
+# All currently used instruction-aware embedding models share the
+# "Instruct: {instruction}\nQuery: {text}" wrapping convention (per Qwen3-Embedding,
+# NV-Embed-v2, and e5-mistral-7b-instruct model cards). The per-family indirection
+# exists so a future model with a different convention can be slotted in without
+# changing call sites.
+
+def _wrap_instruct_query(instruction: str, text: str) -> str:
+    return f"Instruct: {instruction}\nQuery: {text}"
+
+
+def _wrap_naive_concat(instruction: str, text: str) -> str:
+    return f"{instruction}\n{text}"
+
+
+_FAMILY_FORMATTERS = {
+    "qwen3-embedding": _wrap_instruct_query,
+    "nv-embed":        _wrap_instruct_query,
+    "e5-mistral":      _wrap_instruct_query,
+    "sbert":           _wrap_naive_concat,
+    "auto":            _wrap_naive_concat,
+}
+
+# Substring-based family inference. Lower-cased haystack; first matching needle wins.
+# Order matters when substrings overlap (e.g. "qwen3-embedding" before "qwen3").
+_FAMILY_INFERENCE_RULES: list[tuple[str, str]] = [
+    ("qwen3-embedding",        "qwen3-embedding"),
+    ("qwen3-emb",              "qwen3-embedding"),
+    ("nv-embed",               "nv-embed"),
+    ("e5-mistral",             "e5-mistral"),
+    ("all-minilm",             "sbert"),
+    ("minilm",                 "sbert"),
+    ("sbert-mini",             "sbert"),
+    ("sentence-transformers/", "sbert"),
+]
+
+
+def infer_model_family(model_id_or_path: str) -> str:
+    """Infer the embedding-model family from an HF id or local path.
+
+    Returns one of the keys in _FAMILY_FORMATTERS. Falls back to 'auto' with a
+    WARNING — never info/debug — so an unrecognised model is visible at run-start
+    instead of silently producing numbers from naive instruction-concat formatting.
+    """
+    haystack = (model_id_or_path or "").lower()
+    for needle, family in _FAMILY_INFERENCE_RULES:
+        if needle in haystack:
+            return family
+    logger.warning(
+        "Could not infer embedding-model family for '%s' — falling back to 'auto' "
+        "(naive instruction-concat formatting). Pass model_family= explicitly "
+        "('qwen3-embedding' / 'nv-embed' / 'e5-mistral' / 'sbert') if this is wrong.",
+        model_id_or_path,
+    )
+    return "auto"
+
+
+def format_instruction(model_family: str, instruction: str, text: str) -> str:
+    """Wrap `text` with `instruction` according to the model family's convention.
+
+    Empty instruction is a pass-through (returns text unchanged) for every family.
+    Unknown family raises KeyError; the explicit fallback family is 'auto'.
+    """
+    if not instruction:
+        return text
+    formatter = _FAMILY_FORMATTERS.get(model_family)
+    if formatter is None:
+        raise KeyError(
+            f"Unknown model_family '{model_family}'. "
+            f"Available: {sorted(_FAMILY_FORMATTERS.keys())}"
+        )
+    return formatter(instruction, text)
