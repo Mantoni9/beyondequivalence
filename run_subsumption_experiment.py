@@ -53,7 +53,6 @@ load_dotenv()
 MODEL_ALIASES: dict[str, str] = {
     "sbert-mini":              "sentence-transformers/all-MiniLM-L6-v2",
     "qwen3-emb-8b":            "Qwen/Qwen3-Embedding-8B",
-    "nv-embed-v2":             "nvidia/NV-Embed-v2",
     "llama-embed-nemotron-8b": "nvidia/llama-embed-nemotron-8b",
     "e5-mistral":              "intfloat/e5-mistral-7b-instruct",
 }
@@ -134,14 +133,14 @@ def _score_diagnostics(alignment, instruction_variant: str) -> dict:
 
     Sanity heuristic — apply at run-review time, not enforced in code:
       - On a competent instruction-aware embedding model (Qwen3-Embedding-8B,
-        NV-Embed-v2, llama-embed-nemotron-8b, e5-mistral-7b-instruct), expect stddev >= 0.05 over a
+        llama-embed-nemotron-8b, e5-mistral-7b-instruct), expect stddev >= 0.05 over a
         retrieval-style top-K population. Stddev < 0.05 indicates a near-flat
         score distribution and is a strong red flag for a broken encoding path
         (wrong pooling, wrong instruction format, single-token-degenerate
         embedding). On the 2026-04-26 sbert-mini smoke runs we saw stddev ~0.02
         for symmetric and ~0.03 per-run for asymmetric — that is expected for a
         22M-parameter non-instruction-trained model and is NOT comparable to a
-        Qwen3 / NV-Embed run on the same data.
+        Qwen3 / Llama-Embed-Nemotron run on the same data.
 
     Interpretation per model class (essential for the thesis argument):
       - SBERT (non-instruction-trained, e.g. all-MiniLM-L6-v2): in BOTH modes the
@@ -154,7 +153,7 @@ def _score_diagnostics(alignment, instruction_variant: str) -> dict:
         BASELINE, but they are NOT informative about the effect of asymmetric
         instructions on retrieval. The asymmetric-instruction effect can only
         manifest on instruction-aware models.
-      - Instruction-aware models (Qwen3-Embedding-8B, NV-Embed-v2,
+      - Instruction-aware models (Qwen3-Embedding-8B,
         llama-embed-nemotron-8b, e5-mistral-7b-instruct): if the broader/narrower
         distributions also look near-
         identical, that is SURPRISING and demands a written explanation:
@@ -328,7 +327,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--model", required=True,
                    help="Model alias or HF id / local path. Aliases: " + ", ".join(MODEL_ALIASES))
     p.add_argument("--model-family", default=None,
-                   choices=("qwen3-embedding", "nv-embed", "llama-embed-nemotron",
+                   choices=("qwen3-embedding", "llama-embed-nemotron",
                             "e5-mistral", "sbert", "auto"),
                    help="Override automatic family inference.")
     p.add_argument("--instruction-variant", required=True,

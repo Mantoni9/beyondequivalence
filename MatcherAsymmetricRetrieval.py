@@ -21,8 +21,8 @@ prediction in the per-source long-format table).
 Cost model — verified by design, not measured: each match() invocation does
 ONE document encoding (shared) plus TWO source encodings. Two naive
 MatcherEmbeddingRetrieval runs would do TWO of each — i.e. this wrapper saves
-one full target encoding pass, which on Qwen3-8B / NV-Embed-v2 is the
-dominant cost for the smaller g7-style sub-datasets.
+one full target encoding pass, which on Qwen3-8B / Llama-Embed-Nemotron-8B
+is the dominant cost for the smaller g7-style sub-datasets.
 """
 
 from __future__ import annotations

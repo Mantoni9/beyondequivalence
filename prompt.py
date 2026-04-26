@@ -220,9 +220,9 @@ def get_subsumption_instruction(prompt_id: str | None) -> str:
 
 # All currently used instruction-aware embedding models share the
 # "Instruct: {instruction}\nQuery: {text}" wrapping convention (per Qwen3-Embedding,
-# NV-Embed-v2, and e5-mistral-7b-instruct model cards). The per-family indirection
-# exists so a future model with a different convention can be slotted in without
-# changing call sites.
+# llama-embed-nemotron-8b, and e5-mistral-7b-instruct model cards). The per-family
+# indirection exists so a future model with a different convention can be slotted
+# in without changing call sites.
 
 def _wrap_instruct_query(instruction: str, text: str) -> str:
     return f"Instruct: {instruction}\nQuery: {text}"
@@ -234,7 +234,6 @@ def _wrap_naive_concat(instruction: str, text: str) -> str:
 
 _FAMILY_FORMATTERS = {
     "qwen3-embedding":      _wrap_instruct_query,
-    "nv-embed":             _wrap_instruct_query,
     "llama-embed-nemotron": _wrap_instruct_query,
     "e5-mistral":           _wrap_instruct_query,
     "sbert":                _wrap_naive_concat,
@@ -246,7 +245,6 @@ _FAMILY_FORMATTERS = {
 _FAMILY_INFERENCE_RULES: list[tuple[str, str]] = [
     ("qwen3-embedding",        "qwen3-embedding"),
     ("qwen3-emb",              "qwen3-embedding"),
-    ("nv-embed",               "nv-embed"),
     ("llama-embed-nemotron",   "llama-embed-nemotron"),
     ("llama-nemotron-embed",   "llama-embed-nemotron"),
     ("e5-mistral",             "e5-mistral"),
@@ -271,7 +269,7 @@ def infer_model_family(model_id_or_path: str) -> str:
     logger.warning(
         "Could not infer embedding-model family for '%s' — falling back to 'auto' "
         "(naive instruction-concat formatting). Pass model_family= explicitly "
-        "('qwen3-embedding' / 'nv-embed' / 'e5-mistral' / 'sbert') if this is wrong.",
+        "('qwen3-embedding' / 'llama-embed-nemotron' / 'e5-mistral' / 'sbert') if this is wrong.",
         model_id_or_path,
     )
     return "auto"

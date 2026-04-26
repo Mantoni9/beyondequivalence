@@ -149,7 +149,7 @@ wandb login
 #     Cluster compute nodes are usually offline; download from a login node.
 export HF_HOME=$WORK/hf_cache    # bwUni; on DWS: /work/amarkic/hf_cache
 huggingface-cli download Qwen/Qwen3-Embedding-8B
-huggingface-cli download nvidia/NV-Embed-v2
+huggingface-cli download nvidia/llama-embed-nemotron-8b
 huggingface-cli download intfloat/e5-mistral-7b-instruct
 huggingface-cli download sentence-transformers/all-MiniLM-L6-v2
 
