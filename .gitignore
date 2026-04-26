@@ -37,3 +37,7 @@ wandb-summary.json
 
 # Test runner cache — only created if pytest is run from a compute node.
 .pytest_cache/
+
+# Dropped in cwd by some library on the DWS compute node — identified
+# 2026-04-26 as the source of the SLURM-loop dirty-stamp.
+tea_debug.log
