@@ -121,8 +121,9 @@ Three execution environments are supported. Each has a corresponding `.env.<clus
 `jobs/job_dws_vllm.sh` sets several environment workarounds that are mandatory on this cluster:
 
 - `LD_LIBRARY_PATH="${CONDA_PREFIX}/lib:${LD_LIBRARY_PATH:-}"` — DWS system libstdc++ is too old (missing `CXXABI_1.3.15`); the conda env's libstdc++ must come first.
-- `NCCL_P2P_DISABLE=1`, `NCCL_IB_DISABLE=1` — A6000 nodes have no NVLink P2P, NCCL hangs without this.
-- `VLLM_USE_V1=0` and `--enforce-eager` — avoids the `shm_broadcast` deadlock after CUDA-graph capture in vLLM V1.
+- `NCCL_P2P_DISABLE=1`, `NCCL_IB_DISABLE=1` — A6000 nodes have no NVLink P2P, NCCL hangs without this (only relevant at TP>1, but harmless to set always).
+- `--enforce-eager` — disables CUDA-graph capture; avoids the V1 `shm_broadcast` deadlock and is currently required on this cluster. (vLLM 0.19+ ignores `VLLM_USE_V1`; V1 is the only engine.)
+- `--load-format bitsandbytes` paired with `--quantization bitsandbytes` — without this, vLLM loads bf16 weights and tries to in-place quantize, which is fragile under TP>1.
 
 ### Python package installs
 

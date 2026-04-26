@@ -21,8 +21,12 @@ export LD_LIBRARY_PATH="${CONDA_PREFIX}/lib:${LD_LIBRARY_PATH:-}"
 export NCCL_P2P_DISABLE=1
 export NCCL_IB_DISABLE=1
 
-# Use vLLM V0 engine to avoid shm_broadcast deadlock after CUDA graph capture.
-export VLLM_USE_V1=0
+# Verbose NCCL output — surfaces TP=2 init issues immediately.
+export NCCL_DEBUG=INFO
+export NCCL_DEBUG_SUBSYS=INIT,COLL
+
+# vLLM 0.19+ ignores VLLM_USE_V1; V1 engine is the only path. The shm_broadcast
+# deadlock is avoided by --enforce-eager (no CUDA graph capture).
 
 set -a
 source .env.dws
@@ -46,6 +50,7 @@ python -m vllm.entrypoints.openai.api_server \
     --model "${MODEL_PATH}" \
     --tensor-parallel-size "${VLLM_TENSOR_PARALLEL}" \
     --quantization "${VLLM_QUANTIZATION}" \
+    --load-format "${VLLM_QUANTIZATION}" \
     --dtype bfloat16 \
     --max-model-len "${VLLM_MAX_MODEL_LEN}" \
     --port "${PORT}" \
@@ -60,7 +65,7 @@ VLLM_PID=$!
 trap 'echo "[vLLM] Shutting down server (PID ${VLLM_PID})"; kill ${VLLM_PID} 2>/dev/null; wait ${VLLM_PID} 2>/dev/null || true' EXIT
 
 # ── Wait for server ready ──────────────────────────────────────────────────────
-MAX_WAIT=1500  # 25 minutes — 70B load + torch.compile + CUDA graph capture
+MAX_WAIT=2400  # 40 min — 70B bnb-quant load + NCCL init can be slow
 WAITED=0
 echo "[vLLM] Waiting for server to be ready (max ${MAX_WAIT}s)..."
 until curl -sf "http://localhost:${PORT}/health" > /dev/null 2>&1; do
