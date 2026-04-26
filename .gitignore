@@ -10,3 +10,13 @@ __pycache__/
 wandb/
 *.out
 oaei_track_cache/
+
+# IDE state
+.idea/
+.claude/
+
+# BeyondEquivalence raw data — too large for git, official source is Zenodo
+# (DOI 10.5281/zenodo.17091043). The loader expects benchmark.zip in the project
+# root (or override via ZENODO_BENCHMARK_ZIP); on a fresh clone download it once
+# from Zenodo.
+benchmark.zip
