@@ -11,15 +11,15 @@ Usage (interactive on a compute node, the primary path during development):
 
     conda activate melt-olala
     python run_subsumption_experiment.py \\
-        --model qwen3-emb-8b \\
+        --model qwen3-embedding-8b \\
         --instruction-variant asymmetric \\
         --dataset g7-literature \\
         --wandb
 
-Local MacBook smoke (downloads sbert-mini once, runs in seconds):
+Local MacBook smoke (downloads sbert once, runs in seconds):
 
     python run_subsumption_experiment.py \\
-        --model sbert-mini \\
+        --model sbert \\
         --instruction-variant symmetric \\
         --dataset g7-literature \\
         --smoke-test
@@ -51,8 +51,8 @@ load_dotenv()
 
 
 MODEL_ALIASES: dict[str, str] = {
-    "sbert-mini":              "sentence-transformers/all-MiniLM-L6-v2",
-    "qwen3-emb-8b":            "Qwen/Qwen3-Embedding-8B",
+    "sbert":                   "sentence-transformers/all-MiniLM-L6-v2",
+    "qwen3-embedding-8b":      "Qwen/Qwen3-Embedding-8B",
     "llama-embed-nemotron-8b": "nvidia/llama-embed-nemotron-8b",
     "e5-mistral":              "intfloat/e5-mistral-7b-instruct",
 }
@@ -137,7 +137,7 @@ def _score_diagnostics(alignment, instruction_variant: str) -> dict:
         retrieval-style top-K population. Stddev < 0.05 indicates a near-flat
         score distribution and is a strong red flag for a broken encoding path
         (wrong pooling, wrong instruction format, single-token-degenerate
-        embedding). On the 2026-04-26 sbert-mini smoke runs we saw stddev ~0.02
+        embedding). On the 2026-04-26 sbert smoke runs we saw stddev ~0.02
         for symmetric and ~0.03 per-run for asymmetric — that is expected for a
         22M-parameter non-instruction-trained model and is NOT comparable to a
         Qwen3 / Llama-Embed-Nemotron run on the same data.

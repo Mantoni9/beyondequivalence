@@ -250,7 +250,7 @@ _FAMILY_INFERENCE_RULES: list[tuple[str, str]] = [
     ("e5-mistral",             "e5-mistral"),
     ("all-minilm",             "sbert"),
     ("minilm",                 "sbert"),
-    ("sbert-mini",             "sbert"),
+    ("sbert",                  "sbert"),
     ("sentence-transformers/", "sbert"),
 ]
 
