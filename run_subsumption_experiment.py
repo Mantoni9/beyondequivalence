@@ -336,8 +336,13 @@ def parse_args() -> argparse.Namespace:
                    help="Instruction for the broader run's query side (asymmetric only).")
     p.add_argument("--narrower-instruction-id", default="asym_narrower_v1",
                    help="Instruction for the narrower run's query side (asymmetric only).")
-    p.add_argument("--document-instruction-id", default="none",
-                   help="Document-side instruction id; 'none' = empty (default).")
+    p.add_argument("--document-instruction-id", default=None,
+                   help=("Document-side instruction id. If unset (default), it is resolved "
+                         "per variant: symmetric -> --symmetric-instruction-id (same "
+                         "instruction on both sides, the actual symmetric setup); "
+                         "asymmetric -> 'none' (empty document instruction, per the "
+                         "Stage-1 spec). Pass an explicit id (e.g. 'sym_v1' or 'none') "
+                         "to override."))
     p.add_argument("--dataset", default="g7-literature",
                    help="BeyondEquivalence sub-dataset name (see tracks.zenodo_loader).")
     p.add_argument("--description", default="description_one_gen",
@@ -392,7 +397,21 @@ def main() -> None:
     logger.info("Device: %s", device)
 
     # Resolve instruction texts.
+    # document_instruction_id default depends on the variant:
+    #   symmetric  -> same instruction as the query side (i.e. symmetric_instruction_id),
+    #                 because that is what "symmetric" actually means.
+    #   asymmetric -> 'none' (empty) per the Stage-1 spec — document side stays
+    #                 symmetric across the two runs and direction-agnostic.
+    # Explicit --document-instruction-id always wins.
     from prompt import get_subsumption_instruction
+    if args.document_instruction_id is None:
+        args.document_instruction_id = (
+            args.symmetric_instruction_id if args.instruction_variant == "symmetric" else "none"
+        )
+        logger.info(
+            "document_instruction_id defaulted to '%s' (variant=%s)",
+            args.document_instruction_id, args.instruction_variant,
+        )
     document_instruction = get_subsumption_instruction(args.document_instruction_id)
     if args.instruction_variant == "symmetric":
         sym_instr = get_subsumption_instruction(args.symmetric_instruction_id)

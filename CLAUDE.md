@@ -136,6 +136,30 @@ Always install via the conda env to avoid mixing with system Python:
 conda run -n melt-olala python -m pip install <package>
 ```
 
+### Pre-flight before the first cluster run
+
+Per cluster, once:
+
+```bash
+# (1) Authenticate W&B interactively — non-interactive runs will hang otherwise.
+conda activate melt-olala
+wandb login
+
+# (2) Cache the embedding models locally (Stage 1 BeyondEquivalence study).
+#     Cluster compute nodes are usually offline; download from a login node.
+export HF_HOME=$WORK/hf_cache    # bwUni; on DWS: /work/amarkic/hf_cache
+huggingface-cli download Qwen/Qwen3-Embedding-8B
+huggingface-cli download nvidia/NV-Embed-v2
+huggingface-cli download intfloat/e5-mistral-7b-instruct
+huggingface-cli download sentence-transformers/all-MiniLM-L6-v2
+
+# (3) Place benchmark.zip at the project root (or set ZENODO_BENCHMARK_ZIP).
+#     Loader: tracks/zenodo_loader.py — extracts to ~/oaei_track_cache/zenodo/.
+```
+
+Then add `HF_HOME=…/hf_cache` to `.env.bwuni` / `.env.dws` so subsequent runs
+pick it up.
+
 ### sync_clusters.sh
 
 ```bash
