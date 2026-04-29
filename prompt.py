@@ -216,108 +216,77 @@ def get_subsumption_instruction(prompt_id: str | None) -> str:
     return SUBSUMPTION_INSTRUCTIONS[prompt_id]
 
 
-#### MODEL-FAMILY-AWARE INSTRUCTION FORMATTING ####
+#### EMBEDDING-PROMPT WRAPPING ####
 
-# All currently used instruction-aware embedding models share the
-# "Instruct: {instruction}\nQuery: {text}" wrapping convention (per Qwen3-Embedding,
-# llama-embed-nemotron-8b, and e5-mistral-7b-instruct model cards). The per-family
-# indirection exists so a future model with a different convention can be slotted
-# in without changing call sites.
+# All currently used instruction-aware embedding models (Qwen3-Embedding,
+# llama-embed-nemotron-8b) share the "Instruct: {instruction}\nQuery: " prefix
+# convention per their HuggingFace model cards. This is passed verbatim to
+# SentenceTransformer.encode(..., prompt=...) so the library handles pooling
+# and normalisation natively (left-padding + last-token pool on Nemotron).
+#
+# Empty instruction => empty prompt prefix; the matcher passes prompt=None to
+# encode in that case (document side in asymmetric runs, sbert).
 
-def _wrap_instruct_query(instruction: str, text: str) -> str:
-    return f"Instruct: {instruction}\nQuery: {text}"
-
-
-def _wrap_naive_concat(instruction: str, text: str) -> str:
-    return f"{instruction}\n{text}"
+INSTRUCT_QUERY_PREFIX = "Instruct: {instruction}\nQuery: "
 
 
-_FAMILY_FORMATTERS = {
-    "qwen3-embedding":      _wrap_instruct_query,
-    "llama-embed-nemotron": _wrap_instruct_query,
-    "e5-mistral":           _wrap_instruct_query,
-    "sbert":                _wrap_naive_concat,
-    "auto":                 _wrap_naive_concat,
-}
+def build_instruct_query_prompt(instruction: str) -> str:
+    """Build the Instruct/Query prefix for SentenceTransformer.encode(prompt=...).
 
-# Substring-based family inference. Lower-cased haystack; first matching needle wins.
-# Order matters when substrings overlap (e.g. "qwen3-embedding" before "qwen3").
-_FAMILY_INFERENCE_RULES: list[tuple[str, str]] = [
-    ("qwen3-embedding",        "qwen3-embedding"),
-    ("qwen3-emb",              "qwen3-embedding"),
-    ("llama-embed-nemotron",   "llama-embed-nemotron"),
-    ("llama-nemotron-embed",   "llama-embed-nemotron"),
-    ("e5-mistral",             "e5-mistral"),
-    ("all-minilm",             "sbert"),
-    ("minilm",                 "sbert"),
-    ("sbert",                  "sbert"),
-    ("sentence-transformers/", "sbert"),
+    Returns "" for an empty instruction so the caller can collapse to prompt=None.
+    """
+    if not instruction:
+        return ""
+    return INSTRUCT_QUERY_PREFIX.format(instruction=instruction)
+
+
+# SentenceTransformer constructor kwargs needed for instruction-aware embedding
+# models in this study. trust_remote_code=True is set unconditionally by the
+# matcher; the kwargs below are the per-model pins documented on the HF model
+# cards and required for correct pooling/dtype:
+#
+# nvidia/llama-embed-nemotron-8b (model card):
+#   - tokenizer padding_side="left" — last-token pool over the latent-attention
+#     pooler assumes left-padding; right-padding silently produces the wrong
+#     pooled vector.
+#   - attn_implementation="eager" — the bidirectional-attention custom code is
+#     only verified against the eager kernel; FA2 path is silently broken.
+#   - torch_dtype="bfloat16" — matches released weight dtype; avoids fp32
+#     upcast on load.
+#
+# Qwen/Qwen3-Embedding-8B (model card):
+#   - tokenizer padding_side="left" — same last-token pooling assumption.
+#
+# sentence-transformers/all-MiniLM-L6-v2 (sbert): mean-pool, right-padding —
+# defaults are correct, no kwargs needed.
+_MODEL_LOADER_KWARGS: list[tuple[str, dict[str, dict]]] = [
+    ("llama-embed-nemotron", {
+        "model_kwargs":     {"attn_implementation": "eager", "torch_dtype": "bfloat16"},
+        "tokenizer_kwargs": {"padding_side": "left"},
+    }),
+    ("llama-nemotron-embed", {
+        "model_kwargs":     {"attn_implementation": "eager", "torch_dtype": "bfloat16"},
+        "tokenizer_kwargs": {"padding_side": "left"},
+    }),
+    ("qwen3-embedding", {
+        "tokenizer_kwargs": {"padding_side": "left"},
+    }),
+    ("qwen3-emb", {
+        "tokenizer_kwargs": {"padding_side": "left"},
+    }),
 ]
 
 
-def infer_model_family(model_id_or_path: str) -> str:
-    """Infer the embedding-model family from an HF id or local path.
+def get_loader_kwargs(model_id_or_path: str) -> dict[str, dict]:
+    """SentenceTransformer constructor kwargs for the given model id / path.
 
-    Returns one of the keys in _FAMILY_FORMATTERS. Falls back to 'auto' with a
-    WARNING — never info/debug — so an unrecognised model is visible at run-start
-    instead of silently producing numbers from naive instruction-concat formatting.
+    Substring-matched against `_MODEL_LOADER_KWARGS` (lower-cased); first match
+    wins. Returns {} for unmatched models (sbert and unknowns rely on ST
+    defaults). The caller spreads the result with **kwargs into
+    SentenceTransformer(...).
     """
     haystack = (model_id_or_path or "").lower()
-    for needle, family in _FAMILY_INFERENCE_RULES:
+    for needle, kw in _MODEL_LOADER_KWARGS:
         if needle in haystack:
-            return family
-    logger.warning(
-        "Could not infer embedding-model family for '%s' — falling back to 'auto' "
-        "(naive instruction-concat formatting). Pass model_family= explicitly "
-        "('qwen3-embedding' / 'llama-embed-nemotron' / 'e5-mistral' / 'sbert') if this is wrong.",
-        model_id_or_path,
-    )
-    return "auto"
-
-
-def format_instruction(model_family: str, instruction: str, text: str) -> str:
-    """Wrap `text` with `instruction` according to the model family's convention.
-
-    Empty instruction is a pass-through (returns text unchanged) for every family.
-    Unknown family raises KeyError; the explicit fallback family is 'auto'.
-    """
-    if not instruction:
-        return text
-    formatter = _FAMILY_FORMATTERS.get(model_family)
-    if formatter is None:
-        raise KeyError(
-            f"Unknown model_family '{model_family}'. "
-            f"Available: {sorted(_FAMILY_FORMATTERS.keys())}"
-        )
-    return formatter(instruction, text)
-
-
-# Per-family SentenceTransformer constructor kwargs. These are passed straight
-# through to SentenceTransformer(...), which forwards "model_kwargs" to
-# AutoModel.from_pretrained and "tokenizer_kwargs" to AutoTokenizer. Empty /
-# missing entry = rely on sentence-transformers defaults (correct for sbert and
-# for transformers-5.x-compatible custom models without attn-impl pinning).
-#
-# llama-embed-nemotron pins per the model card (nvidia/llama-embed-nemotron-8b):
-#   - attn_implementation="eager" — disables FA2/SDPA in transformers because
-#     the bidirectional-attention custom code is only verified against the
-#     eager kernel; FA2 path is silently broken.
-#   - torch_dtype="bfloat16" — matches the released weight dtype; avoids fp32
-#     upcast on load (an A40 OOM risk on 8B-parameter models).
-#   - tokenizer padding_side="left" — required because the encode_query /
-#     encode_document logic assumes left-padding for the latent-attention pooler.
-_FAMILY_LOADER_KWARGS: dict[str, dict[str, dict]] = {
-    "llama-embed-nemotron": {
-        "model_kwargs":     {"attn_implementation": "eager", "torch_dtype": "bfloat16"},
-        "tokenizer_kwargs": {"padding_side": "left"},
-    },
-}
-
-
-def get_loader_kwargs(model_family: str) -> dict[str, dict]:
-    """Return SentenceTransformer constructor kwargs for `model_family`.
-
-    Returns an empty dict for families with no special loading requirements.
-    The caller spreads the result with **kwargs into SentenceTransformer(...).
-    """
-    return _FAMILY_LOADER_KWARGS.get(model_family, {})
+            return kw
+    return {}

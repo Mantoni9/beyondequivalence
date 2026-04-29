@@ -242,7 +242,7 @@ def _smoke_probe(
 ) -> None:
     """Per-source verbose probe + reference HIT/MISS check + embedding sanity."""
     from RDFGraphWrapper import RDFGraphWrapper
-    from prompt import format_instruction
+    from prompt import build_instruct_query_prompt
     from evaluation_recall import _normalize_relation
 
     logger.info("=" * 72)
@@ -272,8 +272,10 @@ def _smoke_probe(
     # Use any query instruction the matcher carries; for asymmetric, broader is fine.
     instr = getattr(matcher, "query_instruction", None) \
             or getattr(matcher, "broader_query_instruction", "")
-    formatted = [format_instruction(matcher.model_family, instr, t) for t in smoke_texts]
-    embs = matcher._embedder.encode(formatted, convert_to_tensor=True, show_progress_bar=False)
+    prompt = build_instruct_query_prompt(instr) or None
+    embs = matcher._embedder.encode(
+        smoke_texts, prompt=prompt, convert_to_tensor=True, show_progress_bar=False,
+    )
 
     for i, src_uri in enumerate(smoke_source_uris):
         label = source_labels.get(src_uri, "")
@@ -334,12 +336,10 @@ def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="BeyondEquivalence Stage 1 retrieval experiment.")
     p.add_argument("--model", required=True,
                    help="Model alias or HF id / local path. Aliases: " + ", ".join(MODEL_ALIASES))
-    p.add_argument("--model-family", default=None,
-                   choices=("qwen3-embedding", "llama-embed-nemotron",
-                            "e5-mistral", "sbert", "auto"),
-                   help="Override automatic family inference.")
     p.add_argument("--instruction-variant", required=True,
                    choices=("symmetric", "asymmetric"))
+    p.add_argument("--wandb-group", default=None,
+                   help="W&B run group (used to bundle a multi-dataset sweep).")
     p.add_argument("--symmetric-instruction-id", default="sym_v1",
                    help="SUBSUMPTION_INSTRUCTIONS id used on both sides in --instruction-variant=symmetric.")
     p.add_argument("--broader-instruction-id", default="asym_broader_v1",
@@ -458,7 +458,6 @@ def main() -> None:
         from MatcherEmbeddingRetrieval import MatcherEmbeddingRetrieval
         matcher = MatcherEmbeddingRetrieval(
             model=resolved_model,
-            model_family=args.model_family,
             description=args.description,
             query_instruction=sym_instr,
             document_instruction=document_instruction,
@@ -470,7 +469,6 @@ def main() -> None:
         from MatcherAsymmetricRetrieval import MatcherAsymmetricRetrieval
         matcher = MatcherAsymmetricRetrieval(
             model=resolved_model,
-            model_family=args.model_family,
             description=args.description,
             broader_query_instruction=broader_instr,
             narrower_query_instruction=narrower_instr,
@@ -498,7 +496,6 @@ def main() -> None:
             "git_dirty": dirty,
             "model_arg": args.model,
             "model_resolved": resolved_model,
-            "model_family": matcher.model_family,
             "instruction_variant": args.instruction_variant,
             "symmetric_instruction_id":   args.symmetric_instruction_id   if args.instruction_variant == "symmetric"  else None,
             "symmetric_instruction_text": sym_instr                       if args.instruction_variant == "symmetric"  else None,
@@ -525,8 +522,11 @@ def main() -> None:
         ]
         if args.smoke_test:
             tags.append("mode:smoke")
-        wandb_run = wandb.init(project=project, name=run_name, config=wandb_config, tags=tags)
-        logger.info("W&B run initialised: %s", wandb_run.url)
+        wandb_run = wandb.init(
+            project=project, name=run_name, config=wandb_config, tags=tags,
+            group=args.wandb_group,
+        )
+        logger.info("W&B run initialised: %s  group=%s", wandb_run.url, args.wandb_group)
 
     # Run matcher.
     t_start = time.perf_counter()
@@ -570,7 +570,6 @@ def main() -> None:
         "git_sha": sha,
         "git_dirty": dirty,
         "model_resolved": resolved_model,
-        "model_family": matcher.model_family,
         "run_name": run_name,
         "timestamp": timestamp,
         "device": device,

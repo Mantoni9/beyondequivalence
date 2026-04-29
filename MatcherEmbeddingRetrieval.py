@@ -8,8 +8,10 @@ Differences vs. the existing MatcherCandidateGen (intentional):
     source -> target retrieval pass.
   - Output relation is configurable (default '=') so the asymmetric wrapper
     can stamp '<' / '>' onto its two runs.
-  - Instructions are passed as TEXT (not prompt-id), formatted per model family
-    via prompt.format_instruction; the matcher does not consult EMBEDDING_PROMPTS.
+  - Instructions are passed as TEXT and applied via SentenceTransformer's
+    native `encode(prompt=...)` parameter — the library handles pooling and
+    normalisation, including last-token pool + left-padding on Nemotron / Qwen3.
+    No per-family wrapping helper is involved (Option C, decided 2026-04-29).
   - SentenceTransformer is loaded lazily at first match() call so this module
     is importable on a MacBook without the heavy model weights present.
 
@@ -22,7 +24,7 @@ from __future__ import annotations
 
 import logging
 import time
-from typing import Any
+from typing import Any, Optional
 
 import torch
 from sentence_transformers import util
@@ -31,7 +33,7 @@ from MatcherBase import MatcherBase
 from RDFGraphWrapper import RDFGraphWrapper
 from Alignment import Alignment
 from Correspondence import Correspondence
-from prompt import format_instruction, get_loader_kwargs, infer_model_family
+from prompt import build_instruct_query_prompt, get_loader_kwargs
 
 logger = logging.getLogger(__name__)
 
@@ -50,12 +52,32 @@ def _sync() -> None:
         torch.mps.synchronize()
 
 
+def _verify_loader_kwargs_applied(embedder, model_id: str, loader_kwargs: dict) -> None:
+    """Hard-fail if a declared tokenizer pin (padding_side) didn't survive load.
+
+    Pragmatic check, scoped to what we actually depend on: Nemotron and Qwen3
+    require padding_side="left" for last-token pooling. If `loader_kwargs`
+    declares it but the tokenizer reports something else, the embeddings would
+    be silently wrong. Fail loud at load time, never trust ST defaults.
+    """
+    declared = loader_kwargs.get("tokenizer_kwargs", {}).get("padding_side")
+    if declared is None:
+        return
+    actual = getattr(getattr(embedder, "tokenizer", None), "padding_side", None)
+    if actual != declared:
+        raise RuntimeError(
+            f"SentenceTransformer for model='{model_id}' loaded with "
+            f"tokenizer.padding_side={actual!r}, but the model loader_kwargs "
+            f"declared padding_side={declared!r}. Last-token pooling expects "
+            f"the declared value; aborting to avoid silently wrong embeddings."
+        )
+
+
 class MatcherEmbeddingRetrieval(MatcherBase):
     def __init__(
         self,
         model: str,
         *,
-        model_family: str | None = None,
         description: str = "description_one_gen",
         query_instruction: str = "",
         document_instruction: str = "",
@@ -65,8 +87,6 @@ class MatcherEmbeddingRetrieval(MatcherBase):
     ):
         super().__init__()
         self.model = model
-        # Family resolution: explicit override wins; otherwise infer (with WARNING on unknown).
-        self.model_family = model_family if model_family is not None else infer_model_family(model)
         self.description = description
         self.query_instruction = query_instruction
         self.document_instruction = document_instruction
@@ -81,20 +101,23 @@ class MatcherEmbeddingRetrieval(MatcherBase):
     def _ensure_embedder(self):
         if self._embedder is None:
             from sentence_transformers import SentenceTransformer
-            loader_kwargs = get_loader_kwargs(self.model_family)
+            loader_kwargs = get_loader_kwargs(self.model)
             logger.info(
-                "Loading SentenceTransformer model='%s' (family=%s) loader_kwargs=%s",
-                self.model, self.model_family, loader_kwargs,
+                "Loading SentenceTransformer model='%s' loader_kwargs=%s",
+                self.model, loader_kwargs,
             )
             self._embedder = SentenceTransformer(self.model, trust_remote_code=True, **loader_kwargs)
+            _verify_loader_kwargs_applied(self._embedder, self.model, loader_kwargs)
 
     def _serialize(self, kg: RDFGraphWrapper, classes: list) -> list[str]:
         method = getattr(kg, self.description)
         return [RDFGraphWrapper.serialize(method(cls), format=self.kg_format) for cls in classes]
 
     def _encode(self, texts: list[str], instruction: str) -> torch.Tensor:
-        formatted = [format_instruction(self.model_family, instruction, t) for t in texts]
-        embeddings = self._embedder.encode(formatted, convert_to_tensor=True, show_progress_bar=False)
+        prompt: Optional[str] = build_instruct_query_prompt(instruction) or None
+        embeddings = self._embedder.encode(
+            texts, prompt=prompt, convert_to_tensor=True, show_progress_bar=False,
+        )
         return util.normalize_embeddings(embeddings)
 
     def match(
@@ -166,7 +189,7 @@ class MatcherEmbeddingRetrieval(MatcherBase):
     def __str__(self):
         model_short = self.model.split("/")[-1]
         return (
-            f"MatcherEmbeddingRetrieval#{model_short}#fam={self.model_family}"
+            f"MatcherEmbeddingRetrieval#{model_short}"
             f"#{self.description}#qi={1 if self.query_instruction else 0}"
             f"#di={1 if self.document_instruction else 0}"
             f"#rel={self.output_relation}#k={self.top_k}"

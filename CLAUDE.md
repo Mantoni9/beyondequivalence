@@ -6,19 +6,42 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 OLALA is a Python-based **ontology matching system** for the OAEI (Ontology Alignment Evaluation Initiative) benchmark. It finds correspondences between entities (classes, properties) across two RDF knowledge graphs, outputting an `Alignment` — a set of `Correspondence` tuples with confidence scores.
 
+The thesis has two stages with **separate evaluation pipelines and entry points**, sharing the matcher / `RDFGraphWrapper` / `Alignment` core:
+
+- **Stage 0 — Equivalence (existing OAEI tracks).** `Evaluation.py` computes P/R/F1 over `(s, t, relation)` triples. Pipeline ends in `MatcherLLMReranker`. Run via `run_experiment.py`.
+- **Stage 1 — Subsumption (OAEI 2025 BeyondEquivalence / GeneralRelation).** `evaluation_recall.py` computes Recall@K and MRR in three modes (`strict`, `lax`, `per_relation_strict`). Pipeline is pure embedding retrieval (no LLM rerank). Run via `run_subsumption_experiment.py`.
+
+## Environment bootstrap
+
+```bash
+conda env create -f environment.yml      # creates 'melt-olala'
+conda activate melt-olala
+# CUDA-only extras (skip on macOS — environment.yml documents this inline):
+pip install flash-attn --no-build-isolation   # legacy LLMHuggingFace path
+pip install vllm                              # OpenAI-compatible backend
+```
+
 ## Running the System
 
-There is no formal build system. Entry points are `if __name__ == "__main__"` blocks in matcher files, plus a dedicated experiment runner:
+There is no formal build system. Entry points are `if __name__ == "__main__"` blocks in matcher files, plus two dedicated experiment runners:
 
 ```bash
 python MatcherSimple.py        # Runs lexical matching on anatomy + conference OAEI tracks
 python MatcherTopN.py          # Tests top-N filtering configurations
 
-# Full experiment runner (Anatomy track, baseline + LLM pipeline):
+# Stage 0 — equivalence runner (Anatomy track, baseline + LLM pipeline):
 python run_experiment.py --model ~/models/Llama-3.1-8B-Instruct
 python run_experiment.py --model ~/models/Llama-3.1-8B-Instruct --baseline-only
 python run_experiment.py --model ~/models/Llama-3.1-8B-Instruct --wandb --threshold 0.6
+
+# Stage 1 — BeyondEquivalence subsumption retrieval runner:
+python run_subsumption_experiment.py --model qwen3-embedding-8b \
+    --instruction-variant asymmetric --dataset g7-literature --wandb
+python run_subsumption_experiment.py --model sbert \
+    --instruction-variant symmetric --dataset g7-literature --smoke-test
 ```
+
+Stage 1 model aliases (in `run_subsumption_experiment.py`): `sbert`, `qwen3-embedding-8b`, `llama-embed-nemotron-8b`, `e5-mistral`. Anything else is treated as a literal HF id.
 
 OAEI datasets are downloaded automatically to `~/oaei_track_cache/` on first run. Results are written to `results/{timestamp}_results/`.
 
@@ -77,7 +100,7 @@ Post-processing matcher that scores and filters candidates from `input_alignment
 
 1. For each `Correspondence` in `input_alignment`, the KG sub-graphs of both entities are extracted via a configurable `RDFGraphWrapper` description method (default: `description_one_gen`) and serialized to Turtle.
 2. A reranking prompt (default: prompt `"d"`) is filled with the entity URIs and serialized sub-graphs.
-3. `LLMHuggingFace.get_confidence_first_token()` scores all prompts in configurable **batches** (`batch_size`, default 8) to bound GPU memory usage.
+3. The configured `LLMBase` (`LLMOpenAI` on cluster, `LLMHuggingFace` locally) scores all prompts via `get_confidence_first_token()` in configurable **batches** (`batch_size`, default 8) to bound GPU memory usage.
 4. Correspondences with score ≥ `threshold` (default 0.5) are kept; their confidence is replaced by the LLM score.
 
 Key constructor parameters: `llm`, `prompt_id="d"`, `description="description_one_gen"`, `kg_format="turtle"`, `threshold=0.5`, `batch_size=8`.
@@ -85,6 +108,23 @@ Key constructor parameters: `llm`, `prompt_id="d"`, `description="description_on
 ### Key Parameter Keys
 
 `ParameterConfigKeys.py` defines OAEI-standard parameter names used across matchers (language, matching targets, ontology format, etc.).
+
+### Stage 1 — BeyondEquivalence subsumption retrieval
+
+Subsumption-specific components (intentionally separate from the equivalence pipeline so neither side breaks the other):
+
+- `MatcherEmbeddingRetrieval` — pure source→target embedding retrieval, one pass; no `MatcherSimple` mixin, no `both_directions` rerun. Output relation is configurable so the asymmetric wrapper can stamp `<` / `>`.
+- `MatcherAsymmetricRetrieval` — wraps two `MatcherEmbeddingRetrieval` passes against a **shared document encoding** with broader / narrower query instructions. Both predictions for the same `(source, target)` coexist as separate `Correspondence`s keyed by relation.
+- `evaluation_recall.py` — Recall@K and MRR in three modes:
+  - `strict` — target in cross-relation top-K **and** predicted relation matches gold.
+  - `lax` — target in cross-relation top-K (relation ignored).
+  - `per_relation_strict` — target in the relation-restricted sub-ranking; reported only for `<` / `>`. Avoids the score-comparability assumption between the two asymmetric runs.
+- `prompt.SUBSUMPTION_INSTRUCTIONS` — instruction-id registry, default ids `sym_v1`, `asym_broader_v1`, `asym_narrower_v1`. Resolved per model family via `prompt.format_instruction`.
+- `tracks/zenodo_loader.py` — loads OAEI 2025 BeyondEquivalence from `benchmark.zip` at the project root (or `$ZENODO_BENCHMARK_ZIP`). Cache: `~/oaei_track_cache/zenodo/beyondequivalence_v1/`. The ZIP is **not** downloaded automatically — it must be placed locally.
+
+Reference relations are normalised to `{=, <, >}` in `evaluation_recall.RELATION_NORMALIZATION`. Anything else (`~`, `PartOf`, `HasA`, `Related`) is dropped and counted; rationale and per-dataset counts are in `docs/relations_per_dataset.md`.
+
+W&B project routing: regular runs → `beyondequivalence-retrieval-stage1`, `--smoke-test` → `beyondequivalence-smoke` (with tag `mode:smoke`); override via `--wandb-project`.
 
 ## Multi-Cluster Setup
 
@@ -188,8 +228,19 @@ vLLM scripts are the primary path; the `_70b.sh` scripts run the legacy in-proce
 | `jobs/job_dws_vllm.sh`   | DWS          | vLLM (AWQ INT4)        | `gpu-vram-48gb` · 2× A40/A6000 | 100 G | 6 h |
 | `jobs/job_bwuni_70b.sh`  | bwUniCluster | `LLMHuggingFace` (legacy) | `gpu_a100_il` · 2× A100 | 300 G | 48 h |
 | `jobs/job_dws_70b.sh`    | DWS          | `LLMHuggingFace` NF4 (legacy) | `gpu-vram-48gb` · 2× A6000 | 100 G | 24 h |
+| `jobs/job_dws_vllm_smoketest.sh`         | DWS | vLLM 8B (TP=1, no quant) — plumbing sanity check | `gpu-vram-48gb` · 1× | 50 G | 2 h |
+| `jobs/job_dws_subsumption_g7lit.sh`      | DWS | Stage 1 embedding retrieval | `gpu-vram-48gb` · 1× | 64 G | 1 h |
+| `jobs/job_dws_subsumption_g3text.sh`     | DWS | Stage 1 embedding retrieval | `gpu-vram-48gb` · 1× | 64 G | 1 h |
+| `jobs/job_dws_subsumption_mousehuman.sh` | DWS | Stage 1 embedding retrieval | `gpu-vram-48gb` · 1× | 80 G | 3 h |
+
+Each `job_dws_subsumption_*.sh` runs five `(model × instruction-variant)` configurations sequentially on its dataset and prints a stddev / Recall@20 summary table at the end.
 
 vLLM is not in `environment.yml`; the job scripts install it on first run via `python -m pip install vllm`.
+
+### Cluster pitfalls
+
+- `tea_debug.log` is dropped in cwd by an unidentified library on the DWS compute node and was the source of `git status --porcelain` dirty stamps in the SLURM job loop (gitignored 2026-04-26 in commit `a079c45`). If a new file appears in the repo root after a SLURM run, add it to `.gitignore` rather than deleting it — it is likely another cwd-littering library.
+- `bitsandbytes` produces NaN logits with Llama-3.3-70B + bf16 compute on DWS (verified 2026-04-26): use AWQ via vLLM instead. See "Quantization choice on DWS" above.
 
 ## DWS verified baseline (2026-04-26)
 

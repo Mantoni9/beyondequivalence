@@ -29,7 +29,7 @@ from __future__ import annotations
 
 import logging
 import time
-from typing import Any
+from typing import Any, Optional
 
 import torch
 from sentence_transformers import util
@@ -38,8 +38,8 @@ from MatcherBase import MatcherBase
 from RDFGraphWrapper import RDFGraphWrapper
 from Alignment import Alignment
 from Correspondence import Correspondence
-from MatcherEmbeddingRetrieval import _sync
-from prompt import format_instruction, get_loader_kwargs, infer_model_family
+from MatcherEmbeddingRetrieval import _sync, _verify_loader_kwargs_applied
+from prompt import build_instruct_query_prompt, get_loader_kwargs
 
 logger = logging.getLogger(__name__)
 
@@ -52,14 +52,12 @@ class MatcherAsymmetricRetrieval(MatcherBase):
         broader_query_instruction: str,
         narrower_query_instruction: str,
         document_instruction: str = "",
-        model_family: str | None = None,
         description: str = "description_one_gen",
         top_k: int = 20,
         kg_format: str = "turtle",
     ):
         super().__init__()
         self.model = model
-        self.model_family = model_family if model_family is not None else infer_model_family(model)
         self.broader_query_instruction = broader_query_instruction
         self.narrower_query_instruction = narrower_query_instruction
         self.document_instruction = document_instruction
@@ -73,20 +71,23 @@ class MatcherAsymmetricRetrieval(MatcherBase):
     def _ensure_embedder(self):
         if self._embedder is None:
             from sentence_transformers import SentenceTransformer
-            loader_kwargs = get_loader_kwargs(self.model_family)
+            loader_kwargs = get_loader_kwargs(self.model)
             logger.info(
-                "Loading SentenceTransformer model='%s' (family=%s) loader_kwargs=%s",
-                self.model, self.model_family, loader_kwargs,
+                "Loading SentenceTransformer model='%s' loader_kwargs=%s",
+                self.model, loader_kwargs,
             )
             self._embedder = SentenceTransformer(self.model, trust_remote_code=True, **loader_kwargs)
+            _verify_loader_kwargs_applied(self._embedder, self.model, loader_kwargs)
 
     def _serialize(self, kg: RDFGraphWrapper, classes: list) -> list[str]:
         method = getattr(kg, self.description)
         return [RDFGraphWrapper.serialize(method(cls), format=self.kg_format) for cls in classes]
 
     def _encode(self, texts: list[str], instruction: str) -> torch.Tensor:
-        formatted = [format_instruction(self.model_family, instruction, t) for t in texts]
-        embeddings = self._embedder.encode(formatted, convert_to_tensor=True, show_progress_bar=False)
+        prompt: Optional[str] = build_instruct_query_prompt(instruction) or None
+        embeddings = self._embedder.encode(
+            texts, prompt=prompt, convert_to_tensor=True, show_progress_bar=False,
+        )
         return util.normalize_embeddings(embeddings)
 
     def match(
@@ -177,7 +178,7 @@ class MatcherAsymmetricRetrieval(MatcherBase):
     def __str__(self):
         model_short = self.model.split("/")[-1]
         return (
-            f"MatcherAsymmetricRetrieval#{model_short}#fam={self.model_family}"
+            f"MatcherAsymmetricRetrieval#{model_short}"
             f"#{self.description}#di={1 if self.document_instruction else 0}"
             f"#k={self.top_k}"
         )
