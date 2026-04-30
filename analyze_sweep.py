@@ -219,7 +219,10 @@ def main() -> None:
     runs_by_dm: dict[tuple[str, str, str], dict] = {}
     for r in runs:
         cfg = r["config"]
-        key = (cfg.get("dataset"), cfg.get("model_arg"), cfg.get("instruction_variant"))
+        # config.json carries `model` (from vars(args)); --from-logs carries
+        # `model_arg`. Accept either.
+        model = cfg.get("model_arg") or cfg.get("model")
+        key = (cfg.get("dataset"), model, cfg.get("instruction_variant"))
         runs_by_dm[key] = r
 
     print(f"# Stage-1 sweep group: {group}")
@@ -242,7 +245,7 @@ def main() -> None:
             {
                 "dir": r["dir"],
                 "dataset": r["config"].get("dataset"),
-                "model_arg": r["config"].get("model_arg"),
+                "model_arg": r["config"].get("model_arg") or r["config"].get("model"),
                 "instruction_variant": r["config"].get("instruction_variant"),
                 "git_sha": r["config"].get("git_sha"),
                 "git_dirty": r["config"].get("git_dirty"),
