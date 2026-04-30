@@ -1,26 +1,31 @@
 """
 analyze_sweep.py — render Stage-1 sweep results as two pivot tables.
 
-Reads results/subsumption_*/(config.json, metrics.json), filters by W&B
-group, and prints:
-  - one table for instruction_variant=symmetric
-  - one table for instruction_variant=asymmetric
-plus a single combined JSON dump (results/sweep_<group>.json) that can be
-copied off-cluster for visualisation.
+Two input modes:
+  - default (config.json + metrics.json): reads results/subsumption_*/
+    and filters by W&B group.
+  - --from-logs <glob>: parses recall/MRR lines straight from
+    results/run_*.log when the per-run output dirs are empty (e.g. when a
+    sweep finished but the JSON dumps got dropped on a flaky filesystem).
 
-Symmetric columns:    per model × {R@1, R@5, R@10, R@20, MRR} from lax/all.
-Asymmetric columns:   per model × {R@K-super, R@K-sub for K in 1,5,10,20,
-                       MRR-super, MRR-sub} from per_relation_strict.
+Both modes produce identical output:
+  - symmetric:  per model × {R@1, R@5, R@10, R@20, MRR} from lax/all.
+  - asymmetric: per model × {R@K-super, R@K-sub for K in 1,5,10,20,
+                MRR-super, MRR-sub} from per_relation_strict.
+Plus a combined JSON dump that can be copied off-cluster for visualisation.
 
 Usage:
     python analyze_sweep.py --latest
     python analyze_sweep.py --group sweep_all6_2026-04-30_12-34-56_abc1234
+    python analyze_sweep.py --from-logs 'results/run_*_2026-04-29_13-02-04_*.log'
 """
 
 from __future__ import annotations
 
 import argparse
+import glob as _glob
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -133,6 +138,53 @@ def _markdown_table(headers: list[str], rows: list[list[str]]) -> str:
     return f"{head}\n{sep}\n{body}"
 
 
+_LOG_FILENAME_RE = re.compile(
+    # run_<dataset>_<TS>_<model>_<variant>.log
+    # dataset and model can both contain hyphens; variant is the only
+    # sym/asym suffix, so anchor on that.
+    r"^run_(?P<dataset>.+)_(?P<ts>\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2})_(?P<model>.+)_(?P<variant>symmetric|asymmetric)\.log$"
+)
+_RECALL_LINE_RE = re.compile(
+    r"recall_at_k_(?P<mode>strict|lax|per_relation_strict)/(?P<label>[^/]+)/k=(?P<k>\d+) = (?P<val>[0-9.]+)"
+)
+_MRR_LINE_RE = re.compile(
+    r"mrr_(?P<mode>strict|lax|per_relation_strict)/(?P<label>[^ ]+) = (?P<val>[0-9.]+)"
+)
+
+
+def _parse_log(path: Path) -> dict:
+    recall_at_k: dict = {"strict": {}, "lax": {}, "per_relation_strict": {}}
+    mrr:         dict = {"strict": {}, "lax": {}, "per_relation_strict": {}}
+    text = path.read_text(errors="replace")
+    for m in _RECALL_LINE_RE.finditer(text):
+        mode, label, k = m["mode"], m["label"], int(m["k"])
+        recall_at_k[mode].setdefault(label, {})[k] = float(m["val"])
+    for m in _MRR_LINE_RE.finditer(text):
+        mrr[m["mode"]][m["label"]] = float(m["val"])
+    return {"recall_at_k": recall_at_k, "mrr": mrr}
+
+
+def _discover_runs_from_logs(pattern: str) -> list[dict]:
+    runs: list[dict] = []
+    for log_path in sorted(_glob.glob(pattern)):
+        p = Path(log_path)
+        m = _LOG_FILENAME_RE.match(p.name)
+        if not m:
+            continue
+        runs.append({
+            "dir": str(p),
+            "config": {
+                "dataset": m["dataset"],
+                "model_arg": m["model"],
+                "instruction_variant": m["variant"],
+                "timestamp": m["ts"],
+                "wandb_group": f"from-logs:{m['ts']}",
+            },
+            "metrics": _parse_log(p),
+        })
+    return runs
+
+
 def main() -> None:
     p = argparse.ArgumentParser(description="Render Stage-1 sweep results.")
     p.add_argument("--results-dir", default="results")
@@ -141,20 +193,28 @@ def main() -> None:
                    help="Pick the most recent sweep_all6_* W&B group.")
     g.add_argument("--group", default=None,
                    help="Explicit W&B group name.")
+    g.add_argument("--from-logs", default=None,
+                   help="Parse metrics straight from run_*.log files matching this glob "
+                        "(use when subsumption_*/ output dirs are empty).")
     args = p.parse_args()
 
-    results_dir = Path(args.results_dir)
-    if not results_dir.is_dir():
-        sys.exit(f"results dir not found: {results_dir}")
-
-    all_runs = _discover_runs(results_dir)
-    if not all_runs:
-        sys.exit(f"No subsumption_* runs in {results_dir}.")
-
-    group = _pick_group(all_runs, args.group)
-    runs = [r for r in all_runs if r["config"].get("wandb_group") == group]
-    if not runs:
-        sys.exit(f"No runs found for group={group!r}.")
+    if args.from_logs:
+        runs = _discover_runs_from_logs(args.from_logs)
+        if not runs:
+            sys.exit(f"No log files matched: {args.from_logs}")
+        group = runs[0]["config"]["wandb_group"]
+        results_dir = Path(args.results_dir) if Path(args.results_dir).is_dir() else Path(".")
+    else:
+        results_dir = Path(args.results_dir)
+        if not results_dir.is_dir():
+            sys.exit(f"results dir not found: {results_dir}")
+        all_runs = _discover_runs(results_dir)
+        if not all_runs:
+            sys.exit(f"No subsumption_* runs in {results_dir}.")
+        group = _pick_group(all_runs, args.group)
+        runs = [r for r in all_runs if r["config"].get("wandb_group") == group]
+        if not runs:
+            sys.exit(f"No runs found for group={group!r}.")
 
     runs_by_dm: dict[tuple[str, str, str], dict] = {}
     for r in runs:
@@ -171,7 +231,8 @@ def main() -> None:
     print("## Asymmetric (Recall@K via per_relation_strict; super then sub)")
     print(_render_asymmetric(runs_by_dm))
 
-    out_path = results_dir / f"sweep_{group}.json"
+    safe_group = group.replace(":", "_").replace("/", "_")
+    out_path = results_dir / f"sweep_{safe_group}.json"
     payload = {
         "group": group,
         "datasets": list(DATASETS),
