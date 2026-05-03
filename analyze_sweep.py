@@ -58,7 +58,8 @@ def _pick_group(runs: list[dict], explicit: str | None) -> str:
         return explicit
     # Accept any of our known group prefixes; among multiple, pick the latest
     # by timestamp. New prefixes can be added here without touching callers.
-    known_prefixes = ("sweep_all6_", "subB_descablation_", "subB_smoke_")
+    known_prefixes = ("sweep_all6_", "subB_descablation_", "subB_smoke_",
+                      "A_textverbalization_", "A_smoke_")
     groups: dict[str, str] = {}
     for r in runs:
         g = r["config"].get("wandb_group")
@@ -276,6 +277,155 @@ def _render_subB_heatmaps(runs_by_key: dict) -> str:
     return "\n".join(out)
 
 
+# ─── A sweep — paired text-verbalization comparison ──────────────────────────
+
+A_VERBALIZATIONS_RENDER = ("turtle", "path_context")
+
+
+def _index_A(runs: list[dict]) -> dict:
+    """Index A-sweep runs by (model, variant, dataset, verbalization)."""
+    out: dict = {}
+    for r in runs:
+        cfg = r["config"]
+        if "verbalization" not in cfg:
+            continue  # not an A-sweep run
+        model = cfg.get("model_arg") or cfg.get("model")
+        variant = cfg.get("instruction_variant")
+        dataset = cfg.get("dataset")
+        verb = cfg.get("verbalization")
+        if not all([model, variant, dataset, verb]):
+            continue
+        out[(model, variant, dataset, verb)] = r
+    return out
+
+
+def _render_A_paired(runs_by_key: dict) -> str:
+    """One section per (model, variant). Inside: per-dataset rows comparing
+    turtle vs. path_context on the methodically meaningful metric (sym ->
+    strict.equivalence; asym -> mean of per_relation_strict.subclass /
+    superclass), at K=10 and K=20. Δ column = path_context − turtle.
+    """
+    out: list[str] = []
+    by_mv: dict[tuple[str, str], list[str]] = {}
+    for (model, variant, dataset, _verb) in runs_by_key.keys():
+        by_mv.setdefault((model, variant), [])
+        if dataset not in by_mv[(model, variant)]:
+            by_mv[(model, variant)].append(dataset)
+
+    def fetch_metric(model, variant, dataset, verb):
+        r = runs_by_key.get((model, variant, dataset, verb))
+        if r is None:
+            return None
+        m = r["metrics"]
+        if variant == "symmetric":
+            r10 = _heatmap_value(r, "recall_at_k", "strict", "equivalence", 10)
+            r20 = _heatmap_value(r, "recall_at_k", "strict", "equivalence", 20)
+            mrr = _heatmap_value(r, "mrr", "strict", "equivalence")
+            return {"r10": r10, "r20": r20, "mrr": mrr}
+        else:
+            sub10 = _heatmap_value(r, "recall_at_k", "per_relation_strict", "subclass", 10)
+            sub20 = _heatmap_value(r, "recall_at_k", "per_relation_strict", "subclass", 20)
+            sup10 = _heatmap_value(r, "recall_at_k", "per_relation_strict", "superclass", 10)
+            sup20 = _heatmap_value(r, "recall_at_k", "per_relation_strict", "superclass", 20)
+            mrr_sub = _heatmap_value(r, "mrr", "per_relation_strict", "subclass")
+            mrr_sup = _heatmap_value(r, "mrr", "per_relation_strict", "superclass")
+            return {"sub10": sub10, "sub20": sub20, "sup10": sup10, "sup20": sup20,
+                    "mrr_sub": mrr_sub, "mrr_sup": mrr_sup,
+                    "avg10": _mean([sub10, sup10]), "avg20": _mean([sub20, sup20]),
+                    "avg_mrr": _mean([mrr_sub, mrr_sup])}
+
+    def fmt_delta(a, b):
+        if a is None or b is None:
+            return "  -  "
+        d = b - a
+        sign = "+" if d >= 0 else ""
+        return f"{sign}{d:.3f}"
+
+    def fmt(v):
+        return "  -  " if v is None else f"{v:.3f}"
+
+    for (model, variant), datasets in sorted(by_mv.items()):
+        out.append(f"## {model} / {variant}")
+        out.append("")
+        if variant == "symmetric":
+            out.append("| dataset | turtle/R@10 | path_context/R@10 | Δ@10 | turtle/R@20 | path_context/R@20 | Δ@20 | turtle/MRR | path_context/MRR | Δ MRR |")
+            out.append("| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |")
+            for ds in DATASETS if all(d in datasets for d in DATASETS) else datasets:
+                t = fetch_metric(model, variant, ds, "turtle") or {}
+                p = fetch_metric(model, variant, ds, "path_context") or {}
+                out.append("| " + " | ".join([
+                    ds,
+                    fmt(t.get("r10")), fmt(p.get("r10")), fmt_delta(t.get("r10"), p.get("r10")),
+                    fmt(t.get("r20")), fmt(p.get("r20")), fmt_delta(t.get("r20"), p.get("r20")),
+                    fmt(t.get("mrr")), fmt(p.get("mrr")), fmt_delta(t.get("mrr"), p.get("mrr")),
+                ]) + " |")
+        else:
+            out.append("| dataset | turtle/avg@10 | path_context/avg@10 | Δ@10 | turtle/avg@20 | path_context/avg@20 | Δ@20 | turtle/avg_MRR | path_context/avg_MRR | Δ MRR |")
+            out.append("_avg = mean of subclass and superclass on per_relation_strict_")
+            out.append("| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |")
+            for ds in DATASETS if all(d in datasets for d in DATASETS) else datasets:
+                t = fetch_metric(model, variant, ds, "turtle") or {}
+                p = fetch_metric(model, variant, ds, "path_context") or {}
+                out.append("| " + " | ".join([
+                    ds,
+                    fmt(t.get("avg10")), fmt(p.get("avg10")), fmt_delta(t.get("avg10"), p.get("avg10")),
+                    fmt(t.get("avg20")), fmt(p.get("avg20")), fmt_delta(t.get("avg20"), p.get("avg20")),
+                    fmt(t.get("avg_mrr")), fmt(p.get("avg_mrr")), fmt_delta(t.get("avg_mrr"), p.get("avg_mrr")),
+                ]) + " |")
+        out.append("")
+
+    # Aggregate: mean Δ per (model, variant) across all 6 datasets.
+    out.append("## Aggregate (mean Δ across datasets)")
+    out.append("")
+    out.append("| model | variant | Δ R/avg @10 | Δ R/avg @20 | Δ MRR |")
+    out.append("| --- | --- | --- | --- | --- |")
+    for (model, variant) in sorted(by_mv.keys()):
+        d10s, d20s, dms = [], [], []
+        for ds in DATASETS:
+            t = fetch_metric(model, variant, ds, "turtle")
+            p = fetch_metric(model, variant, ds, "path_context")
+            if t is None or p is None:
+                continue
+            if variant == "symmetric":
+                d10s.append(p["r10"] - t["r10"]) if t["r10"] is not None and p["r10"] is not None else None
+                d20s.append(p["r20"] - t["r20"]) if t["r20"] is not None and p["r20"] is not None else None
+                dms.append(p["mrr"] - t["mrr"]) if t["mrr"] is not None and p["mrr"] is not None else None
+            else:
+                if t.get("avg10") is not None and p.get("avg10") is not None:
+                    d10s.append(p["avg10"] - t["avg10"])
+                if t.get("avg20") is not None and p.get("avg20") is not None:
+                    d20s.append(p["avg20"] - t["avg20"])
+                if t.get("avg_mrr") is not None and p.get("avg_mrr") is not None:
+                    dms.append(p["avg_mrr"] - t["avg_mrr"])
+        out.append("| " + " | ".join([
+            model, variant,
+            f"{_mean(d10s):+.3f}" if d10s else "  -  ",
+            f"{_mean(d20s):+.3f}" if d20s else "  -  ",
+            f"{_mean(dms):+.3f}"  if dms  else "  -  ",
+        ]) + " |")
+
+    return "\n".join(out)
+
+
+def _emit_A_long_table(runs_by_key: dict) -> list[dict]:
+    """Long-format records for downstream pivoting."""
+    rows: list[dict] = []
+    for (model, variant, dataset, verb), r in runs_by_key.items():
+        m = r["metrics"]
+        last = m.get("matcher_last_run_metrics", {})
+        rows.append({
+            "model": model, "variant": variant, "dataset": dataset, "verbalization": verb,
+            "recall_at_k": m.get("recall_at_k"),
+            "mrr": m.get("mrr"),
+            "n_reference_after_filter": m.get("n_reference_after_filter"),
+            "matcher_runtime_seconds": m.get("matcher_runtime_seconds"),
+            "tokens_truncated": {
+                k: v for k, v in last.items() if str(k).startswith("tokens_truncated/")
+            },
+        })
+    return rows
+
+
 def _emit_subB_long_table(runs_by_key: dict) -> list[dict]:
     """Long-format records for downstream pivoting (one record per
     model × variant × description × template × dataset). Includes truncation
@@ -408,11 +558,26 @@ def main() -> None:
     print("## Asymmetric (Recall@K via per_relation_strict; super then sub)")
     print(_render_asymmetric(runs_by_dm))
 
+    # A sweep — paired turtle vs. path_context. Auto-emit when the group
+    # looks like an A sweep or when any run carries a 'verbalization' field.
+    is_A = group.startswith(("A_textverbalization_", "A_smoke_")) or any(
+        "verbalization" in r["config"] for r in runs
+    )
+    A_long: list[dict] | None = None
+    if is_A:
+        A_index = _index_A(runs)
+        if A_index:
+            print()
+            print("# A text-verbalization paired comparison")
+            print("_(rows = dataset, columns = paired (turtle, path_context, Δ) on the methodically meaningful metric)_")
+            print()
+            print(_render_A_paired(A_index))
+            A_long = _emit_A_long_table(A_index)
+
     # Sub-B heatmaps — auto-emit when the group looks like a Sub-B sweep, or
     # when the runs carry description/template_id fields.
-    is_subB = group.startswith(("subB_descablation_", "subB_smoke_")) or any(
-        "template_id" in r["config"] for r in runs
-    )
+    is_subB = (group.startswith(("subB_descablation_", "subB_smoke_"))
+               or (any("template_id" in r["config"] for r in runs) and not is_A))
     subB_long: list[dict] | None = None
     if is_subB:
         subB_index = _index_subB(runs)
@@ -429,6 +594,8 @@ def main() -> None:
     extra_payload: dict = {}
     if subB_long is not None:
         extra_payload["subB_long"] = subB_long
+    if A_long is not None:
+        extra_payload["A_long"] = A_long
     payload = {
         "group": group,
         "datasets": list(DATASETS),
