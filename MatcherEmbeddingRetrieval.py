@@ -52,6 +52,26 @@ def _sync() -> None:
         torch.mps.synchronize()
 
 
+def _truncation_stats(embedder, prompt: Optional[str], texts: list[str]) -> dict:
+    """Pre-encode tokenizer pass — counts how many texts exceed max_seq_length
+    once the prompt prefix is prepended. Used for the Sub-B description-ablation
+    so we can distinguish a recall drop on description_three_gen from a
+    truncation artefact.
+    """
+    tokenizer = embedder.tokenizer
+    max_len = getattr(embedder, "max_seq_length", None) or getattr(tokenizer, "model_max_length", 0)
+    full_texts = [(prompt or "") + t for t in texts]
+    enc = tokenizer(full_texts, truncation=False, padding=False,
+                    return_length=True, add_special_tokens=True)
+    lengths = enc.get("length") or [len(ids) for ids in enc["input_ids"]]
+    n_truncated = sum(1 for L in lengths if L > max_len)
+    return {
+        "count": int(n_truncated),
+        "max":   int(max(lengths)) if lengths else 0,
+        "limit": int(max_len),
+    }
+
+
 def _verify_loader_kwargs_applied(embedder, model_id: str, loader_kwargs: dict) -> None:
     """Hard-fail if a declared tokenizer pin (padding_side) didn't survive load.
 
@@ -113,8 +133,17 @@ class MatcherEmbeddingRetrieval(MatcherBase):
         method = getattr(kg, self.description)
         return [RDFGraphWrapper.serialize(method(cls), format=self.kg_format) for cls in classes]
 
-    def _encode(self, texts: list[str], instruction: str) -> torch.Tensor:
+    def _encode(self, texts: list[str], instruction: str, *, role: str = "source") -> torch.Tensor:
         prompt: Optional[str] = build_instruct_query_prompt(instruction) or None
+        trunc = _truncation_stats(self._embedder, prompt, texts)
+        self.last_run_metrics[f"tokens_truncated/{role}/count"] = trunc["count"]
+        self.last_run_metrics[f"tokens_truncated/{role}/max"]   = trunc["max"]
+        self.last_run_metrics[f"tokens_truncated/{role}/limit"] = trunc["limit"]
+        if trunc["count"] > 0:
+            logger.warning(
+                "Truncation: %d/%d texts (%s side) exceed max_seq_length=%d (max=%d).",
+                trunc["count"], len(texts), role, trunc["limit"], trunc["max"],
+            )
         embeddings = self._embedder.encode(
             texts, prompt=prompt, convert_to_tensor=True, show_progress_bar=False,
         )
@@ -128,6 +157,9 @@ class MatcherEmbeddingRetrieval(MatcherBase):
         parameters: dict[str, Any] = None,
     ) -> Alignment:
         self._ensure_embedder()
+        # Reset per-run metrics so a long-lived matcher doesn't leak previous
+        # iteration's truncation/encoding numbers into the next run.
+        self.last_run_metrics = {}
 
         cuda_available = torch.cuda.is_available()
         if cuda_available:
@@ -143,12 +175,12 @@ class MatcherEmbeddingRetrieval(MatcherBase):
 
         _sync()
         t0 = time.perf_counter()
-        source_emb = self._encode(source_texts, self.query_instruction)
+        source_emb = self._encode(source_texts, self.query_instruction, role="source")
         _sync()
         t_src = time.perf_counter() - t0
 
         t0 = time.perf_counter()
-        target_emb = self._encode(target_texts, self.document_instruction)
+        target_emb = self._encode(target_texts, self.document_instruction, role="target")
         _sync()
         t_tgt = time.perf_counter() - t0
 
@@ -169,7 +201,8 @@ class MatcherEmbeddingRetrieval(MatcherBase):
 
         peak_gb = (torch.cuda.max_memory_allocated() / 1e9) if cuda_available else None
         emb_dim = int(source_emb.shape[1])
-        self.last_run_metrics = {
+        # Merge with existing truncation entries set by _encode.
+        self.last_run_metrics.update({
             "n_source_classes": len(source_elements),
             "n_target_classes": len(target_elements),
             "encode_source_seconds": t_src,
@@ -178,7 +211,7 @@ class MatcherEmbeddingRetrieval(MatcherBase):
             "target_vecs_per_sec": (len(target_elements) / t_tgt) if t_tgt > 0 else 0.0,
             "embedding_dim": emb_dim,
             "gpu_peak_memory_gb": peak_gb,
-        }
+        })
         logger.info(
             "Encoded source in %.2fs (%.0f vec/s), target in %.2fs (%.0f vec/s); dim=%d",
             t_src, self.last_run_metrics["source_vecs_per_sec"],

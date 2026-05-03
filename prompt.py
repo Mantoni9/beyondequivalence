@@ -197,7 +197,64 @@ SUBSUMPTION_INSTRUCTIONS: dict[str, str] = {
 
     # Explicit "no instruction" marker — handy for the document side in asymmetric runs
     "none": "",
+
+    # ── Sub-B description-ablation templates (5 sym × 5 asym pair). The _v1
+    # entries above stay frozen. Tag in the comment names the specificity
+    # axis along which the template differs from v1.
+    #
+    # S1 — minimal generic, baseline
+    "sym_S1": "Given a class description, retrieve semantically equivalent classes",
+    # S2 — ontology-context explicit
+    "sym_S2": "Given an ontology class description, retrieve equivalent or closely related classes from another ontology",
+    # S3 — equivalence vocabulary (synonym / same-as)
+    "sym_S3": "Given a class, retrieve classes that refer to the same concept — i.e. its synonyms, equivalents, or same-as classes",
+    # S4 — taxonomy-explicit, long
+    "sym_S4": "Given a category from a taxonomy, retrieve other categories that represent the same concept, including equivalent terms, synonyms, or alternative labels for the same entity",
+    # S5 — example-driven (few-shot)
+    "sym_S5": 'Given a class, retrieve classes that refer to the same concept — for example, given "car" retrieve "automobile" or "motor vehicle"',
+
+    # T1 — minimal asymmetric, baseline
+    "asym_broader_T1":  "Given a class, retrieve its broader parent classes",
+    "asym_narrower_T1": "Given a class, retrieve its narrower child classes",
+    # T2 — ontology-context explicit
+    "asym_broader_T2":  "Given an ontology class description, retrieve broader (more general) parent classes from another ontology",
+    "asym_narrower_T2": "Given an ontology class description, retrieve narrower (more specific) child classes from another ontology",
+    # T3 — lexical hierarchy vocabulary (is-a / hypernym, hyponym)
+    "asym_broader_T3":  "Given a class, retrieve classes that this class is-a — i.e. its superclasses or hypernyms",
+    "asym_narrower_T3": "Given a class, retrieve classes that are-a this class — i.e. its subclasses or hyponyms",
+    # T4 — taxonomy-explicit, long
+    "asym_broader_T4":  "Given a category from a hierarchical taxonomy, retrieve broader categories that subsume it (the parent or ancestor concepts)",
+    "asym_narrower_T4": "Given a category from a hierarchical taxonomy, retrieve narrower categories that it subsumes (the child or descendant concepts)",
+    # T5 — example-driven (few-shot)
+    "asym_broader_T5":  'Given a class, retrieve its broader parent classes — for example, given "dog" retrieve "animal" or "mammal"',
+    "asym_narrower_T5": 'Given a class, retrieve its narrower child classes — for example, given "animal" retrieve "dog" or "cat"',
 }
+
+
+# Sub-B template-id sets used by the sweep runner. Single source of truth so
+# the SLURM scripts and the runner can't drift apart.
+SUBB_SYM_TEMPLATE_IDS:           tuple[str, ...] = ("S1", "S2", "S3", "S4", "S5")
+SUBB_ASYM_TEMPLATE_IDS:          tuple[str, ...] = ("T1", "T2", "T3", "T4", "T5")
+SUBB_DESCRIPTION_METHODS:        tuple[str, ...] = (
+    "description_text",
+    "description_basic",
+    "description_one_gen",
+    "description_two_gen",
+    "description_three_gen",
+)
+
+
+def get_subb_sym_template(template_id: str) -> str:
+    """Resolve a Sub-B sym template id (e.g. 'S2') to its instruction string."""
+    return get_subsumption_instruction(f"sym_{template_id}")
+
+
+def get_subb_asym_templates(template_id: str) -> tuple[str, str]:
+    """Resolve a Sub-B asym template id (e.g. 'T2') to (broader, narrower)."""
+    return (
+        get_subsumption_instruction(f"asym_broader_{template_id}"),
+        get_subsumption_instruction(f"asym_narrower_{template_id}"),
+    )
 
 
 def get_subsumption_instruction(prompt_id: str | None) -> str:

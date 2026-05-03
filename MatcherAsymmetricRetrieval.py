@@ -38,7 +38,7 @@ from MatcherBase import MatcherBase
 from RDFGraphWrapper import RDFGraphWrapper
 from Alignment import Alignment
 from Correspondence import Correspondence
-from MatcherEmbeddingRetrieval import _sync, _verify_loader_kwargs_applied
+from MatcherEmbeddingRetrieval import _sync, _verify_loader_kwargs_applied, _truncation_stats
 from prompt import build_instruct_query_prompt, get_loader_kwargs
 
 logger = logging.getLogger(__name__)
@@ -83,8 +83,17 @@ class MatcherAsymmetricRetrieval(MatcherBase):
         method = getattr(kg, self.description)
         return [RDFGraphWrapper.serialize(method(cls), format=self.kg_format) for cls in classes]
 
-    def _encode(self, texts: list[str], instruction: str) -> torch.Tensor:
+    def _encode(self, texts: list[str], instruction: str, *, role: str = "source") -> torch.Tensor:
         prompt: Optional[str] = build_instruct_query_prompt(instruction) or None
+        trunc = _truncation_stats(self._embedder, prompt, texts)
+        self.last_run_metrics[f"tokens_truncated/{role}/count"] = trunc["count"]
+        self.last_run_metrics[f"tokens_truncated/{role}/max"]   = trunc["max"]
+        self.last_run_metrics[f"tokens_truncated/{role}/limit"] = trunc["limit"]
+        if trunc["count"] > 0:
+            logger.warning(
+                "Truncation: %d/%d texts (%s side) exceed max_seq_length=%d (max=%d).",
+                trunc["count"], len(texts), role, trunc["limit"], trunc["max"],
+            )
         embeddings = self._embedder.encode(
             texts, prompt=prompt, convert_to_tensor=True, show_progress_bar=False,
         )
@@ -98,6 +107,9 @@ class MatcherAsymmetricRetrieval(MatcherBase):
         parameters: dict[str, Any] = None,
     ) -> Alignment:
         self._ensure_embedder()
+        # Reset per-run metrics so a long-lived matcher doesn't leak previous
+        # iteration's truncation/encoding numbers into the next run.
+        self.last_run_metrics = {}
 
         cuda_available = torch.cuda.is_available()
         if cuda_available:
@@ -113,7 +125,7 @@ class MatcherAsymmetricRetrieval(MatcherBase):
         # Document side: encoded ONCE, reused across both runs.
         _sync()
         t0 = time.perf_counter()
-        target_emb = self._encode(target_texts, self.document_instruction)
+        target_emb = self._encode(target_texts, self.document_instruction, role="target")
         _sync()
         t_target = time.perf_counter() - t0
 
@@ -130,7 +142,7 @@ class MatcherAsymmetricRetrieval(MatcherBase):
         for run_name, query_instr, output_rel in runs:
             _sync()
             t0 = time.perf_counter()
-            source_emb = self._encode(source_texts, query_instr)
+            source_emb = self._encode(source_texts, query_instr, role=f"source_{run_name}")
             _sync()
             t_src = time.perf_counter() - t0
 
@@ -160,7 +172,8 @@ class MatcherAsymmetricRetrieval(MatcherBase):
 
         peak_gb = (torch.cuda.max_memory_allocated() / 1e9) if cuda_available else None
         emb_dim = int(target_emb.shape[1])
-        self.last_run_metrics = {
+        # Merge with existing truncation entries set by _encode.
+        self.last_run_metrics.update({
             "n_source_classes": len(source_elements),
             "n_target_classes": len(target_elements),
             "encode_target_seconds": t_target,
@@ -168,7 +181,7 @@ class MatcherAsymmetricRetrieval(MatcherBase):
             "per_run": per_run_metrics,
             "embedding_dim": emb_dim,
             "gpu_peak_memory_gb": peak_gb,
-        }
+        })
         logger.info(
             "Encoded target in %.2fs (%.0f vec/s); dim=%d; alignment size=%d",
             t_target, self.last_run_metrics["target_vecs_per_sec"], emb_dim, len(alignment),
