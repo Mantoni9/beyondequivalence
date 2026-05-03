@@ -1021,6 +1021,7 @@ def main_C_sweep(args: argparse.Namespace) -> None:
         output_dir.mkdir(parents=True, exist_ok=True)
 
         iter_handler = _attach_iteration_log(output_dir)
+        matcher = None  # bound for the finally-block VRAM cleanup below
         try:
             logger.info("[%d/%d] RUN: %s", i, len(specs), run_name)
             _set_seeds(args.seed)
@@ -1153,6 +1154,14 @@ def main_C_sweep(args: argparse.Namespace) -> None:
             n_failed += 1
         finally:
             _detach_iteration_log(iter_handler)
+            # Per-run VRAM cleanup. Always reached, including crashed runs.
+            # Same patch as A-sweep — see commit message there for rationale.
+            if matcher is not None and getattr(matcher, "_embedder", None) is not None:
+                matcher._embedder = None
+            import gc
+            gc.collect()
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
 
     sweep_elapsed = time.perf_counter() - sweep_t0
     logger.info(
