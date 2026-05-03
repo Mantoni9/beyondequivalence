@@ -342,10 +342,13 @@ _REQUIRED_METRICS_FIELDS = (
 )
 
 
-def _resume_complete(output_dir: Path) -> bool:
+def _resume_complete(output_dir: Path, expected_group: str | None = None) -> bool:
     """Return True iff <output_dir>/metrics.json exists, is valid JSON, and
-    carries every required field. Missing config.json or stdout.log is OK —
-    only metrics.json is the contract.
+    carries every required field. When `expected_group` is given, also require
+    that <output_dir>/config.json's wandb_group matches — otherwise an old
+    Smoke / earlier-sweep run with the same run_name (same SHA, same model,
+    same description, same dataset, same template) would falsely satisfy the
+    resume check.
     """
     metrics_p = output_dir / "metrics.json"
     if not metrics_p.is_file():
@@ -354,7 +357,19 @@ def _resume_complete(output_dir: Path) -> bool:
         m = json.loads(metrics_p.read_text())
     except Exception:
         return False
-    return all(field in m for field in _REQUIRED_METRICS_FIELDS)
+    if not all(field in m for field in _REQUIRED_METRICS_FIELDS):
+        return False
+    if expected_group is not None:
+        cfg_p = output_dir / "config.json"
+        if not cfg_p.is_file():
+            return False
+        try:
+            cfg = json.loads(cfg_p.read_text())
+        except Exception:
+            return False
+        if cfg.get("wandb_group") != expected_group:
+            return False
+    return True
 
 
 def _attach_iteration_log(output_dir: Path) -> logging.FileHandler:
@@ -655,7 +670,7 @@ def main_subB_sweep(args: argparse.Namespace) -> None:
         output_dir = Path("results") / run_name
         output_dir.mkdir(parents=True, exist_ok=True)
 
-        if _resume_complete(output_dir):
+        if _resume_complete(output_dir, expected_group=args.wandb_group):
             logger.info("[%d/%d] SKIP (resume): %s", i, len(specs), run_name)
             n_skipped += 1
             continue
