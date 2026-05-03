@@ -129,6 +129,26 @@ class MatcherEmbeddingRetrieval(MatcherBase):
             self._embedder = SentenceTransformer(self.model, trust_remote_code=True, **loader_kwargs)
             _verify_loader_kwargs_applied(self._embedder, self.model, loader_kwargs)
 
+    def release(self) -> None:
+        """Free the embedder reference and the underlying GPU memory.
+
+        Idempotent. Subsequent match() calls reload the model lazily via
+        _ensure_embedder. Sweep drivers MUST call this on a matcher whose
+        embedder would otherwise be co-resident in VRAM with another
+        matcher's embedder of the same or different model — without it,
+        two 8B models in a 47-GB A6000 trigger a CUDA-OOM in
+        SentenceTransformer.__init__ on the second matcher's load
+        (observed 2026-05-04 in the A-sweep nemo asym crashes).
+        """
+        if self._embedder is not None:
+            logger.info("Releasing embedder for model='%s'", self.model)
+            del self._embedder
+            self._embedder = None
+        import gc
+        gc.collect()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+
     def _serialize(self, kg: RDFGraphWrapper, classes: list) -> list[str]:
         method = getattr(kg, self.description)
         return [RDFGraphWrapper.serialize(method(cls), format=self.kg_format) for cls in classes]

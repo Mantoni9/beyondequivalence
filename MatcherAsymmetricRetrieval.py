@@ -79,6 +79,17 @@ class MatcherAsymmetricRetrieval(MatcherBase):
             self._embedder = SentenceTransformer(self.model, trust_remote_code=True, **loader_kwargs)
             _verify_loader_kwargs_applied(self._embedder, self.model, loader_kwargs)
 
+    def release(self) -> None:
+        """Free the embedder + GPU cache. See MatcherEmbeddingRetrieval.release."""
+        if self._embedder is not None:
+            logger.info("Releasing embedder for model='%s'", self.model)
+            del self._embedder
+            self._embedder = None
+        import gc
+        gc.collect()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+
     def _serialize(self, kg: RDFGraphWrapper, classes: list) -> list[str]:
         method = getattr(kg, self.description)
         return [RDFGraphWrapper.serialize(method(cls), format=self.kg_format) for cls in classes]

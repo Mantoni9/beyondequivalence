@@ -402,6 +402,30 @@ def _find_completed_run(
     return None
 
 
+def _evict_other_matchers(matcher_cache: dict, keep_key) -> None:
+    """Release every matcher in the cache except `keep_key`, freeing VRAM
+    before a new matcher's _ensure_embedder() loads its model.
+
+    Why this is needed: warm-keeping multiple (model, variant) matchers
+    means each holds its own SentenceTransformer instance, each pinning
+    ~16 GB of VRAM for an 8B model. Two co-resident 8B matchers exceed
+    the 47-GB A6000 budget — observed 2026-05-04 in the A-sweep nemo
+    asym crashes (CUDA-OOM in SentenceTransformer.__init__ on the
+    second matcher's load, ~40 MiB free). Same-key reuse stays warm,
+    cross-key transitions release the old before constructing the new.
+    """
+    for k in list(matcher_cache.keys()):
+        if k == keep_key:
+            continue
+        old_matcher = matcher_cache.pop(k)
+        try:
+            old_matcher.release()
+        except Exception:
+            logging.getLogger("run_subsumption").exception(
+                "release() failed on matcher key=%s; continuing.", k,
+            )
+
+
 def _attach_iteration_log(output_dir: Path) -> logging.FileHandler:
     """Add an output-dir-scoped FileHandler. Caller must remove it after
     the iteration so the next run gets a fresh per-output-dir log file.
@@ -765,6 +789,9 @@ def main_subB_sweep(args: argparse.Namespace) -> None:
             resolved_model = _resolve_model(model)
             cache_key = (model, variant)
             if cache_key not in matcher_cache:
+                # Free any other matcher's embedder before constructing a new
+                # one — prevents two co-resident 8B models in VRAM.
+                _evict_other_matchers(matcher_cache, keep_key=cache_key)
                 if variant == "symmetric":
                     matcher_cache[cache_key] = MatcherEmbeddingRetrieval(
                         model=resolved_model,
@@ -1069,6 +1096,9 @@ def main_A_sweep(args: argparse.Namespace) -> None:
             resolved_model = _resolve_model(model)
             cache_key = (model, variant)
             if cache_key not in matcher_cache:
+                # Free any other matcher's embedder before constructing a new
+                # one — prevents two co-resident 8B models in VRAM.
+                _evict_other_matchers(matcher_cache, keep_key=cache_key)
                 if variant == "symmetric":
                     matcher_cache[cache_key] = MatcherEmbeddingRetrieval(
                         model=resolved_model,
