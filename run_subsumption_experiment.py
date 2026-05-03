@@ -330,16 +330,213 @@ def uri_obj_from_str(kg, uri_str: str):
     raise KeyError(f"URI {uri_str} not in kg.get_classes()")
 
 
+# ─── Sub-B sweep helpers ──────────────────────────────────────────────────────
+
+# Fields a finished metrics.json must carry. Resume-check considers a run
+# unfinished if any of these keys is missing or the JSON itself is corrupt.
+_REQUIRED_METRICS_FIELDS = (
+    "recall_at_k", "mrr",
+    "n_reference_total", "n_reference_after_filter",
+    "score_diagnostics", "matcher_runtime_seconds",
+    "matcher_last_run_metrics",
+)
+
+
+def _resume_complete(output_dir: Path) -> bool:
+    """Return True iff <output_dir>/metrics.json exists, is valid JSON, and
+    carries every required field. Missing config.json or stdout.log is OK —
+    only metrics.json is the contract.
+    """
+    metrics_p = output_dir / "metrics.json"
+    if not metrics_p.is_file():
+        return False
+    try:
+        m = json.loads(metrics_p.read_text())
+    except Exception:
+        return False
+    return all(field in m for field in _REQUIRED_METRICS_FIELDS)
+
+
+def _attach_iteration_log(output_dir: Path) -> logging.FileHandler:
+    """Add an output-dir-scoped FileHandler. Caller must remove it after
+    the iteration so the next run gets a fresh per-output-dir log file.
+    """
+    fh = logging.FileHandler(output_dir / "stdout.log", encoding="utf-8")
+    fh.setFormatter(logging.Formatter("%(asctime)s %(levelname)s [%(name)s]: %(message)s"))
+    logging.getLogger().addHandler(fh)
+    return fh
+
+
+def _detach_iteration_log(handler: logging.FileHandler) -> None:
+    logging.getLogger().removeHandler(handler)
+    handler.close()
+
+
+def _iter_subB_specs(
+    models: list[str],
+    variants: list[str],
+    datasets: list[str],
+    descriptions: tuple[str, ...],
+    sym_template_ids: tuple[str, ...],
+    asym_template_ids: tuple[str, ...],
+):
+    """Generate Sub-B run specs in deterministic order: model → dataset →
+    description → template. sbert is forced to symmetric only and gets a
+    single template_id=None (the model is not instruction-aware).
+
+    Yields dicts, one per run. The order here also determines KG / matcher
+    cache reuse: the inner-most axis is template, so within one
+    (model, dataset, description) block 5 templates run back-to-back without
+    re-serialising the KG.
+    """
+    for model in models:
+        for dataset in datasets:
+            for description in descriptions:
+                for variant in variants:
+                    if model == "sbert" and variant != "symmetric":
+                        # sbert is sym-only by construction; document elsewhere.
+                        continue
+                    if model == "sbert":
+                        ids: tuple = (None,)
+                    elif variant == "symmetric":
+                        ids = sym_template_ids
+                    else:
+                        ids = asym_template_ids
+                    for template_id in ids:
+                        yield {
+                            "model": model,
+                            "variant": variant,
+                            "dataset": dataset,
+                            "description": description,
+                            "template_id": template_id,
+                        }
+
+
+def _persist_artefacts(
+    output_dir: Path,
+    config_dump: dict,
+    matcher,
+    predictions,
+    report,
+    reference,
+    source_labels: dict[str, str],
+    target_labels: dict[str, str],
+    score_diag: dict,
+    t_elapsed: float,
+) -> dict:
+    """Write config.json, metrics.json, predictions.tsv, reference.tsv,
+    per_source_long.tsv to <output_dir>. Returns the metrics dict for
+    optional W&B re-use.
+    """
+    (output_dir / "config.json").write_text(
+        json.dumps(config_dump, indent=2, ensure_ascii=False)
+    )
+
+    metrics = {
+        "recall_at_k": report.recall_at_k,
+        "mrr": report.mrr,
+        "n_reference_total": report.n_reference_total,
+        "n_reference_after_filter": report.n_reference_after_filter,
+        "dropped_relations_count": report.dropped_relations_count,
+        "dropped_relations_breakdown": report.dropped_relations_breakdown,
+        "score_diagnostics": score_diag,
+        "matcher_runtime_seconds": t_elapsed,
+        "matcher_last_run_metrics": matcher.last_run_metrics,
+        "distance_breakdown": None,
+        "distance_breakdown_reason": (
+            "Cross-ontology distance not well-defined on STROMA/TaSeR sub-datasets; "
+            "deferred — see docs/relations_per_dataset.md."
+        ),
+    }
+    (output_dir / "metrics.json").write_text(
+        json.dumps(metrics, indent=2, ensure_ascii=False)
+    )
+
+    pred_rows = sorted(
+        ([cor.source, source_labels.get(cor.source, ""), cor.target,
+          target_labels.get(cor.target, ""), cor.relation, float(cor.confidence)]
+         for cor in predictions),
+        key=lambda r: (r[0], -r[5], r[2], r[4]),
+    )
+    _write_tsv(
+        output_dir / "predictions.tsv",
+        ["source_uri", "source_label", "target_uri", "target_label",
+         "predicted_relation", "score"],
+        pred_rows,
+    )
+
+    from evaluation_recall import _normalize_relation
+    ref_rows = sorted(
+        ([cor.source, cor.target, cor.relation, _normalize_relation(cor.relation) or ""]
+         for cor in reference),
+        key=lambda r: (r[0], r[1], r[2]),
+    )
+    _write_tsv(
+        output_dir / "reference.tsv",
+        ["source_uri", "target_uri", "relation_raw", "relation_normalized"],
+        ref_rows,
+    )
+
+    if report.per_source_rows:
+        cols = list(report.per_source_rows[0].keys())
+        _write_tsv(
+            output_dir / "per_source_long.tsv",
+            cols,
+            [[row[c] for c in cols] for row in report.per_source_rows],
+        )
+
+    return metrics
+
+
+def _log_run_to_wandb(wandb_run, wandb_module, report, score_diag, matcher, t_elapsed) -> None:
+    flat = report.to_wandb_metrics()
+    flat["runtime/matcher_seconds"] = t_elapsed
+    for k, v in matcher.last_run_metrics.items():
+        if isinstance(v, (int, float)) or v is None:
+            if v is not None:
+                flat[f"encoding/{k}"] = v
+        elif isinstance(v, dict) and k == "per_run":
+            for run_label, sub in v.items():
+                for kk, vv in sub.items():
+                    if isinstance(vv, (int, float)):
+                        flat[f"encoding/{run_label}/{kk}"] = vv
+    for run_label, stats in score_diag.items():
+        for kk, vv in stats.items():
+            flat[f"score_diagnostics/{run_label}/{kk}"] = vv
+    wandb_module.log(flat)
+    if report.per_source_rows:
+        cols = list(report.per_source_rows[0].keys())
+        data = [[row[c] for c in cols] for row in report.per_source_rows]
+        wandb_run.log({"per_source_top_k": wandb_module.Table(columns=cols, data=data)})
+    wandb_run.finish()
+
+
 # ─── argument parsing ─────────────────────────────────────────────────────────
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="BeyondEquivalence Stage 1 retrieval experiment.")
-    p.add_argument("--model", required=True,
+    # Single-run path (kept fully backwards-compatible).
+    p.add_argument("--model", default=None,
                    help="Model alias or HF id / local path. Aliases: " + ", ".join(MODEL_ALIASES))
-    p.add_argument("--instruction-variant", required=True,
+    p.add_argument("--instruction-variant", default=None,
                    choices=("symmetric", "asymmetric"))
     p.add_argument("--wandb-group", default=None,
                    help="W&B run group (used to bundle a multi-dataset sweep).")
+    # Sub-B sweep path (description × template ablation, embedder warm).
+    p.add_argument("--sub-b-sweep", action="store_true",
+                   help="Run the Sub-B description/template ablation sweep — outer loop "
+                        "model → dataset → description → template, embedder is loaded once "
+                        "per model and reused. Ignores --model / --instruction-variant / "
+                        "--dataset; reads --sub-b-models / --sub-b-variants / --sub-b-datasets "
+                        "instead.")
+    p.add_argument("--sub-b-models", nargs="+", default=None,
+                   help="Models to sweep in --sub-b-sweep mode (e.g. sbert qwen3-embedding-8b).")
+    p.add_argument("--sub-b-variants", nargs="+", default=None,
+                   choices=("symmetric", "asymmetric"),
+                   help="Variants to sweep in --sub-b-sweep mode. sbert is silently restricted "
+                        "to symmetric.")
+    p.add_argument("--sub-b-datasets", nargs="+", default=None,
+                   help="Datasets to sweep in --sub-b-sweep mode.")
     p.add_argument("--symmetric-instruction-id", default="sym_v1",
                    help="SUBSUMPTION_INSTRUCTIONS id used on both sides in --instruction-variant=symmetric.")
     p.add_argument("--broader-instruction-id", default="asym_broader_v1",
@@ -370,10 +567,273 @@ def parse_args() -> argparse.Namespace:
     return p.parse_args()
 
 
+# ─── Sub-B sweep main ─────────────────────────────────────────────────────────
+
+def main_subB_sweep(args: argparse.Namespace) -> None:
+    """Outer-loop sweep: model → dataset → description → template.
+
+    Embedder is loaded once per (model, variant) pair and held warm across
+    all 5×5×N inner iterations. KG is loaded once per dataset and reused
+    across all (description × template) inner iterations.
+    """
+    if not args.sub_b_models or not args.sub_b_variants or not args.sub_b_datasets:
+        sys.exit("--sub-b-sweep requires --sub-b-models, --sub-b-variants, --sub-b-datasets.")
+
+    sha, dirty, dirty_paths = _git_sha_and_dirty()
+    sweep_ts = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    if not args.wandb_group:
+        args.wandb_group = f"subB_descablation_{sweep_ts}_{sha}"
+
+    # Sweep-level logging — file mirror in results/<group>.log so a long
+    # sweep is grep-able from a single file.
+    Path("results").mkdir(parents=True, exist_ok=True)
+    sweep_log_path = Path("results") / f"{args.wandb_group}.log"
+    root = logging.getLogger()
+    root.setLevel(logging.INFO)
+    fmt = logging.Formatter("%(asctime)s %(levelname)s [%(name)s]: %(message)s")
+    sh = logging.StreamHandler(sys.stdout); sh.setFormatter(fmt); root.addHandler(sh)
+    sweep_fh = logging.FileHandler(sweep_log_path, encoding="utf-8")
+    sweep_fh.setFormatter(fmt); root.addHandler(sweep_fh)
+    logger = logging.getLogger("run_subsumption.subB")
+
+    logger.info("Sub-B sweep starting. Group=%s SHA=%s dirty=%s", args.wandb_group, sha, dirty)
+    if dirty:
+        logger.warning("Working tree is DIRTY:\n%s", dirty_paths)
+    logger.info("Models: %s", args.sub_b_models)
+    logger.info("Variants: %s", args.sub_b_variants)
+    logger.info("Datasets: %s", args.sub_b_datasets)
+
+    _set_seeds(args.seed)
+    device = _detect_device()
+    logger.info("Device: %s", device)
+
+    from prompt import (
+        SUBB_DESCRIPTION_METHODS, SUBB_SYM_TEMPLATE_IDS, SUBB_ASYM_TEMPLATE_IDS,
+        get_subb_sym_template, get_subb_asym_templates,
+    )
+    from Alignment import Alignment
+    from tracks.zenodo_loader import load_subdataset
+    from evaluation_recall import compute_recall_at_k
+    from MatcherEmbeddingRetrieval import MatcherEmbeddingRetrieval
+    from MatcherAsymmetricRetrieval import MatcherAsymmetricRetrieval
+
+    specs = list(_iter_subB_specs(
+        args.sub_b_models, args.sub_b_variants, args.sub_b_datasets,
+        SUBB_DESCRIPTION_METHODS, SUBB_SYM_TEMPLATE_IDS, SUBB_ASYM_TEMPLATE_IDS,
+    ))
+    logger.info("Total run specs: %d", len(specs))
+
+    matcher_cache: dict[tuple[str, str], object] = {}
+    kg_cache: dict[str, tuple] = {}
+
+    wandb = None
+    if args.wandb:
+        try:
+            import wandb as _wandb
+            wandb = _wandb
+        except ImportError:
+            logger.error("wandb not installed; install with: pip install wandb")
+            sys.exit(1)
+
+    project = args.wandb_project or "beyondequivalence-retrieval-stage1"
+    n_done = n_skipped = n_failed = 0
+    sweep_t0 = time.perf_counter()
+
+    for i, spec in enumerate(specs, start=1):
+        model = spec["model"]
+        variant = spec["variant"]
+        dataset = spec["dataset"]
+        description = spec["description"]
+        template_id = spec["template_id"]
+        alias_short = _alias_for_naming(model)
+        template_id_str = template_id if template_id is not None else "noinstr"
+
+        run_name = (
+            f"subB_{alias_short}_{variant[:3]}_{description}_{template_id_str}_{dataset}_{sha}"
+            + ("_dirty" if dirty else "")
+        )
+        output_dir = Path("results") / run_name
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        if _resume_complete(output_dir):
+            logger.info("[%d/%d] SKIP (resume): %s", i, len(specs), run_name)
+            n_skipped += 1
+            continue
+
+        iter_handler = _attach_iteration_log(output_dir)
+        try:
+            logger.info("[%d/%d] RUN: %s", i, len(specs), run_name)
+            _set_seeds(args.seed)
+
+            # Resolve instructions for this iteration.
+            doc_instr = ""  # Document-side stays empty for both sym (matched
+                            # by query side below) and asym (per Sub-B spec).
+            if variant == "symmetric":
+                if template_id is None:
+                    sym_instr = ""
+                else:
+                    sym_instr = get_subb_sym_template(template_id)
+                broader_instr = narrower_instr = ""
+                doc_instr = sym_instr  # sym = same instruction on both sides
+            else:
+                sym_instr = ""
+                broader_instr, narrower_instr = get_subb_asym_templates(template_id)
+                doc_instr = ""  # explicit: empty document side for all asym templates
+
+            # KG cache.
+            if dataset not in kg_cache:
+                src_path, tgt_path, ref_path = load_subdataset(dataset)
+                kg_source, source_labels = _load_kg_with_labels(src_path)
+                kg_target, target_labels = _load_kg_with_labels(tgt_path)
+                reference = Alignment(str(ref_path))
+                kg_cache[dataset] = (kg_source, kg_target, reference, source_labels, target_labels,
+                                     str(src_path), str(tgt_path), str(ref_path))
+                logger.info("Loaded KG '%s' (src=%d tgt=%d refs=%d)", dataset,
+                            len(kg_source.get_classes()), len(kg_target.get_classes()), len(reference))
+            kg_source, kg_target, reference, source_labels, target_labels, src_path_s, tgt_path_s, ref_path_s = kg_cache[dataset]
+
+            # Matcher cache (one per (model, variant); embedder lazy-loaded on first match()).
+            resolved_model = _resolve_model(model)
+            cache_key = (model, variant)
+            if cache_key not in matcher_cache:
+                if variant == "symmetric":
+                    matcher_cache[cache_key] = MatcherEmbeddingRetrieval(
+                        model=resolved_model,
+                        description=description,
+                        query_instruction=sym_instr,
+                        document_instruction=doc_instr,
+                        output_relation="=",
+                        top_k=args.top_k_max,
+                        kg_format=args.kg_format,
+                    )
+                else:
+                    matcher_cache[cache_key] = MatcherAsymmetricRetrieval(
+                        model=resolved_model,
+                        description=description,
+                        broader_query_instruction=broader_instr,
+                        narrower_query_instruction=narrower_instr,
+                        document_instruction=doc_instr,
+                        top_k=args.top_k_max,
+                        kg_format=args.kg_format,
+                    )
+            matcher = matcher_cache[cache_key]
+            # Hot-update per-iteration attributes.
+            matcher.description = description
+            if variant == "symmetric":
+                matcher.query_instruction = sym_instr
+                matcher.document_instruction = doc_instr
+            else:
+                matcher.broader_query_instruction = broader_instr
+                matcher.narrower_query_instruction = narrower_instr
+                matcher.document_instruction = doc_instr
+
+            # W&B init for this iteration.
+            wandb_run = None
+            if args.wandb:
+                tags = [
+                    "phase:sub-B", "axis:description", "axis:template",
+                    f"model:{alias_short}", f"variant:{variant}",
+                    f"dataset:{dataset}", f"description:{description}",
+                    f"template:{template_id_str}",
+                ]
+                wandb_config = {
+                    "git_sha": sha, "git_dirty": dirty,
+                    "model_arg": model, "model_resolved": resolved_model,
+                    "instruction_variant": variant,
+                    "description": description,
+                    "template_id": template_id,
+                    "symmetric_instruction_text":  sym_instr      if variant == "symmetric"  else None,
+                    "broader_instruction_text":    broader_instr  if variant == "asymmetric" else None,
+                    "narrower_instruction_text":   narrower_instr if variant == "asymmetric" else None,
+                    "document_instruction_text":   doc_instr,
+                    "dataset": dataset,
+                    "top_k_max": args.top_k_max,
+                    "kg_format": args.kg_format,
+                    "seed": args.seed,
+                    "device": device,
+                    "cluster": os.getenv("CLUSTER", ""),
+                }
+                wandb_run = wandb.init(
+                    project=project, name=run_name, config=wandb_config, tags=tags,
+                    group=args.wandb_group, reinit=True,
+                )
+                logger.info("W&B run: %s", wandb_run.url)
+
+            # Run matcher.
+            t_start = time.perf_counter()
+            predictions = matcher.match(kg_source, kg_target, Alignment(), parameters={})
+            t_elapsed = time.perf_counter() - t_start
+            logger.info("Matcher run: %.2fs, alignment size=%d", t_elapsed, len(predictions))
+
+            score_diag = _score_diagnostics(predictions, variant)
+
+            k_values = tuple(k for k in DEFAULT_K_VALUES if k <= args.top_k_max) or (args.top_k_max,)
+            report = compute_recall_at_k(
+                reference, predictions, k_values=k_values,
+                source_labels=source_labels, target_labels=target_labels,
+            )
+            for mode in ("strict", "lax", "per_relation_strict"):
+                for label, by_k in report.recall_at_k[mode].items():
+                    for k, v in by_k.items():
+                        logger.info("recall_at_k_%s/%s/k=%d = %.4f", mode, label, k, v)
+                for label, v in report.mrr[mode].items():
+                    logger.info("mrr_%s/%s = %.4f", mode, label, v)
+
+            # Persist.
+            config_dump = {
+                "git_sha": sha, "git_dirty": dirty,
+                "model": model, "model_arg": model, "model_resolved": resolved_model,
+                "instruction_variant": variant,
+                "dataset": dataset,
+                "description": description,
+                "template_id": template_id,
+                "symmetric_instruction_text":  sym_instr      if variant == "symmetric"  else None,
+                "broader_instruction_text":    broader_instr  if variant == "asymmetric" else None,
+                "narrower_instruction_text":   narrower_instr if variant == "asymmetric" else None,
+                "document_instruction_text":   doc_instr,
+                "wandb_group": args.wandb_group,
+                "top_k_max": args.top_k_max,
+                "kg_format": args.kg_format,
+                "seed": args.seed,
+                "device": device,
+                "run_name": run_name,
+                "timestamp": datetime.now().strftime("%Y-%m-%d_%H-%M-%S"),
+                "src_path": src_path_s, "tgt_path": tgt_path_s, "ref_path": ref_path_s,
+            }
+            _persist_artefacts(
+                output_dir, config_dump, matcher, predictions, report, reference,
+                source_labels, target_labels, score_diag, t_elapsed,
+            )
+            if wandb_run is not None:
+                _log_run_to_wandb(wandb_run, wandb, report, score_diag, matcher, t_elapsed)
+
+            n_done += 1
+        except KeyboardInterrupt:
+            logger.error("KeyboardInterrupt — stopping sweep.")
+            raise
+        except Exception:
+            logger.exception("[%d/%d] FAIL: %s", i, len(specs), run_name)
+            n_failed += 1
+        finally:
+            _detach_iteration_log(iter_handler)
+
+    sweep_elapsed = time.perf_counter() - sweep_t0
+    logger.info(
+        "Sub-B sweep finished in %.1fs. done=%d skipped=%d failed=%d (total=%d)",
+        sweep_elapsed, n_done, n_skipped, n_failed, len(specs),
+    )
+
+
 # ─── main ─────────────────────────────────────────────────────────────────────
 
 def main() -> None:
     args = parse_args()
+    if args.sub_b_sweep:
+        main_subB_sweep(args)
+        return
+    if not args.model or not args.instruction_variant:
+        sys.exit("Single-run mode requires --model and --instruction-variant. "
+                 "Use --sub-b-sweep for the description/template ablation.")
     sha, dirty, dirty_paths = _git_sha_and_dirty()
     alias_short = _alias_for_naming(args.model)
     run_name = (
