@@ -372,6 +372,36 @@ def _resume_complete(output_dir: Path, expected_group: str | None = None) -> boo
     return True
 
 
+def _find_completed_run(
+    *,
+    alias_short: str,
+    variant_short: str,
+    description: str,
+    template_id_str: str,
+    dataset: str,
+    expected_group: str | None,
+) -> Path | None:
+    """Find any results/subB_<...>/ directory matching the run-name stem
+    (model, variant, description, template, dataset) regardless of git SHA
+    suffix, whose metrics.json + config.json satisfy the group-aware resume
+    check. Returns the matching Path, or None.
+
+    Why: output_dir embeds the current short SHA. After a fix-up commit
+    (e.g. group-aware resume), a re-launch builds output_dir with a new SHA
+    and would re-run every previously completed iteration. This lookup
+    matches by content (group), not by output-dir name, so already-correct
+    runs from the same logical group are reused regardless of the SHA they
+    were originally written under.
+    """
+    import glob as _glob_mod
+    pattern = f"results/subB_{alias_short}_{variant_short}_{description}_{template_id_str}_{dataset}_*"
+    for d in sorted(_glob_mod.glob(pattern)):
+        p = Path(d)
+        if _resume_complete(p, expected_group=expected_group):
+            return p
+    return None
+
+
 def _attach_iteration_log(output_dir: Path) -> logging.FileHandler:
     """Add an output-dir-scoped FileHandler. Caller must remove it after
     the iteration so the next run gets a fresh per-output-dir log file.
@@ -668,12 +698,22 @@ def main_subB_sweep(args: argparse.Namespace) -> None:
             + ("_dirty" if dirty else "")
         )
         output_dir = Path("results") / run_name
-        output_dir.mkdir(parents=True, exist_ok=True)
 
-        if _resume_complete(output_dir, expected_group=args.wandb_group):
-            logger.info("[%d/%d] SKIP (resume): %s", i, len(specs), run_name)
+        # Resume check BEFORE mkdir, so a hit doesn't leave an empty dir
+        # behind. Lookup is SHA-tolerant: any older Sub-B run-dir with the
+        # same (model, variant, description, template, dataset) stem and a
+        # matching wandb_group counts as completed.
+        existing = _find_completed_run(
+            alias_short=alias_short, variant_short=variant[:3],
+            description=description, template_id_str=template_id_str,
+            dataset=dataset, expected_group=args.wandb_group,
+        )
+        if existing is not None:
+            logger.info("[%d/%d] SKIP (resume): %s -> %s",
+                        i, len(specs), run_name, existing.name)
             n_skipped += 1
             continue
+        output_dir.mkdir(parents=True, exist_ok=True)
 
         iter_handler = _attach_iteration_log(output_dir)
         try:
