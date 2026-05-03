@@ -596,6 +596,18 @@ def parse_args() -> argparse.Namespace:
                    help="Variants to sweep in --A-sweep mode.")
     p.add_argument("--A-datasets", nargs="+", default=None,
                    help="Datasets to sweep in --A-sweep mode.")
+    # C sweep — bidirectional consolidation via Reciprocal Rank Fusion.
+    # Direction is fixed to '<' (Source ⊂ Target) per THESIS_NOTES.md;
+    # the mirror-image direction '>' is a separate experiment, deferred.
+    p.add_argument("--C-sweep", action="store_true",
+                   help="Run the C bidirectional-consolidation sweep — outer "
+                        "loop model -> dataset -> fusion in {off, on}. "
+                        "asymmetric only; broader-direction only; output "
+                        "relation '<'.")
+    p.add_argument("--C-models", nargs="+", default=None,
+                   help="Models to sweep in --C-sweep mode (e.g. qwen3-embedding-8b).")
+    p.add_argument("--C-datasets", nargs="+", default=None,
+                   help="Datasets to sweep in --C-sweep mode.")
     p.add_argument("--symmetric-instruction-id", default="sym_v1",
                    help="SUBSUMPTION_INSTRUCTIONS id used on both sides in --instruction-variant=symmetric.")
     p.add_argument("--broader-instruction-id", default="asym_broader_v1",
@@ -1210,6 +1222,284 @@ def main_A_sweep(args: argparse.Namespace) -> None:
     )
 
 
+# ─── C sweep — bidirectional consolidation via RRF ───────────────────────────
+
+# Fusion axis. Each entry is (label, fusion_flag). The label lands in
+# run_name + W&B tags; fusion_flag is the `fusion=` argument to
+# MatcherBidirectionalConsolidation. C=off = forward pass only; C=on =
+# forward + inverse passes fused via RRF.
+C_FUSION_VALUES: tuple[tuple[str, bool], ...] = (
+    ("none", False),
+    ("rrf",  True),
+)
+
+
+def _iter_C_specs(models: list[str], datasets: list[str]):
+    """Generate C-sweep specs in deterministic order: model -> dataset -> fusion.
+    asymmetric only; direction = broader (output relation '<').
+    """
+    for model in models:
+        for dataset in datasets:
+            for fusion_label, fusion_flag in C_FUSION_VALUES:
+                yield {
+                    "model": model,
+                    "dataset": dataset,
+                    "fusion_label": fusion_label,
+                    "fusion": fusion_flag,
+                }
+
+
+def main_C_sweep(args: argparse.Namespace) -> None:
+    """Hebel C sweep: bidirectional subsumption consolidation via RRF.
+
+    asymmetric only; broader-direction only ('<'); output relation '<'.
+    Embedder warm per model; KG cached per dataset; resume-safe (group +
+    SHA-tolerant). B is held off — templates fixed to SUBB_DEFAULT_ASYM
+    per the isolation principle for sub-experiments.
+    """
+    if not args.C_models or not args.C_datasets:
+        sys.exit("--C-sweep requires --C-models and --C-datasets.")
+
+    sha, dirty, dirty_paths = _git_sha_and_dirty()
+    sweep_ts = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    if not args.wandb_group:
+        args.wandb_group = f"C_bidirectional_{sweep_ts}_{sha}"
+
+    Path("results").mkdir(parents=True, exist_ok=True)
+    sweep_log_path = Path("results") / f"{args.wandb_group}.log"
+    root = logging.getLogger()
+    root.setLevel(logging.INFO)
+    fmt = logging.Formatter("%(asctime)s %(levelname)s [%(name)s]: %(message)s")
+    sh = logging.StreamHandler(sys.stdout); sh.setFormatter(fmt); root.addHandler(sh)
+    sweep_fh = logging.FileHandler(sweep_log_path, encoding="utf-8")
+    sweep_fh.setFormatter(fmt); root.addHandler(sweep_fh)
+    logger = logging.getLogger("run_subsumption.C")
+
+    logger.info("C sweep starting. Group=%s SHA=%s dirty=%s", args.wandb_group, sha, dirty)
+    if dirty:
+        logger.warning("Working tree is DIRTY:\n%s", dirty_paths)
+    logger.info("Models: %s", args.C_models)
+    logger.info("Datasets: %s", args.C_datasets)
+    logger.info("Fusion values: %s", [f[0] for f in C_FUSION_VALUES])
+
+    _set_seeds(args.seed)
+    device = _detect_device()
+    logger.info("Device: %s", device)
+
+    from prompt import get_subb_asym_templates
+    from subB_pinned_config import SUBB_DEFAULT_ASYM
+    from Alignment import Alignment
+    from tracks.zenodo_loader import load_subdataset
+    from evaluation_recall import compute_recall_at_k
+    from MatcherBidirectionalConsolidation import (
+        MatcherBidirectionalConsolidation, RRF_K_DEFAULT,
+    )
+
+    # B held off — pre-Sub-B baseline. SUBB_DEFAULT_ASYM = (description, template).
+    desc_method, asym_template_id = SUBB_DEFAULT_ASYM
+    broader_instr, narrower_instr = get_subb_asym_templates(asym_template_id)
+    logger.info(
+        "B held off: description=%s, asym template=%s (from SUBB_DEFAULT_ASYM)",
+        desc_method, asym_template_id,
+    )
+    logger.info("RRF k=%d (Cormack et al. 2009)", RRF_K_DEFAULT)
+
+    specs = list(_iter_C_specs(args.C_models, args.C_datasets))
+    logger.info("Total run specs: %d", len(specs))
+
+    matcher_cache: dict[str, object] = {}
+    kg_cache: dict[str, tuple] = {}
+
+    wandb = None
+    if args.wandb:
+        try:
+            import wandb as _wandb
+            wandb = _wandb
+        except ImportError:
+            logger.error("wandb not installed; install with: pip install wandb")
+            sys.exit(1)
+
+    project = args.wandb_project or "beyondequivalence-retrieval-stage1"
+    n_done = n_skipped = n_failed = 0
+    sweep_t0 = time.perf_counter()
+
+    for i, spec in enumerate(specs, start=1):
+        model = spec["model"]
+        dataset = spec["dataset"]
+        fusion_label = spec["fusion_label"]
+        fusion_flag = spec["fusion"]
+        alias_short = _alias_for_naming(model)
+
+        run_name = (
+            f"C_{alias_short}_asy_fusion-{fusion_label}_{dataset}_{sha}"
+            + ("_dirty" if dirty else "")
+        )
+        output_dir = Path("results") / run_name
+
+        # Resume — SHA-tolerant glob over the C-naming pattern.
+        existing = None
+        import glob as _glob_mod
+        for d in sorted(_glob_mod.glob(f"results/C_{alias_short}_asy_fusion-{fusion_label}_{dataset}_*")):
+            p = Path(d)
+            if _resume_complete(p, expected_group=args.wandb_group):
+                existing = p
+                break
+        if existing is not None:
+            logger.info("[%d/%d] SKIP (resume): %s -> %s",
+                        i, len(specs), run_name, existing.name)
+            n_skipped += 1
+            continue
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        iter_handler = _attach_iteration_log(output_dir)
+        matcher = None  # bound for the finally-block VRAM cleanup below
+        try:
+            logger.info("[%d/%d] RUN: %s", i, len(specs), run_name)
+            _set_seeds(args.seed)
+
+            if dataset not in kg_cache:
+                src_path, tgt_path, ref_path = load_subdataset(dataset)
+                kg_source, source_labels = _load_kg_with_labels(src_path)
+                kg_target, target_labels = _load_kg_with_labels(tgt_path)
+                reference = Alignment(str(ref_path))
+                kg_cache[dataset] = (kg_source, kg_target, reference,
+                                     source_labels, target_labels,
+                                     str(src_path), str(tgt_path), str(ref_path))
+                logger.info("Loaded KG '%s' (src=%d tgt=%d refs=%d)", dataset,
+                            len(kg_source.get_classes()), len(kg_target.get_classes()), len(reference))
+            kg_source, kg_target, reference, source_labels, target_labels, src_path_s, tgt_path_s, ref_path_s = kg_cache[dataset]
+
+            resolved_model = _resolve_model(model)
+            if model not in matcher_cache:
+                matcher_cache[model] = MatcherBidirectionalConsolidation(
+                    model=resolved_model,
+                    broader_query_instruction=broader_instr,
+                    narrower_query_instruction=narrower_instr,
+                    document_instruction="",
+                    fusion=fusion_flag,
+                    rrf_k=RRF_K_DEFAULT,
+                    description=desc_method,
+                    top_k=args.top_k_max,
+                    kg_format=args.kg_format,
+                )
+            matcher = matcher_cache[model]
+            # Hot-update fusion toggle on the warm matcher; instructions are
+            # constant across the sweep (B held off).
+            matcher.fusion = fusion_flag
+
+            wandb_run = None
+            if args.wandb:
+                tags = [
+                    "phase:C", "axis:fusion",
+                    f"fusion:{fusion_label}",
+                    f"model:{alias_short}", "variant:asymmetric",
+                    f"dataset:{dataset}", f"description:{desc_method}",
+                    f"template:{asym_template_id}",
+                    f"direction:broader", f"output_relation:<",
+                ]
+                wandb_config = {
+                    "git_sha": sha, "git_dirty": dirty,
+                    "model_arg": model, "model_resolved": resolved_model,
+                    "instruction_variant": "asymmetric",
+                    "fusion": fusion_label,
+                    "rrf_k": RRF_K_DEFAULT,
+                    "direction": "broader",
+                    "output_relation": "<",
+                    "description": desc_method,
+                    "template_id": asym_template_id,
+                    "broader_instruction_text":  broader_instr,
+                    "narrower_instruction_text": narrower_instr,
+                    "document_instruction_text": "",
+                    "dataset": dataset,
+                    "top_k_max": args.top_k_max,
+                    "kg_format": args.kg_format,
+                    "seed": args.seed,
+                    "device": device,
+                    "cluster": os.getenv("CLUSTER", ""),
+                    "B_state": "off (SUBB_DEFAULT_ASYM)",
+                    "A_state": "off (turtle baseline)",
+                }
+                wandb_run = wandb.init(
+                    project=project, name=run_name, config=wandb_config, tags=tags,
+                    group=args.wandb_group, reinit=True,
+                )
+                logger.info("W&B run: %s", wandb_run.url)
+
+            t_start = time.perf_counter()
+            predictions = matcher.match(kg_source, kg_target, Alignment(), parameters={})
+            t_elapsed = time.perf_counter() - t_start
+            logger.info("Matcher run: %.2fs, alignment size=%d", t_elapsed, len(predictions))
+
+            score_diag = _score_diagnostics(predictions, "asymmetric")
+
+            k_values = tuple(k for k in DEFAULT_K_VALUES if k <= args.top_k_max) or (args.top_k_max,)
+            report = compute_recall_at_k(
+                reference, predictions, k_values=k_values,
+                source_labels=source_labels, target_labels=target_labels,
+            )
+            for mode in ("strict", "lax", "per_relation_strict"):
+                for label, by_k in report.recall_at_k[mode].items():
+                    for k, v in by_k.items():
+                        logger.info("recall_at_k_%s/%s/k=%d = %.4f", mode, label, k, v)
+                for label, v in report.mrr[mode].items():
+                    logger.info("mrr_%s/%s = %.4f", mode, label, v)
+
+            config_dump = {
+                "git_sha": sha, "git_dirty": dirty,
+                "model": model, "model_arg": model, "model_resolved": resolved_model,
+                "instruction_variant": "asymmetric",
+                "dataset": dataset,
+                "fusion": fusion_label,
+                "rrf_k": RRF_K_DEFAULT,
+                "direction": "broader",
+                "output_relation": "<",
+                "description": desc_method,
+                "template_id": asym_template_id,
+                "broader_instruction_text":  broader_instr,
+                "narrower_instruction_text": narrower_instr,
+                "document_instruction_text": "",
+                "wandb_group": args.wandb_group,
+                "top_k_max": args.top_k_max,
+                "kg_format": args.kg_format,
+                "seed": args.seed,
+                "device": device,
+                "run_name": run_name,
+                "timestamp": datetime.now().strftime("%Y-%m-%d_%H-%M-%S"),
+                "src_path": src_path_s, "tgt_path": tgt_path_s, "ref_path": ref_path_s,
+                "B_state": "off (SUBB_DEFAULT_ASYM)",
+                "A_state": "off (turtle baseline)",
+            }
+            _persist_artefacts(
+                output_dir, config_dump, matcher, predictions, report, reference,
+                source_labels, target_labels, score_diag, t_elapsed,
+            )
+            if wandb_run is not None:
+                _log_run_to_wandb(wandb_run, wandb, report, score_diag, matcher, t_elapsed)
+
+            n_done += 1
+        except KeyboardInterrupt:
+            logger.error("KeyboardInterrupt — stopping sweep.")
+            raise
+        except Exception:
+            logger.exception("[%d/%d] FAIL: %s", i, len(specs), run_name)
+            n_failed += 1
+        finally:
+            _detach_iteration_log(iter_handler)
+            # Per-run VRAM cleanup. Always reached, including crashed runs.
+            # Same patch as A-sweep — see commit message there for rationale.
+            if matcher is not None and getattr(matcher, "_embedder", None) is not None:
+                matcher._embedder = None
+            import gc
+            gc.collect()
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+
+    sweep_elapsed = time.perf_counter() - sweep_t0
+    logger.info(
+        "C sweep finished in %.1fs. done=%d skipped=%d failed=%d (total=%d)",
+        sweep_elapsed, n_done, n_skipped, n_failed, len(specs),
+    )
+
 # ─── main ─────────────────────────────────────────────────────────────────────
 
 def main() -> None:
@@ -1220,9 +1510,12 @@ def main() -> None:
     if args.A_sweep:
         main_A_sweep(args)
         return
+    if args.C_sweep:
+        main_C_sweep(args)
+        return
     if not args.model or not args.instruction_variant:
         sys.exit("Single-run mode requires --model and --instruction-variant. "
-                 "Use --sub-b-sweep / --A-sweep for ablation sweeps.")
+                 "Use --sub-b-sweep / --A-sweep / --C-sweep for ablation sweeps.")
     sha, dirty, dirty_paths = _git_sha_and_dirty()
     alias_short = _alias_for_naming(args.model)
     run_name = (
