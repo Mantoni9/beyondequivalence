@@ -368,6 +368,157 @@ class RDFGraphWrapper:
 
         return subgraph
 
+    # Filtered out of ancestor paths: top-level meta-classes carry no
+    # discriminating semantic content for the embedder.
+    _PATH_CONTEXT_FILTER: frozenset = frozenset({OWL.Thing, RDFS.Class, OWL.Class})
+    _PATH_CONTEXT_MAX_HOPS: int = 5
+    _PATH_CONTEXT_MAX_CHILDREN: int = 5
+
+    def _ordered_labels_for_path_context(self, resource: URIRef) -> list[str]:
+        """Return labels for `resource` in deterministic order:
+        outer order = LABEL_PREDICATES (rdfs:label first, then skos:prefLabel, …),
+        inner order = lexicographic over the literal value, deduplicated.
+
+        Falls back to the URI fragment when nothing is found, mirroring
+        get_labels(); the fragment is filtered through contains_mostly_numbers
+        so we don't pollute the verbalization with numeric junk.
+        """
+        seen: set[str] = set()
+        ordered: list[str] = []
+        for predicate in LABEL_PREDICATES:
+            for o in sorted(self.graph.objects(resource, predicate), key=str):
+                s = str(o)
+                if s and s not in seen:
+                    seen.add(s)
+                    ordered.append(s)
+        if not ordered:
+            fragment = RDFGraphWrapper.get_uri_fragment(str(resource))
+            if fragment and not RDFGraphWrapper.contains_mostly_numbers(fragment):
+                ordered.append(fragment)
+        return ordered
+
+    def _first_description_for_path_context(self, resource: URIRef) -> str:
+        """Return the first description string in DESCRIPTION_PREDICATES order.
+        Within a predicate, alphabetically first literal wins. Determinism
+        beats heuristics here — same input, same string, every run.
+        """
+        for predicate in DESCRIPTION_PREDICATES:
+            values = sorted((str(o) for o in self.graph.objects(resource, predicate)))
+            for v in values:
+                if v.strip():
+                    return v.strip()
+        return ""
+
+    def _primary_label_for_path_context(self, resource: URIRef) -> str:
+        labels = self._ordered_labels_for_path_context(resource)
+        return labels[0] if labels else ""
+
+    def description_path_context(self, entity: URIRef) -> str:
+        """Path-context verbalization (BERTSubs-inspired) for an OWL class.
+
+        Adapted from Chen et al. 2022, "Contextual Semantic Embeddings for
+        Ontology Subsumption Prediction" (BERTSubs, WWW Journal 2023). We
+        adopt the *Path Context* template (the hierarchy-explicit variant of
+        their three options — Isolated, Path Context, Breadth-first Context)
+        because it matches the subsumption research question directly.
+
+        Modification vs. the original: BERTSubs uses labels only. We add the
+        class description (rdfs:comment / dcterms:description /
+        schema:description) on the identification line because instruction-aware
+        8B embedding models can absorb richer context than the BERT-base
+        backbone BERTSubs was tuned on.
+
+        Output format (newline-separated, sections with no content omitted
+        entirely — no blank separators):
+
+            "<label>" [(also known as: <syn1>, <syn2>)] [: <description>]
+            <label> is a kind of <p1>, which is a kind of <p2>, …
+            More specific kinds of <label> include: <c1>, <c2>, … [, and others]
+
+        Determinism: every choice is sorted, never set-iteration order.
+
+        - Multiple inheritance: at each ancestor hop the alphabetically first
+          parent URI is chosen — this matches BERTSubs' single-path convention.
+        - Ancestor filter: OWL:Thing / RDFS:Class / OWL:Class are skipped at
+          collection time, so the 5-hop budget is spent on semantically
+          meaningful ancestors only. Blank nodes are skipped.
+        - Children are sorted alphabetically by URI; only the first 5 are
+          emitted to bound token usage on root-like classes. When more than
+          5 children exist, the line ends with ", and others." so the embedder
+          knows the list is truncated.
+        - When the entity has neither labels nor description nor ancestors
+          nor children, the URI fragment is used as the primary label so the
+          output is never empty (an empty string would crash the embedder
+          downstream).
+        """
+        primary = self._primary_label_for_path_context(entity)
+        if not primary:
+            primary = RDFGraphWrapper.get_uri_fragment(str(entity)) or str(entity)
+
+        all_labels = self._ordered_labels_for_path_context(entity)
+        synonyms = [l for l in all_labels[1:] if l and l != primary]
+        description = self._first_description_for_path_context(entity)
+
+        # Identification line.
+        ident = f'"{primary}"'
+        if synonyms:
+            ident += f' (also known as: {", ".join(synonyms)})'
+        if description:
+            ident += f': {description}'
+
+        # Ancestor path. Single-path traversal: at each hop, take the
+        # alphabetically smallest non-filtered, non-blank URIRef parent.
+        ancestors: list[str] = []
+        visited: set = {entity}
+        current = entity
+        for _hop in range(self._PATH_CONTEXT_MAX_HOPS):
+            parents: list[URIRef] = []
+            for p in self.graph.objects(current, RDFS.subClassOf):
+                if not isinstance(p, URIRef):
+                    continue  # skip blank nodes (owl:Restriction etc.)
+                if p in self._PATH_CONTEXT_FILTER:
+                    continue
+                if p in visited:
+                    continue  # break cycles
+                parents.append(p)
+            if not parents:
+                break
+            chosen = min(parents, key=str)
+            visited.add(chosen)
+            label = self._primary_label_for_path_context(chosen)
+            if not label:
+                # Filtered URI fragment unavailable — stop the chain rather
+                # than emit an opaque URI in user-facing text.
+                break
+            ancestors.append(label)
+            current = chosen
+
+        # Descendants — direct children only.
+        direct_children: list[URIRef] = []
+        for s in self.graph.subjects(RDFS.subClassOf, entity):
+            if not isinstance(s, URIRef):
+                continue
+            if s == entity:
+                continue
+            direct_children.append(s)
+        direct_children.sort(key=str)
+        n_total = len(direct_children)
+        kept = direct_children[: self._PATH_CONTEXT_MAX_CHILDREN]
+        child_labels = [self._primary_label_for_path_context(c) for c in kept]
+        child_labels = [l for l in child_labels if l]
+
+        lines: list[str] = [ident]
+        if ancestors:
+            chain = ", which is a kind of ".join(ancestors)
+            lines.append(f"{primary} is a kind of {chain}.")
+        if child_labels:
+            tail = ", and others" if n_total > self._PATH_CONTEXT_MAX_CHILDREN else ""
+            lines.append(
+                f"More specific kinds of {primary} include: "
+                f"{', '.join(child_labels)}{tail}."
+            )
+        return "\n".join(lines)
+
     def description_text(self, entity: URIRef) -> Union[Graph, str]:
         text = ""
     
