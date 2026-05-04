@@ -617,6 +617,15 @@ def parse_args() -> argparse.Namespace:
                    help="Models to sweep in --ablation-sweep mode.")
     p.add_argument("--ablation-datasets", nargs="+", default=None,
                    help="Datasets to sweep in --ablation-sweep mode.")
+    # LoRA adapter — applies to both ablation-sweep runs and the
+    # ad-hoc per-(model) eval. Path to a directory with the PEFT adapter
+    # weights (model.save_pretrained() output). When set, the adapter is
+    # attached after SentenceTransformer loads via load_adapter().
+    p.add_argument("--lora-adapter-qwen3", default=None,
+                   help="Path to LoRA adapter dir for the qwen3 model. "
+                        "Applied via load_adapter() after the base model loads.")
+    p.add_argument("--lora-adapter-nemo", default=None,
+                   help="Path to LoRA adapter dir for the nemo model.")
     p.add_argument("--symmetric-instruction-id", default="sym_v1",
                    help="SUBSUMPTION_INSTRUCTIONS id used on both sides in --instruction-variant=symmetric.")
     p.add_argument("--broader-instruction-id", default="asym_broader_v1",
@@ -1643,8 +1652,17 @@ def main_ablation_sweep(args: argparse.Namespace) -> None:
         template_id = b_template_for[b_label]
         alias_short = _alias_for_naming(model)
 
+        # LoRA-aware run_name infix so adapter-on and adapter-off runs in
+        # the same wandb_group don't collide on output_dir or resume-glob.
+        if alias_short.startswith("qwen3") and args.lora_adapter_qwen3:
+            lora_tag = "lora-on"
+        elif alias_short.startswith("llama-embed-nemotron") and args.lora_adapter_nemo:
+            lora_tag = "lora-on"
+        else:
+            lora_tag = "lora-off"
+
         run_name = (
-            f"abl_{alias_short}_A-{a_label}_B-{b_label}_C-{c_label}_{dataset}_{sha}"
+            f"abl_{alias_short}_A-{a_label}_B-{b_label}_C-{c_label}_{lora_tag}_{dataset}_{sha}"
             + ("_dirty" if dirty else "")
         )
         output_dir = Path("results") / run_name
@@ -1653,7 +1671,7 @@ def main_ablation_sweep(args: argparse.Namespace) -> None:
         existing = None
         import glob as _glob_mod
         for d in sorted(_glob_mod.glob(
-            f"results/abl_{alias_short}_A-{a_label}_B-{b_label}_C-{c_label}_{dataset}_*"
+            f"results/abl_{alias_short}_A-{a_label}_B-{b_label}_C-{c_label}_{lora_tag}_{dataset}_*"
         )):
             p = Path(d)
             if _resume_complete(p, expected_group=args.wandb_group):
@@ -1703,6 +1721,20 @@ def main_ablation_sweep(args: argparse.Namespace) -> None:
                 kg_format=args.kg_format,
             )
 
+            # Optional LoRA adapter — load it onto the embedder before
+            # match() runs, so the adapter is active for both forward and
+            # inverse passes. Path is per-model so qwen3 and nemo can have
+            # independent adapters in the same sweep.
+            lora_adapter_path: str | None = None
+            if alias_short.startswith("qwen3") and args.lora_adapter_qwen3:
+                lora_adapter_path = args.lora_adapter_qwen3
+            elif alias_short.startswith("llama-embed-nemotron") and args.lora_adapter_nemo:
+                lora_adapter_path = args.lora_adapter_nemo
+            if lora_adapter_path:
+                matcher._ensure_embedder()
+                logger.info("Loading LoRA adapter: %s", lora_adapter_path)
+                matcher._embedder.load_adapter(lora_adapter_path)
+
             wandb_run = None
             if args.wandb:
                 tags = [
@@ -1710,6 +1742,7 @@ def main_ablation_sweep(args: argparse.Namespace) -> None:
                     f"A:{a_label}", f"B:{b_label}", f"C:{c_label}",
                     f"model:{alias_short}", "variant:asymmetric",
                     f"dataset:{dataset}", f"description:{description}",
+                    f"lora:{'on' if lora_adapter_path else 'off'}",
                     f"template:{template_id}", "direction:broader",
                     "output_relation:<",
                 ]
@@ -1732,6 +1765,7 @@ def main_ablation_sweep(args: argparse.Namespace) -> None:
                     "seed": args.seed,
                     "device": device,
                     "cluster": os.getenv("CLUSTER", ""),
+                    "lora_adapter": lora_adapter_path,
                 }
                 wandb_run = wandb.init(
                     project=project, name=run_name, config=wandb_config, tags=tags,
@@ -1780,6 +1814,7 @@ def main_ablation_sweep(args: argparse.Namespace) -> None:
                 "run_name": run_name,
                 "timestamp": datetime.now().strftime("%Y-%m-%d_%H-%M-%S"),
                 "src_path": src_path_s, "tgt_path": tgt_path_s, "ref_path": ref_path_s,
+                "lora_adapter": lora_adapter_path,
             }
             _persist_artefacts(
                 output_dir, config_dump, matcher, predictions, report, reference,
