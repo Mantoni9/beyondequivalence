@@ -35,8 +35,14 @@ SHA=$(git rev-parse --short HEAD)
 WANDB_GROUP="${LORA_EVAL_WANDB_GROUP:-ablation_lora_finetune_${TS}_${SHA}}"
 
 # Adapter paths — set these as env vars before sbatch, or override here.
-QWEN3_ADAPTER="${QWEN3_ADAPTER:-lora_adapters/qwen3_subsumption_lora}"
-NEMO_ADAPTER="${NEMO_ADAPTER:-lora_adapters/nemo_subsumption_lora}"
+# Default points at the *_extracted dirs produced by
+# extract_lora_from_hybrid_save.py (PEFT-conformant adapter_config.json
+# + adapter_model.safetensors). The original *_subsumption_lora dirs
+# from the Trainer are HYBRID saves (base+lora interleaved) and CANNOT
+# be loaded via PeftModel.from_pretrained — see commit message of
+# extract_lora_from_hybrid_save.py for the full forensics.
+QWEN3_ADAPTER="${QWEN3_ADAPTER:-lora_adapters/qwen3_subsumption_lora_extracted}"
+NEMO_ADAPTER="${NEMO_ADAPTER:-lora_adapters/nemo_subsumption_lora_extracted}"
 
 # Sanity: refuse to start if adapters don't exist.
 for p in "$QWEN3_ADAPTER" "$NEMO_ADAPTER"; do
