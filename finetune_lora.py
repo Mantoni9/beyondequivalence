@@ -286,7 +286,7 @@ def main() -> None:
     model.max_seq_length = args.max_seq_length
     setattr(model, "_smoke_model_alias", args.model)
 
-    from peft import LoraConfig
+    from peft import LoraConfig, get_peft_model, PeftModel
     peft_config = LoraConfig(
         inference_mode=False,
         r=args.lora_r,
@@ -298,24 +298,42 @@ def main() -> None:
     logger.info("PEFT config: r=%d alpha=%d dropout=%.2f bias=none target=q/k/v/o",
                 args.lora_r, args.lora_alpha, args.lora_dropout)
 
-    # Pre-add snapshot for the verification line in the summary.
-    pre_peft_keys = list(getattr(model, "peft_config", {}).keys()) if hasattr(model, "peft_config") else []
-    model.add_adapter(peft_config)
-    post_peft_keys = list(getattr(model, "peft_config", {}).keys()) if hasattr(model, "peft_config") else []
-    logger.info("peft_config keys before/after add_adapter: %s -> %s",
-                pre_peft_keys, post_peft_keys)
-    if post_peft_keys == pre_peft_keys:
-        sys.exit("PEFT adapter was not registered after add_adapter(). "
-                 "Likely SentenceTransformers / PEFT version mismatch.")
+    # Wrap the inner HF transformer with PEFT — NOT the SentenceTransformer
+    # top-level object. SentenceTransformer.add_adapter is a stub that
+    # silently no-ops (smoke job 242696, sentence-transformers 5.4.1 +
+    # peft 0.19.1: peft_config keys before/after were both [], the smoke
+    # assert correctly aborted). The canonical SBERT-PEFT pattern is to
+    # wrap model[0].auto_model and plug it back into the SBERT module.
+    inner = model[0].auto_model
+    if isinstance(inner, PeftModel):
+        sys.exit("Inner HF model is already a PeftModel — did the script "
+                 "run twice without reloading? Aborting to avoid stacked "
+                 "adapters.")
+    peft_inner = get_peft_model(inner, peft_config)
+    model[0].auto_model = peft_inner
+    # Also publish peft_config on the SBERT object so external sanity
+    # checks (e.g. inference-time loaders) can detect adapter presence
+    # without reaching into model[0].
+    model.peft_config = peft_inner.peft_config
+    logger.info("Wrapped model[0].auto_model with get_peft_model; "
+                "peft_config keys=%s", list(peft_inner.peft_config.keys()))
 
-    # Trainable parameter sanity.
+    # PEFT's own helper — primary trainable-param report.
+    peft_inner.print_trainable_parameters()
+
+    # Second wachhund — independent count over the whole SBERT graph in
+    # case PEFT's helper doesn't see the SBERT pooling/normalize layers.
     n_trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
     n_total     = sum(p.numel() for p in model.parameters())
-    logger.info("Trainable params: %d / %d  (%.4f%%)",
-                n_trainable, n_total, 100 * n_trainable / max(1, n_total))
-    if n_trainable >= 0.5 * n_total:
-        logger.warning("Trainable param ratio is high (>50%%). Base model may "
-                       "not be properly frozen — check PEFT config.")
+    ratio = 100 * n_trainable / max(1, n_total)
+    logger.info("Trainable params (full SBERT graph): %d / %d  (%.4f%%)",
+                n_trainable, n_total, ratio)
+    if ratio >= 5.0:
+        logger.warning("Trainable-param ratio >=5%% over the full SBERT "
+                       "graph — base may not be frozen. Investigate.")
+    if not list(peft_inner.peft_config.keys()):
+        sys.exit("PEFT adapter not registered after get_peft_model. "
+                 "Investigate transformers / peft compatibility.")
 
     if args.gradient_checkpointing:
         try:
@@ -375,7 +393,10 @@ def main() -> None:
                 t_elapsed, t_elapsed / 60, train_result.metrics)
 
     # ── Save final adapter weights. ────────────────────────────────────
-    model.save_pretrained(str(output_dir))
+    # Save the inner PEFT model only — that writes adapter_config.json +
+    # adapter_model.safetensors (~50-200 MB), NOT the 16-GB base. The
+    # inference path reloads via PeftModel.from_pretrained(inner_base, path).
+    model[0].auto_model.save_pretrained(str(output_dir))
     logger.info("Saved adapter weights to %s", output_dir)
 
     # ── Smoke-mode adapter-effect verification. ────────────────────────

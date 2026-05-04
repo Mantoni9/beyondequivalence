@@ -1733,7 +1733,22 @@ def main_ablation_sweep(args: argparse.Namespace) -> None:
             if lora_adapter_path:
                 matcher._ensure_embedder()
                 logger.info("Loading LoRA adapter: %s", lora_adapter_path)
-                matcher._embedder.load_adapter(lora_adapter_path)
+                # Symmetric to the training path: wrap model[0].auto_model
+                # with PeftModel.from_pretrained, NOT SentenceTransformer's
+                # silent-no-op top-level load_adapter. See finetune_lora.py
+                # for the rationale (smoke 242696 / sentence-transformers
+                # 5.4.1 + peft 0.19.1 add_adapter no-op finding).
+                from peft import PeftModel
+                inner = matcher._embedder[0].auto_model
+                if isinstance(inner, PeftModel):
+                    logger.warning("Inner model already a PeftModel — "
+                                   "skipping load_adapter to avoid stacking.")
+                else:
+                    matcher._embedder[0].auto_model = PeftModel.from_pretrained(
+                        inner, lora_adapter_path
+                    )
+                    logger.info("PeftModel attached: peft_config keys=%s",
+                                list(matcher._embedder[0].auto_model.peft_config.keys()))
 
             wandb_run = None
             if args.wandb:

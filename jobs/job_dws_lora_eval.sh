@@ -53,6 +53,19 @@ echo "NEMO  adapter: ${NEMO_ADAPTER}"
 echo "GPU: $CUDA_VISIBLE_DEVICES"
 echo "=========================================================================="
 
+# Pre-eval sanity: each adapter must measurably change embeddings vs.
+# the base model. Without this, the 24-run sweep would silently
+# reproduce baseline numbers if the inference-side adapter load no-ops.
+# See finetune_lora.py / smoke 242696 for the rationale.
+echo ""
+echo "--- Pre-eval LoRA inference sanity ---"
+python lora_inference_sanity.py --model qwen3 --adapter "$QWEN3_ADAPTER" \
+    --report-path "results/${WANDB_GROUP}_sanity_qwen3.json"
+python lora_inference_sanity.py --model nemo  --adapter "$NEMO_ADAPTER"  \
+    --report-path "results/${WANDB_GROUP}_sanity_nemo.json"
+echo "--- Sanity passed for both adapters; proceeding to 24-run eval ---"
+echo ""
+
 python run_subsumption_experiment.py \
     --ablation-sweep \
     --ablation-models qwen3-embedding-8b llama-embed-nemotron-8b \
