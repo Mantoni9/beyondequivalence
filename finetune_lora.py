@@ -104,34 +104,48 @@ def _load_jsonl(path: Path) -> list[dict]:
     return rows
 
 
+_INSTRUCTION_LABEL_TO_INT: dict[str, int] = {"broader": 0, "narrower": 1}
+
+
 def _build_dataset(rows: list[dict], have_hard_negatives: bool):
     """Convert WordNet triplets to a HF datasets.Dataset whose columns
     match Sentence-Transformers' expected schema for
     MultipleNegativesRankingLoss with optional hard negatives:
       - anchor, positive  (always)
       - negative          (only when have_hard_negatives=True)
-      - label             (instruction_type, drives GROUP_BY_LABEL batching)
+      - label             (instruction_type as int 0=broader 1=narrower)
 
-    Cross-instruction-type triplet leakage is impossible here because each
-    row carries its own label and the BatchSampler groups by it.
+    Two ordering / typing constraints discovered via smoke 2026-05-04:
+      1. The default DataCollator casts the `label` column to a torch
+         tensor, so it MUST be numeric — strings crash with
+         "too many dimensions 'str'". We int-encode here.
+      2. Column order matters: anchor / positive / negative must be the
+         first three text columns in that order; `label` must come AFTER
+         them. Dataset.from_dict preserves the dict insertion order, so
+         we build the dict with the negative column inserted before label
+         when present.
+
+    Cross-instruction-type triplet leakage is impossible because each
+    row carries its own label and BatchSamplers.GROUP_BY_LABEL groups
+    batches by it.
     """
     from datasets import Dataset
-    out: dict[str, list] = {"anchor": [], "positive": [], "label": []}
+    out: dict[str, list] = {"anchor": [], "positive": []}
     if have_hard_negatives:
         out["negative"] = []
+    out["label"] = []
     for r in rows:
         instr_text = (BROADER_INSTRUCTION if r["instruction_type"] == "broader"
                       else NARROWER_INSTRUCTION)
         anchor_with_prefix = INSTRUCT_PREFIX.format(instruction=instr_text) + r["anchor_text"]
         out["anchor"].append(anchor_with_prefix)
         out["positive"].append(r["positive_text"])
-        out["label"].append(r["instruction_type"])
         if have_hard_negatives:
             # Use a positive-shaped fallback when hard negative missing.
-            # Only triggers when have_hard_negatives=False overall sample
-            # detection said most rows had a negative — should be rare.
+            # Triggers rarely — most WordNet triplets have a cohyponym.
             neg = r.get("negative_text") or r["positive_text"]
             out["negative"].append(neg)
+        out["label"].append(_INSTRUCTION_LABEL_TO_INT[r["instruction_type"]])
     return Dataset.from_dict(out)
 
 
