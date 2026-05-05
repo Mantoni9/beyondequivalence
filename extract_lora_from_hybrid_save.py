@@ -100,18 +100,27 @@ def main() -> None:
     layer_indices: set[int] = set()
     layer_idx_re = re.compile(r"\.layers\.(\d+)\.")
 
-    # PEFT expects every adapter key to start with "base_model.model." and
-    # then carry the inner HF path (e.g. "layers.0.self_attn.q_proj.lora_A.
-    # default.weight"). Hybrid saves vary in the prefix they put before the
-    # inner path:
-    #   - SBERT-Trainer save  -> "model.layers.0...":     strip "model."
-    #   - PEFT-direct save    -> "base_model.model...":   strip nothing
-    #   - bare HF save        -> "layers.0...":           strip nothing
-    # We strip whichever leading variant matches, then re-prepend the
-    # canonical "base_model.model." once. Order in CANONICAL_PREFIX_STRIPS
-    # is "longest match wins" — never strip "model." before checking
-    # "base_model.model.".
+    # PEFT expects every adapter key in the format
+    #   base_model.model.<inner_path>.lora_{A,B}.weight
+    # Two normalisations are required against the SBERT-Trainer hybrid save:
+    #
+    # (1) Prefix: hybrid saves vary in the leading prefix on the inner path:
+    #       - SBERT-Trainer save  -> "model.layers.0...":     strip "model."
+    #       - PEFT-direct save    -> "base_model.model...":   strip nothing
+    #       - bare HF save        -> "layers.0...":           strip nothing
+    #     CANONICAL_PREFIX_STRIPS is longest-match-first so "base_model.model."
+    #     is checked before "model.".
+    #
+    # (2) Adapter-name suffix: the hybrid save stores tensors with the
+    #     adapter name inside the key — "...lora_A.default.weight" —
+    #     because the PEFT module is a ModuleDict keyed on the adapter
+    #     name. PEFT's set_peft_model_state_dict re-inserts the adapter
+    #     name on load, so the file format must NOT carry it. Files with
+    #     ".default.weight" are 100%% rejected as unexpected_keys at load
+    #     time even when the prefix is correct (verified empirically by
+    #     Antonio on 2026-05-05). Drop the ".<adapter_name>" segment.
     CANONICAL_PREFIX_STRIPS = ("base_model.model.", "model.")
+    adapter_suffix = f".{args.adapter_name}.weight"
     sample_logged = 0
     for shard in shard_paths:
         logger.info("Loading shard: %s", shard.name)
@@ -132,9 +141,14 @@ def main() -> None:
                     stripped = prefix
                     break
             new_key = f"base_model.model.{inner}"
+            # Drop the ".<adapter_name>" segment so PEFT's loader can
+            # re-insert it via set_peft_model_state_dict.
+            if new_key.endswith(adapter_suffix):
+                new_key = new_key[: -len(adapter_suffix)] + ".weight"
             if sample_logged < 3:
-                logger.info("Key rewrite [%d]: orig=%r  stripped=%r  final=%r",
-                            sample_logged, k, stripped, new_key)
+                logger.info("Key rewrite [%d]: orig=%r  stripped_prefix=%r  "
+                            "dropped_suffix=%r  final=%r",
+                            sample_logged, k, stripped, adapter_suffix, new_key)
                 sample_logged += 1
             extracted[new_key] = v
             per_proj[m.group("proj")] = per_proj.get(m.group("proj"), 0) + 1
