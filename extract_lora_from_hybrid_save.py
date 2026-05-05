@@ -161,12 +161,29 @@ def main() -> None:
                 out, n_extracted)
 
     # Write adapter_config.json — minimum field set PEFT needs to reload.
+    #
+    # IMPORTANT — inference_mode=False is mandatory for hand-rolled adapter
+    # extractions like this one. Smoke 2026-05-05 finding:
+    #   PEFT 0.19.1 + inference_mode=True at load time -> the adapter is
+    #   loaded into memory (288 tensors all present, sample mean abs ~0.008,
+    #   not zeros) but the layer.enabled flag is set to False, so the
+    #   forward pass skips the LoRA contribution and outputs are identical
+    #   to base. Loader simultaneously emits a self-contradictory
+    #   "missing adapter keys" warning for keys it just loaded — the
+    #   fingerprint of this exact disable-on-load path.
+    # The standard PEFT save_pretrained workflow normally sets
+    # inference_mode=True as a Save-Marker, then PeftModel.from_pretrained
+    # resets it during a normal training-context reload. In our manual
+    # extraction path that reset never happens — the flag survives into
+    # forward pass and silently deactivates the adapter. Worth a Limitations
+    # paragraph in the thesis Methods chapter; ANY other researcher
+    # building extracted adapters out of hybrid SBERT saves will hit this.
     adapter_config = {
         "auto_mapping": None,
         "base_model_name_or_path": args.base_model_name,
         "bias": "none",
         "fan_in_fan_out": False,
-        "inference_mode": True,
+        "inference_mode": False,
         "init_lora_weights": True,
         "layers_pattern": None,
         "layers_to_transform": None,
