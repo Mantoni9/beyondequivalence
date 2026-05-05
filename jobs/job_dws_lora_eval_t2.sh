@@ -1,19 +1,25 @@
 #!/bin/bash
-# T2-Pin validation — main ablation, with LoRA on Nemo only (Job B).
-# 96 runs: identical permutation matrix to Job A, but Nemo runs attach the
-# WordNet-LoRA adapter from job 242725. Qwen3 runs WITHOUT LoRA per the
-# Slide-13 decision (catastrophic forgetting at LoRA-eval 2026-05-05).
-# Adapter set only via --lora-adapter-nemo; --lora-adapter-qwen3 is left
-# unset, which makes main_ablation_sweep emit qwen3 runs with lora-off
-# infix and nemo runs with lora-on infix in the SAME wandb group.
+# T2-pin validation — main ablation with WordNet Nemo LoRA (Job B).
+# Mirrors jobs/job_dws_lora_eval.sh except:
+#   - Active pin is now T2 (subB_pinned_config: SUBB_PIN_ASYM = T2).
+#   - Qwen3 runs WITHOUT adapter per Slide-13 decision (qwen3 catastrophic
+#     forgetting at LoRA-eval 2026-05-05). --lora-adapter-qwen3 stays unset;
+#     main_ablation_sweep emits qwen3 runs with run-name infix "lora-off"
+#     and nemo runs with "lora-on" inside the same W&B group.
+#
+# W&B group naming follows the T4 LoRA-eval pattern
+# (ablation_lora_finetune_*) so the W&B project shows the runs in the same
+# series. Differentiation vs. the T4 group
+# ablation_lora_finetune_2026-05-05_09-33-31_5df8e20 is via SHA (this
+# job runs from branch t2-pin-validation) and timestamp.
 
-#SBATCH --job-name=t2pin_with_lora
-#SBATCH --partition=gpu_a100_il
+#SBATCH --job-name=lora_eval
+#SBATCH --partition=gpu-vram-48gb
 #SBATCH --gres=gpu:1
 #SBATCH --mem=80G
-#SBATCH --time=06:00:00
-#SBATCH --output=logs/t2pin_with_lora_%j.out
-#SBATCH --error=logs/t2pin_with_lora_%j.err
+#SBATCH --time=24:00:00
+#SBATCH --output=logs/lora_eval_%j.out
+#SBATCH --error=logs/lora_eval_%j.err
 
 set -euo pipefail
 
@@ -21,14 +27,15 @@ source "$(conda info --base)/etc/profile.d/conda.sh"
 conda activate melt-olala
 
 set -a
-source .env.bwuni
+source .env.dws
 set +a
+export HF_HOME=/work/amarkic/hf_cache
 
 mkdir -p results logs
 
 # Adapter path — set via env to override; default points at the
 # extracted Nemo adapter from training job 242725 + extraction
-# 2026-05-05 (commit 5df8e20 of lora-subsumption-finetune).
+# 2026-05-05 (commit 5df8e20 on lora-subsumption-finetune).
 NEMO_ADAPTER="${NEMO_ADAPTER:-lora_adapters/nemo_subsumption_lora_extracted}"
 if [ ! -d "$NEMO_ADAPTER" ]; then
     echo "ERROR: NEMO_ADAPTER dir not found: $NEMO_ADAPTER" >&2
@@ -37,18 +44,17 @@ fi
 
 TS=$(date +%Y-%m-%d_%H-%M-%S)
 SHA=$(git rev-parse --short HEAD)
-WANDB_GROUP="${T2PIN_WITH_LORA_GROUP:-sweep_lora_t2pin_${TS}_${SHA}}"
+WANDB_GROUP="${LORA_EVAL_WANDB_GROUP:-ablation_lora_finetune_${TS}_${SHA}}"
 
 echo "=========================================================================="
-echo "T2-pin validation (with Nemo LoRA). Group=${WANDB_GROUP}"
+echo "LoRA eval (T2 pin, Nemo only). Group=${WANDB_GROUP}"
 echo "Job=${SLURM_JOB_ID}  Node=$(hostname)  GPU: $CUDA_VISIBLE_DEVICES"
 echo "Pin: SUBB_PIN_ASYM=$(python -c 'from subB_pinned_config import SUBB_PIN_ASYM; print(SUBB_PIN_ASYM)')"
-echo "Nemo adapter: ${NEMO_ADAPTER}"
+echo "Nemo adapter:  ${NEMO_ADAPTER}"
 echo "Qwen3 adapter: <none, per Slide-13 decision>"
 echo "=========================================================================="
 
-# Pre-eval LoRA sanity for the Nemo adapter only — symmetric to the
-# established lora_eval pattern but without the qwen3 sanity step.
+# Pre-eval LoRA inference sanity for the Nemo adapter only.
 echo ""
 echo "--- Pre-eval LoRA inference sanity (Nemo only) ---"
 python lora_inference_sanity.py --model nemo --adapter "$NEMO_ADAPTER" \
@@ -67,5 +73,5 @@ python run_subsumption_experiment.py \
 
 echo ""
 echo "=========================================================================="
-echo "T2-pin with-LoRA done at $(date +%H:%M:%S). Group=${WANDB_GROUP}"
+echo "LoRA eval (T2) done at $(date +%H:%M:%S). Group=${WANDB_GROUP}"
 echo "=========================================================================="
