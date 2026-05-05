@@ -100,6 +100,19 @@ def main() -> None:
     layer_indices: set[int] = set()
     layer_idx_re = re.compile(r"\.layers\.(\d+)\.")
 
+    # PEFT expects every adapter key to start with "base_model.model." and
+    # then carry the inner HF path (e.g. "layers.0.self_attn.q_proj.lora_A.
+    # default.weight"). Hybrid saves vary in the prefix they put before the
+    # inner path:
+    #   - SBERT-Trainer save  -> "model.layers.0...":     strip "model."
+    #   - PEFT-direct save    -> "base_model.model...":   strip nothing
+    #   - bare HF save        -> "layers.0...":           strip nothing
+    # We strip whichever leading variant matches, then re-prepend the
+    # canonical "base_model.model." once. Order in CANONICAL_PREFIX_STRIPS
+    # is "longest match wins" — never strip "model." before checking
+    # "base_model.model.".
+    CANONICAL_PREFIX_STRIPS = ("base_model.model.", "model.")
+    sample_logged = 0
     for shard in shard_paths:
         logger.info("Loading shard: %s", shard.name)
         state = load_file(str(shard))
@@ -111,20 +124,29 @@ def main() -> None:
                 continue
             if m.group("proj") not in target_projs:
                 continue
-            # Rewrite the key into the canonical PEFT format expected by
-            # PeftModel.from_pretrained:
-            #   base_model.model.<rest>.<proj>.<side>.weight
-            # Hybrid save key example:
-            #   model.layers.5.self_attn.q_proj.lora_A.default.weight
-            # PEFT canonical key:
-            #   base_model.model.model.layers.5.self_attn.q_proj.lora_A.default.weight
-            # PEFT prepends "base_model.model." regardless of inner prefix.
-            new_key = f"base_model.model.{k}"
+            inner = k
+            stripped = ""
+            for prefix in CANONICAL_PREFIX_STRIPS:
+                if inner.startswith(prefix):
+                    inner = inner[len(prefix):]
+                    stripped = prefix
+                    break
+            new_key = f"base_model.model.{inner}"
+            if sample_logged < 3:
+                logger.info("Key rewrite [%d]: orig=%r  stripped=%r  final=%r",
+                            sample_logged, k, stripped, new_key)
+                sample_logged += 1
             extracted[new_key] = v
             per_proj[m.group("proj")] = per_proj.get(m.group("proj"), 0) + 1
             li = layer_idx_re.search(k)
             if li:
                 layer_indices.add(int(li.group(1)))
+
+    # Final sanity sample — explicit before-after on one key per proj.
+    if extracted:
+        logger.info("--- key audit (3 final keys, sorted) ---")
+        for fk in sorted(extracted.keys())[:3]:
+            logger.info("  final key: %r", fk)
 
     # Sanity: count should be 4 (q/k/v/o) x 2 (A/B) x num_layers.
     expected_layers = EXPECTED_LAYERS_PER_MODEL.get(args.base_model_name)
