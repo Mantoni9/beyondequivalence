@@ -22,3 +22,31 @@ Hebel **D** (Sym ∪ Asym Union) wurde verworfen — siehe Diskussion 2026-05-03
   1. **`per_relation_strict.superclass` ist by design 0 für C-Runs** — wir emittieren keine `>`-Predictions. Hauptmetrik ist `per_relation_strict.subclass.@K` und `mrr_per_relation_strict.subclass`.
   2. **C=off ist auch nur der broader-Pass von Source aus, mit Output-Relation `<` only** — nicht der existierende `MatcherAsymmetricRetrieval`-Zweipass-Modus, der zusätzlich `>`-Predictions emittiert. Das hält A=off vs. A=on (im C-Kontext) auf der gleichen Output-Relation und damit metrisch vergleichbar.
   3. **Die spiegelbildliche Direction `>` (Source ⊃ Target) ist ein separates Experiment**, das analog mit narrower-anchored Pass 1 + broader-anchored Pass 2 fahren würde. Vertagt; nicht Teil des C-Sweeps.
+
+## LoRA-Fine-Tune-Ergebnis (2026-05-05) — bimodaler Befund
+
+Branch `lora-subsumption-finetune` wurde nach drei Trainings- und Inferenz-Iterationen evaluiert. Das Aggregat über beide 8B-Modelle × 6 Datasets liegt bei Δ MRR per_relation_strict.subclass = **−2.67 %** und damit nominell im "Ambivalent"-Band des dreigeteilten Verdict-Schemas (>+3 % / ±3 % / <−3 %). **Branch wird NICHT in `main` gemergt.**
+
+Das Aggregat verdeckt aber einen strukturell bimodalen Befund pro Modell:
+
+| Modell | Mittel-Δ MRR über 6 Datasets | Befund |
+|---|---:|---|
+| `llama-embed-nemotron-8b` | **+16.3 %** | Systematischer Lift. Alle 6 Datasets profitieren oder sind neutral. |
+| `qwen3-embedding-8b`      | **−21.6 %** | Systematische Verschlechterung. Catastrophic Forgetting auf 4/6 Datasets, am stärksten g7-literature mit −73.9 %. |
+
+**Methodische Erklärung — "Stacked-LoRA-Hypothese":**
+
+Qwen3-Embedding-8B wird im HF-Repo bereits als LoRA-getrainte Variante released — die Modelkarte beschreibt das Modell als Base + eingebrannten LoRA-Adapter (im `model.safetensors` gemergt, nicht als separater PEFT-Adapter). Unser zusätzlicher LoRA-Adapter (r=16) sitzt in derselben `q_proj`/`k_proj`/`v_proj`/`o_proj`-Subspace wie der Pretrained-Adapter und überschreibt dessen Gradient-Information mit signifikant kleiner Trainings-Set (177 k WordNet-Triplets vs. presumably mehrere Millionen Pretraining-Triplets). Das Ergebnis ist Catastrophic Forgetting der Pretrained-Adapter-Information.
+
+Llama-embed-nemotron-8b basiert auf Llama-3.1-base + custom latent-attention pooler ohne pretrained LoRA-Schicht. Unser LoRA findet hier den vorgesehenen "leeren" Adapter-Slot und kann sauber lernen — daher der systematische Lift.
+
+**Konsequenz für die Thesis:**
+Die Ergebnisse werden im Limitations-Block als bimodaler Befund berichtet, nicht als einfaches "Negativ-Resultat". Konkret:
+1. LoRA-Fine-Tuning auf Embedding-Modellen funktioniert reproduzierbar gegen ein Llama-3-Base-Derivat ohne Pretrained-LoRA (Nemotron: +16 %).
+2. Dasselbe Verfahren auf einem bereits LoRA-getuneten Modell (Qwen3-Embedding) führt zu Catastrophic Forgetting — die Wahl der "Fine-Tunability" eines Modells hängt vom Pretraining-Stack ab, nicht vom Task oder den LoRA-Hyperparametern.
+3. Die formale Aggregat-Schwelle von ±3 % ist methodisch unzureichend bei zwei Modellen mit gegensätzlichem Verhalten. Pro-Modell-Verdicts werden ab dem Compare-Skript 2026-05-05 explizit ausgegeben (siehe `ensemble_finetune_compare.py`).
+
+**Deferred:**
+- Re-Training auf Qwen3 mit höherem Rang (r=64), niedrigerer Lernrate, oder layer-spezifischem Targeting (z.B. nur die letzten 8 Layer) zur Vermeidung der Pretrained-Adapter-Kollision. Würde testen, ob der Forgetting-Befund modell-spezifisch oder hyperparameter-spezifisch ist. Nicht im Stage-1-Scope.
+- LoRA-Adapter für Nemotron in eigenem Branch mergen, ohne Qwen3 — würde das positive Ergebnis isoliert in die Hauptablation tragen, kollidiert aber mit der ursprünglichen Branch-Disziplin (alle-oder-keinen-Merge). Antonio entscheidet bei Stage-2-Implementation.
+- Methodisches Side-Finding zu PEFT 0.19.1 (siehe Limitations-Block in `extract_lora_from_hybrid_save.py`): `inference_mode=True` in `adapter_config.json` deaktiviert beim Reload den Adapter ohne lautes Versagen; `.<adapter_name>.weight`-Suffix in den safetensors-Keys führt zu unsichtbaren `unexpected_keys` beim PeftModel-Load, weil `set_peft_model_state_dict` den Suffix selbst rein-mapped. Beide Findings sind reproduzierbar dokumentiert und für andere Researcher-Pipelines mit hand-rolled Adapter-Extraktion relevant.

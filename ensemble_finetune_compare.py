@@ -151,11 +151,28 @@ def main() -> None:
         xs = [x for x in xs if x is not None]
         return (sum(xs) / len(xs)) if xs else None
 
+    # Per-model aggregate — averages each metric column across the
+    # 6 datasets WITHIN one model. This is essential when the two
+    # models behave bimodally (e.g. LoRA-eval 2026-05-05: nemo +16%,
+    # qwen3 -22%, hiding inside a -2.67% global aggregate).
+    per_model_rows: list[dict] = []
+    models_in_data = sorted({r["model"] for r in rows})
+    for m in models_in_data:
+        m_rows = [r for r in rows if r["model"] == m]
+        pm = {"dataset": f"AGG/{m}", "model": m}
+        for col in rows[0].keys():
+            if col in ("dataset", "model"):
+                continue
+            pm[col] = _mean(r[col] for r in m_rows)
+        per_model_rows.append(pm)
+
+    # Global aggregate across all (model, dataset) cells.
     agg = {"dataset": "AGGREGATE", "model": "AGGREGATE"}
     for col in rows[0].keys():
         if col in ("dataset", "model"):
             continue
         agg[col] = _mean(r[col] for r in rows)
+    rows.extend(per_model_rows)
     rows.append(agg)
 
     # CSV out.
@@ -186,10 +203,29 @@ def main() -> None:
                 cells.append(str(v) if v is not None else "  -  ")
         print(fmt.format(*cells))
 
-    # Verdict.
+    # Verdict — first per-model, then aggregate. Per-model verdicts are
+    # the methodologically meaningful unit when the two models behave
+    # bimodally; aggregate is the formal summary that drives the
+    # branch-merge decision per the original spec.
+    def _verdict_line(delta: float | None) -> str:
+        if delta is None:
+            return "  Cannot evaluate — delta is None."
+        sign = f"{delta:+.2f}%"
+        if delta > 3.0:
+            return f"  Δ {sign}  → Lift; merge recommended (if isolated)."
+        if delta < -3.0:
+            return f"  Δ {sign}  → Catastrophic forgetting; do NOT merge."
+        return f"  Δ {sign}  → Ambivalent; document as Limitation."
+
+    print()
+    print("=== VERDICT — per model (mean across 6 datasets) ===")
+    for pm in per_model_rows:
+        print(f"  model={pm['model']}")
+        print(_verdict_line(pm.get("delta_mrr_pct")))
+
     delta = rows[-1].get("delta_mrr_pct")
     print()
-    print("=== VERDICT (AGGREGATE delta_mrr_pct on per_relation_strict.subclass) ===")
+    print("=== VERDICT — AGGREGATE (formal branch-merge gate) ===")
     if delta is None:
         print("  Cannot evaluate — aggregate delta is None.")
     else:
@@ -202,6 +238,15 @@ def main() -> None:
         else:
             print("  → Ambivalent. Branch NICHT mergen, als Limitation in Thesis "
                   "diskutieren.")
+            # Bimodality alert: per-model deltas with opposite signs are the
+            # clearest case where the aggregate verdict misleads.
+            deltas = [pm.get("delta_mrr_pct") for pm in per_model_rows
+                      if pm.get("delta_mrr_pct") is not None]
+            if len(deltas) >= 2 and min(deltas) < -3.0 and max(deltas) > 3.0:
+                print("  ⚠  BIMODAL: per-model deltas straddle ±3% in opposite "
+                      "directions. The aggregate verdict masks a structural "
+                      "split — see per-model section above and report both "
+                      "outcomes separately in the Limitations chapter.")
 
 
 if __name__ == "__main__":
