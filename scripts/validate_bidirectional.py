@@ -39,6 +39,12 @@ import torch
 from dotenv import load_dotenv
 load_dotenv()
 
+# This script lives in scripts/; running it as `python scripts/<file>.py` puts
+# scripts/ on sys.path[0], not the repo root, so the root-level Stage-1 modules
+# (run_subsumption_experiment, Alignment, …) are not importable. Prepend the
+# repo root explicitly.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 # Reuse frozen Stage-1 helpers (import, not modify).
 from run_subsumption_experiment import (
     MODEL_ALIASES, _resolve_model, _alias_for_naming,
