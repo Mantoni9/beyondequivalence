@@ -16,7 +16,10 @@ verdict (confirmed / refuted / dataset-dependent) is drawn from them afterwards.
 H0  random baseline           : 1-(1-1/n_target)^k  per dataset (effect-size frame)
 H1  fan-out                   : corr(#gold-children of S, per-source '>' recall@20)
 H2  rank distribution of misses: hit@20 / near (21-50) / absent (>50) for '>' gold
-H3  what it finds instead     : for missed '>' gold, classify S's '>' top-5 vs gold
+H3  what it finds instead     : for missed '>' gold, classify S's '>' top-5 vs gold.
+    'foreign' = a target in S's '>' top-5 that has NO gold relation (<, >, =) to S
+    in the reference. NOTE: a 'foreign' can be a genuine error OR a correct-but-
+    unannotated relation (gold gap) — the --examples inspection exposes which.
 H4  path_context direction bias: '>' recall@20 path_context vs turtle (B=T2 held)
 
 Torch-free. Run on DWS where results/ablbi_*_<sha>/ live.
@@ -108,6 +111,21 @@ def _n_target(dataset: str) -> int:
     return len(re.findall(r"<owl:Class\b", txt)) or len(set(re.findall(r'rdf:about="([^"]+)"', txt)))
 
 
+def _load_labels(path: str) -> dict[str, str]:
+    """URI -> rdfs:label via rdflib (torch-free). Empty dict on failure."""
+    try:
+        from rdflib import Graph, RDFS
+        g = Graph(); g.parse(path)
+        return {str(s): str(o) for s, o in g.subject_objects(RDFS.label)}
+    except Exception as e:
+        print(f"  (label load failed for {path}: {e})")
+        return {}
+
+
+def _lab(uri: str, labels: dict[str, str]) -> str:
+    return labels.get(uri) or uri.rsplit("/", 1)[-1].rsplit("#", 1)[-1]
+
+
 def main() -> None:
     p = argparse.ArgumentParser(description="Superclass-miss error analysis (4 hypotheses).")
     p.add_argument("--sha", required=True)
@@ -118,6 +136,8 @@ def main() -> None:
     p.add_argument("--b", default="sub_b_pin")
     p.add_argument("--a-contrast", default="turtle", help="A value for the H4 contrast run.")
     p.add_argument("--datasets", nargs="+", default=list(FOCUS_DATASETS))
+    p.add_argument("--examples", type=int, default=4,
+                   help="Per dataset, print this many missed-source examples with labels (foreign inspection). 0 to skip.")
     p.add_argument("--out-json", default=None)
     args = p.parse_args()
 
@@ -131,7 +151,7 @@ def main() -> None:
     for dataset in args.datasets:
         focus = _run_dir(root, args.model, args.lora, args.a, args.b, dataset, args.sha)
         contrast = _run_dir(root, args.model, args.lora, args.a_contrast, args.b, dataset, args.sha)
-        _, _, ref_path = load_subdataset(dataset)
+        src_path, tgt_path, ref_path = load_subdataset(dataset)
         reference = Alignment(str(ref_path))
         gold = _gold_by_source(reference)
         sup_ranked = _ranked_by_source(focus, ">")          # focus '>' top-50 per source
@@ -196,7 +216,8 @@ def main() -> None:
         # ── H3 what it finds instead ──────────────────────────────────────
         # For sources with >=1 missed '>' gold, classify the focus '>' top-5
         # occupants vs that source's gold.
-        cls = {"sibling_other_sup": 0, "wrong_dir_sub_or_eq": 0, "foreign": 0, "is_a_sup_gold": 0}
+        # Mutually-exclusive 3-way classification; one count per top-5 slot.
+        cls = {"sup_gold_child": 0, "wrong_dir_sub_or_eq": 0, "foreign": 0}
         examined = 0
         for s in sources_with_sup:
             top20 = set(sup_ranked.get(s, [])[:20])
@@ -205,18 +226,20 @@ def main() -> None:
             examined += 1
             for t in sup_ranked.get(s, [])[:5]:
                 if t in gold[s][">"]:
-                    cls["is_a_sup_gold"] += 1
-                    cls["sibling_other_sup"] += 1
+                    cls["sup_gold_child"] += 1
                 elif t in gold[s]["<"] or t in gold[s]["="]:
                     cls["wrong_dir_sub_or_eq"] += 1
                 else:
                     cls["foreign"] += 1
-        d["H3_what_instead"] = {"sources_with_miss": examined, "top5_slot_classification": cls}
-        tot5 = max(1, sum(cls.values()))
-        print(f"[H3] sources with >=1 '>' miss={examined}; top-5 occupants: "
-              f"sup_gold={cls['is_a_sup_gold']} ({cls['is_a_sup_gold']/tot5*100:.0f}%) "
-              f"wrong_dir(<,=)={cls['wrong_dir_sub_or_eq']} ({cls['wrong_dir_sub_or_eq']/tot5*100:.0f}%) "
-              f"foreign={cls['foreign']} ({cls['foreign']/tot5*100:.0f}%)")
+        slots = sum(cls.values())
+        den = max(1, slots)
+        d["H3_what_instead"] = {"sources_with_miss": examined, "top5_slots": slots,
+                                "counts": cls, "pct": {k: v / den for k, v in cls.items()}}
+        print(f"[H3] sources with >=1 '>' miss={examined}; top-5 slots={slots} "
+              f"(foreign = no gold relation to S): "
+              f"sup_gold_child={cls['sup_gold_child']} ({cls['sup_gold_child']/den*100:.0f}%) "
+              f"wrong_dir(<,=)={cls['wrong_dir_sub_or_eq']} ({cls['wrong_dir_sub_or_eq']/den*100:.0f}%) "
+              f"foreign={cls['foreign']} ({cls['foreign']/den*100:.0f}%)")
 
         # ── H4 path_context vs turtle on '>' ──────────────────────────────
         sup_ranked_c = _ranked_by_source(contrast, ">")
@@ -241,6 +264,35 @@ def main() -> None:
         }
         print(f"[H4] '>' R@20  path_context={rec_focus/n_sup_total:.4f}  turtle={rec_contrast/n_sup_total:.4f}"
               f"  (per-source: pc worse={worse} better={better} equal={equal})")
+
+        # ── Foreign inspection: concrete missed-source examples with labels ──
+        if args.examples > 0:
+            src_labels = _load_labels(str(src_path))
+            tgt_labels = _load_labels(str(tgt_path))
+            print(f"   --- examples (foreign = NO gold relation to S; check: real error vs gold gap) ---")
+            shown = 0
+            for s in sources_with_sup:
+                order = sup_ranked.get(s, [])
+                pos = {t: i + 1 for i, t in enumerate(order)}
+                missed = gold[s][">"] - set(order[:20])
+                if not missed:
+                    continue
+                shown += 1
+                md = []
+                for t in list(missed)[:3]:
+                    r = pos.get(t)
+                    md.append(f"{_lab(t, tgt_labels)} [{'rank '+str(r) if r else '>50/absent'}]")
+                top5 = []
+                for t in order[:5]:
+                    cat = ("sup_gold" if t in gold[s][">"]
+                           else "wrong_dir" if (t in gold[s]["<"] or t in gold[s]["="])
+                           else "foreign")
+                    top5.append(f"{_lab(t, tgt_labels)}[{cat}]")
+                print(f"   • S={_lab(s, src_labels)}  (children={len(gold[s]['>'])}, missed={len(missed)})")
+                print(f"       missed: {'; '.join(md)}")
+                print(f"       '>' top-5: {' | '.join(top5)}")
+                if shown >= args.examples:
+                    break
 
         report["datasets"][dataset] = d
 
