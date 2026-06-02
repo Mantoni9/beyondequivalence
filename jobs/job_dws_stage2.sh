@@ -61,7 +61,16 @@ VLLM_PID=$!
 trap 'echo "[vLLM] Shutting down server (PID ${VLLM_PID})"; kill ${VLLM_PID} 2>/dev/null; wait ${VLLM_PID} 2>/dev/null || true' EXIT
 
 # ── Wait for server ready ──────────────────────────────────────────────────────
-MAX_WAIT=600
+# Job 255354 (2026-06-02, dws-17) was killed by our own timeout at 600s while
+# the vLLM EngineCore was still alive but in a silent post-KV-cache
+# initialisation step (shm_broadcast warnings every 60s, no /health response).
+# Observed: 10+ min of "Still waiting" with the engine not yet serving. Cold
+# disk cache on a previously-unused compute node is the likely cause; the
+# 70B AWQ shard load on dws-17 took 39 s (vs the historical ~18 s on dws-09)
+# and the post-load init never reached /health within our window. Raising
+# MAX_WAIT to 1800 (30 min) is the conservative fix; the cost on a fast node
+# (where vLLM is ready in <10 min) is zero because we still poll /health.
+MAX_WAIT=1800
 WAITED=0
 echo "[vLLM] Waiting for server to be ready (max ${MAX_WAIT}s)..."
 until curl -sf "http://localhost:${PORT}/health" > /dev/null 2>&1; do
