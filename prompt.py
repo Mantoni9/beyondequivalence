@@ -113,6 +113,15 @@ RERANKING_PROMPTS = {
     # The prompt forces a "Relation: <label>" line as the LAST line so reasoners
     # (gpt-oss, Gemma-4-thinking) can emit chain-of-thought beforehand and the
     # parser still anchors on the final line. Labels match RELATION_LABEL_SYNONYMS.
+    #
+    # DEPRECATED (kept for reproducibility of job 255391, 2026-06-02).
+    # The "Think step by step if needed" clause was too permissive for
+    # non-reasoners: Llama-3.3-70B-AWQ took it as a CoT cue and produced
+    # ~250-token reasoning that hit max_new_tokens=256 BEFORE emitting the
+    # "Relation: <label>" anchor. 1039/1040 responses lacked the anchor and
+    # fell into the (now-removed) freeform synonym-scan fallback in the
+    # parser, producing a structural >-bias driven by reasoning-order and
+    # truncation, not by the model itself. Use d_subs_v2 instead.
     "d_subs": (
         "You are an expert in ontology matching. Determine the precise"
         " semantic relation between two entities from different ontologies."
@@ -130,6 +139,33 @@ RERANKING_PROMPTS = {
         "\nRelation: <label>"
         "\n\nwhere <label> is one of: subclass, superclass, equivalent, partof, none."
     ),
+    # ANSWER-FIRST variant. The anchor is the first line of the response, any
+    # justification follows. This decouples the answer from any reasoning the
+    # model wants to produce: even if the model continues with 1000 tokens of
+    # justification afterwards, the parser already has the label and the rest
+    # is cheap (or could be cut by lowering max_new_tokens). Fair across
+    # reasoner + non-reasoner models — the structural difference between
+    # "model thought long" and "model thought short" doesn't break the parse.
+    "d_subs_v2": (
+        "You are an expert in ontology matching. Determine the precise"
+        " semantic relation between two entities from different ontologies."
+        "\n\nSource entity: <{source_url}>"
+        "\nSource knowledge graph:\n{source_kg}"
+        "\n\nTarget entity: <{target_url}>"
+        "\nTarget knowledge graph:\n{target_kg}"
+        "\n\nValid labels:"
+        "\n  subclass    source is a more specific kind of target (source ⊑ target)"
+        "\n  superclass  source is a more general kind of target (source ⊒ target)"
+        "\n  equivalent  source and target denote the same concept"
+        "\n  partof      source is a part of target (mereological, not taxonomic)"
+        "\n  none        none of the above applies"
+        "\n\nYour response MUST start with EXACTLY this line and nothing else"
+        " on it:"
+        "\nRelation: <label>"
+        "\n\nReplace <label> with one of: subclass, superclass, equivalent,"
+        " partof, none. A short justification MAY follow on the next lines,"
+        " but the very first line of your response must be the answer."
+    ),
 }
 
 
@@ -137,8 +173,15 @@ RERANKING_PROMPTS = {
 
 # Canonical multi-class labels emitted by parse_relation_label. The reranker
 # maps these to ASCII relation chars via RELATION_LABEL_TO_RELATION.
+#
+# "parse_fail" is reserved for: the response had no "Relation: <label>" anchor
+# at all. It is distinct from an explicit "Relation: none" reply (which means
+# "the model chose none"). The reranker drops both, but the runner reports
+# the parse_fail rate separately so a high rate immediately surfaces a
+# format-compliance regression instead of being silently lumped into 'none'
+# via a synonym-scan heuristic.
 RELATION_LABEL_CANONICAL: tuple[str, ...] = (
-    "subclass", "superclass", "equivalent", "partof", "none",
+    "subclass", "superclass", "equivalent", "partof", "none", "parse_fail",
 )
 
 # Canonical label -> tuple of accepted synonyms (all lowercase, no punctuation).
@@ -162,14 +205,16 @@ RELATION_LABEL_SYNONYMS: dict[str, tuple[str, ...]] = {
 # Stage-2 canonical label -> output Correspondence.relation string.
 # 'partof' stays as a literal — evaluation_multiclass folds it into 'none'
 # in the displayed 4x4 confusion matrix (per the data-sparsity rationale
-# in evaluation_recall.py:62-68). 'none' yields the empty string; the
-# reranker uses that as the "drop" sentinel.
+# in evaluation_recall.py:62-68). 'none' and 'parse_fail' yield the empty
+# string; the reranker uses that as the "drop" sentinel and records the
+# distinction in last_run_details so the runner can surface both rates.
 RELATION_LABEL_TO_RELATION: dict[str, str] = {
     "subclass":   "<",
     "superclass": ">",
     "equivalent": "=",
     "partof":     "partof",
     "none":       "",
+    "parse_fail": "",
 }
 
 
@@ -201,19 +246,28 @@ def _canonical_from_token(token: str) -> str | None:
 def parse_relation_label(text: str) -> str:
     """Extract one of RELATION_LABEL_CANONICAL from a model completion.
 
+    Strict parser — anchored matches ONLY. Verified empirically on the
+    2026-06-02 g7-literature smoke (job 255391) that a synonym-scan
+    fallback over the full response produces dangerous false positives:
+    when responses are truncated mid-reasoning (1039 / 1040 calls hit
+    max_new_tokens=256 before emitting the anchor line), the last
+    synonym in the response is purely a function of reasoning-order
+    and truncation-point, not of the model's actual decision. That
+    surfaced as a phantom >-bias in the smoke. We removed the fallback.
+
     Strategy (in order):
-      1. Find the LAST "Relation: <label>" / "Relation - <label>" line
+      1. Find the LAST "Relation: <label>" / "Relation - <label>" match
          (case-insensitive), strip wrapping punctuation, match against
-         RELATION_LABEL_SYNONYMS.
-      2. Freeform fallback: scan the whole text for the last occurrence of
-         any synonym (whole-word, case-insensitive). Useful for reasoners
-         that emit the answer inside a sentence rather than a labelled line.
-      3. Parse failure -> "none". Per the design note in the task: a parse
-         failure is not "model is uncertain" — it is a malformed response,
-         which we treat as a "none" classification (the candidate is dropped).
+         RELATION_LABEL_SYNONYMS. If the captured token (or its first
+         whitespace-delimited sub-token) maps to a canonical label, return it.
+      2. No match -> return "parse_fail". This is DISTINCT from the model
+         emitting "Relation: none" — the latter returns "none". The
+         reranker drops both, but reports the rates separately in
+         last_run_details so a format-compliance regression is visible
+         in metrics.json rather than silently lumped into "none".
     """
     if not text:
-        return "none"
+        return "parse_fail"
 
     # 1. Anchored "Relation: <label>" matches — take the last one.
     matches = list(_RELATION_LINE_RE.finditer(text))
@@ -231,28 +285,12 @@ def parse_relation_label(text: str) -> str:
         canonical = _canonical_from_token(first_token)
         if canonical is not None:
             return canonical
+        # Anchor present but captured text didn't resolve to a known label
+        # (e.g. "Relation: maybe?"): treat as parse_fail rather than guessing.
+        return "parse_fail"
 
-    # 2. Freeform fallback: last synonym occurrence anywhere in the text.
-    lowered = text.lower()
-    best_pos = -1
-    best_label = None
-    for canonical, synonyms in RELATION_LABEL_SYNONYMS.items():
-        for syn in synonyms:
-            # Whole-word match: require a non-letter boundary on each side.
-            # Use a finditer to grab the latest occurrence.
-            pat = _re.compile(
-                r"(?:^|[^a-z])" + _re.escape(syn) + r"(?=[^a-z]|$)",
-                _re.IGNORECASE,
-            )
-            for m in pat.finditer(lowered):
-                if m.start() > best_pos:
-                    best_pos = m.start()
-                    best_label = canonical
-    if best_label is not None:
-        return best_label
-
-    # 3. Parse failure -> none (candidate is dropped by the reranker).
-    return "none"
+    # 2. No anchor at all -> parse_fail. No synonym-scan fallback by design.
+    return "parse_fail"
 
 
 #### SYSTEM PROMPTS ####
