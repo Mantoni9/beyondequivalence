@@ -1,15 +1,26 @@
 """
 run_stage2_experiment.py — Stage-2 multi-class relation classifier smoke runner.
 
-Pipeline:
-    Stage-1 candidate gen  (MatcherAsymmetricRetrieval / MatcherEmbeddingRetrieval)
-      → dedup to unique (s, t)
-      → Stage-2 reranker    (MatcherSubsumptionReranker on vLLM-served LLM)
-      → metrics            (evaluation_multiclass: 4x4 CM + per-rel P/R/F1)
+Two candidate-gen modes:
+  - --stage1-predictions <path.tsv>  (default for the smoke):
+      Load a pre-computed Stage-1 predictions.tsv into an Alignment.
+      Skips the embedder entirely — no GPU conflict with the vLLM server.
+      This is the path that fixes the 2026-06-02 OOM (job 255320): with
+      vLLM holding ~44/47 GB on GPU 0 via tp=2 + gpu_memory_utilization=0.92,
+      the Qwen3-8B embedder cannot also load on cuda:0. Decoupling
+      retrieval and reranking by reading a persisted TSV solves it
+      structurally instead of via memory-knob tuning.
+  - --stage1-{model,variant,template-id,description,top-k}:
+      In-process candidate gen via MatcherAsymmetricRetrieval /
+      MatcherEmbeddingRetrieval. Only safe when the LLM backend lives
+      out-of-process (vLLM on different GPUs / different node) or when
+      no LLM runs at all. Kept available for local dev / future use.
 
-The Stage-1 config (encoder, variant, template, description) is a PARAMETER,
-not hardcoded. Pass --stage1-model / --stage1-variant / --stage1-template-id /
---stage1-description; the smoke job script wires sensible defaults.
+Pipeline:
+    candidates Alignment
+      → dedup to unique (s, t)        (inside MatcherSubsumptionReranker)
+      → Stage-2 reranker              (MatcherSubsumptionReranker on vLLM-served LLM)
+      → metrics                       (evaluation_multiclass: 4x4 CM + per-rel P/R/F1)
 
 LLM backend: LLMOpenAI when VLLM_BASE_URL is set (cluster default), else
 LLMHuggingFace in-process (local fallback).
@@ -18,15 +29,21 @@ Output: metrics.json, confusion_matrix.tsv, predictions.tsv,
 stage1_candidates.tsv, config.json in
 ``results/stage2_<timestamp>_<run-name>/`` (or --output-dir override).
 
-Usage:
+Usage (TSV-loader mode — default for the smoke):
+    python run_stage2_experiment.py \\
+        --dataset g7-literature \\
+        --stage1-predictions results/stage1_frozen/g7-literature_qwen3-noLoRA_pathctx_T2_top20.tsv \\
+        --stage1-top-k 20 \\
+        --llm-model "${MODEL_PATH}"
+
+Usage (in-process candidate gen — local dev only, OOMs if vLLM on same GPU):
     python run_stage2_experiment.py \\
         --dataset g7-literature \\
         --stage1-model qwen3-embedding-8b \\
         --stage1-variant asymmetric \\
         --stage1-template-id T2 \\
         --stage1-description description_one_gen \\
-        --llm-model "${MODEL_PATH}" \\
-        --threshold 0.0
+        --llm-model "${MODEL_PATH}"
 
 This is a single-run smoke; no W&B, no sweep machinery. Success = a
 metrics.json with a 4x4 confusion matrix on one dataset.
@@ -129,6 +146,163 @@ def _write_tsv(path: Path, header: list[str], rows: list[list]) -> None:
             f.write("\t".join(_safe_cell(c) for c in row) + "\n")
 
 
+# Schema aliases for Stage-1 predictions.tsv. Required logical columns are
+# source / target / relation / score. Labels are optional (older runs omit
+# them — they're recovered from kg_*_labels at runtime).
+_TSV_COLUMN_ALIASES: dict[str, tuple[str, ...]] = {
+    "source":   ("source_uri", "source"),
+    "target":   ("target_uri", "target"),
+    "relation": ("predicted_relation", "relation", "stage1_relation"),
+    "score":    ("score", "stage1_score", "confidence"),
+}
+
+
+def _load_stage1_predictions_tsv(
+    path: Path, top_k_per_direction: int,
+) -> tuple["Alignment", dict]:
+    """Load a Stage-1 predictions.tsv into an Alignment.
+
+    Schema is header-driven (case-insensitive). Accepted column names:
+      - source:   source_uri | source
+      - target:   target_uri | target
+      - relation: predicted_relation | relation | stage1_relation
+      - score:    score | stage1_score | confidence
+
+    The relation is normalised via ``evaluation_recall._normalize_relation``
+    so legacy Unicode variants (≤, ⊑, ⊒, ≥) collapse to ASCII {=, <, >}.
+    Rows whose relation does not normalise to one of those are dropped and
+    counted (they wouldn't reach a {=, ⊏, ⊐} reranker decision anyway).
+
+    Per (source, normalised_relation), entries are sorted by score DESC and
+    capped to ``top_k_per_direction``. For an asymmetric Stage-1 run that
+    emits '<' and '>', each source therefore keeps its top-K broader hits
+    AND its top-K narrower hits — i.e. up to 2*K rows per source. This
+    matches the cap used by MatcherAsymmetricRetrieval at retrieval time.
+
+    Returns
+    -------
+    (alignment, stats) where ``stats`` records pre/post-cap counts plus
+    any dropped-relation breakdown.
+    """
+    import csv
+    from Alignment import Alignment
+    from Correspondence import Correspondence
+    from evaluation_recall import _normalize_relation
+
+    if not path.is_file():
+        raise FileNotFoundError(f"Stage-1 predictions TSV not found: {path}")
+
+    raw_rows: list[tuple[str, str, str, float]] = []
+    with path.open("r", encoding="utf-8", newline="") as f:
+        reader = csv.reader(f, delimiter="\t")
+        try:
+            header = next(reader)
+        except StopIteration:
+            raise ValueError(f"TSV {path} is empty")
+        header_lc = [h.strip().lower() for h in header]
+
+        col_idx: dict[str, int] = {}
+        for logical, aliases in _TSV_COLUMN_ALIASES.items():
+            for alias in aliases:
+                if alias in header_lc:
+                    col_idx[logical] = header_lc.index(alias)
+                    break
+        missing = [k for k in _TSV_COLUMN_ALIASES if k not in col_idx]
+        if missing:
+            raise ValueError(
+                f"TSV {path}: header missing columns {missing}. Header={header}. "
+                f"Accepted aliases: {_TSV_COLUMN_ALIASES}"
+            )
+
+        for row in reader:
+            if not row or all(not c.strip() for c in row):
+                continue
+            try:
+                src = row[col_idx["source"]].strip()
+                tgt = row[col_idx["target"]].strip()
+                rel = row[col_idx["relation"]].strip()
+                sc = float(row[col_idx["score"]])
+            except (IndexError, ValueError) as e:
+                raise ValueError(f"TSV {path}: malformed row {row!r}: {e}")
+            raw_rows.append((src, tgt, rel, sc))
+
+    # Normalise relation; track drops.
+    normalised: list[tuple[str, str, str, float]] = []
+    dropped_rel: dict[str, int] = {}
+    for src, tgt, rel, sc in raw_rows:
+        norm = _normalize_relation(rel)
+        if norm is None:
+            dropped_rel[rel] = dropped_rel.get(rel, 0) + 1
+            continue
+        normalised.append((src, tgt, norm, sc))
+
+    # Cap top-K per (source, normalised_relation), score desc; deterministic
+    # tie-break by target then full key.
+    grouped: dict[tuple[str, str], list[tuple[str, float]]] = {}
+    for src, tgt, rel, sc in normalised:
+        grouped.setdefault((src, rel), []).append((tgt, sc))
+    capped: list[tuple[str, str, str, float]] = []
+    for (src, rel), entries in grouped.items():
+        entries.sort(key=lambda e: (-e[1], e[0]))
+        for tgt, sc in entries[:top_k_per_direction]:
+            capped.append((src, tgt, rel, sc))
+
+    alignment = Alignment()
+    for src, tgt, rel, sc in capped:
+        alignment.add(Correspondence(src, tgt, rel, sc))
+
+    stats = {
+        "tsv_path":               str(path),
+        "n_rows_raw":             len(raw_rows),
+        "n_rows_after_normalize": len(normalised),
+        "n_rows_after_cap":       len(capped),
+        "top_k_per_direction":    top_k_per_direction,
+        "dropped_relation_breakdown": dropped_rel,
+    }
+    return alignment, stats
+
+
+def _log_candidate_stats(alignment: "Alignment", logger: logging.Logger) -> dict:
+    """Log per-(s,t) and per-direction stats. Useful pre-reranker sanity:
+    direction_accuracy is only statistically meaningful when both '<' and '>'
+    populations are non-trivial.
+    """
+    by_pair: dict[tuple[str, str], set[str]] = {}
+    rel_counts: dict[str, int] = {}
+    for cor in alignment:
+        by_pair.setdefault((cor.source, cor.target), set()).add(cor.relation)
+        rel_counts[cor.relation] = rel_counts.get(cor.relation, 0) + 1
+
+    only_lt = sum(1 for rels in by_pair.values() if rels == {"<"})
+    only_gt = sum(1 for rels in by_pair.values() if rels == {">"})
+    only_eq = sum(1 for rels in by_pair.values() if rels == {"="})
+    both_lt_gt = sum(1 for rels in by_pair.values() if rels >= {"<", ">"})
+    other_combinations = (
+        len(by_pair) - only_lt - only_gt - only_eq - both_lt_gt
+    )
+
+    sources = {src for src, _ in by_pair.keys()}
+    stats = {
+        "n_correspondences":   len(alignment),
+        "n_unique_pairs":      len(by_pair),
+        "n_unique_sources":    len(sources),
+        "per_relation_rows":   rel_counts,
+        "pairs_only_<":        only_lt,
+        "pairs_only_>":        only_gt,
+        "pairs_only_=":        only_eq,
+        "pairs_both_<_>":      both_lt_gt,
+        "pairs_other_combos":  other_combinations,
+    }
+    logger.info("Candidate stats (pre-reranker):")
+    logger.info("  rows=%d  unique_pairs=%d  unique_sources=%d  per_relation=%s",
+                stats["n_correspondences"], stats["n_unique_pairs"],
+                stats["n_unique_sources"], stats["per_relation_rows"])
+    logger.info("  pair direction breakdown: only_<=%d  only_>=%d  only_==%d  "
+                "both_<>=%d  other=%d",
+                only_lt, only_gt, only_eq, both_lt_gt, other_combinations)
+    return stats
+
+
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Stage-2 multi-class relation classifier (smoke).")
 
@@ -136,7 +310,17 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--dataset", default="g7-literature",
                    help="BeyondEquivalence sub-dataset (see tracks.zenodo_loader).")
 
-    # ── Stage-1 candidate-gen config (parametrised, NOT hardcoded). ──────────
+    # ── TSV-loader mode (preferred — decouples retrieval from reranking). ────
+    p.add_argument("--stage1-predictions", default=None,
+                   help=("Path to a pre-computed Stage-1 predictions.tsv. "
+                         "When set, the in-process candidate gen below is "
+                         "SKIPPED — no embedder is loaded, no GPU conflict "
+                         "with vLLM. Header-driven schema (source_uri, "
+                         "target_uri, predicted_relation|relation, score; "
+                         "labels optional)."))
+
+    # ── Stage-1 in-process candidate-gen config (only used when
+    # ── --stage1-predictions is NOT set). Parametrised, NOT hardcoded. ───────
     p.add_argument("--stage1-model", default="qwen3-embedding-8b",
                    help=("Stage-1 encoder. Alias or HF id / local path. "
                          "Aliases: " + ", ".join(MODEL_ALIASES) + ". "
@@ -153,7 +337,11 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--stage1-description", default="description_one_gen",
                    help="RDFGraphWrapper description method used by Stage-1.")
     p.add_argument("--stage1-top-k", type=int, default=20,
-                   help="Top-K candidates per source from Stage-1.")
+                   help=("Top-K candidates per source. In in-process mode "
+                         "this is the matcher's top_k; in TSV-loader mode "
+                         "this caps top-K per (source, normalised_relation) "
+                         "pair, so an asymmetric TSV with rows in '<' and "
+                         "'>' keeps up to 2*K rows per source."))
 
     # ── Stage-2 reranker config. ──────────────────────────────────────────────
     p.add_argument("--llm-model", default=None,
@@ -297,21 +485,67 @@ def main() -> None:
         logger.info("SMOKE-TEST: restricted source to %d classes: %s",
                     len(kept), kept)
 
-    # ── Stage 1: candidate gen. ───────────────────────────────────────────────
-    stage1 = _build_stage1_matcher(args, logger)
-    t0 = time.perf_counter()
-    candidates = stage1.match(kg_source, kg_target, Alignment(), parameters={})
-    t_stage1 = time.perf_counter() - t0
-    logger.info("Stage-1 done: %.1fs  alignment_size=%d", t_stage1, len(candidates))
+    # ── Stage 1: candidate gen (TSV-loader OR in-process). ────────────────────
+    stage1_mode: str
+    stage1_loader_stats: dict = {}
+    if args.stage1_predictions:
+        stage1_mode = "tsv_loader"
+        logger.info("Stage-1 mode: TSV LOADER  path=%s  top_k_per_direction=%d",
+                    args.stage1_predictions, args.stage1_top_k)
+        t0 = time.perf_counter()
+        candidates, stage1_loader_stats = _load_stage1_predictions_tsv(
+            Path(args.stage1_predictions), top_k_per_direction=args.stage1_top_k,
+        )
+        t_stage1 = time.perf_counter() - t0
+        logger.info(
+            "Loaded TSV: raw=%d  after_normalize=%d  after_cap=%d  dropped_rels=%s",
+            stage1_loader_stats["n_rows_raw"],
+            stage1_loader_stats["n_rows_after_normalize"],
+            stage1_loader_stats["n_rows_after_cap"],
+            stage1_loader_stats["dropped_relation_breakdown"],
+        )
+        if args.smoke_test:
+            # In TSV mode, smoke-restriction means: drop candidates whose
+            # source is no longer in the (monkey-patched) get_classes set.
+            keep_sources = {str(c) for c in kg_source.get_classes()}
+            filtered = Alignment()
+            for cor in candidates:
+                if cor.source in keep_sources:
+                    filtered.add(cor)
+            n_before = len(candidates)
+            candidates = filtered
+            logger.info(
+                "SMOKE-TEST filter applied to TSV candidates: %d -> %d",
+                n_before, len(candidates),
+            )
+    else:
+        stage1_mode = "in_process"
+        logger.warning(
+            "Stage-1 mode: IN-PROCESS retrieval. This path OOMs on a single "
+            "GPU shared with the vLLM server (verified on job 255320, "
+            "2026-06-02). Prefer --stage1-predictions when vLLM is up on the "
+            "same node."
+        )
+        stage1 = _build_stage1_matcher(args, logger)
+        t0 = time.perf_counter()
+        candidates = stage1.match(kg_source, kg_target, Alignment(), parameters={})
+        t_stage1 = time.perf_counter() - t0
+        logger.info("Stage-1 done: %.1fs  alignment_size=%d", t_stage1, len(candidates))
 
-    # Free Stage-1 embedder before loading the LLM (mostly relevant in the HF
-    # fallback path where both live in-process). vLLM is out-of-process; safe.
-    if hasattr(stage1, "_embedder") and stage1._embedder is not None:
-        stage1._embedder = None
-    import gc
-    gc.collect()
-    if torch.cuda.is_available():
-        torch.cuda.empty_cache()
+        # Free Stage-1 embedder before loading the LLM (mostly relevant in the
+        # HF fallback path where both live in-process). vLLM is out-of-process;
+        # safe.
+        if hasattr(stage1, "_embedder") and stage1._embedder is not None:
+            stage1._embedder = None
+        import gc
+        gc.collect()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+
+    # Pre-reranker candidate stats — separate broader '<' / narrower '>'
+    # populations. Direction_accuracy downstream is only statistically
+    # meaningful when both populations are non-trivial.
+    candidate_stats = _log_candidate_stats(candidates, logger)
 
     # ── Stage 2: reranker. ────────────────────────────────────────────────────
     from MatcherSubsumptionReranker import MatcherSubsumptionReranker
@@ -347,12 +581,16 @@ def main() -> None:
         "run_name":   run_name,
         "dataset":    args.dataset,
         "stage1": {
-            "model":          args.stage1_model,
-            "model_resolved": _resolve_model(args.stage1_model),
-            "variant":        args.stage1_variant,
-            "template_id":    args.stage1_template_id,
-            "description":    args.stage1_description,
-            "top_k":          args.stage1_top_k,
+            "mode":               stage1_mode,
+            "predictions_tsv":    args.stage1_predictions,
+            "model":              args.stage1_model,
+            "model_resolved":     _resolve_model(args.stage1_model),
+            "variant":            args.stage1_variant,
+            "template_id":        args.stage1_template_id,
+            "description":        args.stage1_description,
+            "top_k":              args.stage1_top_k,
+            "loader_stats":       stage1_loader_stats,
+            "candidate_stats":    candidate_stats,
         },
         "stage2": {
             "llm_model":      args.llm_model or os.getenv("MODEL_PATH"),
