@@ -104,6 +104,10 @@ DATASET="${DATASET:-g7-literature}"
 THRESHOLD="${THRESHOLD:-0.0}"
 BATCH_SIZE="${BATCH_SIZE:-8}"
 MAX_NEW_TOKENS="${MAX_NEW_TOKENS:-256}"
+# Parallel calls to vLLM. 16 is safe for Llama-3.3-70B-AWQ on 2x A40 with
+# --enforce-eager (vLLM continuous batching handles the concurrency).
+# Sequential (=1) costs ~60 s/call -> 17 h on g7; 16 brings that to ~1 h.
+LLM_MAX_CONCURRENCY="${LLM_MAX_CONCURRENCY:-16}"
 
 python run_stage2_experiment.py \
     --dataset "${DATASET}" \
@@ -114,4 +118,5 @@ python run_stage2_experiment.py \
     --llm-model "${MODEL_PATH}" \
     --threshold "${THRESHOLD}" \
     --batch-size "${BATCH_SIZE}" \
-    --max-new-tokens "${MAX_NEW_TOKENS}"
+    --max-new-tokens "${MAX_NEW_TOKENS}" \
+    --llm-max-concurrency "${LLM_MAX_CONCURRENCY}"

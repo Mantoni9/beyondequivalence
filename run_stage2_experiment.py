@@ -360,6 +360,13 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--threshold", type=float, default=0.0,
                    help=("Optional confidence cutoff applied AFTER the 'none' "
                          "filter. 0.0 = keep all non-none predictions."))
+    p.add_argument("--llm-max-concurrency", type=int, default=16,
+                   help=("Concurrent in-flight requests to the vLLM endpoint "
+                         "(LLMOpenAI ThreadPoolExecutor workers). 1 = serial "
+                         "(legacy behaviour). 16 is a safe default for "
+                         "Llama-3.3-70B-AWQ on 2x A40; vLLM's continuous "
+                         "batching handles the concurrency natively. Only "
+                         "consumed when the vLLM/OpenAI backend is active."))
 
     # ── I/O. ──────────────────────────────────────────────────────────────────
     p.add_argument("--output-dir", default=None,
@@ -430,8 +437,16 @@ def _build_llm(args, logger):
     vllm_url = os.getenv("VLLM_BASE_URL")
     if vllm_url:
         from LLMOpenAI import LLMOpenAI
-        logger.info("Stage-2 LLM backend: LLMOpenAI -> vLLM at %s  model=%s", vllm_url, model)
-        return LLMOpenAI(model_name=model, base_url=vllm_url, api_key="EMPTY")
+        logger.info(
+            "Stage-2 LLM backend: LLMOpenAI -> vLLM at %s  model=%s  max_concurrency=%d",
+            vllm_url, model, args.llm_max_concurrency,
+        )
+        return LLMOpenAI(
+            model_name=model,
+            base_url=vllm_url,
+            api_key="EMPTY",
+            max_concurrency=args.llm_max_concurrency,
+        )
     from LLMHuggingFace import LLMHuggingFace
     logger.info("Stage-2 LLM backend: LLMHuggingFace (in-process)  model=%s", model)
     return LLMHuggingFace(model)
@@ -593,15 +608,16 @@ def main() -> None:
             "candidate_stats":    candidate_stats,
         },
         "stage2": {
-            "llm_model":      args.llm_model or os.getenv("MODEL_PATH"),
-            "vllm_base_url":  os.getenv("VLLM_BASE_URL"),
-            "backend":        "vllm" if os.getenv("VLLM_BASE_URL") else "huggingface",
-            "prompt_id":      args.prompt_id,
-            "description":    args.description,
-            "kg_format":      args.kg_format,
-            "batch_size":     args.batch_size,
-            "max_new_tokens": args.max_new_tokens,
-            "threshold":      args.threshold,
+            "llm_model":           args.llm_model or os.getenv("MODEL_PATH"),
+            "vllm_base_url":       os.getenv("VLLM_BASE_URL"),
+            "backend":             "vllm" if os.getenv("VLLM_BASE_URL") else "huggingface",
+            "prompt_id":           args.prompt_id,
+            "description":         args.description,
+            "kg_format":           args.kg_format,
+            "batch_size":          args.batch_size,
+            "max_new_tokens":      args.max_new_tokens,
+            "threshold":           args.threshold,
+            "llm_max_concurrency": args.llm_max_concurrency,
         },
         "smoke_test":   args.smoke_test,
         "seed":         args.seed,
