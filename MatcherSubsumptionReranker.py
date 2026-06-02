@@ -192,9 +192,9 @@ class MatcherSubsumptionReranker(MatcherBase):
 
         output = Alignment()
         self.last_run_details = []
-        n_kept = n_none = n_below_threshold = n_partof = 0
+        n_kept = n_none = n_parse_fail = n_below_threshold = n_partof = 0
         per_class_counts = {"subclass": 0, "superclass": 0, "equivalent": 0,
-                            "partof": 0, "none": 0}
+                            "partof": 0, "none": 0, "parse_fail": 0}
 
         for (src, tgt, ev), res in zip(candidates, results):
             text = res.get("text", "") or ""
@@ -210,7 +210,14 @@ class MatcherSubsumptionReranker(MatcherBase):
 
             kept = False
             drop_reason = ""
-            if canonical == "none":
+            if canonical == "parse_fail":
+                # No "Relation: <label>" anchor found. Distinct from an explicit
+                # "Relation: none" reply — both drop, but we track separately so
+                # a high parse_fail rate surfaces a format-compliance regression
+                # directly instead of getting silently lumped under 'none'.
+                n_parse_fail += 1
+                drop_reason = "parse_fail"
+            elif canonical == "none":
                 n_none += 1
                 drop_reason = "none"
             elif confidence < self.threshold:
@@ -242,10 +249,21 @@ class MatcherSubsumptionReranker(MatcherBase):
             })
 
         logger.info(
-            "MatcherSubsumptionReranker: kept=%d  none=%d  below_threshold=%d  "
-            "partof_kept=%d  (per-class %s)",
-            n_kept, n_none, n_below_threshold, n_partof, per_class_counts,
+            "MatcherSubsumptionReranker: kept=%d  none=%d  parse_fail=%d  "
+            "below_threshold=%d  partof_kept=%d  (per-class %s)",
+            n_kept, n_none, n_parse_fail, n_below_threshold, n_partof,
+            per_class_counts,
         )
+        if n_parse_fail > 0:
+            pct = 100 * n_parse_fail / len(candidates)
+            level = logger.warning if pct > 5.0 else logger.info
+            level(
+                "MatcherSubsumptionReranker: parse_fail rate = %d/%d (%.1f%%). "
+                "High values indicate the LLM is not emitting the required "
+                "'Relation: <label>' anchor — check max_new_tokens, prompt "
+                "format compliance, and whether truncation is occurring.",
+                n_parse_fail, len(candidates), pct,
+            )
         return output
 
     def __str__(self) -> str:

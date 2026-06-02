@@ -349,8 +349,12 @@ def parse_args() -> argparse.Namespace:
                          "When VLLM_BASE_URL is set the value is passed to "
                          "LLMOpenAI as model_name; otherwise LLMHuggingFace "
                          "loads it in-process. Defaults to env MODEL_PATH."))
-    p.add_argument("--prompt-id", default="d_subs",
-                   help="RERANKING_PROMPTS key for the multi-class prompt.")
+    p.add_argument("--prompt-id", default="d_subs_v2",
+                   help=("RERANKING_PROMPTS key for the multi-class prompt. "
+                         "d_subs_v2 (default) is the answer-first variant; "
+                         "d_subs is the original 'think then answer' variant "
+                         "which broke under max_new_tokens=256 on Llama "
+                         "(see job 255391 post-mortem 2026-06-02)."))
     p.add_argument("--description", default=None,
                    help=("RDFGraphWrapper description method used by the Stage-2 "
                          "reranker. Defaults to --stage1-description."))
@@ -636,6 +640,16 @@ def main() -> None:
 
     metrics = report.to_dict()
     metrics["runtime"] = config_dump["runtime"]
+    # Surface per-canonical reranker outcomes (incl. parse_fail rate) at the
+    # top of metrics.json — a >5% parse_fail rate is a load-bearing red flag
+    # for format-compliance regressions and should be the first thing seen.
+    canonical_counts: dict[str, int] = {}
+    for d in reranker.last_run_details:
+        c = d["parsed_canonical"]
+        canonical_counts[c] = canonical_counts.get(c, 0) + 1
+    metrics["reranker_canonical_counts"] = canonical_counts
+    n_total = max(1, sum(canonical_counts.values()))
+    metrics["reranker_parse_fail_rate"] = canonical_counts.get("parse_fail", 0) / n_total
     (output_dir / "metrics.json").write_text(
         json.dumps(metrics, indent=2, ensure_ascii=False)
     )

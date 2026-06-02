@@ -120,6 +120,13 @@ echo "[stage2] top_k_per_direction=${STAGE1_TOP_K}  reranker_description=${STAGE
 DATASET="${DATASET:-g7-literature}"
 THRESHOLD="${THRESHOLD:-0.0}"
 BATCH_SIZE="${BATCH_SIZE:-8}"
+# d_subs_v2 places the "Relation: <label>" anchor on the FIRST line of the
+# response, so even if the model continues reasoning afterwards the parser
+# already has the label. Token budget is therefore mainly for the optional
+# justification, not for waiting until the answer arrives. The previous
+# attempt with d_subs + 256 hit the token cap before the anchor in 99.9%
+# of calls — see job 255391 post-mortem 2026-06-02.
+PROMPT_ID="${PROMPT_ID:-d_subs_v2}"
 MAX_NEW_TOKENS="${MAX_NEW_TOKENS:-256}"
 # Parallel calls to vLLM. 16 is safe for Llama-3.3-70B-AWQ on 2x A40 with
 # --enforce-eager (vLLM continuous batching handles the concurrency).
@@ -133,6 +140,7 @@ python run_stage2_experiment.py \
     --stage1-description "${STAGE1_DESCRIPTION}" \
     --description "${STAGE1_DESCRIPTION}" \
     --llm-model "${MODEL_PATH}" \
+    --prompt-id "${PROMPT_ID}" \
     --threshold "${THRESHOLD}" \
     --batch-size "${BATCH_SIZE}" \
     --max-new-tokens "${MAX_NEW_TOKENS}" \
