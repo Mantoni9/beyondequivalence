@@ -109,7 +109,150 @@ RERANKING_PROMPTS = {
         ' Answer with a JSON object with a single key "match" and a boolean value true or false. Only output the JSON object.'
         '\n\nSource knowledge graph:\n{source_kg}\n\nTarget knowledge graph:\n{target_kg}\nAnswer:'
     ),
+    # Stage-2 multi-class relation classifier. Placeholders identical to "d".
+    # The prompt forces a "Relation: <label>" line as the LAST line so reasoners
+    # (gpt-oss, Gemma-4-thinking) can emit chain-of-thought beforehand and the
+    # parser still anchors on the final line. Labels match RELATION_LABEL_SYNONYMS.
+    "d_subs": (
+        "You are an expert in ontology matching. Determine the precise"
+        " semantic relation between two entities from different ontologies."
+        "\n\nSource entity: <{source_url}>"
+        "\nSource knowledge graph:\n{source_kg}"
+        "\n\nTarget entity: <{target_url}>"
+        "\nTarget knowledge graph:\n{target_kg}"
+        "\n\nChoose exactly one label that describes how the source relates to the target:"
+        "\n- subclass:   source is a more specific kind of target (source ⊑ target)"
+        "\n- superclass: source is a more general kind of target (source ⊒ target)"
+        "\n- equivalent: source and target denote the same concept"
+        "\n- partof:     source is a part of target (mereological, not taxonomic)"
+        "\n- none:       none of the above applies"
+        "\n\nThink step by step if needed, then end your response with EXACTLY this line:"
+        "\nRelation: <label>"
+        "\n\nwhere <label> is one of: subclass, superclass, equivalent, partof, none."
+    ),
 }
+
+
+#### MULTI-CLASS RELATION LABELS (Stage-2 reranker) ####
+
+# Canonical multi-class labels emitted by parse_relation_label. The reranker
+# maps these to ASCII relation chars via RELATION_LABEL_TO_RELATION.
+RELATION_LABEL_CANONICAL: tuple[str, ...] = (
+    "subclass", "superclass", "equivalent", "partof", "none",
+)
+
+# Canonical label -> tuple of accepted synonyms (all lowercase, no punctuation).
+# Synonyms are matched after lowercasing + stripping a small set of trailing
+# punctuation; whitespace inside multi-word synonyms is collapsed.
+RELATION_LABEL_SYNONYMS: dict[str, tuple[str, ...]] = {
+    "subclass":   ("subclass", "sub-class", "sub class", "subclassof",
+                   "narrower", "more specific", "is-a", "isa",
+                   "⊑", "≤"),
+    "superclass": ("superclass", "super-class", "super class", "superclassof",
+                   "broader", "more general", "subsumes",
+                   "⊒", "≥"),
+    "equivalent": ("equivalent", "equivalence", "equal", "same",
+                   "sameas", "same-as", "same as", "=", "≡"),
+    "partof":     ("partof", "part of", "part-of", "part", "meronym",
+                   "part_of"),
+    "none":       ("none", "no relation", "no-relation", "unrelated",
+                   "n/a", "na", "other", "no", "irrelevant"),
+}
+
+# Stage-2 canonical label -> output Correspondence.relation string.
+# 'partof' stays as a literal — evaluation_multiclass folds it into 'none'
+# in the displayed 4x4 confusion matrix (per the data-sparsity rationale
+# in evaluation_recall.py:62-68). 'none' yields the empty string; the
+# reranker uses that as the "drop" sentinel.
+RELATION_LABEL_TO_RELATION: dict[str, str] = {
+    "subclass":   "<",
+    "superclass": ">",
+    "equivalent": "=",
+    "partof":     "partof",
+    "none":       "",
+}
+
+
+import re as _re
+
+# Pre-compiled patterns. The "Relation: <label>" anchor is the primary path;
+# the freeform fallback scans the whole text for any synonym occurrence.
+_RELATION_LINE_RE = _re.compile(r"relation\s*[:\-]\s*([^\n\r]+)", _re.IGNORECASE)
+# Strip wrapping punctuation/brackets/quotes from the captured label.
+_LABEL_STRIP_RE = _re.compile(r"^[\s\*\.\,\;\:\'\"\`\(\)\[\]\{\}<>]+|[\s\*\.\,\;\:\'\"\`\(\)\[\]\{\}<>]+$")
+
+
+def _canonical_from_token(token: str) -> str | None:
+    """Match a normalised token against the synonym table. Returns canonical
+    label or None. Token is expected to be lowercased and punctuation-stripped.
+    """
+    token = " ".join(token.split())  # collapse whitespace
+    if not token:
+        return None
+    for canonical, synonyms in RELATION_LABEL_SYNONYMS.items():
+        for syn in synonyms:
+            if token == syn:
+                return canonical
+    # Substring fallback: handle e.g. "subclass." after strip, or "the
+    # relation is subclass" — only used by the freeform scan below.
+    return None
+
+
+def parse_relation_label(text: str) -> str:
+    """Extract one of RELATION_LABEL_CANONICAL from a model completion.
+
+    Strategy (in order):
+      1. Find the LAST "Relation: <label>" / "Relation - <label>" line
+         (case-insensitive), strip wrapping punctuation, match against
+         RELATION_LABEL_SYNONYMS.
+      2. Freeform fallback: scan the whole text for the last occurrence of
+         any synonym (whole-word, case-insensitive). Useful for reasoners
+         that emit the answer inside a sentence rather than a labelled line.
+      3. Parse failure -> "none". Per the design note in the task: a parse
+         failure is not "model is uncertain" — it is a malformed response,
+         which we treat as a "none" classification (the candidate is dropped).
+    """
+    if not text:
+        return "none"
+
+    # 1. Anchored "Relation: <label>" matches — take the last one.
+    matches = list(_RELATION_LINE_RE.finditer(text))
+    if matches:
+        captured = matches[-1].group(1).strip().lower()
+        captured = _LABEL_STRIP_RE.sub("", captured).strip()
+        # Try direct equality first.
+        canonical = _canonical_from_token(captured)
+        if canonical is not None:
+            return canonical
+        # Then try the first whitespace-delimited token (label might be
+        # followed by an explanation on the same line).
+        first_token = captured.split()[0] if captured else ""
+        first_token = _LABEL_STRIP_RE.sub("", first_token).strip()
+        canonical = _canonical_from_token(first_token)
+        if canonical is not None:
+            return canonical
+
+    # 2. Freeform fallback: last synonym occurrence anywhere in the text.
+    lowered = text.lower()
+    best_pos = -1
+    best_label = None
+    for canonical, synonyms in RELATION_LABEL_SYNONYMS.items():
+        for syn in synonyms:
+            # Whole-word match: require a non-letter boundary on each side.
+            # Use a finditer to grab the latest occurrence.
+            pat = _re.compile(
+                r"(?:^|[^a-z])" + _re.escape(syn) + r"(?=[^a-z]|$)",
+                _re.IGNORECASE,
+            )
+            for m in pat.finditer(lowered):
+                if m.start() > best_pos:
+                    best_pos = m.start()
+                    best_label = canonical
+    if best_label is not None:
+        return best_label
+
+    # 3. Parse failure -> none (candidate is dropped by the reranker).
+    return "none"
 
 
 #### SYSTEM PROMPTS ####
@@ -123,14 +266,29 @@ SYSTEM_PROMPTS = {
 def _build_prompt(prompt_id: str, user_prompts: dict[str, str]) -> Prompt:
     """Build an unformatted Prompt from a prompt_id.
 
-    Everything before the first underscore is the system prompt
-    (looked up in SYSTEM_PROMPTS if it matches a key, used as-is otherwise).
-    Everything after is the user text (looked up in user_prompts if it
-    matches a key, used as-is otherwise).
-    If there is no underscore, there is no system prompt.
+    Resolution order:
+      1. Direct lookup: if the full ``prompt_id`` (lowercased) is a key in
+         ``user_prompts``, use it as the user prompt with no system prompt.
+         This lets registry keys legitimately contain underscores (e.g.
+         the Stage-2 multi-class key ``d_subs``) without colliding with the
+         composite-id convention below.
+      2. Composite ``system_user`` form: everything before the first
+         underscore is the system prompt (looked up in ``SYSTEM_PROMPTS``
+         if it matches a key, used as-is otherwise). Everything after is
+         the user text (looked up in ``user_prompts`` if it matches a key,
+         used as-is otherwise).
+      3. No-underscore form: the id is the user prompt key (or text), no
+         system prompt.
     """
     if prompt_id is None or prompt_id == "":
         raise ValueError("Prompt id cannot be None or empty")
+
+    # 1. Direct registry hit wins — keeps underscore-containing keys usable.
+    direct = user_prompts.get(prompt_id.lower())
+    if direct is not None:
+        prompt = Prompt()
+        prompt.user(direct)
+        return prompt
 
     system_text = None
     user_key = prompt_id
