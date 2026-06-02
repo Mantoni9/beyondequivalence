@@ -286,6 +286,70 @@ class LLMHuggingFace(LLMBase):
         print(f"[get_text_completion] DONE batch in {time.time()-t_batch:.1f}s", flush=True)
         return completions
 
+    def get_text_completion_with_logprobs(
+        self, prompts: List[Prompt], max_new_tokens: int = 256
+    ) -> List[dict]:
+        """Greedy text completion with per-token logprobs.
+
+        Mirrors LLMOpenAI.get_text_completion_with_logprobs. Uses
+        ``model.generate(..., return_dict_in_generate=True, output_scores=True)``
+        and applies log_softmax per step to recover the chosen token's logprob.
+
+        Returns one dict per prompt with keys
+        ``text, token_logprobs, sum_logprob, n_tokens``.
+        """
+        eos_ids, pad_id = self._resolve_eos_ids()
+        out: List[dict] = []
+        for i, prompt in enumerate(prompts):
+            t0 = time.time()
+            try:
+                input_ids, attention_mask = self._apply_template(prompt)
+                n_input = input_ids.shape[1]
+                with torch.no_grad():
+                    gen = self.model.generate(
+                        input_ids,
+                        attention_mask=attention_mask,
+                        max_new_tokens=max_new_tokens,
+                        do_sample=False,
+                        pad_token_id=pad_id,
+                        eos_token_id=eos_ids,
+                        return_dict_in_generate=True,
+                        output_scores=True,
+                    )
+                new_tokens = gen.sequences[0, n_input:]
+                text = self.tokenizer.decode(new_tokens, skip_special_tokens=True)
+
+                # gen.scores is a tuple of LOGITS per generated step (shape (1, vocab_size)).
+                # Apply log_softmax per step and read off the emitted token's logprob.
+                token_logprobs: List[float] = []
+                for step_idx, step_logits in enumerate(gen.scores):
+                    if step_idx >= new_tokens.shape[0]:
+                        break
+                    log_probs = torch.log_softmax(step_logits[0].float(), dim=-1)
+                    tok = int(new_tokens[step_idx].item())
+                    token_logprobs.append(float(log_probs[tok].item()))
+
+                out.append({
+                    "text":           text,
+                    "token_logprobs": token_logprobs,
+                    "sum_logprob":    float(sum(token_logprobs)),
+                    "n_tokens":       len(token_logprobs),
+                })
+                print(
+                    f"[get_text_completion_with_logprobs] [{i+1}/{len(prompts)}] "
+                    f"in {time.time()-t0:.1f}s  n_tokens={len(token_logprobs)}",
+                    flush=True,
+                )
+            except Exception as e:
+                logger.error(
+                    "Error in get_text_completion_with_logprobs: %s\n%s",
+                    e, traceback.format_exc(),
+                )
+                out.append({
+                    "text": "", "token_logprobs": [], "sum_logprob": 0.0, "n_tokens": 0,
+                })
+        return out
+
     def get_confidence_first_token(self, prompts: List[Prompt]) -> List[float]:
         """Return P(yes) / (P(yes) + P(no)) from the next-token logits.
 

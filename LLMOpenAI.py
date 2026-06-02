@@ -131,6 +131,54 @@ class LLMOpenAI(LLMBase):
                 completions.append("")
         return completions
 
+    def get_text_completion_with_logprobs(
+        self, prompts: List[Prompt], max_new_tokens: int = 256
+    ) -> List[Dict[str, Any]]:
+        """Greedy text completion with per-token logprobs.
+
+        Primary extraction path for Stage-2 multi-class relation classification:
+        reasoner models (gpt-oss, Gemma-4-thinking) emit chain-of-thought before
+        the answer, so first-token logit-comparison is structurally unfair.
+        Generation + parse is uniform across reasoner and non-reasoner models.
+
+        Returns one dict per prompt with::
+
+            {
+                "text":           full generated text (str),
+                "token_logprobs": per-token logprob of the chosen token (list[float]),
+                "sum_logprob":    sum of token_logprobs (joint log-prob of the
+                                  greedy completion),
+                "n_tokens":       len(token_logprobs),
+            }
+
+        On error per prompt: text="" and empty / zero numeric fields.
+        """
+        responses = self._chat_completions(
+            prompts, max_tokens=max_new_tokens, temperature=0.0, logprobs=True,
+        )
+        out: List[Dict[str, Any]] = []
+        for response in responses:
+            try:
+                text = response.choices[0].message.content or ""
+                lp_obj = getattr(response.choices[0], "logprobs", None)
+                content = getattr(lp_obj, "content", None) if lp_obj is not None else None
+                if content:
+                    token_logprobs = [float(t.logprob) for t in content if t.logprob is not None]
+                else:
+                    token_logprobs = []
+                out.append({
+                    "text":           text,
+                    "token_logprobs": token_logprobs,
+                    "sum_logprob":    float(sum(token_logprobs)),
+                    "n_tokens":       len(token_logprobs),
+                })
+            except Exception as e:
+                logger.error(f"Error in get_text_completion_with_logprobs: {e}")
+                out.append({
+                    "text": "", "token_logprobs": [], "sum_logprob": 0.0, "n_tokens": 0,
+                })
+        return out
+
     def get_confidence_first_token(self, prompts: List[Prompt]) -> List[float]:
         """Return P(yes) / (P(yes) + P(no)) derived from first-token logprobs."""
         responses = self._chat_completions(
