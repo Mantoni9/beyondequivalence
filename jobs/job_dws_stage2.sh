@@ -1,0 +1,109 @@
+#!/bin/bash
+#SBATCH --job-name=olala_stage2_smoke
+#SBATCH --partition=gpu-vram-48gb
+#SBATCH --gres=gpu:2
+#SBATCH --mem=100G
+#SBATCH --time=06:00:00
+#SBATCH --output=logs/olala_stage2_smoke_%j.out
+#SBATCH --error=logs/olala_stage2_smoke_%j.err
+
+set -euo pipefail
+
+# ── Environment ────────────────────────────────────────────────────────────────
+source "$(conda info --base)/etc/profile.d/conda.sh"
+conda activate melt-olala
+
+# DWS system libstdc++ is too old for vLLM (missing CXXABI_1.3.15).
+# Prepend the conda env lib so vLLM finds the newer libstdc++.
+export LD_LIBRARY_PATH="${CONDA_PREFIX}/lib:${LD_LIBRARY_PATH:-}"
+
+# DWS A6000 nodes: no NVLink P2P between GPUs → disable to avoid NCCL hang.
+export NCCL_P2P_DISABLE=1
+export NCCL_IB_DISABLE=1
+export NCCL_DEBUG=WARN
+
+# vLLM 0.19+ ignores VLLM_USE_V1; V1 engine is the only path. The shm_broadcast
+# deadlock is avoided by --enforce-eager (no CUDA graph capture).
+
+set -a
+source .env.dws
+set +a
+
+# Ensure vLLM is installed (CUDA-only, not in environment.yml)
+python -c "import vllm" 2>/dev/null || {
+    echo "[setup] vllm not found — installing..."
+    python -m pip install vllm --quiet
+}
+
+# ── vLLM server ────────────────────────────────────────────────────────────────
+# Use a job-specific port to avoid collisions on shared nodes.
+PORT=$((8000 + (SLURM_JOB_ID % 1000)))
+export VLLM_BASE_URL="http://localhost:${PORT}/v1"
+
+echo "[vLLM] Starting server on port ${PORT}  model=${MODEL_PATH}"
+echo "[vLLM] Quantization: ${VLLM_QUANTIZATION}  dtype=${VLLM_DTYPE:-float16}  tp=${VLLM_TENSOR_PARALLEL}  max_len=${VLLM_MAX_MODEL_LEN}"
+
+python -m vllm.entrypoints.openai.api_server \
+    --model "${MODEL_PATH}" \
+    --tensor-parallel-size "${VLLM_TENSOR_PARALLEL}" \
+    --quantization "${VLLM_QUANTIZATION}" \
+    --dtype "${VLLM_DTYPE:-float16}" \
+    --max-model-len "${VLLM_MAX_MODEL_LEN}" \
+    --port "${PORT}" \
+    --host 127.0.0.1 \
+    --enforce-eager \
+    --gpu-memory-utilization 0.92 \
+    --no-enable-log-requests \
+    &
+VLLM_PID=$!
+
+# Ensure the server is killed when the job exits (success or error).
+trap 'echo "[vLLM] Shutting down server (PID ${VLLM_PID})"; kill ${VLLM_PID} 2>/dev/null; wait ${VLLM_PID} 2>/dev/null || true' EXIT
+
+# ── Wait for server ready ──────────────────────────────────────────────────────
+MAX_WAIT=600
+WAITED=0
+echo "[vLLM] Waiting for server to be ready (max ${MAX_WAIT}s)..."
+until curl -sf "http://localhost:${PORT}/health" > /dev/null 2>&1; do
+    if [ "${WAITED}" -ge "${MAX_WAIT}" ]; then
+        echo "[vLLM] ERROR: server did not become ready within ${MAX_WAIT}s" >&2
+        exit 1
+    fi
+    sleep 10
+    WAITED=$((WAITED + 10))
+    echo "[vLLM] Still waiting... ${WAITED}s elapsed"
+done
+echo "[vLLM] Server ready after ${WAITED}s  →  ${VLLM_BASE_URL}"
+
+# ── Stage-1 config (PLATZHALTER) ───────────────────────────────────────────────
+# Antonio: trage hier die am 2026-05-27 eingefrorene Stage-1-Config ein.
+# Interim defaults below match your verbal guess (Qwen3-no-LoRA / path_context / T2).
+# CHANGE THESE BEFORE LAUNCHING if the frozen config differs.
+STAGE1_MODEL="${STAGE1_MODEL:-qwen3-embedding-8b}"
+STAGE1_VARIANT="${STAGE1_VARIANT:-asymmetric}"
+STAGE1_TEMPLATE_ID="${STAGE1_TEMPLATE_ID:-T2}"
+STAGE1_DESCRIPTION="${STAGE1_DESCRIPTION:-description_path_context}"
+STAGE1_TOP_K="${STAGE1_TOP_K:-20}"
+
+echo "[stage2] Stage-1 config:"
+echo "  model=${STAGE1_MODEL}  variant=${STAGE1_VARIANT}  template=${STAGE1_TEMPLATE_ID}"
+echo "  description=${STAGE1_DESCRIPTION}  top_k=${STAGE1_TOP_K}"
+
+# ── Stage-2 smoke ──────────────────────────────────────────────────────────────
+# Single dataset, single LLM. No sweeps. Success = metrics.json with 4x4 CM.
+DATASET="${DATASET:-g7-literature}"
+THRESHOLD="${THRESHOLD:-0.0}"
+BATCH_SIZE="${BATCH_SIZE:-8}"
+MAX_NEW_TOKENS="${MAX_NEW_TOKENS:-256}"
+
+python run_stage2_experiment.py \
+    --dataset "${DATASET}" \
+    --stage1-model "${STAGE1_MODEL}" \
+    --stage1-variant "${STAGE1_VARIANT}" \
+    --stage1-template-id "${STAGE1_TEMPLATE_ID}" \
+    --stage1-description "${STAGE1_DESCRIPTION}" \
+    --stage1-top-k "${STAGE1_TOP_K}" \
+    --llm-model "${MODEL_PATH}" \
+    --threshold "${THRESHOLD}" \
+    --batch-size "${BATCH_SIZE}" \
+    --max-new-tokens "${MAX_NEW_TOKENS}"
