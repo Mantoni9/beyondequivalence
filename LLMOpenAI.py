@@ -1,3 +1,4 @@
+from concurrent.futures import ThreadPoolExecutor
 from typing import Any, Dict, List, Optional, Sequence, Set
 
 from openai import OpenAI
@@ -19,8 +20,30 @@ logger = logging.getLogger(__name__)
 class LLMOpenAI(LLMBase):
     """
     A wrapper around OpenAI API providing utilities for generation
-    and confidence estimation for binary (yes/no) style outputs.
-    Uses synchronous per-request calls.
+    and confidence estimation.
+
+    Concurrency model
+    -----------------
+    Per-request calls are dispatched through ``_chat_completions`` which
+    chooses one of three paths:
+
+      - ``batch_poll_interval`` set         → OpenAI Batch API
+                                              (file upload + poll, 24h window)
+      - ``max_concurrency`` > 1, len > 1    → ThreadPoolExecutor with
+                                              ``max_concurrency`` workers.
+                                              Order is preserved via index
+                                              tagging; per-request failures
+                                              return ``None`` so a single
+                                              bad call doesn't kill the batch.
+      - otherwise                           → sequential synchronous loop
+
+    The thread-pool path exists because vLLM continuous batching schedules
+    concurrent requests far more efficiently than vLLM's queue handling of
+    serial calls. The 2026-06-02 smoke run (job 255327) measured ~60 s per
+    sequential call on Llama-3.3-70B-AWQ + 2× A40 with ``--enforce-eager``
+    (decode at ~4 tok/s × ``max_new_tokens=256``). With ``max_concurrency=16``
+    we expect the equivalent wall time to drop ~10-16× since vLLM has KV
+    cache headroom for that many concurrent sequences.
     """
 
     def __init__(
@@ -29,9 +52,11 @@ class LLMOpenAI(LLMBase):
         api_key: Optional[str] = None,
         base_url: Optional[str] = None,
         batch_poll_interval: Optional[float] = None,
+        max_concurrency: int = 16,
     ):
         self.model_name = model_name
         self.batch_poll_interval = batch_poll_interval
+        self.max_concurrency = max(1, int(max_concurrency))
         self._init_tokenizer()
         self._initialize_positive_negative_tokens()
 
@@ -111,9 +136,50 @@ class LLMOpenAI(LLMBase):
             completions.append(response)
         return completions
 
-    def _chat_completions(self, prompts: List[Prompt], **kwargs) -> List[ChatCompletion]:
+    def _chat_completions_parallel(
+        self, prompts: List[Prompt], **kwargs,
+    ) -> List[Optional[ChatCompletion]]:
+        """ThreadPoolExecutor over ``self.max_concurrency`` workers.
+
+        Input order is preserved in the returned list. A per-call exception
+        is logged and replaced by ``None`` in that slot so the surrounding
+        batch survives one bad request — downstream consumers must handle
+        ``None`` (see ``get_text_completion`` / ``get_text_completion_with_logprobs``).
+
+        ``httpx`` (the OpenAI client's transport) releases the GIL during
+        network I/O, so threads scale linearly for this workload.
+        """
+        n = len(prompts)
+        results: List[Optional[ChatCompletion]] = [None] * n
+
+        def _call(idx_prompt):
+            idx, prompt = idx_prompt
+            try:
+                resp = self.client.chat.completions.create(
+                    model=self.model_name,
+                    messages=prompt.to_messages(),
+                    **kwargs,
+                )
+                return idx, resp
+            except Exception as e:
+                logger.error(
+                    "Parallel chat-completion failed for prompt %d/%d: %s",
+                    idx + 1, n, e,
+                )
+                return idx, None
+
+        with ThreadPoolExecutor(max_workers=self.max_concurrency) as ex:
+            for idx, resp in ex.map(_call, list(enumerate(prompts))):
+                results[idx] = resp
+        return results
+
+    def _chat_completions(
+        self, prompts: List[Prompt], **kwargs,
+    ) -> List[Optional[ChatCompletion]]:
         if self.batch_poll_interval is not None:
             return self._chat_completions_batched(prompts, **kwargs)
+        if self.max_concurrency > 1 and len(prompts) > 1:
+            return self._chat_completions_parallel(prompts, **kwargs)
         return self._chat_completions_synchronous(prompts, **kwargs)
 
     # ------------------------------------------------------------------ #
