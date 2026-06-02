@@ -75,19 +75,28 @@ until curl -sf "http://localhost:${PORT}/health" > /dev/null 2>&1; do
 done
 echo "[vLLM] Server ready after ${WAITED}s  →  ${VLLM_BASE_URL}"
 
-# ── Stage-1 config (PLATZHALTER) ───────────────────────────────────────────────
-# Antonio: trage hier die am 2026-05-27 eingefrorene Stage-1-Config ein.
-# Interim defaults below match your verbal guess (Qwen3-no-LoRA / path_context / T2).
-# CHANGE THESE BEFORE LAUNCHING if the frozen config differs.
-STAGE1_MODEL="${STAGE1_MODEL:-qwen3-embedding-8b}"
-STAGE1_VARIANT="${STAGE1_VARIANT:-asymmetric}"
-STAGE1_TEMPLATE_ID="${STAGE1_TEMPLATE_ID:-T2}"
-STAGE1_DESCRIPTION="${STAGE1_DESCRIPTION:-description_path_context}"
+# ── Stage-1 predictions TSV ────────────────────────────────────────────────────
+# Decoupled candidate gen: the embedder ran in a previous (Stage-1-only) job
+# and persisted predictions.tsv. The reranker just loads it — no embedder on
+# this GPU, so vLLM can keep tp=2 + gpu_memory_utilization=0.92 without
+# triggering the OOM seen in job 255320 (2026-06-02).
+#
+# Default points at the stable symlink in results/stage1_frozen/. The
+# underlying file is the Qwen3-noLoRA / path_context / T2 / asymmetric /
+# g7-literature ablation-bidirectional run (SHA d11c97e), config:
+#   ablbi_qwen3-embedding-8b_lora-off_A-path_context_B-sub_b_pin_g7-literature_d11c97e
+# Set STAGE1_PREDICTIONS at submit time to use a different TSV.
+STAGE1_PREDICTIONS="${STAGE1_PREDICTIONS:-results/stage1_frozen/g7-literature_qwen3-noLoRA_pathctx_T2_top20.tsv}"
 STAGE1_TOP_K="${STAGE1_TOP_K:-20}"
+STAGE1_DESCRIPTION="${STAGE1_DESCRIPTION:-description_path_context}"
 
-echo "[stage2] Stage-1 config:"
-echo "  model=${STAGE1_MODEL}  variant=${STAGE1_VARIANT}  template=${STAGE1_TEMPLATE_ID}"
-echo "  description=${STAGE1_DESCRIPTION}  top_k=${STAGE1_TOP_K}"
+if [ ! -f "${STAGE1_PREDICTIONS}" ]; then
+    echo "[stage2] ERROR: Stage-1 predictions TSV not found at ${STAGE1_PREDICTIONS}" >&2
+    echo "[stage2] Create the symlink first, or pass STAGE1_PREDICTIONS=/path/to.tsv." >&2
+    exit 1
+fi
+echo "[stage2] Stage-1 TSV: ${STAGE1_PREDICTIONS}"
+echo "[stage2] top_k_per_direction=${STAGE1_TOP_K}  reranker_description=${STAGE1_DESCRIPTION}"
 
 # ── Stage-2 smoke ──────────────────────────────────────────────────────────────
 # Single dataset, single LLM. No sweeps. Success = metrics.json with 4x4 CM.
@@ -98,11 +107,10 @@ MAX_NEW_TOKENS="${MAX_NEW_TOKENS:-256}"
 
 python run_stage2_experiment.py \
     --dataset "${DATASET}" \
-    --stage1-model "${STAGE1_MODEL}" \
-    --stage1-variant "${STAGE1_VARIANT}" \
-    --stage1-template-id "${STAGE1_TEMPLATE_ID}" \
-    --stage1-description "${STAGE1_DESCRIPTION}" \
+    --stage1-predictions "${STAGE1_PREDICTIONS}" \
     --stage1-top-k "${STAGE1_TOP_K}" \
+    --stage1-description "${STAGE1_DESCRIPTION}" \
+    --description "${STAGE1_DESCRIPTION}" \
     --llm-model "${MODEL_PATH}" \
     --threshold "${THRESHOLD}" \
     --batch-size "${BATCH_SIZE}" \
