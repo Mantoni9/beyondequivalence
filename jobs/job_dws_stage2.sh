@@ -6,6 +6,14 @@
 #SBATCH --time=06:00:00
 #SBATCH --output=logs/olala_stage2_smoke_%j.out
 #SBATCH --error=logs/olala_stage2_smoke_%j.err
+# Exclude nodes where vLLM hangs after KV-cache init with no /health response.
+# Observed 2026-06-02:
+#   - dws-17 (job 255354): 12 shm_broadcast warnings, no progress
+#   - dws-16 (job 255357): 20 shm_broadcast warnings, no progress
+# Both have device capability 8.6 + "SymmMemCommunicator not supported" warnings;
+# --enforce-eager alone is not enough on these nodes. Job 255327 ran fine on
+# dws-09 earlier the same day (~10 min vLLM warmup, then reranker calls).
+#SBATCH --exclude=dws-16,dws-17
 
 set -euo pipefail
 
