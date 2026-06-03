@@ -82,6 +82,25 @@ class MultiClassReport:
     direction_correct:  int
     direction_swapped:  int
 
+    # ---- Headline metrics for the prompt-asymmetry test (Phase 3, 2026-06-03)
+    # These read the directional flips off the confusion matrix and report
+    # them as the primary signal for prompt-bias diagnosis. Recall hides the
+    # signal because it co-varies with the 'none'-rate; the raw flip cells
+    # are the indicator. Power: g7 has only 18 gold-'<' and 52 gold-'>', so
+    # small shifts (<5 pairs) are within sampling noise. A solid signal is
+    # ~10 absolute flip-reduction; if g7 results are ambiguous, the
+    # methodology calls for re-running on g5-groceries (113 gold-'>').
+    flip_gt_to_lt:        int             # cm['>']['<']  — gold-`>` flipped to `<`
+    flip_lt_to_gt:        int             # cm['<']['>']  — gold-`<` flipped to `>`
+    # Direction-only flip rates: of all directional predictions on each
+    # gold class, fraction flipped to the wrong direction. NaN if the
+    # denominator is 0 (rare).
+    flip_rate_gt:         Optional[float] # flip_gt_to_lt / (cm['>']['<'] + cm['>']['>'])
+    flip_rate_lt:         Optional[float] # flip_lt_to_gt / (cm['<']['<'] + cm['<']['>'])
+    # Asymmetry score: positive = pro-subclass bias (gold-`>` flipped to `<`
+    # more than the reverse). Job 255471 / d_subs_v2 baseline was ~+0.578.
+    direction_asymmetry:  Optional[float] # flip_rate_gt - flip_rate_lt
+
     n_universe:                  int
     n_candidates_total:          int
     n_reference_total:           int
@@ -103,6 +122,12 @@ class MultiClassReport:
             "direction_accuracy": self.direction_accuracy,
             "direction_correct":  self.direction_correct,
             "direction_swapped":  self.direction_swapped,
+            # Flip metrics (headline for prompt-asymmetry tests).
+            "flip_gt_to_lt":      self.flip_gt_to_lt,
+            "flip_lt_to_gt":      self.flip_lt_to_gt,
+            "flip_rate_gt":       self.flip_rate_gt,
+            "flip_rate_lt":       self.flip_rate_lt,
+            "direction_asymmetry": self.direction_asymmetry,
             "n_universe":                  self.n_universe,
             "n_candidates_total":          self.n_candidates_total,
             "n_reference_total":           self.n_reference_total,
@@ -216,6 +241,23 @@ def compute_multiclass_metrics(
         direction_correct / denom if denom > 0 else None
     )
 
+    # --- 7. Flip headline metrics. Independent of 'none'-rate, since they
+    #        condition on direction-only predictions per gold class.
+    flip_gt_to_lt = cm[">"]["<"]
+    flip_lt_to_gt = cm["<"][">"]
+    gt_directional = cm[">"]["<"] + cm[">"][">"]
+    lt_directional = cm["<"]["<"] + cm["<"][">"]
+    flip_rate_gt: Optional[float] = (
+        flip_gt_to_lt / gt_directional if gt_directional > 0 else None
+    )
+    flip_rate_lt: Optional[float] = (
+        flip_lt_to_gt / lt_directional if lt_directional > 0 else None
+    )
+    direction_asymmetry: Optional[float] = (
+        (flip_rate_gt - flip_rate_lt)
+        if (flip_rate_gt is not None and flip_rate_lt is not None) else None
+    )
+
     return MultiClassReport(
         confusion=cm,
         per_class=per_class,
@@ -226,6 +268,11 @@ def compute_multiclass_metrics(
         direction_accuracy=direction_accuracy,
         direction_correct=direction_correct,
         direction_swapped=direction_swapped,
+        flip_gt_to_lt=flip_gt_to_lt,
+        flip_lt_to_gt=flip_lt_to_gt,
+        flip_rate_gt=flip_rate_gt,
+        flip_rate_lt=flip_rate_lt,
+        direction_asymmetry=direction_asymmetry,
         n_universe=len(universe),
         n_candidates_total=n_candidates_total,
         n_reference_total=n_ref_total,

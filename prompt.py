@@ -139,13 +139,48 @@ RERANKING_PROMPTS = {
         "\nRelation: <label>"
         "\n\nwhere <label> is one of: subclass, superclass, equivalent, partof, none."
     ),
-    # ANSWER-FIRST variant. The anchor is the first line of the response, any
-    # justification follows. This decouples the answer from any reasoning the
-    # model wants to produce: even if the model continues with 1000 tokens of
-    # justification afterwards, the parser already has the label and the rest
-    # is cheap (or could be cut by lowering max_new_tokens). Fair across
-    # reasoner + non-reasoner models — the structural difference between
-    # "model thought long" and "model thought short" doesn't break the parse.
+    # ANSWER-FIRST + SYMMETRISED + BALANCED FEW-SHOT variants (v3a / v3b).
+    #
+    # v2 was answer-first but otherwise word-for-word the unsymmetric default.
+    # Job 255471 (g7-literature, Llama-3.3-70B-AWQ, 2026-06-02) showed a strong
+    # subclass-default: 26 of 52 gold-`>` flipped to `<` (Gold-`>`->pred-`<`
+    # flip-rate 26/45 = 57.8% of directional predictions). v2's prompt is
+    # structurally symmetric in syntax but carries three un-neutralised
+    # asymmetries that could each contribute to the bias:
+    #   1. Listen-position: subclass is mentioned FIRST in the label list and
+    #      again FIRST in the closing "one of: subclass, superclass, ..." line.
+    #      Primacy-bias on multi-choice labels is documented at ~5-10 pp.
+    #   2. Lexical frequency: 'subclass' >> 'superclass' in English pre-training
+    #      corpora; the prompt doesn't fight this.
+    #   3. Symbol frequency: '⊑' >> '⊒' in formal-logic / type-theory texts.
+    #   Plus: no demonstrations.
+    #
+    # v3a / v3b BOTH symmetrise the wording and add a 3-shot balanced demo:
+    # the SAME concept pair (Novel/Book) is shown in BOTH directions so the
+    # model treats the directional choice as a primary axis to reason on,
+    # not as a default. v3a keeps subclass FIRST in the list and the first
+    # demo example; v3b puts superclass first in both. Running both controls
+    # for position-bias vs. true model prior:
+    #   - flip-rate unchanged in v3a AND v3b -> true model prior (Llama default
+    #     mode falls back to subclass regardless of prompt steering -> the
+    #     four-model comparison is the next lever; reasoners are the next
+    #     candidate hypothesis).
+    #   - flip-rate drops in v3a AND v3b -> prompt-engineering is sufficient
+    #     (reasoning not required for direction resolution).
+    #   - flip-rate drops only in v3b -> listen-position dominated.
+    #
+    # CAVEAT: v3 changes TWO things vs. v2 (symmetric wording AND few-shot).
+    # If both v3a/v3b drop the flip-rate, the experiment cannot separate
+    # which of the two interventions did it. For the strategic question
+    # ('prompt-engineering correctable?') this is fine — it gives us the
+    # answer we need. For a clean attribution decomposition a fourth run
+    # (symmetric without few-shot) would be needed; deferred unless the
+    # decomposition matters downstream.
+    #
+    # The few-shot examples use literary concepts (Novel/Book/Author/Writer),
+    # which fits g7-literature naturally. For multi-dataset use later the
+    # examples must be either domain-generic or per-dataset; this would
+    # otherwise introduce a new confound across datasets.
     "d_subs_v2": (
         "You are an expert in ontology matching. Determine the precise"
         " semantic relation between two entities from different ontologies."
@@ -163,6 +198,105 @@ RERANKING_PROMPTS = {
         " on it:"
         "\nRelation: <label>"
         "\n\nReplace <label> with one of: subclass, superclass, equivalent,"
+        " partof, none. A short justification MAY follow on the next lines,"
+        " but the very first line of your response must be the answer."
+    ),
+    # v3a — subclass-first, symmetric wording, balanced 3-shot.
+    # The Novel/Book pair appears in both directions to anti-bias the model;
+    # Author/Writer provides an equivalent example. Listen-positions in the
+    # label list and the closing "one of:" line both keep subclass first.
+    "d_subs_v3a": (
+        "You are an expert in ontology matching. Determine the precise"
+        " semantic relation between two entities from different ontologies."
+        "\n\nValid labels (apply with equal weight):"
+        "\n  subclass    source is a more specific kind of target  (source ⊑ target)"
+        "\n  superclass  source is a more general kind of target   (source ⊒ target)"
+        "\n  equivalent  source and target denote the same concept"
+        "\n  partof      source is a part of target (mereological, not taxonomic)"
+        "\n  none        none of the above applies"
+        "\n\nExamples:"
+        "\n--- Example 1 ---"
+        "\nSource entity: <example:Novel>"
+        "\nSource knowledge graph:"
+        "\n<example:Novel> a owl:Class ; rdfs:label \"Novel\" ."
+        "\nTarget entity: <example:Book>"
+        "\nTarget knowledge graph:"
+        "\n<example:Book> a owl:Class ; rdfs:label \"Book\" ."
+        "\nRelation: subclass"
+        "\n--- Example 2 ---"
+        "\nSource entity: <example:Book>"
+        "\nSource knowledge graph:"
+        "\n<example:Book> a owl:Class ; rdfs:label \"Book\" ."
+        "\nTarget entity: <example:Novel>"
+        "\nTarget knowledge graph:"
+        "\n<example:Novel> a owl:Class ; rdfs:label \"Novel\" ."
+        "\nRelation: superclass"
+        "\n--- Example 3 ---"
+        "\nSource entity: <example:Author>"
+        "\nSource knowledge graph:"
+        "\n<example:Author> a owl:Class ; rdfs:label \"Author\" ."
+        "\nTarget entity: <example:Writer>"
+        "\nTarget knowledge graph:"
+        "\n<example:Writer> a owl:Class ; rdfs:label \"Writer\" ."
+        "\nRelation: equivalent"
+        "\n\n--- Now the actual task ---"
+        "\nSource entity: <{source_url}>"
+        "\nSource knowledge graph:\n{source_kg}"
+        "\nTarget entity: <{target_url}>"
+        "\nTarget knowledge graph:\n{target_kg}"
+        "\n\nYour response MUST start with EXACTLY this line and nothing else"
+        " on it:"
+        "\nRelation: <label>"
+        "\n\nReplace <label> with one of: subclass, superclass, equivalent,"
+        " partof, none. A short justification MAY follow on the next lines,"
+        " but the very first line of your response must be the answer."
+    ),
+    # v3b — superclass-first, otherwise identical to v3a. Identical wording,
+    # identical few-shot pairs, only the surface order in the label list AND
+    # in the first demonstration AND in the closing "one of:" line is swapped.
+    "d_subs_v3b": (
+        "You are an expert in ontology matching. Determine the precise"
+        " semantic relation between two entities from different ontologies."
+        "\n\nValid labels (apply with equal weight):"
+        "\n  superclass  source is a more general kind of target   (source ⊒ target)"
+        "\n  subclass    source is a more specific kind of target  (source ⊑ target)"
+        "\n  equivalent  source and target denote the same concept"
+        "\n  partof      source is a part of target (mereological, not taxonomic)"
+        "\n  none        none of the above applies"
+        "\n\nExamples:"
+        "\n--- Example 1 ---"
+        "\nSource entity: <example:Book>"
+        "\nSource knowledge graph:"
+        "\n<example:Book> a owl:Class ; rdfs:label \"Book\" ."
+        "\nTarget entity: <example:Novel>"
+        "\nTarget knowledge graph:"
+        "\n<example:Novel> a owl:Class ; rdfs:label \"Novel\" ."
+        "\nRelation: superclass"
+        "\n--- Example 2 ---"
+        "\nSource entity: <example:Novel>"
+        "\nSource knowledge graph:"
+        "\n<example:Novel> a owl:Class ; rdfs:label \"Novel\" ."
+        "\nTarget entity: <example:Book>"
+        "\nTarget knowledge graph:"
+        "\n<example:Book> a owl:Class ; rdfs:label \"Book\" ."
+        "\nRelation: subclass"
+        "\n--- Example 3 ---"
+        "\nSource entity: <example:Author>"
+        "\nSource knowledge graph:"
+        "\n<example:Author> a owl:Class ; rdfs:label \"Author\" ."
+        "\nTarget entity: <example:Writer>"
+        "\nTarget knowledge graph:"
+        "\n<example:Writer> a owl:Class ; rdfs:label \"Writer\" ."
+        "\nRelation: equivalent"
+        "\n\n--- Now the actual task ---"
+        "\nSource entity: <{source_url}>"
+        "\nSource knowledge graph:\n{source_kg}"
+        "\nTarget entity: <{target_url}>"
+        "\nTarget knowledge graph:\n{target_kg}"
+        "\n\nYour response MUST start with EXACTLY this line and nothing else"
+        " on it:"
+        "\nRelation: <label>"
+        "\n\nReplace <label> with one of: superclass, subclass, equivalent,"
         " partof, none. A short justification MAY follow on the next lines,"
         " but the very first line of your response must be the answer."
     ),

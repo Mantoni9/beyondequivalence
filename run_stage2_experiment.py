@@ -717,6 +717,16 @@ def main() -> None:
     logger.info("  macro_F1=%.3f  micro_F1=%.3f  direction_acc=%s",
                 report.macro_f1, report.micro_f1,
                 f"{report.direction_accuracy:.3f}" if report.direction_accuracy is not None else "n/a")
+    # Flip headline metrics — the headline for prompt-asymmetry diagnosis.
+    logger.info(
+        "  Flip metrics: gold->-pred< = %d (rate=%s) | gold<-pred> = %d (rate=%s) | "
+        "direction_asymmetry = %s  (positive = pro-subclass bias)",
+        report.flip_gt_to_lt,
+        f"{report.flip_rate_gt:.3f}" if report.flip_rate_gt is not None else "n/a",
+        report.flip_lt_to_gt,
+        f"{report.flip_rate_lt:.3f}" if report.flip_rate_lt is not None else "n/a",
+        f"{report.direction_asymmetry:+.3f}" if report.direction_asymmetry is not None else "n/a",
+    )
     logger.info("Confusion matrix (gold rows x pred cols, labels=%s):",
                 list(DISPLAY_LABELS))
     for g in DISPLAY_LABELS:
