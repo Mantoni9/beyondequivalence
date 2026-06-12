@@ -9,17 +9,27 @@ before job-255613 results were seen):
   - pair coverage per relation at K in {5,10,20,50}, per dataset + micro-pooled;
   - guards (relative): pooled '<'/'=' coverage@20 drop <= 0.02 vs baseline,
     pooled volume <= 1.3 x baseline pairs@20;
-  - t-side budget sweep (volume valve): t_broader capped at Kt in {5,10,20}
-    with s-side passes at 20, for v_sym and v_3pass. Registered prediction:
-    fan-in lists concentrate gold at low ranks, so Kt=10 loses < 0.02
-    >-coverage vs Kt=20;
-  - adoption precedence among guard-passing variants: highest >-coverage@20
-    wins; ties (delta < 0.01) break toward lower volume. A v_sym '<'-guard
-    trip is a FINDING (quantifies the s_narrower cross-rescue), not a failure;
-  - outcome bands on the precedence winner: SOLID >= 0.80 AND delta >= +0.05
-    over baseline AND guards pass; '>= 0.80 with delta < 0.05' = baseline
-    adequate, no switch; PARTIAL 0.65-0.80; NO EFFECT < 0.65; REVERSE = guard
-    failure -> investigate before adoption;
+  - t-side budget sweep (volume valve): ALL t-side passes of a variant capped
+    at Kt in {5,10,20} with s-side passes at 20, for v_sym/v_3pass/v_union.
+    Registered prediction (v_sym, v_3pass): fan-in lists concentrate gold at
+    low ranks, so Kt=10 loses < 0.02 >-coverage vs Kt=20;
+  - candidate-set registration (2026-06-12, pre-unblinding): adoption
+    candidates are EXACTLY {v_sym, v_3pass, v_union} x Kt in {20, 10}; Kt=5
+    rows are reporting-only. Each candidate is evaluated at its own budget
+    against the unchanged absolute band and guards; the volume cap is an
+    absolute Stage-2 cost ceiling (1.3 x baseline pairs@20) that does NOT
+    shrink with Kt. Precedence: highest >-coverage; ties (delta < 0.01) break
+    toward lower volume. A v_sym '<'-guard trip is a FINDING (quantifies the
+    s_narrower cross-rescue), not a failure;
+  - the decision section runs ONLY for the primary config (--primary-config,
+    default qwen3-noLoRA); other configs are reported in full but are never
+    adoption candidates. If Nemo+LoRA's best swap candidate beats the
+    primary's >-coverage by >= 0.05 pooled, an escalation flag is raised
+    (model-freeze question to Antonio) — configs are never auto-blended;
+  - outcome bands on the winner: SOLID >= 0.80 AND delta >= +0.05 over the
+    @20 baseline AND guards pass; '>= 0.80 with delta < 0.05' = baseline
+    adequate, no switch; PARTIAL 0.65-0.80; NO EFFECT < 0.65; REVERSE = no
+    candidate passes guards -> investigate before adoption;
   - mechanism check (secondary, no threshold): per-dataset delta >-coverage@20
     predicted to concentrate on mouse-human / g3-text / g5-groceries and be
     ~0 on g1-web / g2-diseases / g7-literature (at ceiling);
@@ -58,6 +68,7 @@ from evaluation_recall import (
     compute_per_directed_query_recall,
 )
 from swap_retrieval import (
+    PASS_SPECS,
     VARIANTS,
     assemble_variant,
     candidate_pairs_at_budget,
@@ -80,8 +91,12 @@ CONFIG_DIRS = {
 BUDGET_KS = (5, 10, 20, 50)
 PDQ_KS = (1, 5, 10, 20, 50)
 BUDGET = 20                      # the registered Stage-2 budget
-T_SWEEP_KS = (5, 10, 20)         # amendment point 2
-SWEEP_VARIANTS = ("v_sym", "v_3pass")
+T_SWEEP_KS = (5, 10, 20)         # amendment point 2; Kt=5 is REPORTING ONLY
+# Candidate-set registration 2026-06-12 (filed pre-unblinding): the adoption
+# candidates are EXACTLY CANDIDATE_VARIANTS x ADOPTION_KTS (s-side fixed @20).
+CANDIDATE_VARIANTS = ("v_sym", "v_3pass", "v_union")
+ADOPTION_KTS = (20, 10)
+PREDICTION_VARIANTS = ("v_sym", "v_3pass")   # registered Kt=10 prediction scope
 GUARD_MAX_DROP = 0.02
 VOLUME_CAP_RATIO = 1.3
 PRECEDENCE_TIE = 0.01
@@ -114,11 +129,82 @@ def _fmt(v) -> str:
     return "—" if v is None else f"{v:.3f}"
 
 
+BAND_TEXT = {
+    "SOLID": "SOLID — adopt; Stage-2 candidate TSVs change → bridge run needed",
+    "NO_SWITCH": "baseline adequate — no switch (≥ 0.80 but Δ < 0.05)",
+    "PARTIAL": "PARTIAL — decision escalates to Antonio",
+    "NO_EFFECT": "NO EFFECT — negative result; baseline stays",
+    "REVERSE": "REVERSE — no candidate passes guards; investigate before adoption",
+}
+
+
+def evaluate_candidates(pooled_sweep: dict, pooled_sweep_pairs: dict,
+                        base20: dict, base_pairs20: int):
+    """Registered candidate-set decision (registration 2026-06-12, filed
+    before job-255613 unblinding). Candidates are EXACTLY
+    CANDIDATE_VARIANTS x ADOPTION_KTS, each evaluated at its own budget
+    (s@20, t@Kt): >-coverage against the unchanged absolute band, guards
+    ('<'/'=' pooled drop <= GUARD_MAX_DROP vs the same-run @20 baseline)
+    and the ABSOLUTE volume cap (VOLUME_CAP_RATIO x baseline pairs@20 —
+    a Stage-2 cost ceiling that does NOT shrink with Kt). Kt=5 rows are
+    reporting-only and never enter this function's candidate set.
+    Precedence: highest >-coverage; ties (delta < PRECEDENCE_TIE) break
+    toward lower volume. Returns (candidates, winner_id, band_code) with
+    band_code in {SOLID, NO_SWITCH, PARTIAL, NO_EFFECT, REVERSE}."""
+    volume_cap = VOLUME_CAP_RATIO * base_pairs20
+    base_sub = _ratio(base20["subclass"])
+    base_eq = _ratio(base20["equivalence"])
+    base_sup = _ratio(base20["superclass"])
+
+    candidates: dict[str, dict] = {}
+    for variant in CANDIDATE_VARIANTS:
+        for kt in ADOPTION_KTS:
+            cov = pooled_sweep[(variant, kt)]
+            pairs = pooled_sweep_pairs[(variant, kt)]
+            sup = _ratio(cov["superclass"])
+            drop_sub = base_sub - _ratio(cov["subclass"])
+            drop_eq = base_eq - _ratio(cov["equivalence"])
+            candidates[f"{variant}@t{kt}"] = {
+                "variant": variant, "kt": kt,
+                "sup_cov": sup, "delta": sup - base_sup,
+                "drop_sub": drop_sub, "drop_eq": drop_eq,
+                "pairs": pairs, "volume_ratio": pairs / base_pairs20,
+                "passes": (drop_sub <= GUARD_MAX_DROP
+                           and drop_eq <= GUARD_MAX_DROP
+                           and pairs <= volume_cap),
+            }
+
+    passers = {cid: c for cid, c in candidates.items() if c["passes"]}
+    winner = None
+    if passers:
+        best_sup = max(c["sup_cov"] for c in passers.values())
+        tied = [cid for cid, c in passers.items()
+                if best_sup - c["sup_cov"] < PRECEDENCE_TIE]
+        winner = min(tied, key=lambda cid: passers[cid]["pairs"])
+
+    if winner is None:
+        band = "REVERSE"
+    else:
+        w = candidates[winner]
+        if w["sup_cov"] >= 0.80 and w["delta"] >= 0.05:
+            band = "SOLID"
+        elif w["sup_cov"] >= 0.80:
+            band = "NO_SWITCH"
+        elif w["sup_cov"] >= 0.65:
+            band = "PARTIAL"
+        else:
+            band = "NO_EFFECT"
+    return candidates, winner, band
+
+
 def main() -> None:
     p = argparse.ArgumentParser(description="Phase-3 analysis over swap_* run dirs.")
     p.add_argument("--sha", required=True, help="git SHA suffix of the swap_* run dirs")
     p.add_argument("--configs", nargs="+", choices=sorted(CONFIG_DIRS),
                    default=["qwen3-noLoRA", "nemo+LoRA"])
+    p.add_argument("--primary-config", default="qwen3-noLoRA", choices=sorted(CONFIG_DIRS),
+                   help="Only this config gets the adoption decision; all others "
+                        "are reported in full but are never adoption candidates.")
     p.add_argument("--datasets", nargs="+", default=list(DEFAULT_DATASETS))
     p.add_argument("--results-root", default="results")
     args = p.parse_args()
@@ -192,11 +278,15 @@ def main() -> None:
                         logger.error("CROSS-VALIDATION MISMATCH %s/%s/%s: %d",
                                      cfg_name, ds, variant, max_diff)
 
-            # --- t-side budget sweep (s-side fixed at BUDGET) ---
-            for variant in SWEEP_VARIANTS:
+            # --- t-side budget sweep (s-side fixed at BUDGET). Kt caps ALL
+            #     t-side passes of the variant — t_broader, plus t_narrower
+            #     for v_union. Kt=5 rows are reporting-only (registered). ---
+            for variant in CANDIDATE_VARIANTS:
                 for kt in T_SWEEP_KS:
-                    k_by_pass = {pid: BUDGET for pid in VARIANTS[variant] if pid != "t_broader"}
-                    k_by_pass["t_broader"] = kt
+                    k_by_pass = {
+                        pid: (kt if PASS_SPECS[pid].query_side == "target" else BUDGET)
+                        for pid in VARIANTS[variant]
+                    }
                     pair_set = candidate_pairs_at_mixed_budget(passes, k_by_pass)
                     cov = compute_pair_coverage(reference, pair_set)
                     ds_out["sweep"][f"{variant}@t{kt}"] = {
@@ -290,21 +380,23 @@ def main() -> None:
         md.append("")
 
         # ---------- t-side budget sweep ----------
-        md.append("### t-side budget sweep (s-side @20; registered prediction: "
+        md.append("### t-side budget sweep (s-side @20; Kt caps ALL t-side passes; "
+                  "Kt=5 is reporting-only, never adoptable; registered prediction: "
                   "Kt=10 loses < 0.02 >-coverage vs Kt=20)\n")
-        md.append("| Variant | Kt | >cov@20 | <cov@20 | =cov@20 | pairs | ×base |")
-        md.append("| --- | ---: | ---: | ---: | ---: | ---: | ---: |")
+        md.append("| Variant | Kt | adoptable | >cov | <cov | =cov | pairs | ×base |")
+        md.append("| --- | ---: | --- | ---: | ---: | ---: | ---: | ---: |")
         sweep_summary = {}
-        for variant in SWEEP_VARIANTS:
+        for variant in CANDIDATE_VARIANTS:
             for kt in T_SWEEP_KS:
                 cov = pooled_sweep[(variant, kt)]
                 pairs = pooled_sweep_pairs[(variant, kt)]
                 sweep_summary[(variant, kt)] = _ratio(cov["superclass"])
-                md.append(f"| {variant} | {kt} | {_fmt(_ratio(cov['superclass']))} "
+                md.append(f"| {variant} | {kt} | {'yes' if kt in ADOPTION_KTS else 'no'} "
+                          f"| {_fmt(_ratio(cov['superclass']))} "
                           f"| {_fmt(_ratio(cov['subclass']))} "
                           f"| {_fmt(_ratio(cov['equivalence']))} "
                           f"| {pairs} | {pairs / base_pairs20:.2f} |")
-        for variant in SWEEP_VARIANTS:
+        for variant in PREDICTION_VARIANTS:
             loss = sweep_summary[(variant, 20)] - sweep_summary[(variant, 10)]
             md.append(f"\n- {variant}: Kt=10 vs Kt=20 >-coverage loss = {loss:+.4f} → "
                       f"prediction (< 0.02) {'HOLDS' if loss < 0.02 else 'FAILS'}")
@@ -330,45 +422,41 @@ def main() -> None:
             md.append(f"| {bucket} | {row['<']} | {row['>']} | {row['=']} |")
         md.append("")
 
-        # ---------- decision ----------
-        candidates = [v for v in ("v_sym", "v_3pass", "v_union")
-                      if guard_status[v]["passes"]]
-        winner = None
-        if candidates:
-            best = max(g := {v: guard_status[v]["sup_cov20"] for v in candidates},
-                       key=g.get)
-            tied = [v for v in candidates if g[best] - g[v] < PRECEDENCE_TIE]
-            winner = min(tied, key=lambda v: guard_status[v]["volume_ratio"]) \
-                if len(tied) > 1 else best
+        # ---------- decision (registered candidate set; primary config only) ----------
+        candidates, winner, band = evaluate_candidates(
+            pooled_sweep, pooled_sweep_pairs, base20, base_pairs20)
         base_sup = _ratio(base20["superclass"])
-        md.append("### Pre-registered decision\n")
-        md.append(f"- Baseline pooled >-coverage@20: **{_fmt(base_sup)}** "
-                  f"({base20['superclass']['covered']}/{base20['superclass']['n']}); "
-                  f"volume base {base_pairs20} (cap {volume_cap:.0f}).")
-        for v in ("v_sym", "v_3pass", "v_union"):
-            gs = guard_status[v]
-            md.append(f"- {v}: >cov@20 {_fmt(gs['sup_cov20'])} "
-                      f"(Δ {gs['sup_cov20'] - base_sup:+.3f}), guards "
-                      f"{'PASS' if gs['passes'] else 'FAIL'} "
-                      f"(<drop {gs['drop_sub']:+.3f}, =drop {gs['drop_eq']:+.3f}, "
-                      f"vol {gs['volume_ratio']:.2f}×)")
-        if winner:
-            ws = guard_status[winner]
-            delta = ws["sup_cov20"] - base_sup
-            if ws["sup_cov20"] >= 0.80 and delta >= 0.05:
-                band = "SOLID"
-            elif ws["sup_cov20"] >= 0.80:
-                band = "baseline adequate — no switch (>=0.80 but Δ < 0.05)"
-            elif ws["sup_cov20"] >= 0.65:
-                band = "PARTIAL — decision escalates"
+        if cfg_name == args.primary_config:
+            md.append("### Pre-registered decision — candidate set = "
+                      "{v_sym, v_3pass, v_union} × Kt ∈ {20, 10} (registration "
+                      "2026-06-12; Kt=5 reporting-only; each candidate at its own "
+                      "budget; volume cap absolute)\n")
+            md.append(f"- Baseline pooled >-coverage@20: **{_fmt(base_sup)}** "
+                      f"({base20['superclass']['covered']}/{base20['superclass']['n']}); "
+                      f"volume base {base_pairs20} (absolute cap {volume_cap:.0f}).")
+            md.append("")
+            md.append("| Candidate | >cov | Δ vs base | <drop | =drop | pairs | ×base | guards |")
+            md.append("| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |")
+            for cid, c in sorted(candidates.items(),
+                                 key=lambda kv: -kv[1]["sup_cov"]):
+                md.append(f"| {cid} | {_fmt(c['sup_cov'])} | {c['delta']:+.3f} "
+                          f"| {c['drop_sub']:+.3f} | {c['drop_eq']:+.3f} "
+                          f"| {c['pairs']} | {c['volume_ratio']:.2f} "
+                          f"| {'PASS' if c['passes'] else 'FAIL'} |")
+            md.append("")
+            if winner:
+                md.append(f"- **Winner: {winner}** (highest >-coverage among "
+                          f"guard-passers; ties Δ<{PRECEDENCE_TIE} → lower volume) → "
+                          f"**{BAND_TEXT[band]}**")
             else:
-                band = "NO EFFECT — negative result"
-            md.append(f"- **Precedence winner: {winner}** (highest >cov@20 among "
-                      f"guard-passers; ties Δ<{PRECEDENCE_TIE} → lower volume) → "
-                      f"**{band}**")
+                md.append(f"- **{BAND_TEXT['REVERSE']}**")
         else:
-            md.append("- **No variant passes all guards → REVERSE: investigate "
-                      "before any adoption.**")
+            md.append("### Decision: n/a — side-run\n")
+            best_cid = max(candidates, key=lambda cid: candidates[cid]["sup_cov"])
+            md.append(f"- {cfg_name} is reported in full but is never an adoption "
+                      f"candidate (candidate-set registration 2026-06-12). Best "
+                      f"candidate: {best_cid} with >-coverage "
+                      f"{_fmt(candidates[best_cid]['sup_cov'])}.")
         md.append("")
 
         out["configs"][cfg_name] = {
@@ -381,10 +469,31 @@ def main() -> None:
             "sweep_pairs": {f"{v}@t{kt}": n for (v, kt), n in pooled_sweep_pairs.items()},
             "pdq_pooled": pdq_acc,
             "crosstab_pooled": crosstab_pool,
-            "guards": guard_status,
-            "precedence_winner": winner,
+            "guards_at_20": guard_status,
+            "candidates": candidates,
+            "winner": winner if cfg_name == args.primary_config else None,
+            "band": band if cfg_name == args.primary_config else "n/a (side-run)",
             "legacy_per_relation_strict_per_dataset": legacy_pool_note,
         }
+
+    # ---------- model-freeze escalation check (registration point 4) ----------
+    if (args.primary_config in out["configs"] and "nemo+LoRA" in out["configs"]
+            and args.primary_config != "nemo+LoRA"):
+        p_best = max(c["sup_cov"]
+                     for c in out["configs"][args.primary_config]["candidates"].values())
+        n_best = max(c["sup_cov"]
+                     for c in out["configs"]["nemo+LoRA"]["candidates"].values())
+        out["escalation"] = {"primary_best_sup": p_best, "nemo_best_sup": n_best,
+                             "flagged": n_best - p_best >= 0.05}
+        if out["escalation"]["flagged"]:
+            md.append(f"\n**ESCALATION FLAG (model freeze):** Nemo+LoRA's best swap "
+                      f"candidate >-coverage ({n_best:.3f}) beats the primary's "
+                      f"({p_best:.3f}) by ≥ 0.05 pooled — the model-freeze question "
+                      f"goes to Antonio. Configs are NOT auto-blended.\n")
+        else:
+            md.append(f"\n*No model-freeze escalation: Nemo+LoRA best swap-candidate "
+                      f">-coverage {n_best:.3f} vs primary {p_best:.3f} "
+                      f"(threshold +0.05).*\n")
 
     n_bad = sum(1 for v in out["validation"] if v["max_int_diff"])
     md.append(f"\n*Cross-validation vs runner metrics.json: "
