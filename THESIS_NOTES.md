@@ -1,5 +1,13 @@
 # Thesis Methods Notes
 
+## Stage-2 Dev/Test-Protokoll (registriert 2026-06-12 — BINDEND für alles weitere Stage-2-Tuning)
+
+- **Dev = {g7-literature, g5-groceries}** · **Test = {mouse-human, g3-text, g1-web, g2-diseases}** — Test bleibt unangetastet bis zur finalen prä-registrierten Modell-Matrix.
+- **Rationale:** g7 und g5 sind die `>`-lastigen Fälle (g7: 52 von 82 gerichteten Gold-Paaren; g5: 113 von 127) — genau dort sitzt der zu attribuierende Subclass-Prior. **Ehrliche Offenlegung:** g7 ist KEIN unberührtes Dev-Set — die v2-Baseline (Run 255471) und die v3a/v3b-Iterationen liefen bereits auf g7; alle bisherigen Prompt-Entscheidungen sind also g7-informiert. g5 kommt als zweites, bisher Stage-2-unberührtes Dev-Dataset hinzu; die Konsistenz-Regel (Effekte müssen über g7 UND g5 gleichgerichtet sein) existiert, um g7-Tuning-Artefakte zu fangen.
+- **Regel:** Jeder Tuning-Run auf einem Test-Dataset macht dieses Protokoll ungültig. Keine Ausnahmen; die Test-Datasets erscheinen erst in der finalen Matrix wieder.
+- **Metrik-Konvention:** Alle Tuning-Metriken sind **reranker-konditional** (nur Gold-Paare, die im Stage-1-Kandidatenset vorhanden sind) — isoliert die Stage-2-Klassifikationsleistung von der Stage-1-Recall-Decke (auf `⊐` bindend, siehe Coverage-Befunde).
+- Stage-1-Kandidaten: die eingefrorenen d11c97e-TSVs (Qwen3-noLoRA / path_context / T2, top-20 pro Richtung). Der Query-Swap wurde getestet und NICHT adoptiert (Job 262057, RIDE-ALONG-Verdict) — es gibt keine neuen TSVs und keinen Bridge-Lauf; R0 (v2 auf g5) ist ein eigenständiger Baseline-Lauf.
+
 ## Versuchsaufbau (Stand 2026-05-03)
 
 Drei Hebel für Stage-1-Retrieval:
