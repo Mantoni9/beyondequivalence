@@ -186,6 +186,40 @@ def _flip_resolution(rows: list[dict], flip_set: set) -> dict[str, int]:
     return out
 
 
+def _a2_symmetry_sanity(base_rows: list[dict], a2_rows: list[dict]) -> dict:
+    """Measurement guard for the H-position mirror signature (registered
+    addition, GO for submission 2026-06-12): the mirror reading assumes the
+    presentation swap leaves the slot-SYMMETRIC classes invariant — a pair v2
+    calls '=' should stay '=' under A2. Reports '='/none prediction counts on
+    the SAME conditional pairs plus pair-level '='-retention; a > 10% relative
+    shift flags that the flip_rate_lt arm of the signature carries noise.
+    Not a pass/fail band — it calibrates how literally to read the mirror."""
+    base_by = {(r["source_uri"], r["target_uri"]): r for r in base_rows}
+    a2_by = {(r["source_uri"], r["target_uri"]): r for r in a2_rows}
+    shared = set(base_by) & set(a2_by)
+
+    def _counts(by: dict) -> tuple[int, int]:
+        eq = sum(1 for p in shared if by[p]["parsed_canonical"] == "equivalent")
+        none = sum(1 for p in shared if by[p]["parsed_canonical"] == "none")
+        return eq, none
+
+    b_eq, b_none = _counts(base_by)
+    a_eq, a_none = _counts(a2_by)
+    eq_shift = ((a_eq - b_eq) / b_eq) if b_eq else None
+    none_shift = ((a_none - b_none) / b_none) if b_none else None
+    base_eq_pairs = [p for p in shared
+                     if base_by[p]["parsed_canonical"] == "equivalent"]
+    retention = (sum(1 for p in base_eq_pairs
+                     if a2_by[p]["parsed_canonical"] == "equivalent")
+                 / len(base_eq_pairs)) if base_eq_pairs else None
+    flagged = any(s is not None and abs(s) > 0.10 for s in (eq_shift, none_shift))
+    return {"n_shared_pairs": len(shared),
+            "v2_eq": b_eq, "a2_eq": a_eq, "eq_rel_shift": eq_shift,
+            "eq_retention": retention,
+            "v2_none": b_none, "a2_none": a_none, "none_rel_shift": none_shift,
+            "flagged": flagged}
+
+
 def _band(base_gt: float, arm_gt: float, pooled_eq_f1: float | None) -> str:
     if pooled_eq_f1 is not None and pooled_eq_f1 < EQ_F1_GUARD:
         return f"{REVERSE} (guard: dev-pooled =-F1 {pooled_eq_f1:.3f} < {EQ_F1_GUARD})"
@@ -313,6 +347,28 @@ def main() -> None:
                       f"| {consistency} |")
         md.append("")
 
+    # ---- A2 symmetry sanity (measurement guard for the mirror signature) ----
+    a2_sanity: dict[str, dict] = {}
+    if "A2" in arms:
+        md.append("## A2 symmetry sanity (measurement guard — slot-symmetric "
+                  "classes must be invariant under presentation swap)\n")
+        md.append("| Dataset | shared pairs | v2 '=' | A2 '=' | Δrel | "
+                  "'='-retention | v2 none | A2 none | Δrel | flag |")
+        md.append("| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: "
+                  "| ---: | --- |")
+        for ds, a2_run in arms["A2"]["runs"].items():
+            b_run = base["runs"].get(ds)
+            if b_run is None:
+                continue
+            s = _a2_symmetry_sanity(b_run["rows"], a2_run["rows"])
+            a2_sanity[ds] = s
+            md.append(f"| {ds} | {s['n_shared_pairs']} | {s['v2_eq']} "
+                      f"| {s['a2_eq']} | {_fmt(s['eq_rel_shift'], '+.1%')} "
+                      f"| {_fmt(s['eq_retention'], '.3f')} | {s['v2_none']} "
+                      f"| {s['a2_none']} | {_fmt(s['none_rel_shift'], '+.1%')} "
+                      f"| {'⚠ >10% — mirror flip_rate_lt arm carries noise' if s['flagged'] else 'ok'} |")
+        md.append("")
+
     # ---- flip-set resolution ----
     md.append(f"## Named g7 flip-set ({len(flip_set)} gold-'>' pairs predicted "
               "'<' by the baseline)\n")
@@ -383,6 +439,7 @@ def main() -> None:
                      "pooled": arm["pooled"]}
                  for a, arm in arms.items()},
         "bands": bands, "verdict": verdict,
+        "a2_symmetry_sanity": a2_sanity,
         "flip_set": sorted(flip_set),
     }, indent=2, default=str), encoding="utf-8")
     print("\n" + "\n".join(md))
