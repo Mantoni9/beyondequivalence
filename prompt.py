@@ -300,6 +300,39 @@ RERANKING_PROMPTS = {
         " partof, none. A short justification MAY follow on the next lines,"
         " but the very first line of your response must be the answer."
     ),
+    # v4b — label-ORDER flip with padding held constant (Stufe-A arm A1;
+    # registered 2026-06-12, docs/stage2_stufeA_registration.md).
+    # Byte-identical to d_subs_v2 EXCEPT:
+    #   1. the two directional definition lines swap order (superclass first),
+    #   2. the closing enumeration starts with superclass,
+    #   3. padding control: BOTH directional labels carry the SAME
+    #      trailing-space count (two). v2 column-aligns with 4-vs-2 spaces —
+    #      a latent tokenizer-level asymmetry (leading whitespace folds into
+    #      tokens) that the order flip would otherwise carry along and
+    #      confound the attribution.
+    # Zero-shot like v2. There is NO d_subs_v4a: "v2 wording, subclass-first,
+    # zero-shot" is definitionally d_subs_v2 itself (verified Phase-0 audit) —
+    # Run 255471 / R0 are the subclass-first arm.
+    "d_subs_v4b": (
+        "You are an expert in ontology matching. Determine the precise"
+        " semantic relation between two entities from different ontologies."
+        "\n\nSource entity: <{source_url}>"
+        "\nSource knowledge graph:\n{source_kg}"
+        "\n\nTarget entity: <{target_url}>"
+        "\nTarget knowledge graph:\n{target_kg}"
+        "\n\nValid labels:"
+        "\n  superclass  source is a more general kind of target (source ⊒ target)"
+        "\n  subclass  source is a more specific kind of target (source ⊑ target)"
+        "\n  equivalent  source and target denote the same concept"
+        "\n  partof      source is a part of target (mereological, not taxonomic)"
+        "\n  none        none of the above applies"
+        "\n\nYour response MUST start with EXACTLY this line and nothing else"
+        " on it:"
+        "\nRelation: <label>"
+        "\n\nReplace <label> with one of: superclass, subclass, equivalent,"
+        " partof, none. A short justification MAY follow on the next lines,"
+        " but the very first line of your response must be the answer."
+    ),
 }
 
 

@@ -361,6 +361,12 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--kg-format", default="turtle")
     p.add_argument("--batch-size", type=int, default=8)
     p.add_argument("--max-new-tokens", type=int, default=256)
+    p.add_argument("--swap-pair-presentation", action="store_true",
+                   help=("Stufe-A arm A2: fill the prompt slots with (target, "
+                         "source) instead of (source, target); directional "
+                         "labels are inverted exactly once at parse time when "
+                         "mapping back to the canonical (s, t) pair. Prompt "
+                         "text and verbalizations are untouched."))
     p.add_argument("--threshold", type=float, default=0.0,
                    help=("Optional confidence cutoff applied AFTER the 'none' "
                          "filter. 0.0 = keep all non-none predictions."))
@@ -467,6 +473,8 @@ def main() -> None:
     run_name = (
         f"stage2_{args.dataset}_s1-{alias}-{args.stage1_variant[:3]}-"
         f"{args.stage1_template_id or 'noinstr'}-{args.stage1_description}"
+        f"_p-{args.prompt_id}"
+        + ("_swapped" if args.swap_pair_presentation else "")
         + ("_smoke" if args.smoke_test else "")
     )
     output_dir = Path(args.output_dir) if args.output_dir else (
@@ -577,6 +585,7 @@ def main() -> None:
         max_new_tokens=args.max_new_tokens,
         threshold=args.threshold,
         batch_size=args.batch_size,
+        swap_pair_presentation=args.swap_pair_presentation,
     )
     logger.info("Stage-2 reranker: %s", reranker)
 
@@ -616,6 +625,7 @@ def main() -> None:
             "vllm_base_url":       os.getenv("VLLM_BASE_URL"),
             "backend":             "vllm" if os.getenv("VLLM_BASE_URL") else "huggingface",
             "prompt_id":           args.prompt_id,
+            "swap_pair_presentation": args.swap_pair_presentation,
             "description":         args.description,
             "kg_format":           args.kg_format,
             "batch_size":          args.batch_size,

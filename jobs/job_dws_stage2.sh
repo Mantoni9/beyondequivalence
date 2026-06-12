@@ -132,6 +132,15 @@ MAX_NEW_TOKENS="${MAX_NEW_TOKENS:-256}"
 # --enforce-eager (vLLM continuous batching handles the concurrency).
 # Sequential (=1) costs ~60 s/call -> 17 h on g7; 16 brings that to ~1 h.
 LLM_MAX_CONCURRENCY="${LLM_MAX_CONCURRENCY:-16}"
+# Stufe-A arm A2 (registered 2026-06-12): set SWAP_PAIR_PRESENTATION=1 to fill
+# the prompt slots with (target, source); directional labels invert exactly
+# once at parse time. Prompt text and verbalizations untouched.
+SWAP_PAIR_PRESENTATION="${SWAP_PAIR_PRESENTATION:-0}"
+SWAP_FLAG=""
+if [ "${SWAP_PAIR_PRESENTATION}" = "1" ]; then
+    SWAP_FLAG="--swap-pair-presentation"
+fi
+echo "[stage2] prompt_id=${PROMPT_ID}  swap_pair_presentation=${SWAP_PAIR_PRESENTATION}"
 
 python run_stage2_experiment.py \
     --dataset "${DATASET}" \
@@ -144,4 +153,5 @@ python run_stage2_experiment.py \
     --threshold "${THRESHOLD}" \
     --batch-size "${BATCH_SIZE}" \
     --max-new-tokens "${MAX_NEW_TOKENS}" \
-    --llm-max-concurrency "${LLM_MAX_CONCURRENCY}"
+    --llm-max-concurrency "${LLM_MAX_CONCURRENCY}" \
+    ${SWAP_FLAG}

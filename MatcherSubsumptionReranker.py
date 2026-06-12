@@ -52,6 +52,19 @@ from prompt import (
 logger = logging.getLogger(__name__)
 
 
+def relation_for_canonical_pair(canonical_label: str, swapped: bool) -> str:
+    """Map a parsed canonical label to the relation of the CANONICAL (s, t)
+    pair. With swap_pair_presentation the model judged the PRESENTED pair
+    (t in the source slots, s in the target slots), so the two directional
+    labels invert EXACTLY ONCE here — '='/'partof'/'none'/'parse_fail' are
+    symmetric resp. drops and stay unchanged (Stufe-A arm A2, registered
+    2026-06-12)."""
+    relation = RELATION_LABEL_TO_RELATION.get(canonical_label, "")
+    if swapped and relation in ("<", ">"):
+        relation = ">" if relation == "<" else "<"
+    return relation
+
+
 class MatcherSubsumptionReranker(MatcherBase):
     """LLM-based multi-class relation classifier over a deduplicated
     Stage-1 candidate set.
@@ -68,6 +81,14 @@ class MatcherSubsumptionReranker(MatcherBase):
                                             # AFTER the 'none' filter — never the
                                             # 'none' mechanism. Keep at 0.0 for smoke.
         batch_size: int = 8,
+        swap_pair_presentation: bool = False,
+                                            # Stufe-A arm A2: fill the prompt
+                                            # slots with (target, source) instead
+                                            # of (source, target); directional
+                                            # labels invert exactly once at parse
+                                            # time (relation_for_canonical_pair).
+                                            # Prompt text and verbalizations are
+                                            # untouched.
     ):
         self.llm = llm
         self.prompt_template: Prompt = get_reranking_prompt(prompt_id)
@@ -77,6 +98,7 @@ class MatcherSubsumptionReranker(MatcherBase):
         self.max_new_tokens = max_new_tokens
         self.threshold = threshold
         self.batch_size = batch_size
+        self.swap_pair_presentation = swap_pair_presentation
 
         # Filled by match(); the runner reads this for predictions.tsv.
         self.last_run_details: List[dict] = []
@@ -184,9 +206,14 @@ class MatcherSubsumptionReranker(MatcherBase):
 
         prompts: List[Prompt] = []
         for src, tgt, _ev in candidates:
+            # Verbalization is a function of (kg, concept) ONLY — identical
+            # string regardless of which slot it lands in (A2 identity guard).
             source_text = self._get_entity_text(kg_source, src)
             target_text = self._get_entity_text(kg_target, tgt)
-            prompts.append(self._build_prompt(src, tgt, source_text, target_text))
+            if self.swap_pair_presentation:
+                prompts.append(self._build_prompt(tgt, src, target_text, source_text))
+            else:
+                prompts.append(self._build_prompt(src, tgt, source_text, target_text))
 
         results = self._score_in_batches(prompts)
 
@@ -206,7 +233,8 @@ class MatcherSubsumptionReranker(MatcherBase):
             per_class_counts[canonical] = per_class_counts.get(canonical, 0) + 1
 
             confidence = self._confidence_from_logprobs(token_logprobs)
-            relation = RELATION_LABEL_TO_RELATION.get(canonical, "")
+            # The ONLY place the A2 inversion is applied (exactly once).
+            relation = relation_for_canonical_pair(canonical, self.swap_pair_presentation)
 
             kept = False
             drop_reason = ""
@@ -236,6 +264,8 @@ class MatcherSubsumptionReranker(MatcherBase):
             self.last_run_details.append({
                 "source": src,
                 "target": tgt,
+                "pair_presentation":     ("swapped" if self.swap_pair_presentation
+                                          else "canonical"),
                 "stage1_relations":      ev["stage1_relations"],
                 "stage1_max_confidence": ev["stage1_max_confidence"],
                 "raw_response":          text,
@@ -270,4 +300,5 @@ class MatcherSubsumptionReranker(MatcherBase):
         return (
             f"MatcherSubsumptionReranker#p{self.prompt_id}#d{self.description}"
             f"#mnt{self.max_new_tokens}#t{self.threshold}#b{self.batch_size}"
+            + ("#SWAPPED-PRESENTATION" if self.swap_pair_presentation else "")
         )
