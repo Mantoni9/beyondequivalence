@@ -359,3 +359,120 @@ def compute_recall_at_k(
         k_values=k_values,
         relation_labels_present=relation_labels_present,
     )
+
+
+# ---------------------------------------------------------------------------
+# Swapped-retrieval ablation extensions (additive — the three modes above are
+# untouched). Definitions, for the Methods chapter:
+#
+# per_directed_query: the natural generalisation of per_relation_strict once
+# queries come from BOTH ontology sides. Every directed gold pair is scored
+# in the ranked list of its CHILD-side (fan-in) query:
+#   - gold (s, t, '<') [s ⊑ t]: t's 1-based rank in the s-anchored broader
+#     list (query s, retrieved target-ontology concepts);
+#   - gold (s, t, '>') [s ⊒ t, i.e. t ⊑ s]: s's 1-based rank in the
+#     t-anchored broader list (query t, retrieved source-ontology concepts).
+# Hit@K iff that within-list rank <= K. Reported only for subclass /
+# superclass — equivalence has no child-side query. The two list maps must
+# each come from a single pass: ranks are positions within one query's list
+# and are never compared across passes (the four query encodings have
+# systematically different score distributions — the same score-comparability
+# argument that motivated per_relation_strict).
+#
+# pair coverage at budget K: a gold pair counts as covered iff its (s, t)
+# pair appears anywhere in the candidate set — any direction hint. The
+# candidate set is produced upstream by capping every (query, pass) list at
+# K (see swap_retrieval.candidate_pairs_at_budget); capping is per directed
+# query, never per source. This is THE Stage-2-relevant quantity: the
+# reranker dedups candidates to unique (s, t) pairs and classifies each
+# fresh, so Stage-1 direction hints carry no signal. Reported per relation
+# INCLUDING '=' — equivalences ride along in the broader passes and must not
+# silently regress when the pass composition changes.
+# ---------------------------------------------------------------------------
+
+
+def _first_occurrence_ranks(lists: dict[str, list[str]]) -> dict[str, dict[str, int]]:
+    out: dict[str, dict[str, int]] = {}
+    for query_uri, retrieved in lists.items():
+        ranks: dict[str, int] = {}
+        for rank_zero, uri in enumerate(retrieved):
+            ranks.setdefault(uri, rank_zero + 1)
+        out[query_uri] = ranks
+    return out
+
+
+def compute_per_directed_query_recall(
+    reference: Alignment,
+    s_broader_lists: dict[str, list[str]],
+    t_broader_lists: dict[str, list[str]],
+    k_values: Iterable[int] = DEFAULT_K_VALUES,
+) -> dict:
+    """Recall@K / MRR in per_directed_query mode (see block comment above).
+
+    s_broader_lists: query source-concept -> ranked target-ontology URIs.
+    t_broader_lists: query target-concept -> ranked source-ontology URIs.
+    A gold pair whose query has no list counts as a miss (n still increments).
+    """
+    k_values = tuple(k_values)
+    s_ranks = _first_occurrence_ranks(s_broader_lists)
+    t_ranks = _first_occurrence_ranks(t_broader_lists)
+
+    stats = {
+        label: {"hits_at_k": {k: 0 for k in k_values}, "rrs": [], "n": 0}
+        for label in ("subclass", "superclass")
+    }
+    for cor in reference:
+        norm = _normalize_relation(cor.relation)
+        if norm == "<":
+            label = "subclass"
+            rank = s_ranks.get(cor.source, {}).get(cor.target)
+        elif norm == ">":
+            label = "superclass"
+            rank = t_ranks.get(cor.target, {}).get(cor.source)
+        else:
+            continue
+        st = stats[label]
+        st["n"] += 1
+        if rank is None:
+            st["rrs"].append(0.0)
+        else:
+            st["rrs"].append(1.0 / rank)
+            for k in k_values:
+                if rank <= k:
+                    st["hits_at_k"][k] += 1
+
+    return {
+        "recall_at_k": {
+            label: {k: (st["hits_at_k"][k] / st["n"]) if st["n"] else 0.0 for k in k_values}
+            for label, st in stats.items()
+        },
+        "mrr": {
+            label: (sum(st["rrs"]) / st["n"]) if st["n"] else 0.0
+            for label, st in stats.items()
+        },
+        "hits_at_k": {label: dict(st["hits_at_k"]) for label, st in stats.items()},
+        "n": {label: st["n"] for label, st in stats.items()},
+        "k_values": k_values,
+    }
+
+
+def compute_pair_coverage(
+    reference: Alignment,
+    candidate_pairs: set[tuple[str, str]],
+) -> dict:
+    """Pair-level gold coverage against a budget-capped candidate pair set
+    (see block comment above). Returns per relation label:
+    {"n": ..., "covered": ..., "coverage": ...} — coverage is None when the
+    relation has no gold."""
+    out = {label: {"n": 0, "covered": 0} for label in RELATION_LABELS.values()}
+    for cor in reference:
+        norm = _normalize_relation(cor.relation)
+        if norm is None:
+            continue
+        bucket = out[RELATION_LABELS[norm]]
+        bucket["n"] += 1
+        if (cor.source, cor.target) in candidate_pairs:
+            bucket["covered"] += 1
+    for bucket in out.values():
+        bucket["coverage"] = (bucket["covered"] / bucket["n"]) if bucket["n"] else None
+    return out
