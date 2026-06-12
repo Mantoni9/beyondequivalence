@@ -111,6 +111,28 @@ def test_reverse_when_no_candidate_passes_guards():
     assert band == "REVERSE"
 
 
+def test_structural_guard_flags():
+    # With s-side fixed @20, v_3pass/v_union are supersets of the baseline
+    # pass set at ANY Kt — their '<'/'=' guards pass by construction and
+    # must be marked structural; only v_sym's are empirically live.
+    pooled, pairs = _sweep(_full_grid())
+    candidates, _w, _b = evaluate_candidates(pooled, pairs, BASE20, BASE_PAIRS)
+    for c in candidates.values():
+        assert c["guards_structural"] == (c["variant"] != "v_sym")
+        assert c["structural_violation"] is False
+
+
+def test_structural_violation_flagged_on_impossible_drop():
+    # A positive '<' drop on a superset variant is impossible by construction
+    # — if it appears, the data is corrupt and must be flagged loudly.
+    pooled, pairs = _sweep(_full_grid({
+        ("v_3pass", 20): (0.90, 0.85, 0.998, 110_000),   # '<' 0.90 < base 0.928
+    }))
+    candidates, _w, _b = evaluate_candidates(pooled, pairs, BASE20, BASE_PAIRS)
+    assert candidates["v_3pass@t20"]["structural_violation"] is True
+    assert candidates["v_sym@t20"]["structural_violation"] is False
+
+
 def test_band_classification_edges():
     pooled, pairs = _sweep(_full_grid({
         ("v_sym", 20): (0.93, 0.70, 0.998, 105_000),

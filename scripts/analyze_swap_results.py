@@ -164,11 +164,20 @@ def evaluate_candidates(pooled_sweep: dict, pooled_sweep_pairs: dict,
             sup = _ratio(cov["superclass"])
             drop_sub = base_sub - _ratio(cov["subclass"])
             drop_eq = base_eq - _ratio(cov["equivalence"])
+            # With the s-side fixed @20, v_3pass/v_union contain the full
+            # baseline pass set at ANY Kt — their '<'/'=' guards pass by
+            # construction (structural, no information). Only v_sym's are
+            # empirically live. A positive drop on a structural candidate is
+            # impossible -> flag as data corruption, never as a guard result.
+            structural = variant != "v_sym"
             candidates[f"{variant}@t{kt}"] = {
                 "variant": variant, "kt": kt,
                 "sup_cov": sup, "delta": sup - base_sup,
                 "drop_sub": drop_sub, "drop_eq": drop_eq,
                 "pairs": pairs, "volume_ratio": pairs / base_pairs20,
+                "guards_structural": structural,
+                "structural_violation": structural and (drop_sub > 1e-12
+                                                        or drop_eq > 1e-12),
                 "passes": (drop_sub <= GUARD_MAX_DROP
                            and drop_eq <= GUARD_MAX_DROP
                            and pairs <= volume_cap),
@@ -232,6 +241,7 @@ def main() -> None:
         pooled_pairs: dict = {}     # (variant, k) -> int
         pooled_sweep: dict = {}     # (variant, kt) -> {rel: {covered, n}}
         pooled_sweep_pairs: dict = {}
+        pooled_sweep_pass_pairs: dict = {}   # (variant, kt, pass_id) -> n pairs
         pdq_acc: dict = {}          # label -> {k: hits, n}
         crosstab_pool: dict = {}
         legacy_pool_note: dict = {}
@@ -289,11 +299,18 @@ def main() -> None:
                     }
                     pair_set = candidate_pairs_at_mixed_budget(passes, k_by_pass)
                     cov = compute_pair_coverage(reference, pair_set)
+                    per_pass = {pid: len(candidate_pairs_at_budget(passes.get(pid, []), k))
+                                for pid, k in k_by_pass.items()}
                     ds_out["sweep"][f"{variant}@t{kt}"] = {
-                        "coverage": cov, "pairs": len(pair_set)}
+                        "coverage": cov, "pairs": len(pair_set),
+                        "pairs_per_pass": per_pass}
                     _pool(pooled_sweep, (variant, kt), cov)
                     pooled_sweep_pairs[(variant, kt)] = \
                         pooled_sweep_pairs.get((variant, kt), 0) + len(pair_set)
+                    for pid, n_p in per_pass.items():
+                        key = (variant, kt, pid)
+                        pooled_sweep_pass_pairs[key] = \
+                            pooled_sweep_pass_pairs.get(key, 0) + n_p
 
             # --- per_directed_query (pooled) ---
             pdq = compute_per_directed_query_recall(
@@ -383,18 +400,29 @@ def main() -> None:
         md.append("### t-side budget sweep (s-side @20; Kt caps ALL t-side passes; "
                   "Kt=5 is reporting-only, never adoptable; registered prediction: "
                   "Kt=10 loses < 0.02 >-coverage vs Kt=20)\n")
-        md.append("| Variant | Kt | adoptable | >cov | <cov | =cov | pairs | ×base |")
-        md.append("| --- | ---: | --- | ---: | ---: | ---: | ---: | ---: |")
+        md.append("Per-pass columns show each pass's pair count at the candidate's "
+                  "budgets (s-side @20, t-side @Kt) — the union total is ≤ their sum "
+                  "because pairs overlap across passes. This makes visible which "
+                  "pass the Kt valve squeezes (for v_union both t-side passes).\n")
+        md.append("| Variant | Kt | adoptable | >cov | <cov | =cov "
+                  "| sB pairs | sN pairs | tB pairs | tN pairs | pairs (∪) | ×base |")
+        md.append("| --- | ---: | --- | ---: | ---: | ---: "
+                  "| ---: | ---: | ---: | ---: | ---: | ---: |")
         sweep_summary = {}
         for variant in CANDIDATE_VARIANTS:
             for kt in T_SWEEP_KS:
                 cov = pooled_sweep[(variant, kt)]
                 pairs = pooled_sweep_pairs[(variant, kt)]
                 sweep_summary[(variant, kt)] = _ratio(cov["superclass"])
+                per_pass_cells = " | ".join(
+                    str(pooled_sweep_pass_pairs[(variant, kt, pid)])
+                    if (variant, kt, pid) in pooled_sweep_pass_pairs else "—"
+                    for pid in ("s_broader", "s_narrower", "t_broader", "t_narrower"))
                 md.append(f"| {variant} | {kt} | {'yes' if kt in ADOPTION_KTS else 'no'} "
                           f"| {_fmt(_ratio(cov['superclass']))} "
                           f"| {_fmt(_ratio(cov['subclass']))} "
                           f"| {_fmt(_ratio(cov['equivalence']))} "
+                          f"| {per_pass_cells} "
                           f"| {pairs} | {pairs / base_pairs20:.2f} |")
         for variant in PREDICTION_VARIANTS:
             loss = sweep_summary[(variant, 20)] - sweep_summary[(variant, 10)]
@@ -435,14 +463,33 @@ def main() -> None:
                       f"({base20['superclass']['covered']}/{base20['superclass']['n']}); "
                       f"volume base {base_pairs20} (absolute cap {volume_cap:.0f}).")
             md.append("")
+            md.append("**Structural guard note:** with the s-side fixed @20, v_3pass "
+                      "and v_union are supersets of the baseline pass set at ANY Kt — "
+                      "their '<'/'=' guards pass **by construction** and carry no "
+                      "information (marked *struct* below). The empirically live "
+                      "guard questions are exactly: (a) v_sym's '<'/'=' (quantifying "
+                      "the s_narrower cross-rescue) and (b) the volume cap for every "
+                      "candidate.")
+            md.append("")
             md.append("| Candidate | >cov | Δ vs base | <drop | =drop | pairs | ×base | guards |")
             md.append("| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |")
             for cid, c in sorted(candidates.items(),
                                  key=lambda kv: -kv[1]["sup_cov"]):
+                tripped = [g for g, hit in (
+                    ("<", c["drop_sub"] > GUARD_MAX_DROP),
+                    ("=", c["drop_eq"] > GUARD_MAX_DROP),
+                    ("vol", c["pairs"] > volume_cap)) if hit]
+                if c["guards_structural"]:
+                    cell = (("PASS" if c["passes"] else "FAIL: " + ",".join(tripped))
+                            + " — <,= struct, vol live")
+                    if c["structural_violation"]:
+                        cell += " ⚠ STRUCTURAL VIOLATION (data corrupt?)"
+                else:
+                    cell = ("PASS — all live" if c["passes"]
+                            else "FAIL: " + ",".join(tripped))
                 md.append(f"| {cid} | {_fmt(c['sup_cov'])} | {c['delta']:+.3f} "
                           f"| {c['drop_sub']:+.3f} | {c['drop_eq']:+.3f} "
-                          f"| {c['pairs']} | {c['volume_ratio']:.2f} "
-                          f"| {'PASS' if c['passes'] else 'FAIL'} |")
+                          f"| {c['pairs']} | {c['volume_ratio']:.2f} | {cell} |")
             md.append("")
             if winner:
                 md.append(f"- **Winner: {winner}** (highest >-coverage among "
@@ -467,6 +514,8 @@ def main() -> None:
             "sweep_pooled": {f"{v}@t{kt}": {rel: dict(b) for rel, b in d.items()}
                              for (v, kt), d in pooled_sweep.items()},
             "sweep_pairs": {f"{v}@t{kt}": n for (v, kt), n in pooled_sweep_pairs.items()},
+            "sweep_pass_pairs": {f"{v}@t{kt}/{pid}": n
+                                 for (v, kt, pid), n in pooled_sweep_pass_pairs.items()},
             "pdq_pooled": pdq_acc,
             "crosstab_pooled": crosstab_pool,
             "guards_at_20": guard_status,
