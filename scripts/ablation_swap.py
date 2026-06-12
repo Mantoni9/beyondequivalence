@@ -9,9 +9,11 @@ UNMODIFIED frozen matcher twice (swap_retrieval.run_all_passes):
   match(T, S) -> t_broader, t_narrower — re-oriented to canonical
                  (source, target) orientation: (t, s', '<') -> (s', t, '>').
 The ablation variants are offline pass subsets (swap_retrieval.VARIANTS):
-  baseline = s_broader + s_narrower   (the frozen d11c97e pipeline)
-  v_sym    = s_broader + t_broader    (PRIMARY: both directions fan-in)
-  v_union  = all four                 (recall ceiling)
+  baseline = s_broader + s_narrower             (the frozen d11c97e pipeline)
+  v_sym    = s_broader + t_broader              (PRIMARY: both directions fan-in)
+  v_3pass  = s_broader + s_narrower + t_broader (amendment 2026-06-12: keeps
+             the s_narrower cross-rescue that v_sym structurally loses)
+  v_union  = all four                           (recall ceiling)
 
 Grid: {qwen3-noLoRA (primary), nemo+LoRA (robustness side-run — does NOT
 reopen the model freeze)} x 6 datasets = 12 runs.
@@ -37,9 +39,12 @@ Exit codes (checked in this priority order, all AFTER every run has written
 its artifacts): 3 = identity check mismatch OR skipped while enabled (s-side
 passes not verified against d11c97e — comparability broken/unproven);
 2 = a run with '>' gold got v_sym superclass coverage@20 of 0 (swap path
-silently broke); 4 = pooled guard violation (v_sym/v_union pooled
+silently broke); 4 = pooled guard violation (a swap variant's pooled
 subclass- or equivalence-coverage@20 dropped > 0.02 vs the same run's
-pooled baseline — the pre-registered guard).
+pooled baseline — the pre-registered guard). NOTE: a v_sym '<'-guard trip
+is expected-possible per the amendment (it quantifies the s_narrower
+cross-rescue) — it is a FINDING to report, not a code failure; artifacts
+are always fully persisted before any gate decides the exit code.
 """
 
 from __future__ import annotations
@@ -81,6 +86,7 @@ from MatcherAsymmetricRetrieval import MatcherAsymmetricRetrieval
 from prompt import get_subb_asym_templates
 from subB_pinned_config import SUBB_PIN_ASYM
 from swap_retrieval import (
+    VARIANTS,
     PassRow,
     assemble_variant,
     candidate_pairs_at_budget,
@@ -105,12 +111,13 @@ BUDGET_KS = (5, 10, 20, 50)
 EVAL_KS = (1, 5, 10, 20, 50)
 VOLUME_K = 20
 
-# Pre-registered guards: pooled coverage@20 of v_sym/v_union may not drop more
-# than this vs the pooled baseline of the SAME run, for '<' and '='.
-# Superclass is the PRIMARY outcome, never a guard.
+# Pre-registered guards: pooled coverage@20 of the swap variants may not drop
+# more than this vs the pooled baseline of the SAME run, for '<' and '='.
+# Superclass is the PRIMARY outcome, never a guard. v_3pass registered by
+# pre-amendment 2026-06-12, same guards/thresholds as the other variants.
 GUARD_MAX_DROP = 0.02
 GUARD_RELATIONS = ("subclass", "equivalence")
-GUARD_VARIANTS = ("v_sym", "v_union")
+GUARD_VARIANTS = ("v_sym", "v_3pass", "v_union")
 
 
 def _pool_coverage(acc: dict, cfg_name: str, variant: str, cov_at_k: dict) -> None:
@@ -356,7 +363,7 @@ def main() -> None:
 
                 # --- variant metrics: pair coverage + volume per budget K ---
                 variants: dict[str, dict] = {}
-                for variant in ("baseline", "v_sym", "v_union"):
+                for variant in VARIANTS:
                     rows = assemble_variant(passes, variant)
                     cov, n_pairs = {}, {}
                     for k in BUDGET_KS:
@@ -472,7 +479,7 @@ def main() -> None:
                         "identity_check_ok": {"ok": 1, "mismatch": 0, "skipped": -1,
                                               "disabled": -2}[identity["status"]],
                     }
-                    for variant in ("baseline", "v_sym", "v_union"):
+                    for variant in VARIANTS:
                         for rel in ("subclass", "superclass", "equivalence"):
                             val = variants[variant]["pair_coverage"][VOLUME_K][rel]["coverage"]
                             if val is not None:

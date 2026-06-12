@@ -17,6 +17,7 @@ from swap_retrieval import (
     PassRow,
     assemble_variant,
     candidate_pairs_at_budget,
+    candidate_pairs_at_mixed_budget,
     candidate_triples,
     passes_from_alignment,
     read_passes_tsv,
@@ -45,6 +46,8 @@ def test_pass_specs_cover_all_four_passes_with_canonical_relations():
     assert PASS_SPECS["t_narrower"].canonical_relation == "<"
     assert VARIANTS["baseline"] == ("s_broader", "s_narrower")
     assert VARIANTS["v_sym"] == ("s_broader", "t_broader")
+    # Amendment 2026-06-12: V-3pass keeps the s_narrower cross-rescue.
+    assert VARIANTS["v_3pass"] == ("s_broader", "s_narrower", "t_broader")
     assert set(VARIANTS["v_union"]) == set(PASS_SPECS)
 
 
@@ -117,6 +120,9 @@ def test_assemble_variant_selects_pass_subsets():
     # V-sym contains NO narrower-pass rows at all.
     assert not any("narrower" in r.pass_id for r in v_sym)
 
+    v_3pass = assemble_variant(passes, "v_3pass")
+    assert {r.pass_id for r in v_3pass} == {"s_broader", "s_narrower", "t_broader"}
+
     v_union = assemble_variant(passes, "v_union")
     assert {r.pass_id for r in v_union} == set(PASS_SPECS)
 
@@ -144,6 +150,25 @@ def test_candidate_pairs_at_budget_respects_rank_cutoff():
     rows = passes_from_alignment(raw, query_side="source")["s_broader"]
     assert candidate_pairs_at_budget(rows, k=2) == {(S1, T1), (S1, T2)}
     assert candidate_pairs_at_budget(rows, k=50) == {(S1, T1), (S1, T2), (S1, T3)}
+
+
+def test_candidate_pairs_at_mixed_budget_caps_per_pass():
+    # t-side budget sweep (amendment point 2): different K per pass; passes
+    # absent from the budget map contribute NOTHING.
+    s_passes = passes_from_alignment(
+        _align((S1, T1, "<", 0.9), (S1, T2, "<", 0.8), (S1, T3, ">", 0.7)),
+        query_side="source")
+    t_passes = passes_from_alignment(
+        _align((T1, S1, "<", 0.9), (T1, S2, "<", 0.8)), query_side="target")
+    passes = {**s_passes, **t_passes}
+
+    pairs = candidate_pairs_at_mixed_budget(passes, {"s_broader": 2, "t_broader": 1})
+    # s_broader both ranks in; t_broader only its rank-1 (S1, T1) — already
+    # present via s_broader; s_narrower excluded entirely.
+    assert pairs == {(S1, T1), (S1, T2)}
+
+    pairs_kt2 = candidate_pairs_at_mixed_budget(passes, {"s_broader": 2, "t_broader": 2})
+    assert pairs_kt2 == {(S1, T1), (S1, T2), (S2, T1)}
 
 
 # ----------------------------------------------------- canonical-key dedup

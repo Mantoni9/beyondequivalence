@@ -52,9 +52,14 @@ PASS_SPECS: dict[str, PassSpec] = {
 
 # Ablation variants as pass subsets. One GPU run produces all four passes;
 # the variants (and the frozen baseline) are offline recombinations.
+# v_3pass registered by pre-amendment 2026-06-12 (before job-255613 results):
+# keeps the s_narrower cross-rescue that V-sym structurally loses ('<'-coverage
+# of V-sym ≈ s_broader-only by construction, since t_broader only adds '>'
+# direction-hint pairs).
 VARIANTS: dict[str, tuple[str, ...]] = {
     "baseline": ("s_broader", "s_narrower"),
     "v_sym":    ("s_broader", "t_broader"),
+    "v_3pass":  ("s_broader", "s_narrower", "t_broader"),
     "v_union":  ("s_broader", "s_narrower", "t_broader", "t_narrower"),
 }
 
@@ -155,6 +160,19 @@ def candidate_pairs_at_budget(rows: Iterable[PassRow], k: int) -> set[tuple[str,
     """Candidate pair set at budget K: every (query, pass) list capped at K,
     pairs collapsed across passes (direction hints ignored)."""
     return {(r.source_uri, r.target_uri) for r in rows if r.rank <= k}
+
+
+def candidate_pairs_at_mixed_budget(
+    passes: dict[str, list[PassRow]], k_by_pass: dict[str, int],
+) -> set[tuple[str, str]]:
+    """Candidate pair set with a per-pass budget (t-side budget sweep,
+    amendment 2026-06-12): each pass listed in k_by_pass is capped at its own
+    K; passes absent from k_by_pass contribute nothing. Capping stays per
+    (query_uri, pass) — the mixed budget changes K, never the cap axis."""
+    pairs: set[tuple[str, str]] = set()
+    for pass_id, k in k_by_pass.items():
+        pairs |= candidate_pairs_at_budget(passes.get(pass_id, []), k)
+    return pairs
 
 
 def candidate_triples(rows: Iterable[PassRow]) -> set[tuple[str, str, str]]:
