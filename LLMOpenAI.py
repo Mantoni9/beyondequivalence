@@ -211,12 +211,15 @@ class LLMOpenAI(LLMBase):
 
             {
                 "text":           full generated text (str),
+                "tokens":         per-token string of the chosen token (list[str]),
                 "token_logprobs": per-token logprob of the chosen token (list[float]),
                 "sum_logprob":    sum of token_logprobs (joint log-prob of the
                                   greedy completion),
                 "n_tokens":       len(token_logprobs),
             }
 
+        ``tokens`` is aligned 1:1 with ``token_logprobs`` so downstream code
+        can isolate the answer span (Stufe-B B2 answer-span mean-logprob).
         On error per prompt: text="" and empty / zero numeric fields.
         """
         responses = self._chat_completions(
@@ -229,11 +232,15 @@ class LLMOpenAI(LLMBase):
                 lp_obj = getattr(response.choices[0], "logprobs", None)
                 content = getattr(lp_obj, "content", None) if lp_obj is not None else None
                 if content:
-                    token_logprobs = [float(t.logprob) for t in content if t.logprob is not None]
+                    pairs = [(getattr(t, "token", ""), float(t.logprob))
+                             for t in content if t.logprob is not None]
+                    tokens = [tok for tok, _ in pairs]
+                    token_logprobs = [lp for _, lp in pairs]
                 else:
-                    token_logprobs = []
+                    tokens, token_logprobs = [], []
                 out.append({
                     "text":           text,
+                    "tokens":         tokens,
                     "token_logprobs": token_logprobs,
                     "sum_logprob":    float(sum(token_logprobs)),
                     "n_tokens":       len(token_logprobs),
@@ -241,7 +248,8 @@ class LLMOpenAI(LLMBase):
             except Exception as e:
                 logger.error(f"Error in get_text_completion_with_logprobs: {e}")
                 out.append({
-                    "text": "", "token_logprobs": [], "sum_logprob": 0.0, "n_tokens": 0,
+                    "text": "", "tokens": [], "token_logprobs": [],
+                    "sum_logprob": 0.0, "n_tokens": 0,
                 })
         return out
 
