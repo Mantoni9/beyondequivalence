@@ -198,7 +198,7 @@ class _OrderAwareLLM:
     def __init__(self):
         self.seen = []
 
-    def get_text_completion_with_logprobs(self, prompts, max_new_tokens):
+    def get_text_completion_with_logprobs(self, prompts, max_new_tokens, **kwargs):
         out = []
         for p in prompts:
             text = str(p)

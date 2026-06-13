@@ -113,7 +113,7 @@ class _FakeLLM:
         self.completion = completion
         self.seen_prompts: list = []
 
-    def get_text_completion_with_logprobs(self, prompts, max_new_tokens):
+    def get_text_completion_with_logprobs(self, prompts, max_new_tokens, **kwargs):
         self.seen_prompts.extend(prompts)
         return [{"text": self.completion, "token_logprobs": [-0.1],
                  "sum_logprob": -0.1, "n_tokens": 1} for _ in prompts]

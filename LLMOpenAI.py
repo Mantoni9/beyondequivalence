@@ -198,9 +198,14 @@ class LLMOpenAI(LLMBase):
         return completions
 
     def get_text_completion_with_logprobs(
-        self, prompts: List[Prompt], max_new_tokens: int = 256
+        self, prompts: List[Prompt], max_new_tokens: int = 256,
+        temperature: float = 0.0, top_p: Optional[float] = None,
     ) -> List[Dict[str, Any]]:
-        """Greedy text completion with per-token logprobs.
+        """Text completion with per-token logprobs.
+
+        Decoding: ``temperature``/``top_p`` are configurable for the Stage-2
+        matrix (reasoners run at model-recommended temp>0; non-reasoners at
+        temp=0). Default temp=0.0 preserves the prior greedy behaviour.
 
         Primary extraction path for Stage-2 multi-class relation classification:
         reasoner models (gpt-oss, Gemma-4-thinking) emit chain-of-thought before
@@ -222,8 +227,10 @@ class LLMOpenAI(LLMBase):
         can isolate the answer span (Stufe-B B2 answer-span mean-logprob).
         On error per prompt: text="" and empty / zero numeric fields.
         """
+        extra = {"top_p": top_p} if top_p is not None else {}
         responses = self._chat_completions(
-            prompts, max_tokens=max_new_tokens, temperature=0.0, logprobs=True,
+            prompts, max_tokens=max_new_tokens, temperature=temperature,
+            logprobs=True, **extra,
         )
         out: List[Dict[str, Any]] = []
         for response in responses:

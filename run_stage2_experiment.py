@@ -367,6 +367,11 @@ def parse_args() -> argparse.Namespace:
                          "labels are inverted exactly once at parse time when "
                          "mapping back to the canonical (s, t) pair. Prompt "
                          "text and verbalizations are untouched."))
+    p.add_argument("--temperature", type=float, default=0.0,
+                   help="Decoding temperature. Stage-2 matrix: reasoners "
+                        "model-recommended (>0), non-reasoners 0.0 (default).")
+    p.add_argument("--top-p", type=float, default=None,
+                   help="Optional nucleus top_p (only sent when set).")
     p.add_argument("--threshold", type=float, default=0.0,
                    help=("Optional confidence cutoff applied AFTER the 'none' "
                          "filter. 0.0 = keep all non-none predictions."))
@@ -586,8 +591,11 @@ def main() -> None:
         threshold=args.threshold,
         batch_size=args.batch_size,
         swap_pair_presentation=args.swap_pair_presentation,
+        temperature=args.temperature,
+        top_p=args.top_p,
     )
-    logger.info("Stage-2 reranker: %s", reranker)
+    logger.info("Stage-2 reranker: %s  (temp=%.2f top_p=%s)",
+                reranker, args.temperature, args.top_p)
 
     t0 = time.perf_counter()
     predictions = reranker.match(kg_source, kg_target, candidates, parameters={})
@@ -626,6 +634,8 @@ def main() -> None:
             "backend":             "vllm" if os.getenv("VLLM_BASE_URL") else "huggingface",
             "prompt_id":           args.prompt_id,
             "swap_pair_presentation": args.swap_pair_presentation,
+            "temperature":         args.temperature,
+            "top_p":               args.top_p,
             "description":         args.description,
             "kg_format":           args.kg_format,
             "batch_size":          args.batch_size,

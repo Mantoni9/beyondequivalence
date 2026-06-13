@@ -89,6 +89,9 @@ class MatcherSubsumptionReranker(MatcherBase):
                                             # time (relation_for_canonical_pair).
                                             # Prompt text and verbalizations are
                                             # untouched.
+        temperature: float = 0.0,           # Stage-2 matrix decoding: reasoners
+        top_p: float | None = None,         # model-recommended (temp>0),
+                                            # non-reasoners temp=0 (default).
     ):
         self.llm = llm
         self.prompt_template: Prompt = get_reranking_prompt(prompt_id)
@@ -99,6 +102,8 @@ class MatcherSubsumptionReranker(MatcherBase):
         self.threshold = threshold
         self.batch_size = batch_size
         self.swap_pair_presentation = swap_pair_presentation
+        self.temperature = temperature
+        self.top_p = top_p
 
         # Filled by match(); the runner reads this for predictions.tsv.
         self.last_run_details: List[dict] = []
@@ -169,6 +174,7 @@ class MatcherSubsumptionReranker(MatcherBase):
             batch = prompts[start : start + self.batch_size]
             batch_results = self.llm.get_text_completion_with_logprobs(
                 batch, max_new_tokens=self.max_new_tokens,
+                temperature=self.temperature, top_p=self.top_p,
             )
             results.extend(batch_results)
         return results
