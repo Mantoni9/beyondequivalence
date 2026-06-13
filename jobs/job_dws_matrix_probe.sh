@@ -37,8 +37,11 @@ case "$MODEL" in
     SERVE_ENV=vllm-matrix; MODEL_PATH="google/gemma-4-31B-it"; REASONER=1
     SERVE_EXTRA="--max-model-len 8192" ;;
   mistral)
+    # Mistral-Small-3.2 is mistral3/pixtral (multimodal). vLLM 0.23.0 crashes
+    # profiling a dummy image (MistralCommonImageProcessor.fetch_images). We
+    # use it TEXT-ONLY → cap image inputs to 0 to skip the vision path.
     SERVE_ENV=vllm-matrix; MODEL_PATH="mistralai/Mistral-Small-3.2-24B-Instruct-2506"; REASONER=0
-    SERVE_EXTRA="--max-model-len 8192 --tokenizer-mode mistral" ;;
+    SERVE_EXTRA="--max-model-len 8192 --tokenizer-mode mistral --limit-mm-per-prompt {\"image\":0}" ;;
   llama)
     SERVE_ENV=melt-olala; MODEL_PATH="/work/amarkic/models/Llama-3.3-70B-Instruct-AWQ-INT4"; REASONER=0
     SERVE_EXTRA="--quantization awq --dtype float16 --max-model-len 8192" ;;
