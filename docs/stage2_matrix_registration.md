@@ -69,15 +69,22 @@ is new. (Matrix jobs 262107/262111 were submitted then cancelled as redundant.)
   12 (g7: mistral/gemma4/gpt-oss; g5: mistral/gemma4/gpt-oss; g3: all four +
   gpt-oss ×2 extra variance seeds); Llama g7/g5 reused from 255471/262089.
   ~36 h serialised (Llama 7h + Mistral 4.7h + gemma4 9.1h + gpt-oss 15.2h).
-- **Variance (now, alongside):** gpt-oss × g3 × seeds {42, 123, 7}. Seed 42 IS the
-  Tier-1 gpt-oss-g3 run; +2 extra jobs (seeds 123, 7), FULL g3 (8450 pairs each,
-  ~12h). The variance is measured on the REAL run's full distribution — not a
-  gold-only subset (which would misrepresent it).
+- **Variance (now, alongside) — BOTH reasoners, symmetric:** gpt-oss AND gemma4,
+  each × g3 × seeds {42, 123, 7}. Seed 42 IS the grid cell; +2 extra jobs per
+  reasoner (seeds 123, 7) = 4 extra, FULL g3 (8450 pairs each). BOTH reasoners
+  run at temp>0 (gpt-oss 1.0, gemma4 1.0) → both non-deterministic → both need a
+  noise floor; measuring only one would compare a point estimate (unknown noise)
+  against an error-barred one. Non-reasoners (Mistral, Llama) are temp=0 →
+  deterministic → no variance jobs. Variance measured on the REAL full
+  distribution, not a gold-only subset.
 - **Tier 2 (after):** mouse-human × 4, K=20 (full 68,135 pairs). Multi-day, accepted.
 - **Tier 3 (optional):** g1 + g2 × 4 (high cost, low directional signal: 53/38
   directional pairs for 19.5k/35k candidates).
 
-Total now = 12 Tier-1 + 2 variance = **14 jobs**.
+Total now = 12 grid (incl. Llama g3, excl. reused Llama g7/g5) − ... in job terms:
+**14 NEW jobs** = 10 grid (12 cells − 2 reused Llama g7/g5) + 4 variance-extra
+(gpt-oss g3 ×2, gemma4 g3 ×2). Plus 2 reused (Llama g7=255471, g5=262089) → 16
+matrix cells total. Submitted: 262108–262122 (minus cancelled 262107/262111).
 
 ## Walltime (generous, variance-tolerant; QOS max2gpu5d allows 5 days)
 g7: gpt-oss 5h · gemma4 4h · mistral 3h · llama 3h.
