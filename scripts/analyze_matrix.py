@@ -43,7 +43,7 @@ from evaluation_multiclass import compute_multiclass_metrics
 from evaluation_recall import _normalize_relation
 from tracks.zenodo_loader import load_subdataset
 from matrix_stats import (
-    macro_f1, mcnemar, bootstrap_macro_f1_ci,
+    _prf, macro_f1, mcnemar, bootstrap_macro_f1_ci,
     random_direction_floor, majority_class_floor,
 )
 
@@ -95,7 +95,19 @@ def _report(ds: str, cand: set, pred_by_pair: dict) -> dict:
             predictions.add(Correspondence(s, t, rel, 1.0))
     rep = compute_multiclass_metrics(reference=reference, predictions=predictions,
                                      candidate_pairs=cand).to_dict()
-    # directional gold (gold,pred) for floors/mcnemar/bootstrap
+    # Three populations:
+    #  - full_*  : EVERY candidate pair, gold='none' if not a gold relation.
+    #              This is the basis of compute_multiclass_metrics' macro_f1
+    #              (FPs on non-gold candidates count) → the bootstrap MUST use
+    #              this so its CI brackets the reported macro_f1.
+    #  - cond_*  : reranker-conditional gold pairs (gold present in candidates)
+    #              — the floors' basis (per the registration "on the same
+    #              conditional pairs").
+    #  - dir_*   : directional conditional gold only (the direction floor).
+    full_gold, full_pred = [], []
+    for (s, t) in cand:
+        full_gold.append(gold.get((s, t), "none"))
+        full_pred.append(pred_by_pair.get((s, t), "none"))
     dir_gold, dir_pred = [], []
     cond_gold, cond_pred = [], []
     for (s, t), grel in gold.items():
@@ -106,6 +118,7 @@ def _report(ds: str, cand: set, pred_by_pair: dict) -> dict:
         if grel in ("<", ">"):
             dir_gold.append(grel); dir_pred.append(prel)
     return {"report": rep, "gold": gold,
+            "full_gold": full_gold, "full_pred": full_pred,
             "dir_gold": dir_gold, "dir_pred": dir_pred,
             "cond_gold": cond_gold, "cond_pred": cond_pred}
 
@@ -181,17 +194,23 @@ def main():
             if not a:
                 continue
             rep = a["report"]
-            lo, hi = bootstrap_macro_f1_ci(a["cond_gold"], a["cond_pred"], n_boot=1000, seed=42)
+            # bootstrap on the FULL candidate basis (matches reported macro_f1)
+            lo, hi = bootstrap_macro_f1_ci(a["full_gold"], a["full_pred"], n_boot=1000, seed=42)
+            # none-row P/R/F1 — first-class (compute_multiclass_metrics' per_class
+            # is only {<,>,=}; the none class needs computing from the full basis).
+            none_p, none_r, none_f1 = _prf(a["full_gold"], a["full_pred"], "none")
+            a["none_prf"] = (none_p, none_r, none_f1)
             out["cells"][f"{model}/{dataset}"] = {
                 "macro_f1": rep.get("macro_f1"), "ci": [lo, hi],
                 "per_class": rep.get("per_class"), "confusion": rep.get("confusion"),
+                "none_prf": {"precision": none_p, "recall": none_r, "f1": none_f1},
                 "flip_rate_gt": rep.get("flip_rate_gt"), "flip_rate_lt": rep.get("flip_rate_lt"),
                 "direction_accuracy": rep.get("direction_accuracy"),
                 "parse_fail": a["parse_fail"]}
             md.append(f"| {model} | {dataset} | {_fmt(rep.get('macro_f1'))} "
                       f"[{_fmt(lo)},{_fmt(hi)}] | {_fmt(_pc(rep,'<','f1'))} "
                       f"| {_fmt(_pc(rep,'>','f1'))} | {_fmt(_pc(rep,'=','f1'))} "
-                      f"| {_fmt(_pc(rep,'none','f1'))} | {_fmt(rep.get('flip_rate_gt'))} "
+                      f"| {_fmt(none_f1)} | {_fmt(rep.get('flip_rate_gt'))} "
                       f"| {_fmt(rep.get('flip_rate_lt'))} | {_fmt(rep.get('direction_accuracy'))} "
                       f"| {_fmt(a['parse_fail'])} | {QUANT.get(model,'?')} |")
     md.append("")
@@ -221,9 +240,9 @@ def main():
             if not a:
                 continue
             cm = a["report"].get("confusion", {})
+            npp = a.get("none_prf") or _prf(a["full_gold"], a["full_pred"], "none")
             md.append(f"**{model} · {dataset}** "
-                      f"(none P/R/F1 {_fmt(_pc(a['report'],'none','precision'))}/"
-                      f"{_fmt(_pc(a['report'],'none','recall'))}/{_fmt(_pc(a['report'],'none','f1'))})")
+                      f"(none P/R/F1 {_fmt(npp[0])}/{_fmt(npp[1])}/{_fmt(npp[2])})")
             md.append("| gold↓ pred→ | < | > | = | none |")
             md.append("| --- | ---: | ---: | ---: | ---: |")
             for g in ("<", ">", "=", "none"):
