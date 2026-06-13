@@ -58,8 +58,16 @@ untouched). Server/client split over HTTP; reranker client always melt-olala.
 - **Variance:** per-class F1 spread across the 3 g3 gpt-oss seeds = the noise floor
   for reasoner comparisons.
 
+## Llama g7/g5 are REUSED, not re-run
+Llama single-order d_subs_v2 temp=0 on g7 = Run **255471** (the v2 baseline) and
+on g5 = Run **262089** (Stufe-A R0) — identical model/prompt/mnt/temp/seed/TSV/K.
+The matrix's Llama g7/g5 cells come from those existing run dirs; only Llama g3
+is new. (Matrix jobs 262107/262111 were submitted then cancelled as redundant.)
+
 ## Tiering (signal-per-cost; all K=20, all full datasets; QOS serialises)
-- **Tier 1 (now):** {g7, g5, g3} × 4 models = 12 jobs, single-order, seed 42.
+- **Tier 1 (now):** {g7, g5, g3} × 4 models, single-order, seed 42. NEW jobs =
+  12 (g7: mistral/gemma4/gpt-oss; g5: mistral/gemma4/gpt-oss; g3: all four +
+  gpt-oss ×2 extra variance seeds); Llama g7/g5 reused from 255471/262089.
   ~36 h serialised (Llama 7h + Mistral 4.7h + gemma4 9.1h + gpt-oss 15.2h).
 - **Variance (now, alongside):** gpt-oss × g3 × seeds {42, 123, 7}. Seed 42 IS the
   Tier-1 gpt-oss-g3 run; +2 extra jobs (seeds 123, 7), FULL g3 (8450 pairs each,
