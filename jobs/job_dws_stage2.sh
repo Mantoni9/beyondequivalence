@@ -13,7 +13,11 @@
 # Both have device capability 8.6 + "SymmMemCommunicator not supported" warnings;
 # --enforce-eager alone is not enough on these nodes. Job 255327 ran fine on
 # dws-09 earlier the same day (~10 min vLLM warmup, then reranker calls).
-#SBATCH --exclude=dws-16,dws-17
+# Observed 2026-06-12/13: identical shm_broadcast deadlock (worker queues
+# terminated, 0 completions, 6h TIMEOUT) on dws-14 (jobs 262084, 262086) and
+# dws-15 (job 262085) — same failure class, added to the exclude list. All
+# four COMPLETED stage2 runs (255391/255471/255535/255536) ran on dws-11.
+#SBATCH --exclude=dws-14,dws-15,dws-16,dws-17
 
 set -euo pipefail
 
