@@ -301,14 +301,18 @@ def main():
             ggold = {p: "<" for p in slice_pairs}
             gm = _metrics(grows, ggold, winner)
             rep = gm["report"]["per_class"]
+            # per_class is keyed by the relation chars '<' '>' '=' (PRIMARY_CLASSES).
             out["guard"] = {"winner": winner, "n": len(grows),
-                            "per_class": {k: rep.get(k, {}).get("f1") for k in
-                                          ("subclass", "superclass", "equivalent")}}
+                            "subclass_f1": rep.get("<", {}).get("f1"),
+                            "superclass_f1": rep.get(">", {}).get("f1"),
+                            "equivalence_f1": rep.get("=", {}).get("f1"),
+                            "subclass_recall": rep.get("<", {}).get("recall")}
             md.append(f"## '<'-heavy guard slice readout — winner {winner} "
                       f"(mouse-human, n={len(grows)}; READ-ONLY, not in selection)\n")
-            md.append(f"- subclass-F1 {_fmt(out['guard']['per_class'].get('subclass'))} "
-                      f"· superclass-F1 {_fmt(out['guard']['per_class'].get('superclass'))} "
-                      f"· =-F1 {_fmt(out['guard']['per_class'].get('equivalent'))}")
+            md.append(f"- subclass-F1 {_fmt(out['guard']['subclass_f1'])} "
+                      f"(recall {_fmt(out['guard']['subclass_recall'])}) "
+                      f"· superclass-F1 {_fmt(out['guard']['superclass_f1'])} "
+                      f"· =-F1 {_fmt(out['guard']['equivalence_f1'])}")
             md.append("- Guard check: the winner must NOT collapse subclass-F1 here "
                       "(dev is '>'-heavy; this is the '<'-heavy sanity).\n")
 
