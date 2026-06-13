@@ -5,15 +5,18 @@
 #SBATCH --gres=gpu:2
 #SBATCH --mem=100G
 #SBATCH --time=06:00:00
+#SBATCH --exclude=dws-14,dws-15,dws-16,dws-17
 #SBATCH --output=logs/mxrun_%j.out
 #SBATCH --error=logs/mxrun_%j.err
-# NOTE: no node exclusion. The old dws-14..17 (A6000) exclusion rested on a
-# weak premise — the "capability 8.6 / SymmMemCommunicator" warning also fires
-# on the working A40 (dws-11), and all observed deadlocks were vLLM 0.19.1.
-# The reasoner jobs use vLLM 0.23 (deadlock likely fixed). A40 is the only
-# non-A6000 48GB node, so excluding A6000 would funnel every job onto dws-11.
-# Safety net: bounded health-wait (MAX_WAIT) → exit 4 fast if a node hangs,
-# then resubmit with a targeted --exclude.
+# EXCLUDE the A6000 nodes (dws-14..17) — empirically REQUIRED, not the old
+# weak "capability 8.6" story. Live test 2026-06-14: job 262118 (gpt-oss g3)
+# on dws-14 (A6000) under the NEW vLLM 0.23 still hit the shm_broadcast
+# deadlock (12x "No available shared memory broadcast block", engine stuck
+# after model load, 0 completions) — so 0.23 does NOT fix it; it is an
+# A6000-specific issue. The A40 (dws-11) serves cleanly (all probes + Stufe
+# A/B ran there). Only dws-11 is a non-A6000 48GB node, so every job funnels
+# onto dws-11 — fine throughput-wise since QOS max2gpu serialises us to one
+# 2-GPU job anyway.
 #
 # Stage-2 MATRIX run: ONE model x ONE dataset, single-order, FULL dataset, K=20.
 # Server in env vllm-matrix (gpt-oss/gemma4/mistral, novel archs on vLLM 0.23) /
