@@ -1,7 +1,3 @@
-# Stufe-B guard candidate TSV (derived from the pinned read-only slice).
-# Minimal Stage-1-shaped input so run_stage2_bothorder queries ONLY the 45
-# '<'-heavy guard pairs (both orders). relation/score are placeholders —
-# the reranker dedups to unique (s,t); direction here is irrelevant.
 source_uri	target_uri	relation	score
 http://mouse.owl#MA_0000010	http://human.owl#NCI_C12919	<	1.000000
 http://mouse.owl#MA_0000041	http://human.owl#NCI_C40186	<	1.000000
