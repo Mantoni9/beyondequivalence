@@ -96,16 +96,17 @@ def _report(ds: str, cand: set, pred_by_pair: dict) -> dict:
     rep = compute_multiclass_metrics(reference=reference, predictions=predictions,
                                      candidate_pairs=cand).to_dict()
     # Three populations:
-    #  - full_*  : EVERY candidate pair, gold='none' if not a gold relation.
-    #              This is the basis of compute_multiclass_metrics' macro_f1
-    #              (FPs on non-gold candidates count) → the bootstrap MUST use
-    #              this so its CI brackets the reported macro_f1.
+    #  - full_*  : the EXACT universe compute_multiclass_metrics scores =
+    #              candidate_pairs ∪ gold (evaluation_multiclass.py:188), so
+    #              Stage-1 misses (gold not in candidates) count as FN and
+    #              non-gold candidate FPs count. The bootstrap MUST use this
+    #              so its CI brackets the reported macro_f1 exactly.
     #  - cond_*  : reranker-conditional gold pairs (gold present in candidates)
-    #              — the floors' basis (per the registration "on the same
-    #              conditional pairs").
+    #              — the floors' basis (registration "on the same conditional
+    #              pairs"); excludes misses and non-gold-candidate FPs.
     #  - dir_*   : directional conditional gold only (the direction floor).
     full_gold, full_pred = [], []
-    for (s, t) in cand:
+    for (s, t) in set(cand) | set(gold):
         full_gold.append(gold.get((s, t), "none"))
         full_pred.append(pred_by_pair.get((s, t), "none"))
     dir_gold, dir_pred = [], []
@@ -172,8 +173,13 @@ def main():
               "over {<,>,=}, reranker-conditional, single-order. partOf folded to "
               "none. Direction-accuracy reported but NOT primary.\n")
 
+    skipped = []
     for (model, dataset, seed), d in runs.items():
         if seed != 42:
+            continue
+        if not (d / "predictions.tsv").is_file():
+            skipped.append(f"{model}/{dataset} ({d}: no predictions.tsv)")
+            logger.warning("SKIP %s/%s — missing predictions.tsv at %s", model, dataset, d)
             continue
         cand, pbp, pf, rows = _load_run(d)
         a = _report(dataset, cand, pbp)
@@ -184,7 +190,12 @@ def main():
         correct[(model, dataset)] = _correct_set(a["gold"], pbp, cand)
 
     # ---- main table: Macro-F1 (+CI), per-class, flip rates, dir-acc, none-row, parse_fail
-    md.append("## Primary table (per model × dataset)\n")
+    if skipped:
+        md.append(f"> ⚠ **Skipped cells (no predictions.tsv):** {', '.join(skipped)}\n")
+    md.append("## Primary table (per model × dataset, seed 42 canonical)\n")
+    md.append("Macro-F1 over {<,>,=} on the compute_multiclass_metrics universe "
+              "(candidate∪gold; Stage-1 misses count as FN, non-gold-candidate FPs "
+              "count). CI = percentile bootstrap on that same basis.\n")
     md.append("| Model | Dataset | Macro-F1 [95% CI] | <-F1 | >-F1 | =-F1 | none-F1 "
               "| flip_gt | flip_lt | dir-acc | parse_fail | quant |")
     md.append("| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |")
@@ -216,10 +227,15 @@ def main():
     md.append("")
 
     # ---- floor rows per dataset
-    md.append("## Reference floors (per dataset; on the conditional gold)\n")
-    md.append("| Dataset | random-direction dir-acc | random-direction Macro-F1 | "
-              "majority-class Macro-F1 (class) |")
-    md.append("| --- | ---: | ---: | --- |")
+    md.append("## Reference floors (basis labelled — NOT the full-basis primary macro)\n")
+    md.append("> The **direction floor is dir-accuracy 0.5** — compare it to each "
+              "model's `dir-acc` column in the primary table (same directional-gold "
+              "basis). The macro columns below are on the CONDITIONAL gold "
+              "(excludes none-FPs/misses), so they are NOT directly comparable to "
+              "the full-basis primary Macro-F1; they bound the conditional macro.\n")
+    md.append("| Dataset | n_dir | random-dir: dir-acc | random-dir: dir-F1 (2-class) "
+              "| majority-class: macro {<,>,=} (cond) (class) |")
+    md.append("| --- | ---: | ---: | ---: | --- |")
     for dataset in datasets:
         any_cell = next((cells[(m, dataset)] for m in models if (m, dataset) in cells), None)
         if not any_cell:
@@ -227,7 +243,8 @@ def main():
         rdf = random_direction_floor(any_cell["cond_gold"], n_sim=1000, seed=42)
         mcf = majority_class_floor(any_cell["cond_gold"])
         out["floors"][dataset] = {"random_direction": rdf, "majority_class": mcf}
-        md.append(f"| {dataset} | {_fmt(rdf.get('direction_accuracy'))} "
+        md.append(f"| {dataset} | {rdf.get('n_directional')} "
+                  f"| {_fmt(rdf.get('direction_accuracy'))} "
                   f"| {_fmt(rdf.get('macro_f1'))} | {_fmt(mcf['macro_f1'])} "
                   f"({mcf['majority_class']}) |")
     md.append("")
@@ -256,9 +273,10 @@ def main():
         present = [m for m in models if (m, dataset) in correct]
         if len(present) < 2:
             continue
-        md.append(f"**{dataset}** (n_directional={DIRECTIONAL_N.get(dataset,'?')})")
-        md.append("| A vs B | A✓B✗ | A✗B✓ | p (McNemar) |")
-        md.append("| --- | ---: | ---: | ---: |")
+        md.append(f"**{dataset}** (pinned n_directional={DIRECTIONAL_N.get(dataset,'?')}; "
+                  "paired n per row = actual shared candidate-present directional gold)")
+        md.append("| A vs B | paired n | A✓B✗ | A✗B✓ | p (McNemar) |")
+        md.append("| --- | ---: | ---: | ---: | ---: |")
         for i in range(len(present)):
             for j in range(i + 1, len(present)):
                 A, B = present[i], present[j]
@@ -267,8 +285,11 @@ def main():
                 b = sum(1 for k in shared if ca[k] and not cb[k])
                 c = sum(1 for k in shared if not ca[k] and cb[k])
                 mc = mcnemar(b, c)
+                mc["paired_n"] = len(shared)
                 out["mcnemar"][f"{A}|{B}|{dataset}"] = mc
-                md.append(f"| {A} vs {B} | {b} | {c} | {_fmt(mc['p_value'], '.4f')} |")
+                flag = "" if len(shared) == DIRECTIONAL_N.get(dataset) else " ⚠n≠pinned"
+                md.append(f"| {A} vs {B} | {len(shared)}{flag} | {b} | {c} "
+                          f"| {_fmt(mc['p_value'], '.4f')} |")
         md.append("")
 
     # ---- <-precision 3-cause decomposition (cross-model)
@@ -319,28 +340,42 @@ def main():
                   f"| {_fmt(spread('>'))} | {_fmt(spread('='))} | {_fmt(spread('macro'))} |")
     md.append("")
 
-    # ---- blind '<'-FP audit export (gold-gap component)
+    # ---- blind '<'-FP audit export (gold-gap component ONLY)
+    # A '<'-FP splits into: (a) gold=NONE → candidate gold-gap (a real unlabelled
+    # subclass would be a gold gap); (b) gold in {>,=} → a DIRECTION/confusion
+    # error, NOT a gold gap. The judgment categories (gold_gap|not_subclass)
+    # only fit (a), so the blind audit exports ONLY gold=none '<'-FPs; the
+    # gold∈{>,=} count is reported separately (direction error, not gap).
+    md.append("## '<'-FP composition (gold-gap audit population vs direction errors)\n")
+    md.append("| Dataset | gold=none '<'-FP (→ audit) | gold∈{>,=} '<'-FP (direction err) |")
+    md.append("| --- | ---: | ---: |")
     audit_dir = Path(args.out_prefix).parent
     import random as _r
     for dataset in datasets:
-        fps = []
+        gap_fps, dir_fps = set(), 0
         for model in models:
             a = cells.get((model, dataset))
             if not a:
                 continue
             gold = a["gold"]
             for (s, t), prel in a["pred_by_pair"].items():
-                if prel == "<" and gold.get((s, t)) != "<":   # '<'-FP
-                    fps.append((model, s, t))
-        if not fps:
+                if prel != "<" or gold.get((s, t)) == "<":
+                    continue
+                if (s, t) not in gold:                 # gold=none → gold-gap candidate
+                    gap_fps.add((s, t))
+                else:                                  # gold in {>,=} → direction error
+                    dir_fps += 1
+        md.append(f"| {dataset} | {len(gap_fps)} | {dir_fps} |")
+        if not gap_fps:
             continue
         rng = _r.Random(42)
-        uniq = sorted({(s, t) for (_m, s, t) in fps})
+        uniq = sorted(gap_fps)
         sample = rng.sample(uniq, min(args.audit_fp_sample, len(uniq)))
         rng.shuffle(sample)
         ap = audit_dir / f"matrix_ltFP_audit_{dataset}.tsv"
         with ap.open("w", encoding="utf-8") as f:
-            f.write("# blind '<'-FP audit: pairs a model predicted '<' that are NOT gold '<'.\n")
+            f.write("# blind '<'-FP gold-gap audit: pairs predicted '<' with NO gold "
+                    "relation (gold=none). Direction errors (gold in >,=) are excluded.\n")
             f.write("# judgment: gold_gap (real unlabelled subclass) | not_subclass | unsure\n")
             f.write("row_id\tsource_uri\ttarget_uri\tjudgment\n")
             for s, t in sample:

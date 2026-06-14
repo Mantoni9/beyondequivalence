@@ -31,7 +31,13 @@ untouched). Server/client split over HTTP; reranker client always melt-olala.
 2 GPUs/job, QOS max2gpu5d → jobs serialize.
 
 ## Metrics (analyzer prints all; scripts/analyze_matrix.py)
-- **PRIMARY: Macro-F1 over {<,>,=}**, reranker-conditional, per dataset + pooled.
+- **PRIMARY: Macro-F1 over {<,>,=}**, per dataset + pooled, bootstrap CIs.
+  BASIS NOTE (consistent with Stufe A/B + reused Llama baselines): the metric
+  universe is candidate∪gold (compute_multiclass_metrics) — Stage-1 misses
+  count as FN, non-gold-candidate FPs count; n_gold_not_in_candidates reported
+  per dataset. The reasoner-vs-reasoner COMPARISON (McNemar + dir-accuracy) is
+  on candidate-present DIRECTIONAL gold only → miss-invariant, so the headline
+  comparison is unaffected (misses shift all absolute macros by ~a constant).
 - **FULL 4×4 confusion matrix {<,>,=,none}** per model per dataset, with the
   **none-row P/R/F1 as a first-class output** (probe: gpt-oss labelled 47/78 none —
   a reasoner that "fixes direction" while inflating none is a worse outcome that
