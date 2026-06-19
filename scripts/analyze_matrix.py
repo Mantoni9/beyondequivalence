@@ -109,6 +109,13 @@ def _report(ds: str, cand: set, pred_by_pair: dict) -> dict:
     for (s, t) in set(cand) | set(gold):
         full_gold.append(gold.get((s, t), "none"))
         full_pred.append(pred_by_pair.get((s, t), "none"))
+    # cand-only basis = reranker-CONDITIONAL: Stage-1 misses (gold ∉ cand)
+    # EXCLUDED so models are not penalised for Stage-1 recall they don't
+    # control; non-gold-candidate FPs still count (that IS Stage-2 quality).
+    co_gold, co_pred = [], []
+    for (s, t) in cand:
+        co_gold.append(gold.get((s, t), "none"))
+        co_pred.append(pred_by_pair.get((s, t), "none"))
     dir_gold, dir_pred = [], []
     cond_gold, cond_pred = [], []
     for (s, t), grel in gold.items():
@@ -121,7 +128,8 @@ def _report(ds: str, cand: set, pred_by_pair: dict) -> dict:
     return {"report": rep, "gold": gold,
             "full_gold": full_gold, "full_pred": full_pred,
             "dir_gold": dir_gold, "dir_pred": dir_pred,
-            "cond_gold": cond_gold, "cond_pred": cond_pred}
+            "cond_gold": cond_gold, "cond_pred": cond_pred,
+            "co_gold": co_gold, "co_pred": co_pred}
 
 
 def _correct_set(gold, pred_by_pair, cand):
@@ -193,37 +201,44 @@ def main():
     if skipped:
         md.append(f"> ⚠ **Skipped cells (no predictions.tsv):** {', '.join(skipped)}\n")
     md.append("## Primary table (per model × dataset, seed 42 canonical)\n")
-    md.append("Macro-F1 over {<,>,=} on the compute_multiclass_metrics universe "
-              "(candidate∪gold; Stage-1 misses count as FN, non-gold-candidate FPs "
-              "count). CI = percentile bootstrap on that same basis.\n")
-    md.append("| Model | Dataset | Macro-F1 [95% CI] | <-F1 | >-F1 | =-F1 | none-F1 "
-              "| flip_gt | flip_lt | dir-acc | parse_fail | quant |")
-    md.append("| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |")
+    md.append("**Macro-cond** = reranker-CONDITIONAL Macro-F1 (Stage-1 misses "
+              "excluded) — the FAIR model comparison. **Macro-e2e** = end-to-end "
+              "(candidate∪gold, misses as FN, = the Stufe-A/B basis). Both over "
+              "{<,>,=}; CIs are percentile bootstrap on each basis. Per-class F1 / "
+              "flip / dir-acc are on the e2e report.\n")
+    md.append("| Model | Dataset | Macro-cond [CI] | Macro-e2e [CI] | <-F1 | >-F1 "
+              "| =-F1 | none-F1 | flip_gt | flip_lt | dir-acc | parse_fail | quant |")
+    md.append("| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |")
     for model in models:
         for dataset in datasets:
             a = cells.get((model, dataset))
             if not a:
                 continue
             rep = a["report"]
-            # bootstrap on the FULL candidate basis (matches reported macro_f1)
+            # end-to-end macro (candidate∪gold, misses as FN) + its bootstrap CI
             lo, hi = bootstrap_macro_f1_ci(a["full_gold"], a["full_pred"], n_boot=1000, seed=42)
-            # none-row P/R/F1 — first-class (compute_multiclass_metrics' per_class
-            # is only {<,>,=}; the none class needs computing from the full basis).
+            # reranker-CONDITIONAL macro (misses excluded) + its CI — the FAIR
+            # model comparison (no Stage-1 recall penalty).
+            cmac = macro_f1(a["co_gold"], a["co_pred"])
+            clo, chi = bootstrap_macro_f1_ci(a["co_gold"], a["co_pred"], n_boot=1000, seed=42)
             none_p, none_r, none_f1 = _prf(a["full_gold"], a["full_pred"], "none")
             a["none_prf"] = (none_p, none_r, none_f1)
             out["cells"][f"{model}/{dataset}"] = {
-                "macro_f1": rep.get("macro_f1"), "ci": [lo, hi],
+                "macro_f1_endtoend": rep.get("macro_f1"), "ci_endtoend": [lo, hi],
+                "macro_f1_conditional": cmac, "ci_conditional": [clo, chi],
+                "n_gold_not_in_candidates": rep.get("n_gold_not_in_candidates"),
                 "per_class": rep.get("per_class"), "confusion": rep.get("confusion"),
                 "none_prf": {"precision": none_p, "recall": none_r, "f1": none_f1},
                 "flip_rate_gt": rep.get("flip_rate_gt"), "flip_rate_lt": rep.get("flip_rate_lt"),
                 "direction_accuracy": rep.get("direction_accuracy"),
                 "parse_fail": a["parse_fail"]}
-            md.append(f"| {model} | {dataset} | {_fmt(rep.get('macro_f1'))} "
-                      f"[{_fmt(lo)},{_fmt(hi)}] | {_fmt(_pc(rep,'<','f1'))} "
-                      f"| {_fmt(_pc(rep,'>','f1'))} | {_fmt(_pc(rep,'=','f1'))} "
-                      f"| {_fmt(none_f1)} | {_fmt(rep.get('flip_rate_gt'))} "
-                      f"| {_fmt(rep.get('flip_rate_lt'))} | {_fmt(rep.get('direction_accuracy'))} "
-                      f"| {_fmt(a['parse_fail'])} | {QUANT.get(model,'?')} |")
+            md.append(f"| {model} | {dataset} | **{_fmt(cmac)}** [{_fmt(clo)},{_fmt(chi)}] "
+                      f"| {_fmt(rep.get('macro_f1'))} [{_fmt(lo)},{_fmt(hi)}] "
+                      f"| {_fmt(_pc(rep,'<','f1'))} | {_fmt(_pc(rep,'>','f1'))} "
+                      f"| {_fmt(_pc(rep,'=','f1'))} | {_fmt(none_f1)} "
+                      f"| {_fmt(rep.get('flip_rate_gt'))} | {_fmt(rep.get('flip_rate_lt'))} "
+                      f"| {_fmt(rep.get('direction_accuracy'))} | {_fmt(a['parse_fail'])} "
+                      f"| {QUANT.get(model,'?')} |")
     md.append("")
 
     # ---- floor rows per dataset
