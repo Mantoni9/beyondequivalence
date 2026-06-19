@@ -30,8 +30,23 @@ def _prf(gold: list[str], pred: list[str], cls: str) -> tuple[float, float, floa
 
 
 def macro_f1(gold: list[str], pred: list[str], classes: tuple[str, ...] = PRIMARY) -> float:
-    """Macro-F1 over a FIXED class set (default {<,>,=})."""
+    """Macro-F1 over a FIXED class set (default {<,>,=}): mean of per-class F1
+    (absent class scores 0 — no inflation)."""
     return sum(_prf(gold, pred, c)[2] for c in classes) / len(classes)
+
+
+def micro_f1(gold: list[str], pred: list[str], classes: tuple[str, ...] = PRIMARY) -> float:
+    """Micro-F1 over a class set (default {<,>,=}): pool TP/FP/FN across the
+    classes, then F1. 'none' is NOT a scored class but a 'none' prediction on a
+    scored-gold pair counts as that class's FN (and vice-versa). Used for the
+    TaSeR Table-5 comparison (TaSeR reports Micro-F1)."""
+    cs = set(classes)
+    tp = sum(1 for g, p in zip(gold, pred) if g == p and g in cs)
+    fp = sum(1 for g, p in zip(gold, pred) if p in cs and g != p)
+    fn = sum(1 for g, p in zip(gold, pred) if g in cs and g != p)
+    prec = tp / (tp + fp) if (tp + fp) else 0.0
+    rec = tp / (tp + fn) if (tp + fn) else 0.0
+    return (2 * prec * rec / (prec + rec)) if (prec + rec) else 0.0
 
 
 def mcnemar(b: int, c: int) -> dict:
@@ -51,10 +66,9 @@ def mcnemar(b: int, c: int) -> dict:
     return {"p_value": p, "n_discordant": n, "b": b, "c": c}
 
 
-def bootstrap_macro_f1_ci(gold: list[str], pred: list[str], n_boot: int = 1000,
-                          seed: int = 42, alpha: float = 0.05) -> tuple[float, float]:
-    """Percentile bootstrap CI on Macro-F1. Resamples (gold, pred) pairs with
-    replacement n_boot times; returns the (alpha/2, 1-alpha/2) percentiles."""
+def _bootstrap_ci(gold, pred, statfn, n_boot, seed, alpha):
+    """Percentile bootstrap CI for statfn(gold,pred). Resamples (gold,pred)
+    pairs with replacement n_boot times; (alpha/2, 1-alpha/2) percentiles."""
     pairs = list(zip(gold, pred))
     n = len(pairs)
     if n == 0:
@@ -63,13 +77,23 @@ def bootstrap_macro_f1_ci(gold: list[str], pred: list[str], n_boot: int = 1000,
     stats = []
     for _ in range(n_boot):
         sample = [pairs[rng.randrange(n)] for _ in range(n)]
-        g = [s[0] for s in sample]
-        p = [s[1] for s in sample]
-        stats.append(macro_f1(g, p))
+        stats.append(statfn([s[0] for s in sample], [s[1] for s in sample]))
     stats.sort()
     lo = stats[max(0, int((alpha / 2) * n_boot))]
     hi = stats[min(n_boot - 1, int((1 - alpha / 2) * n_boot))]
     return (lo, hi)
+
+
+def bootstrap_macro_f1_ci(gold: list[str], pred: list[str], n_boot: int = 1000,
+                          seed: int = 42, alpha: float = 0.05) -> tuple[float, float]:
+    """Percentile bootstrap CI on Macro-F1."""
+    return _bootstrap_ci(gold, pred, macro_f1, n_boot, seed, alpha)
+
+
+def bootstrap_micro_f1_ci(gold: list[str], pred: list[str], n_boot: int = 1000,
+                          seed: int = 42, alpha: float = 0.05) -> tuple[float, float]:
+    """Percentile bootstrap CI on Micro-F1."""
+    return _bootstrap_ci(gold, pred, micro_f1, n_boot, seed, alpha)
 
 
 def majority_class_floor(gold: list[str]) -> dict:

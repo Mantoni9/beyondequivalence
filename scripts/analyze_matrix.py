@@ -43,7 +43,7 @@ from evaluation_multiclass import compute_multiclass_metrics
 from evaluation_recall import _normalize_relation
 from tracks.zenodo_loader import load_subdataset
 from matrix_stats import (
-    _prf, macro_f1, mcnemar, bootstrap_macro_f1_ci,
+    _prf, macro_f1, micro_f1, mcnemar, bootstrap_macro_f1_ci, bootstrap_micro_f1_ci,
     random_direction_floor, majority_class_floor,
 )
 
@@ -201,14 +201,17 @@ def main():
     if skipped:
         md.append(f"> ⚠ **Skipped cells (no predictions.tsv):** {', '.join(skipped)}\n")
     md.append("## Primary table (per model × dataset, seed 42 canonical)\n")
-    md.append("**Macro-cond** = reranker-CONDITIONAL Macro-F1 (Stage-1 misses "
-              "excluded) — the FAIR model comparison. **Macro-e2e** = end-to-end "
-              "(candidate∪gold, misses as FN, = the Stufe-A/B basis). Both over "
-              "{<,>,=}; CIs are percentile bootstrap on each basis. Per-class F1 / "
-              "flip / dir-acc are on the e2e report.\n")
-    md.append("| Model | Dataset | Macro-cond [CI] | Macro-e2e [CI] | <-F1 | >-F1 "
-              "| =-F1 | none-F1 | flip_gt | flip_lt | dir-acc | parse_fail | quant |")
-    md.append("| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |")
+    md.append("**Macro-cond / Micro-cond** = reranker-CONDITIONAL (Stage-1 misses "
+              "excluded) — the FAIR comparison; **Micro for the TaSeR Table-5 "
+              "comparison**, Macro for the per-class honesty story. **Macro-e2e / "
+              "Micro-e2e** = end-to-end (candidate∪gold, misses as FN; Stufe-A/B "
+              "basis). All over {<,>,=}; [CI] = percentile bootstrap. Per-class F1 "
+              "/ flip / dir-acc are on the e2e report.\n")
+    md.append("| Model | Dataset | Macro-cond [CI] | Micro-cond [CI] | Macro-e2e "
+              "| Micro-e2e | <-F1 | >-F1 | =-F1 | none-F1 | flip_gt | flip_lt "
+              "| dir-acc | parse_fail | quant |")
+    md.append("| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: "
+              "| ---: | ---: | ---: | ---: | --- |")
     for model in models:
         for dataset in datasets:
             a = cells.get((model, dataset))
@@ -217,15 +220,21 @@ def main():
             rep = a["report"]
             # end-to-end macro (candidate∪gold, misses as FN) + its bootstrap CI
             lo, hi = bootstrap_macro_f1_ci(a["full_gold"], a["full_pred"], n_boot=1000, seed=42)
-            # reranker-CONDITIONAL macro (misses excluded) + its CI — the FAIR
-            # model comparison (no Stage-1 recall penalty).
+            # reranker-CONDITIONAL macro+micro (misses excluded) + CIs — the FAIR
+            # model comparison (no Stage-1 recall penalty). Micro for TaSeR Tbl 5.
             cmac = macro_f1(a["co_gold"], a["co_pred"])
             clo, chi = bootstrap_macro_f1_ci(a["co_gold"], a["co_pred"], n_boot=1000, seed=42)
+            cmic = micro_f1(a["co_gold"], a["co_pred"])
+            milo, mihi = bootstrap_micro_f1_ci(a["co_gold"], a["co_pred"], n_boot=1000, seed=42)
+            # e2e micro (candidate∪gold) — cross-checks compute_multiclass' micro_f1.
+            emic = micro_f1(a["full_gold"], a["full_pred"])
             none_p, none_r, none_f1 = _prf(a["full_gold"], a["full_pred"], "none")
             a["none_prf"] = (none_p, none_r, none_f1)
             out["cells"][f"{model}/{dataset}"] = {
                 "macro_f1_endtoend": rep.get("macro_f1"), "ci_endtoend": [lo, hi],
                 "macro_f1_conditional": cmac, "ci_conditional": [clo, chi],
+                "micro_f1_conditional": cmic, "micro_ci_conditional": [milo, mihi],
+                "micro_f1_endtoend": emic, "micro_f1_report": rep.get("micro_f1"),
                 "n_gold_not_in_candidates": rep.get("n_gold_not_in_candidates"),
                 "per_class": rep.get("per_class"), "confusion": rep.get("confusion"),
                 "none_prf": {"precision": none_p, "recall": none_r, "f1": none_f1},
@@ -233,7 +242,8 @@ def main():
                 "direction_accuracy": rep.get("direction_accuracy"),
                 "parse_fail": a["parse_fail"]}
             md.append(f"| {model} | {dataset} | **{_fmt(cmac)}** [{_fmt(clo)},{_fmt(chi)}] "
-                      f"| {_fmt(rep.get('macro_f1'))} [{_fmt(lo)},{_fmt(hi)}] "
+                      f"| **{_fmt(cmic)}** [{_fmt(milo)},{_fmt(mihi)}] "
+                      f"| {_fmt(rep.get('macro_f1'))} | {_fmt(emic)} "
                       f"| {_fmt(_pc(rep,'<','f1'))} | {_fmt(_pc(rep,'>','f1'))} "
                       f"| {_fmt(_pc(rep,'=','f1'))} | {_fmt(none_f1)} "
                       f"| {_fmt(rep.get('flip_rate_gt'))} | {_fmt(rep.get('flip_rate_lt'))} "

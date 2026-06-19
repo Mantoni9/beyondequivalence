@@ -10,11 +10,45 @@ import pytest
 
 from matrix_stats import (
     macro_f1,
+    micro_f1,
     mcnemar,
     bootstrap_macro_f1_ci,
+    bootstrap_micro_f1_ci,
     random_direction_floor,
     majority_class_floor,
 )
+
+
+def test_micro_f1_perfect():
+    g = ["<", ">", "=", "<"]
+    assert micro_f1(g, list(g)) == pytest.approx(1.0)
+
+
+def test_micro_f1_all_one_class():
+    # gold <,>,= ; pred all < : micro TP=1, FP=2, FN=2 → P=R=F1=1/3
+    assert micro_f1(["<", ">", "="], ["<", "<", "<"]) == pytest.approx(1.0 / 3, abs=1e-9)
+
+
+def test_micro_differs_from_macro_on_absent_class():
+    # only '<' present+correct: micro=1.0 (pooled), macro=1/3 (absent classes 0)
+    g = ["<", "<"]
+    assert micro_f1(g, list(g)) == pytest.approx(1.0)
+    assert macro_f1(g, list(g)) == pytest.approx(1.0 / 3, abs=1e-9)
+
+
+def test_micro_f1_none_excluded_from_classes_but_penalises():
+    # a '<' gold predicted 'none' → FN for '<' (no class credit), micro drops
+    # gold <,> ; pred <,none → TP=1 (<), FP=0, FN=1 (>) → P=1, R=1/2, F1=2/3
+    assert micro_f1(["<", ">"], ["<", "none"]) == pytest.approx(2 / 3, abs=1e-9)
+
+
+def test_bootstrap_micro_ci_brackets_and_deterministic():
+    g = ["<", ">", "=", "<", ">", "=", "<", ">"]
+    p = ["<", "<", "=", "<", ">", "=", ">", ">"]
+    point = micro_f1(g, p)
+    lo, hi = bootstrap_micro_f1_ci(g, p, n_boot=500, seed=42)
+    assert lo <= point <= hi and 0.0 <= lo <= hi <= 1.0
+    assert bootstrap_micro_f1_ci(g, p, n_boot=300, seed=7) == bootstrap_micro_f1_ci(g, p, n_boot=300, seed=7)
 
 
 # --------------------------------------------------------------- macro_f1
