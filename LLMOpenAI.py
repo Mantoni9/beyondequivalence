@@ -53,10 +53,15 @@ class LLMOpenAI(LLMBase):
         base_url: Optional[str] = None,
         batch_poll_interval: Optional[float] = None,
         max_concurrency: int = 16,
+        extra_body: Optional[dict] = None,
     ):
         self.model_name = model_name
         self.batch_poll_interval = batch_poll_interval
         self.max_concurrency = max(1, int(max_concurrency))
+        # Backend-specific request fields (e.g. gpt-oss reasoning_effort, or
+        # chat_template_kwargs={"enable_thinking": False} for hybrid reasoners).
+        # Rides every non-batch chat.completions.create() via extra_body.
+        self.extra_body = dict(extra_body) if extra_body else {}
         self._init_tokenizer()
         self._initialize_positive_negative_tokens()
 
@@ -178,6 +183,11 @@ class LLMOpenAI(LLMBase):
     ) -> List[Optional[ChatCompletion]]:
         if self.batch_poll_interval is not None:
             return self._chat_completions_batched(prompts, **kwargs)
+        # Inject backend-specific fields on the live (vLLM) paths only. The
+        # batched builder spreads **kwargs straight into the request body, where
+        # a nested extra_body would be wrong — but that path is unused here.
+        if self.extra_body:
+            kwargs.setdefault("extra_body", {}).update(self.extra_body)
         if self.max_concurrency > 1 and len(prompts) > 1:
             return self._chat_completions_parallel(prompts, **kwargs)
         return self._chat_completions_synchronous(prompts, **kwargs)

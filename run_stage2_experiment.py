@@ -382,6 +382,16 @@ def parse_args() -> argparse.Namespace:
                          "Llama-3.3-70B-AWQ on 2x A40; vLLM's continuous "
                          "batching handles the concurrency natively. Only "
                          "consumed when the vLLM/OpenAI backend is active."))
+    # ── Reasoning ablation (D9). Only sent to the backend when set. ────────────
+    p.add_argument("--reasoning-effort", default=None,
+                   choices=("low", "medium", "high"),
+                   help=("gpt-oss (Harmony): request-body reasoning_effort. Only "
+                         "sent when set; otherwise the server default is used."))
+    p.add_argument("--disable-thinking", action="store_true",
+                   help=("Hybrid reasoners (Gemma-4): send "
+                         "chat_template_kwargs.enable_thinking=False so the model "
+                         "answers without a CoT span. Verified: gemma-4-31B-it's "
+                         "chat_template honours enable_thinking."))
 
     # ── I/O. ──────────────────────────────────────────────────────────────────
     p.add_argument("--output-dir", default=None,
@@ -444,6 +454,17 @@ def _build_stage1_matcher(args, logger):
     )
 
 
+def _reasoning_extra_body(reasoning_effort=None, disable_thinking=False) -> dict:
+    """Pure map from the D9 ablation flags to the OpenAI/vLLM extra_body dict.
+    Empty when neither is set (server defaults). Kept pure for unit testing."""
+    eb: dict = {}
+    if reasoning_effort:
+        eb["reasoning_effort"] = reasoning_effort
+    if disable_thinking:
+        eb["chat_template_kwargs"] = {"enable_thinking": False}
+    return eb
+
+
 def _build_llm(args, logger):
     """Pick LLMOpenAI (vLLM) or LLMHuggingFace based on VLLM_BASE_URL."""
     model = args.llm_model or os.getenv("MODEL_PATH")
@@ -452,15 +473,20 @@ def _build_llm(args, logger):
     vllm_url = os.getenv("VLLM_BASE_URL")
     if vllm_url:
         from LLMOpenAI import LLMOpenAI
+        extra_body = _reasoning_extra_body(
+            getattr(args, "reasoning_effort", None),
+            getattr(args, "disable_thinking", False),
+        )
         logger.info(
-            "Stage-2 LLM backend: LLMOpenAI -> vLLM at %s  model=%s  max_concurrency=%d",
-            vllm_url, model, args.llm_max_concurrency,
+            "Stage-2 LLM backend: LLMOpenAI -> vLLM at %s  model=%s  max_concurrency=%d  extra_body=%s",
+            vllm_url, model, args.llm_max_concurrency, extra_body or None,
         )
         return LLMOpenAI(
             model_name=model,
             base_url=vllm_url,
             api_key="EMPTY",
             max_concurrency=args.llm_max_concurrency,
+            extra_body=extra_body or None,
         )
     from LLMHuggingFace import LLMHuggingFace
     logger.info("Stage-2 LLM backend: LLMHuggingFace (in-process)  model=%s", model)
@@ -642,6 +668,8 @@ def main() -> None:
             "max_new_tokens":      args.max_new_tokens,
             "threshold":           args.threshold,
             "llm_max_concurrency": args.llm_max_concurrency,
+            "reasoning_effort":    args.reasoning_effort,
+            "disable_thinking":    args.disable_thinking,
         },
         "smoke_test":   args.smoke_test,
         "seed":         args.seed,

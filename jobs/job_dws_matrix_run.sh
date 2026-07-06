@@ -5,18 +5,14 @@
 #SBATCH --gres=gpu:2
 #SBATCH --mem=100G
 #SBATCH --time=06:00:00
-#SBATCH --exclude=dws-14,dws-15,dws-16,dws-17
 #SBATCH --output=logs/mxrun_%j.out
 #SBATCH --error=logs/mxrun_%j.err
-# EXCLUDE the A6000 nodes (dws-14..17) — empirically REQUIRED, not the old
-# weak "capability 8.6" story. Live test 2026-06-14: job 262118 (gpt-oss g3)
-# on dws-14 (A6000) under the NEW vLLM 0.23 still hit the shm_broadcast
-# deadlock (12x "No available shared memory broadcast block", engine stuck
-# after model load, 0 completions) — so 0.23 does NOT fix it; it is an
-# A6000-specific issue. The A40 (dws-11) serves cleanly (all probes + Stufe
-# A/B ran there). Only dws-11 is a non-A6000 48GB node, so every job funnels
-# onto dws-11 — fine throughput-wise since QOS max2gpu serialises us to one
-# 2-GPU job anyway.
+# NOTE (2026-07-06): the A6000 exclude (dws-14..17) was REMOVED on Antonio's
+# instruction — the A6000 nodes are to be used too ("da laeuft es auch"), and
+# with dws-09/dws-11 frequently draining, restricting to them starves the queue.
+# The prior empirical deadlock (job 262118 on dws-14, vLLM 0.23 shm_broadcast)
+# is accepted as a MONITORED risk: slot starts are watched so a hang is caught
+# early instead of burning walltime. Re-add the exclude here if it recurs.
 #
 # Stage-2 MATRIX run: ONE model x ONE dataset, single-order, FULL dataset, K=20.
 # Server in env vllm-matrix (gpt-oss/gemma4/mistral, novel archs on vLLM 0.23) /
@@ -57,6 +53,12 @@ case "$MODEL" in
   *) echo "unknown MODEL=$MODEL" >&2; exit 2 ;;
 esac
 TOP_P_FLAG=""; [ -n "$TOP_P" ] && TOP_P_FLAG="--top-p $TOP_P"
+# Reasoning ablation (D9) passthrough — empty by default (identical to a normal
+# matrix run). ABLATE_FLAG e.g. "--disable-thinking" or "--reasoning-effort low";
+# ABLATE_TAG e.g. "_thinkoff" / "_relow" keeps its output dir distinct so it never
+# clobbers the reasoning-ON cell.
+ABLATE_FLAG="${ABLATE_FLAG:-}"
+ABLATE_TAG="${ABLATE_TAG:-}"
 
 echo "=========================================================================="
 echo "[mxrun] MODEL=$MODEL DATASET=$DATASET SEED=$SEED node=$(hostname) port=$PORT"
@@ -83,13 +85,13 @@ until curl -sf "http://localhost:${PORT}/health" >/dev/null 2>&1; do
 done
 echo "[mxrun] vLLM ready after ${WAITED}s"
 
-OUT="results/matrix_${MODEL}_${DATASET}_seed${SEED}_$(git rev-parse --short HEAD)"
+OUT="results/matrix_${MODEL}_${DATASET}_seed${SEED}${ABLATE_TAG}_$(git rev-parse --short HEAD)"
 conda run -n melt-olala bash -lc "VLLM_BASE_URL='${VLLM_BASE_URL}' python run_stage2_experiment.py \
     --dataset '${DATASET}' \
     --stage1-predictions '${STAGE1}' --stage1-top-k 20 \
     --stage1-description description_path_context --description description_path_context \
     --llm-model '${MODEL_PATH}' --prompt-id d_subs_v2 \
-    --max-new-tokens ${MAX_NEW_TOKENS} --temperature ${TEMP} ${TOP_P_FLAG} \
+    --max-new-tokens ${MAX_NEW_TOKENS} --temperature ${TEMP} ${TOP_P_FLAG} ${ABLATE_FLAG} \
     --llm-max-concurrency 16 --seed ${SEED} --output-dir '${OUT}'"
 RC=$?
 echo "[mxrun] done MODEL=$MODEL DATASET=$DATASET SEED=$SEED rc=$RC out=$OUT"
