@@ -333,6 +333,33 @@ RERANKING_PROMPTS = {
         " partof, none. A short justification MAY follow on the next lines,"
         " but the very first line of your response must be the answer."
     ),
+    # d_subs_v2_fs — E15 few-shot. BYTE-IDENTICAL to d_subs_v2 except one
+    # {exemplars} slot after the intro sentence. The block is built at runtime
+    # from held-out g1-web gold (fewshot_exemplars.build_fewshot_block) and passed
+    # as a .format() VALUE, so its contents are never re-scanned for placeholders.
+    # With exemplars="" it degrades to d_subs_v2, so A0 stays on plain d_subs_v2
+    # and remains byte-identical to the matrix zero-shot cell.
+    "d_subs_v2_fs": (
+        "You are an expert in ontology matching. Determine the precise"
+        " semantic relation between two entities from different ontologies."
+        "\n{exemplars}"
+        "\n\nSource entity: <{source_url}>"
+        "\nSource knowledge graph:\n{source_kg}"
+        "\n\nTarget entity: <{target_url}>"
+        "\nTarget knowledge graph:\n{target_kg}"
+        "\n\nValid labels:"
+        "\n  subclass    source is a more specific kind of target (source ⊑ target)"
+        "\n  superclass  source is a more general kind of target (source ⊒ target)"
+        "\n  equivalent  source and target denote the same concept"
+        "\n  partof      source is a part of target (mereological, not taxonomic)"
+        "\n  none        none of the above applies"
+        "\n\nYour response MUST start with EXACTLY this line and nothing else"
+        " on it:"
+        "\nRelation: <label>"
+        "\n\nReplace <label> with one of: subclass, superclass, equivalent,"
+        " partof, none. A short justification MAY follow on the next lines,"
+        " but the very first line of your response must be the answer."
+    ),
 }
 
 

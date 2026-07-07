@@ -92,6 +92,9 @@ class MatcherSubsumptionReranker(MatcherBase):
         temperature: float = 0.0,           # Stage-2 matrix decoding: reasoners
         top_p: float | None = None,         # model-recommended (temp>0),
                                             # non-reasoners temp=0 (default).
+        few_shot_block: str = "",           # E15: rendered exemplar block filling
+                                            # the d_subs_v2_fs {exemplars} slot;
+                                            # "" (A0) => plain d_subs_v2.
     ):
         self.llm = llm
         self.prompt_template: Prompt = get_reranking_prompt(prompt_id)
@@ -104,6 +107,7 @@ class MatcherSubsumptionReranker(MatcherBase):
         self.swap_pair_presentation = swap_pair_presentation
         self.temperature = temperature
         self.top_p = top_p
+        self.few_shot_block = few_shot_block
 
         # Filled by match(); the runner reads this for predictions.tsv.
         self.last_run_details: List[dict] = []
@@ -163,6 +167,7 @@ class MatcherSubsumptionReranker(MatcherBase):
             target_url=target_uri,
             source_kg=source_kg_text,
             target_kg=target_kg_text,
+            exemplars=self.few_shot_block,   # A0/d_subs_v2 has no {exemplars} slot -> ignored
         )
 
     def _score_in_batches(self, prompts: List[Prompt]) -> List[dict]:

@@ -392,6 +392,16 @@ def parse_args() -> argparse.Namespace:
                          "chat_template_kwargs.enable_thinking=False so the model "
                          "answers without a CoT span. Verified: gemma-4-31B-it's "
                          "chat_template honours enable_thinking."))
+    # ── Few-shot ablation (E15). A0 = zero-shot (plain d_subs_v2). ─────────────
+    p.add_argument("--few-shot-arm", default="A0",
+                   choices=("A0", "A1", "A2", "A3", "A4"),
+                   help=("E15 arm. A0=zero-shot; A1=N=1 '<'; A2=balanced-3; "
+                         "A3=balanced-6; A4=mirrored-6. A1..A4 inject held-out "
+                         "exemplars via d_subs_v2_fs."))
+    p.add_argument("--exemplar-track", default="g1-web",
+                   help="Held-out track for few-shot exemplars (eval-disjoint from g5,g7,g3).")
+    p.add_argument("--exemplar-seed", type=int, default=None,
+                   help="Seed for exemplar selection; defaults to --seed.")
 
     # ── I/O. ──────────────────────────────────────────────────────────────────
     p.add_argument("--output-dir", default=None,
@@ -505,6 +515,7 @@ def main() -> None:
         f"stage2_{args.dataset}_s1-{alias}-{args.stage1_variant[:3]}-"
         f"{args.stage1_template_id or 'noinstr'}-{args.stage1_description}"
         f"_p-{args.prompt_id}"
+        + (f"_fs{args.few_shot_arm}" if args.few_shot_arm != "A0" else "")
         + ("_swapped" if args.swap_pair_presentation else "")
         + ("_smoke" if args.smoke_test else "")
     )
@@ -608,9 +619,24 @@ def main() -> None:
     # ── Stage 2: reranker. ────────────────────────────────────────────────────
     from MatcherSubsumptionReranker import MatcherSubsumptionReranker
     llm = _build_llm(args, logger)
+    # E15 few-shot: build the exemplar block from the held-out track; auto-swap
+    # to the {exemplars}-carrying prompt for A1..A4 (A0 stays plain d_subs_v2,
+    # byte-identical to the matrix). Empty block for A0.
+    from fewshot_exemplars import build_fewshot_block
+    few_shot_block, exemplar_manifest = build_fewshot_block(
+        arm=args.few_shot_arm, exemplar_track=args.exemplar_track,
+        description=args.description, kg_format=args.kg_format,
+        seed=args.exemplar_seed if args.exemplar_seed is not None else args.seed,
+    )
+    prompt_id = args.prompt_id
+    if args.few_shot_arm != "A0" and prompt_id == "d_subs_v2":
+        prompt_id = "d_subs_v2_fs"
+    if args.few_shot_arm != "A0":
+        logger.info("E15 few-shot: arm=%s track=%s n_exemplars=%d prompt=%s",
+                    args.few_shot_arm, args.exemplar_track, len(exemplar_manifest), prompt_id)
     reranker = MatcherSubsumptionReranker(
         llm=llm,
-        prompt_id=args.prompt_id,
+        prompt_id=prompt_id,
         description=args.description,
         kg_format=args.kg_format,
         max_new_tokens=args.max_new_tokens,
@@ -619,6 +645,7 @@ def main() -> None:
         swap_pair_presentation=args.swap_pair_presentation,
         temperature=args.temperature,
         top_p=args.top_p,
+        few_shot_block=few_shot_block,
     )
     logger.info("Stage-2 reranker: %s  (temp=%.2f top_p=%s)",
                 reranker, args.temperature, args.top_p)
@@ -658,7 +685,11 @@ def main() -> None:
             "llm_model":           args.llm_model or os.getenv("MODEL_PATH"),
             "vllm_base_url":       os.getenv("VLLM_BASE_URL"),
             "backend":             "vllm" if os.getenv("VLLM_BASE_URL") else "huggingface",
-            "prompt_id":           args.prompt_id,
+            "prompt_id":           prompt_id,
+            "few_shot_arm":        args.few_shot_arm,
+            "exemplar_track":      args.exemplar_track,
+            "exemplar_seed":       args.exemplar_seed if args.exemplar_seed is not None else args.seed,
+            "exemplar_manifest":   exemplar_manifest,
             "swap_pair_presentation": args.swap_pair_presentation,
             "temperature":         args.temperature,
             "top_p":               args.top_p,
