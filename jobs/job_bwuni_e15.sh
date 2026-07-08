@@ -49,8 +49,16 @@ echo "[e15] stage1=$STAGE1  exemplars=g1-web"
 echo "=========================================================================="
 
 conda activate vllm-e15
-export LD_LIBRARY_PATH="${CONDA_PREFIX}/lib:${LD_LIBRARY_PATH:-}"
+# CUDA toolkit (nvcc) — bwUni has it only as a module, NOT on PATH by default.
+# vLLM 0.24 JIT-compiles the FlashInfer sampler kernel (and deep_gemm) at engine
+# startup, which needs nvcc + headers; without it EngineCore dies with
+# "Could not find nvcc". cuda/12.8 matches the env's torch cu128. (Path is stable
+# on bwUni; `module load` is flaky non-interactively so we set it explicitly.)
+export CUDA_HOME=/opt/bwhpc/common/devel/cuda/12.8
+export PATH="$CUDA_HOME/bin:$PATH"
+export LD_LIBRARY_PATH="${CONDA_PREFIX}/lib:$CUDA_HOME/lib64:${LD_LIBRARY_PATH:-}"
 python -c "import vllm; print('[e15] vllm', vllm.__version__)" || { echo "[e15] FATAL vllm" >&2; exit 3; }
+command -v nvcc >/dev/null && echo "[e15] nvcc: $(nvcc --version | grep -oE 'release [0-9.]+')" || echo "[e15] WARN: nvcc not found"
 
 python -m vllm.entrypoints.openai.api_server \
     --model "$MODEL_PATH" --tensor-parallel-size 2 --enforce-eager \
