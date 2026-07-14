@@ -59,6 +59,19 @@ TOP_P_FLAG=""; [ -n "$TOP_P" ] && TOP_P_FLAG="--top-p $TOP_P"
 # clobbers the reasoning-ON cell.
 ABLATE_FLAG="${ABLATE_FLAG:-}"
 ABLATE_TAG="${ABLATE_TAG:-}"
+# Few-shot (E15) passthrough — empty by default (identical to a zero-shot matrix
+# run). FEW_SHOT_ARM in {A1,A2,A3,A4}; run_stage2_experiment.py auto-swaps the
+# prompt to d_subs_v2_fs when an arm is set. EXEMPLAR_TRACK is the held-out
+# exemplar source (g1-web per the E15 pre-registration). FS_TAG keeps the output
+# dir distinct so a few-shot cell never clobbers the A0 (zero-shot) matrix cell.
+FEW_SHOT_ARM="${FEW_SHOT_ARM:-}"
+EXEMPLAR_TRACK="${EXEMPLAR_TRACK:-g1-web}"
+EXEMPLAR_SEED="${EXEMPLAR_SEED:-42}"
+FS_FLAGS=""; FS_TAG=""
+if [ -n "$FEW_SHOT_ARM" ] && [ "$FEW_SHOT_ARM" != "A0" ]; then
+    FS_FLAGS="--few-shot-arm ${FEW_SHOT_ARM} --exemplar-track ${EXEMPLAR_TRACK} --exemplar-seed ${EXEMPLAR_SEED}"
+    FS_TAG="_${FEW_SHOT_ARM}"
+fi
 
 echo "=========================================================================="
 echo "[mxrun] MODEL=$MODEL DATASET=$DATASET SEED=$SEED node=$(hostname) port=$PORT"
@@ -75,23 +88,26 @@ python -m vllm.entrypoints.openai.api_server \
     --gpu-memory-utilization 0.92 --port "$PORT" --host 127.0.0.1 \
     --no-enable-log-requests $SERVE_EXTRA &
 VLLM_PID=$!
-trap 'kill ${VLLM_PID} 2>/dev/null; wait ${VLLM_PID} 2>/dev/null || true' EXIT
+# kill -9 (not SIGTERM+wait): a deadlocked vLLM ignores SIGTERM and the wait then
+# blocks forever, which is exactly how a FATAL start became a walltime-long zombie
+# (jobs 281255/256/259, shm_broadcast deadlock on A6000-x8 nodes). SIGKILL + no wait.
+trap 'kill -9 ${VLLM_PID} 2>/dev/null || true' EXIT
 
 MAX_WAIT=1800; WAITED=0
 until curl -sf "http://localhost:${PORT}/health" >/dev/null 2>&1; do
-    if ! kill -0 ${VLLM_PID} 2>/dev/null; then echo "[mxrun] FATAL: vLLM died during load" >&2; exit 4; fi
-    if [ "$WAITED" -ge "$MAX_WAIT" ]; then echo "[mxrun] FATAL: health timeout ${MAX_WAIT}s" >&2; exit 4; fi
+    if ! kill -0 ${VLLM_PID} 2>/dev/null; then echo "[mxrun] FATAL: vLLM died during load" >&2; kill -9 ${VLLM_PID} 2>/dev/null; scancel ${SLURM_JOB_ID}; exit 4; fi
+    if [ "$WAITED" -ge "$MAX_WAIT" ]; then echo "[mxrun] FATAL: health timeout ${MAX_WAIT}s" >&2; kill -9 ${VLLM_PID} 2>/dev/null; scancel ${SLURM_JOB_ID}; exit 4; fi
     sleep 10; WAITED=$((WAITED+10)); [ $((WAITED % 60)) -eq 0 ] && echo "[mxrun] waiting vLLM ${WAITED}s"
 done
 echo "[mxrun] vLLM ready after ${WAITED}s"
 
-OUT="results/matrix_${MODEL}_${DATASET}_seed${SEED}${ABLATE_TAG}_$(git rev-parse --short HEAD)"
+OUT="results/matrix_${MODEL}_${DATASET}_seed${SEED}${ABLATE_TAG}${FS_TAG}_$(git rev-parse --short HEAD)"
 conda run -n melt-olala bash -lc "VLLM_BASE_URL='${VLLM_BASE_URL}' python run_stage2_experiment.py \
     --dataset '${DATASET}' \
     --stage1-predictions '${STAGE1}' --stage1-top-k 20 \
     --stage1-description description_path_context --description description_path_context \
     --llm-model '${MODEL_PATH}' --prompt-id d_subs_v2 \
-    --max-new-tokens ${MAX_NEW_TOKENS} --temperature ${TEMP} ${TOP_P_FLAG} ${ABLATE_FLAG} \
+    --max-new-tokens ${MAX_NEW_TOKENS} --temperature ${TEMP} ${TOP_P_FLAG} ${ABLATE_FLAG} ${FS_FLAGS} \
     --llm-max-concurrency 16 --seed ${SEED} --output-dir '${OUT}'"
 RC=$?
 echo "[mxrun] done MODEL=$MODEL DATASET=$DATASET SEED=$SEED rc=$RC out=$OUT"
