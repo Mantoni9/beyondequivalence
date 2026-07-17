@@ -96,6 +96,19 @@ def main() -> None:
     p.add_argument("--wandb-project", default=None)
     p.add_argument("--wandb-group", default=None)
     p.add_argument("--results-root", default="results")
+    # Grid filters (additive; defaults reproduce the full 96-run grid). Used to
+    # run single frozen-config cells on new datasets (e.g. the VDI->eBay gold
+    # case: --models qwen3-embedding-8b --lora-modes off
+    #       --A-labels path_context --B-labels sub_b_pin).
+    p.add_argument("--models", nargs="+",
+                   default=["qwen3-embedding-8b", "llama-embed-nemotron-8b"],
+                   choices=["qwen3-embedding-8b", "llama-embed-nemotron-8b"])
+    p.add_argument("--lora-modes", nargs="+", default=["off", "on"],
+                   choices=["off", "on"])
+    p.add_argument("--A-labels", nargs="+", default=[a[0] for a in A_VALUES],
+                   choices=[a[0] for a in A_VALUES])
+    p.add_argument("--B-labels", nargs="+", default=[b[0] for b in B_VALUES],
+                   choices=[b[0] for b in B_VALUES])
     args = p.parse_args()
 
     logging.basicConfig(
@@ -114,7 +127,7 @@ def main() -> None:
         "llama-embed-nemotron-8b": args.lora_adapter_nemo,
     }
     for model, ap in adapters.items():
-        if not Path(ap).is_dir():
+        if model in args.models and "on" in args.lora_modes and not Path(ap).is_dir():
             sys.exit(f"ERROR: LoRA adapter dir for {model} not found: {ap}")
 
     _set_seeds(args.seed)
@@ -143,10 +156,10 @@ def main() -> None:
     sweep_t0 = time.perf_counter()
 
     # Outer: (model, lora_state) -> one embedder load per block (4 loads total).
-    for model in ("qwen3-embedding-8b", "llama-embed-nemotron-8b"):
+    for model in args.models:
         resolved = _resolve_model(model)
         alias = _alias_for_naming(model)
-        for lora_on in (False, True):
+        for lora_on in tuple("on" == m for m in args.lora_modes):
             lora_tag = "lora-on" if lora_on else "lora-off"
             adapter = adapters[model] if lora_on else None
 
@@ -171,7 +184,11 @@ def main() -> None:
                     gold = _gold_direction_counts(reference)
 
                     for a_label, desc_method in A_VALUES:
+                        if a_label not in args.A_labels:
+                            continue
                         for b_label, template_id in B_VALUES:
+                            if b_label not in args.B_labels:
+                                continue
                             _set_seeds(args.seed)
                             broader_instr, narrower_instr = get_subb_asym_templates(template_id)
                             matcher.description = desc_method
