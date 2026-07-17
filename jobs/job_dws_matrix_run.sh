@@ -85,6 +85,13 @@ ABLATE_TAG="${ABLATE_TAG:-}"
 FEW_SHOT_ARM="${FEW_SHOT_ARM:-}"
 EXEMPLAR_TRACK="${EXEMPLAR_TRACK:-g1-web}"
 EXEMPLAR_SEED="${EXEMPLAR_SEED:-42}"
+# Client-Durchsatz (2026-07-17): der Reranker chunked mit batch_size-Barrier und
+# hielt so nur 2-4 Requests in flight (Server unterausgelastet, "Waiting: 0").
+# LLM_BATCH/LLM_CONC heben Chunk- und ThreadPool-Limit an — reine Infrastruktur:
+# Prompts/Decoding unveraendert, beide Werte landen in config.json. Defaults =
+# bisheriges Verhalten (8/16).
+LLM_BATCH="${LLM_BATCH:-8}"
+LLM_CONC="${LLM_CONC:-16}"
 FS_FLAGS=""; FS_TAG=""
 if [ -n "$FEW_SHOT_ARM" ] && [ "$FEW_SHOT_ARM" != "A0" ]; then
     FS_FLAGS="--few-shot-arm ${FEW_SHOT_ARM} --exemplar-track ${EXEMPLAR_TRACK} --exemplar-seed ${EXEMPLAR_SEED}"
@@ -126,7 +133,7 @@ conda run -n melt-olala bash -lc "VLLM_BASE_URL='${VLLM_BASE_URL}' python run_st
     --stage1-description description_path_context --description description_path_context \
     --llm-model '${MODEL_PATH}' --prompt-id d_subs_v2 \
     --max-new-tokens ${MAX_NEW_TOKENS} --temperature ${TEMP} ${TOP_P_FLAG} ${ABLATE_FLAG} ${FS_FLAGS} \
-    --llm-max-concurrency 16 --seed ${SEED} --output-dir '${OUT}'"
+    --batch-size ${LLM_BATCH} --llm-max-concurrency ${LLM_CONC} --seed ${SEED} --output-dir '${OUT}'"
 RC=$?
 echo "[mxrun] done MODEL=$MODEL DATASET=$DATASET SEED=$SEED rc=$RC out=$OUT"
 exit $RC
