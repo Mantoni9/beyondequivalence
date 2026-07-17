@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=st1_vdi
 #SBATCH --partition=gpu-vram-48gb
-#SBATCH --qos=max2gpu5d
+#SBATCH --qos=max4gpu5d
 #SBATCH --gres=gpu:1
 #SBATCH --mem=64G
 #SBATCH --time=04:00:00

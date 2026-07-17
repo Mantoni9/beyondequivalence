@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=mxrun
 #SBATCH --partition=gpu-vram-48gb
-#SBATCH --qos=max2gpu5d
+#SBATCH --qos=max4gpu5d
 #SBATCH --gres=gpu:2
 #SBATCH --mem=100G
 #SBATCH --time=06:00:00
