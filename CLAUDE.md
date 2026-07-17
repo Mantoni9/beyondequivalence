@@ -239,6 +239,8 @@ vLLM is not in `environment.yml`; the job scripts install it on first run via `p
 
 ### Cluster pitfalls
 
+- **A6000 nodes (dws-10, dws-14..17) hang vLLM at TP>1** unless `--disable-custom-all-reduce` is passed: CUDA reports P2P capability but actual P2P transfers hang silently (PCIe-ACS signature), and vLLM's custom all-reduce uses its own CUDA-IPC/P2P path that ignores `NCCL_P2P_DISABLE`. Symptom: only Worker_TP0 ever logs, EngineCore loops "No available shared memory broadcast block", server never becomes healthy (diagnosed 2026-07-17, jobs 285079/285154/285157; fix verified READY on dws-16). `jobs/job_dws_matrix_run.sh` applies the flag automatically by hostname. TP=1 and pure embedding jobs are unaffected.
+
 - `tea_debug.log` is dropped in cwd by an unidentified library on the DWS compute node and was the source of `git status --porcelain` dirty stamps in the SLURM job loop (gitignored 2026-04-26 in commit `a079c45`). If a new file appears in the repo root after a SLURM run, add it to `.gitignore` rather than deleting it — it is likely another cwd-littering library.
 - `bitsandbytes` produces NaN logits with Llama-3.3-70B + bf16 compute on DWS (verified 2026-04-26): use AWQ via vLLM instead. See "Quantization choice on DWS" above.
 

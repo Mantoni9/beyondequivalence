@@ -59,6 +59,18 @@ case "$MODEL" in
   *) echo "unknown MODEL=$MODEL" >&2; exit 2 ;;
 esac
 TOP_P_FLAG=""; [ -n "$TOP_P" ] && TOP_P_FLAG="--top-p $TOP_P"
+
+# A6000-Kompat (diagnostiziert 2026-07-17, Jobs 285079/285154/285157): auf den
+# A6000-Nodes (dws-10, dws-14..17) haengt vLLMs CUSTOM-Allreduce still im ersten
+# Kollektiv — CUDA meldet P2P-Faehigkeit, echte P2P-Transfers haengen (PCIe-ACS-
+# Signatur). Der Custom-Pfad ignoriert NCCL_P2P_DISABLE; --disable-custom-all-
+# reduce schaltet auf PYNCCL um (verifiziert READY auf dws-16). Hostname-basiert,
+# damit die Serve-Konfig auf dws-09/dws-11 unveraendert bleibt.
+case "$(hostname -s)" in
+  dws-10|dws-14|dws-15|dws-16|dws-17)
+    SERVE_EXTRA="$SERVE_EXTRA --disable-custom-all-reduce"
+    echo "[mxrun] A6000 node detected -> --disable-custom-all-reduce" ;;
+esac
 # Reasoning ablation (D9) passthrough — empty by default (identical to a normal
 # matrix run). ABLATE_FLAG e.g. "--disable-thinking" or "--reasoning-effort low";
 # ABLATE_TAG e.g. "_thinkoff" / "_relow" keeps its output dir distinct so it never
