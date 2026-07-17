@@ -33,6 +33,12 @@ export VLLM_BASE_URL="http://localhost:${PORT}/v1"
 mkdir -p results logs
 
 STAGE1="results/stage1_frozen/${DATASET}_qwen3-noLoRA_pathctx_T2_top20.tsv"
+# Shard mode (walltime armour for huge cells, e.g. gpt-oss x mouse-human):
+# STAGE1_OVERRIDE points at one shard TSV from scripts/shard_stage1_tsv.py and
+# SHARD_TAG (e.g. "_shard1of6") keeps the output dir distinct. Merge the shard
+# cells afterwards with scripts/merge_stage2_shards.py. Empty = normal run.
+STAGE1="${STAGE1_OVERRIDE:-$STAGE1}"
+SHARD_TAG="${SHARD_TAG:-}"
 if [ ! -f "$STAGE1" ]; then echo "[mxrun] ERROR: missing $STAGE1" >&2; exit 1; fi
 
 case "$MODEL" in
@@ -101,7 +107,7 @@ until curl -sf "http://localhost:${PORT}/health" >/dev/null 2>&1; do
 done
 echo "[mxrun] vLLM ready after ${WAITED}s"
 
-OUT="results/matrix_${MODEL}_${DATASET}_seed${SEED}${ABLATE_TAG}${FS_TAG}_$(git rev-parse --short HEAD)"
+OUT="results/matrix_${MODEL}_${DATASET}_seed${SEED}${ABLATE_TAG}${FS_TAG}${SHARD_TAG}_$(git rev-parse --short HEAD)"
 conda run -n melt-olala bash -lc "VLLM_BASE_URL='${VLLM_BASE_URL}' python run_stage2_experiment.py \
     --dataset '${DATASET}' \
     --stage1-predictions '${STAGE1}' --stage1-top-k 20 \
