@@ -135,6 +135,8 @@ def main():
           "| model | V1 Δcred (OAEI) | SYM Δcred | vdi V1 | bar(+0.03) |", "|---|---|---|---|---|"]
     for m in MODELS:
         cells = [(m, ds) for ds in oaei if (m, ds) in by]
+        if not cells:
+            continue  # model not yet analyzed (incremental run)
         line = f"| {m} "
         for arm in ("V1", "SYM"):
             dc = [by[(m, ds)][arm]["d_credited"] for (m, ds) in cells]
