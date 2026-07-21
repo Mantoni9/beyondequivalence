@@ -201,6 +201,29 @@ RERANKING_PROMPTS = {
         " partof, none. A short justification MAY follow on the next lines,"
         " but the very first line of your response must be the answer."
     ),
+    # d_subs_verify — E17 verification second-pass. A skeptical binary verifier
+    # over an ALREADY-asserted (source, relation, target). Different task from
+    # d_subs_v2 (verify, not forced-choice); "no / unrelated" primed as common
+    # and valid. Ends on "Answer:" so get_confidence_first_token reads P(yes) vs
+    # P(no) at the first generated token. {claim} is filled per relation by the
+    # runner (scripts/e17_verify.py CLAIMS).
+    "d_subs_verify": (
+        "You are a strict ontology-matching verifier. A first system proposed"
+        " that a specific relation holds between two entities from different"
+        " ontologies. VERIFY it skeptically: many proposed relations are wrong —"
+        " the two entities are often merely similar or topically related, NOT in"
+        " the claimed relation. Use the hierarchy paths below; if the entities"
+        " sit in unrelated or only loosely associated parts of their ontologies,"
+        " the claim is FALSE."
+        "\n\nSource entity: <{source_url}>"
+        "\nSource knowledge graph:\n{source_kg}"
+        "\n\nTarget entity: <{target_url}>"
+        "\nTarget knowledge graph:\n{target_kg}"
+        "\n\nCLAIM: {claim}"
+        "\n\nIs this claim actually true? Answer strictly 'yes' (the claim holds)"
+        " or 'no' (the claim does not hold)."
+        "\nAnswer:"
+    ),
     # v3a — subclass-first, symmetric wording, balanced 3-shot.
     # The Novel/Book pair appears in both directions to anti-bias the model;
     # Author/Writer provides an equivalent example. Listen-positions in the
