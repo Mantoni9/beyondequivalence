@@ -67,7 +67,7 @@ for AM in $ASSERT_MODELS; do
   for DS in $DATASETS; do
     # newest cell for (AM,DS) that actually has predictions.tsv (skips timeout/shard dirs)
     CELL=""
-    for c in $(ls -dt results/matrix_${AM}_${DS}_seed42_* 2>/dev/null | grep -vE "_shard|_g2shard"); do
+    for c in $(ls -dt results/matrix_${AM}_${DS}_seed42_* 2>/dev/null | grep -vE "_shard|_g2shard|_thinkoff|_relow|_A[1-4]_"); do
       [ -f "$c/predictions.tsv" ] && { CELL="$c"; break; }
     done
     if [ -z "$CELL" ]; then echo "[e17] SKIP $AM/$DS: no cell with predictions" >&2; continue; fi

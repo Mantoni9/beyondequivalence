@@ -45,10 +45,11 @@ def resolve_cell(model, ds, cells_root, results_root):
     if cells_root:
         p = Path(cells_root) / f"{model}_{ds}" / "predictions.tsv"
         return p if p.is_file() else None
+    import re
     for c in sorted(glob.glob(f"{results_root}/matrix_{model}_{ds}_seed42_*"),
                     key=os.path.getmtime, reverse=True):
-        if "_shard" in c or "_g2shard" in c:
-            continue
+        if re.search(r"_shard|_g2shard|_thinkoff|_relow|_A[1-4]_", c):
+            continue  # exclude sharded + ablation/few-shot variants -> main cell only
         if os.path.isfile(f"{c}/predictions.tsv"):
             return Path(c) / "predictions.tsv"
     return None
