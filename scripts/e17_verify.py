@@ -73,6 +73,7 @@ def main() -> None:
     base_url = os.getenv("VLLM_BASE_URL")
     if not base_url:
         sys.exit("VLLM_BASE_URL not set — serve the model first")
+    os.environ.setdefault("OPENAI_API_KEY", "EMPTY")  # local vLLM ignores the value
 
     asserts = read_assertions(Path(args.assertions))
     if args.limit:
