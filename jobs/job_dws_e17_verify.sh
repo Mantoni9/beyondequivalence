@@ -16,8 +16,12 @@ source "$(conda info --base)/etc/profile.d/conda.sh"
 export HF_HOME=/work/amarkic/hf_cache
 export NCCL_P2P_DISABLE=1 NCCL_IB_DISABLE=1 NCCL_DEBUG=WARN
 MODEL="${MODEL:?set MODEL}"
-DATASETS="${DATASETS:-g1-web g2-diseases}"
-TAG="${TAG:-_dev}"
+DATASETS="${DATASETS:-g3-text g5-groceries g7-literature mouse-human vdi-ebay}"
+TAG="${TAG:-_test}"
+# JUDGE: whose assertions to verify (default = MODEL itself = V1 self-verify;
+# set JUDGE=gpt-oss with MODEL=gpt-oss to run V2 strong-judge over ASSERT_MODELS).
+ASSERT_MODELS="${ASSERT_MODELS:-$MODEL}"
+REVERSE="${REVERSE:-1}"   # direction symmetrization on by default
 PORT=$((8300 + (SLURM_JOB_ID % 600)))
 export VLLM_BASE_URL="http://localhost:${PORT}/v1"
 mkdir -p results/e17 logs
@@ -53,13 +57,26 @@ until curl -sf "http://localhost:${PORT}/health" >/dev/null 2>&1; do
 done
 echo "[e17] vLLM ready after ${WAITED}s"
 
-for DS in $DATASETS; do
-  CELL=$(ls -d results/matrix_${MODEL}_${DS}_seed42_* 2>/dev/null | grep -vE "_shard|_g2shard" | head -1)
-  if [ -z "$CELL" ] || [ ! -f "$CELL/predictions.tsv" ]; then echo "[e17] SKIP $DS: no cell" >&2; continue; fi
-  echo "[e17] verify $MODEL/$DS  <- $CELL"
-  conda run -n melt-olala bash -lc "VLLM_BASE_URL='${VLLM_BASE_URL}' python scripts/e17_verify.py \
-      --model '${MODEL}' --model-path '${MODEL_PATH}' --dataset '${DS}' \
-      --assertions '${CELL}/predictions.tsv' --tag '${TAG}' --out results/e17 \
-      --batch-size 256 --max-concurrency 64"
+# gpt-oss (reasoning model) needs the CoT verify path (Harmony); others use the
+# first-token logprob read (proven on the dev viability check).
+if [ "$MODEL" = "gpt-oss" ]; then VMODE=reasoning; VEXTRA="--temperature 1.0 --top-p 1.0 --max-new-tokens 1024";
+else VMODE=firsttoken; VEXTRA=""; fi
+REVFLAG=""; [ "$REVERSE" = "1" ] && REVFLAG="--reverse"
+
+for AM in $ASSERT_MODELS; do
+  for DS in $DATASETS; do
+    # newest cell for (AM,DS) that actually has predictions.tsv (skips timeout/shard dirs)
+    CELL=""
+    for c in $(ls -dt results/matrix_${AM}_${DS}_seed42_* 2>/dev/null | grep -vE "_shard|_g2shard"); do
+      [ -f "$c/predictions.tsv" ] && { CELL="$c"; break; }
+    done
+    if [ -z "$CELL" ]; then echo "[e17] SKIP $AM/$DS: no cell with predictions" >&2; continue; fi
+    OTAG="${TAG}"; [ "$AM" != "$MODEL" ] && OTAG="${TAG}_by-${MODEL}"
+    echo "[e17] verify assert=$AM/$DS  judge=$MODEL mode=$VMODE  <- $CELL"
+    conda run -n melt-olala bash -lc "VLLM_BASE_URL='${VLLM_BASE_URL}' python scripts/e17_verify.py \
+        --model '${AM}' --model-path '${MODEL_PATH}' --dataset '${DS}' \
+        --assertions '${CELL}/predictions.tsv' --tag '${OTAG}' --out results/e17 \
+        --verify-mode ${VMODE} ${VEXTRA} ${REVFLAG} --batch-size 256 --max-concurrency 64"
+  done
 done
-echo "[e17] DONE MODEL=$MODEL"
+echo "[e17] DONE judge=$MODEL"

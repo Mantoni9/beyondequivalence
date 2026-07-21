@@ -35,6 +35,22 @@ CLAIMS = {
     ">": "the source entity is a MORE GENERAL kind of the target entity (source is a superclass of the target).",
     "=": "the source and target entities denote the SAME concept (they are equivalent).",
 }
+# reverse relation for direction symmetrization (a false '<' often reads yes both ways)
+REV = {"<": ">", ">": "<", "=": None}
+
+
+def parse_verdict(text: str) -> float:
+    """p_yes from a reasoning generation ending in 'VERDICT: Yes|No'."""
+    import re
+    t = (text or "").lower()
+    m = re.findall(r"verdict\s*[:\-]?\s*(yes|no)", t)
+    if m:
+        return 1.0 if m[-1] == "yes" else 0.0
+    if "\nyes" in t or t.strip().endswith("yes"):
+        return 1.0
+    if "\nno" in t or t.strip().endswith("no"):
+        return 0.0
+    return 0.5
 
 
 def dataset_paths(dataset: str, repo: Path):
@@ -66,6 +82,12 @@ def main() -> None:
     ap.add_argument("--batch-size", type=int, default=256)
     ap.add_argument("--max-concurrency", type=int, default=64)
     ap.add_argument("--limit", type=int, default=0)
+    ap.add_argument("--verify-mode", choices=("firsttoken", "reasoning"), default="firsttoken",
+                    help="firsttoken: P(yes) logprob (non-reasoning). reasoning: generate CoT, parse VERDICT (gpt-oss).")
+    ap.add_argument("--temperature", type=float, default=1.0)
+    ap.add_argument("--top-p", type=float, default=1.0)
+    ap.add_argument("--max-new-tokens", type=int, default=1024)
+    ap.add_argument("--reverse", action="store_true", help="also score the reverse-relation claim (symmetrization)")
     args = ap.parse_args()
 
     repo = Path(__file__).resolve().parent.parent
@@ -83,7 +105,7 @@ def main() -> None:
     spath, tpath = dataset_paths(args.dataset, repo)
     kg_s = RDFGraphWrapper(str(spath)); kg_t = RDFGraphWrapper(str(tpath))
     desc_s = getattr(kg_s, args.description); desc_t = getattr(kg_t, args.description)
-    tmpl = get_reranking_prompt("d_subs_verify")
+    tmpl = get_reranking_prompt("d_subs_verify_cot" if args.verify_mode == "reasoning" else "d_subs_verify")
     llm = LLMOpenAI(model_name=args.model_path, base_url=base_url,
                     max_concurrency=args.max_concurrency)
 
@@ -99,23 +121,43 @@ def main() -> None:
                 dcache[k] = uri.rsplit("/", 1)[-1].rsplit("#", 1)[-1]
         return dcache[k]
 
+    def score(prompts):
+        if args.verify_mode == "firsttoken":
+            return llm.get_confidence_first_token(prompts)
+        res = llm.get_text_completion_with_logprobs(
+            prompts, max_new_tokens=args.max_new_tokens,
+            temperature=args.temperature, top_p=args.top_p)
+        return [parse_verdict(r.get("text", "")) for r in res]
+
     rows, t0 = [], time.time()
     for start in range(0, len(asserts), args.batch_size):
         chunk = asserts[start:start + args.batch_size]
-        prompts = [tmpl.format(source_url=s, target_url=t,
-                               source_kg=dtext(desc_s, s), target_kg=dtext(desc_t, t),
-                               claim=CLAIMS[rel]) for (s, t, rel) in chunk]
-        scores = llm.get_confidence_first_token(prompts)
-        for (s, t, rel), p in zip(chunk, scores):
-            rows.append({"source_uri": s, "target_uri": t, "rel": rel, "p_yes": round(p, 6)})
+        fwd = [tmpl.format(source_url=s, target_url=t, source_kg=dtext(desc_s, s),
+                           target_kg=dtext(desc_t, t), claim=CLAIMS[rel]) for (s, t, rel) in chunk]
+        p_fwd = score(fwd)
+        p_rev = [None] * len(chunk)
+        if args.reverse:
+            ridx = [i for i, (_, _, rel) in enumerate(chunk) if REV[rel] is not None]
+            rprompts = [tmpl.format(source_url=chunk[i][0], target_url=chunk[i][1],
+                                    source_kg=dtext(desc_s, chunk[i][0]), target_kg=dtext(desc_t, chunk[i][1]),
+                                    claim=CLAIMS[REV[chunk[i][2]]]) for i in ridx]
+            rscores = score(rprompts) if rprompts else []
+            for i, p in zip(ridx, rscores):
+                p_rev[i] = p
+        for (s, t, rel), pf, pr in zip(chunk, p_fwd, p_rev):
+            row = {"source_uri": s, "target_uri": t, "rel": rel, "p_yes": round(pf, 6)}
+            if args.reverse:
+                row["p_yes_rev"] = round(pr, 6) if pr is not None else ""
+            rows.append(row)
         done = start + len(chunk)
-        if done % (args.batch_size * 8) == 0 or done == len(asserts):
+        if done % (args.batch_size * 4) == 0 or done == len(asserts):
             print(f"[e17]   {done}/{len(asserts)}  ({(time.time()-t0):.0f}s)", flush=True)
 
     tag = args.tag or ""
     fp = out / f"e17_verify_{args.model}_{args.dataset}{tag}.tsv"
+    fields = ["source_uri", "target_uri", "rel", "p_yes"] + (["p_yes_rev"] if args.reverse else [])
     with fp.open("w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=["source_uri", "target_uri", "rel", "p_yes"], delimiter="\t")
+        w = csv.DictWriter(f, fieldnames=fields, delimiter="\t")
         w.writeheader(); w.writerows(rows)
     kept = sum(1 for r in rows if r["p_yes"] > 0.5)
     print(f"[e17] wrote {fp}  ({len(rows)} rows, YES-rate={kept/max(1,len(rows)):.3f})", flush=True)

@@ -224,6 +224,27 @@ RERANKING_PROMPTS = {
         " or 'no' (the claim does not hold)."
         "\nAnswer:"
     ),
+    # d_subs_verify_cot — E17 verification for REASONING models (gpt-oss). Same
+    # skeptical framing as d_subs_verify but lets the model reason, then commits a
+    # parseable verdict on the LAST line. Fixes the max_tokens=1 Harmony collapse:
+    # gpt-oss reasons in its analysis channel and answers in the final channel,
+    # which vLLM returns as message.content; the runner parses "VERDICT: Yes|No".
+    "d_subs_verify_cot": (
+        "You are a strict ontology-matching verifier. A first system proposed"
+        " that a specific relation holds between two entities from different"
+        " ontologies. VERIFY it skeptically: many proposed relations are wrong —"
+        " the two entities are often merely similar or topically related, NOT in"
+        " the claimed relation."
+        "\n\nSource entity: <{source_url}>"
+        "\nSource knowledge graph:\n{source_kg}"
+        "\n\nTarget entity: <{target_url}>"
+        "\nTarget knowledge graph:\n{target_kg}"
+        "\n\nCLAIM: {claim}"
+        "\n\nThink briefly: do the hierarchy paths place these in the claimed"
+        " relation, or in unrelated/loosely-associated parts of their ontologies?"
+        " Consider a counterexample. Then end your reply with EXACTLY one final"
+        " line: 'VERDICT: Yes' if the claim holds, or 'VERDICT: No' if it does not."
+    ),
     # v3a — subclass-first, symmetric wording, balanced 3-shot.
     # The Novel/Book pair appears in both directions to anti-bias the model;
     # Author/Writer provides an equivalent example. Listen-positions in the
