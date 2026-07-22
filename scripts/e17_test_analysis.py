@@ -24,6 +24,14 @@ MODELS = ("llama", "mistral", "gemma4", "gpt-oss")
 TEST = ("g3-text", "g5-groceries", "g7-literature", "mouse-human", "vdi-ebay")
 REL = ("<", ">", "=")
 
+# llama g5/g7 reused the frozen Stage-1 baseline cells (dated dirs); the
+# matrix_*_seed42_* glob misses them, so resolve them explicitly (else llama's
+# g5/g7 silently drop out of the OAEI mean). See e17_batchcalib.py.
+REUSED_CELLS = {
+    ("llama", "g5-groceries"): "2026-06-13_11-32-15_stage2_g5-groceries_s1-qwen3-embedding-8b-asy-T2-description_path_context_p-d_subs_v2",
+    ("llama", "g7-literature"): "2026-06-02_19-01-38_stage2_g7-literature_s1-qwen3-embedding-8b-asy-T2-description_path_context",
+}
+
 
 def load_gold(ds, repo):
     ref = (repo/"goldstandard_ebay"/"reference_seed.rdf") if ds == "vdi-ebay" else Path(load_subdataset(ds)[2])
@@ -46,6 +54,9 @@ def resolve_cell(model, ds, cells_root, results_root):
         p = Path(cells_root) / f"{model}_{ds}" / "predictions.tsv"
         return p if p.is_file() else None
     import re
+    ru = REUSED_CELLS.get((model, ds))
+    if ru and os.path.isfile(f"{results_root}/{ru}/predictions.tsv"):
+        return Path(results_root)/ru/"predictions.tsv"
     for c in sorted(glob.glob(f"{results_root}/matrix_{model}_{ds}_seed42_*"),
                     key=os.path.getmtime, reverse=True):
         if re.search(r"_shard|_g2shard|_thinkoff|_relow|_A[1-4]_", c):
