@@ -1,0 +1,44 @@
+# Blind '<'-FP gold-gap audit. Each row: a pair some model labelled '<' but the gold has NO relation. Judge whether SOURCE is really a subclass of TARGET.
+# judgment: gold_gap (real subclass, just unlabelled) | real_error (source is NOT a subclass of target) | unsure
+# ADJUDICATED 2026-07-19: final human verdicts (Antonio Markic); 15 gold_gap / 25 not_subclass / 0 unsure
+row_id	dataset	source_concept	target_concept	judgment
+84653fdf	g3-text	PlaceWithNeighborhoods	AdministrativeDivision	not_subclass
+be7baf13	g3-text	MilitaryUnit	Irregular Military	not_subclass
+ae6a9275	g3-text	FootballManager	Sports Executive	gold_gap
+227cf17b	g3-text	CricketAdministrativeBody	Business Organization	not_subclass
+c408c03f	g7-literature	Graphic_Novels	Literature_and_literary_studies	gold_gap
+ae011f7f	g3-text	Neighborhood	 City	not_subclass
+340ba96b	g3-text	Songwriter	Author	gold_gap
+7a433b07	g7-literature	Horror	Fiction_related_items	gold_gap
+f8b8b518	g3-text	RadioStation	Entertainment Company	gold_gap
+5995f12b	g3-text	Composer	MusicalGroupMember	not_subclass
+547a5425	g7-literature	Religion	Society_and_culture_general_issues	not_subclass
+52ef9ac6	g5-groceries	Jams,_Jellies_&_Preserves	Condiments,_Pickles_&_Relishes	not_subclass
+01971951	g3-text	County	GeographicFeature	not_subclass
+ba3634b5	g3-text	Director	OfficeHolder	not_subclass
+c5f6fb10	g5-groceries	Jelly_Beans	Gummy_Candy	not_subclass
+66d1361c	g3-text	Mountain	GeographicFeature	gold_gap
+d237f68a	g3-text	SoftwareDeveloper	Business Person	not_subclass
+1e2ddd19	g3-text	Legislature	Government Agency	not_subclass
+94e190f6	g3-text	Congressional Committee	Professional Association	not_subclass
+7c57cf57	g3-text	Music Production Company	Manufacturing Company	not_subclass
+d34e6a3a	g5-groceries	Cereals_&_Breakfast_Food	Cereal	not_subclass
+47e72607	g5-groceries	Fruits	Fruit_Juice	not_subclass
+c5768b3d	g3-text	Newspaper	ReportIssuingInstitution	not_subclass
+b59a843a	g5-groceries	Trail_Mix	Breakfast_&_Cereal_Bars	not_subclass
+1f69c6a6	g3-text	OperatingSystemDeveloper	Producer	gold_gap
+a5f5289e	g3-text	OlympicBiddingCity	Location	gold_gap
+c4180d93	g3-text	TheatricalLyricist	Poet	not_subclass
+ac4d8e80	g3-text	USTerritory	AdministrativeDivision	gold_gap
+e05188ab	g3-text	ProgrammingLanguageDesigner	Person	gold_gap
+04524ea8	g3-text	BritishRoyalty	Political Organization	not_subclass
+a9d1690e	g3-text	ComicStripArtist	Comics Creator	gold_gap
+2351f289	g3-text	VideoGameDesigner	VisualArtist	not_subclass
+a4cca7db	g3-text	Aerospace Company	Business Organization	gold_gap
+bddf922f	g3-text	CricketPlayer	OlympicAthlete	not_subclass
+d8e630a3	g3-text	Film Production Company	Producer	not_subclass
+01a7ad54	g7-literature	Fiction	Fiction_and_related_items	gold_gap
+9c69b803	g3-text	OfficeHolder	First Lady	not_subclass
+38f677b9	g3-text	MusicGroup	Artist	gold_gap
+d1a6f1db	g5-groceries	Baking_Chocolate	Chocolate	gold_gap
+25a5ba58	g5-groceries	Ground_Coffee	Gourmet_Gifts	not_subclass

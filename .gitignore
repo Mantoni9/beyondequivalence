@@ -1,5 +1,7 @@
 models/
-data/
+data/*
+# curated VDI->eBay gold standard (own annotations + build inputs) is tracked
+!data/gold-standard/
 results/
 __pycache__/
 *.pyc

@@ -1,0 +1,600 @@
+# Subsumptions-Gold — Ableitungsreport
+
+Mapping-Zeilen gesamt: 3046 | in Scope übernommen: 945 | Korrektur angewendet: 1 (10675->262166)
+
+Ausschlüsse: {'INACTIVE': 37, 'außerhalb Karosserie-Gold': 2064}
+
+Seeds: 451 ({'<': 424, '=': 22, '>': 5})
+Gesamtpaare: 2048 ({'seed': 451, 'derived': 1597}; Relationen {'<': 1976, '=': 22, '>': 50})
+Konflikte: 0
+
+## H2 (144)
+- v10109: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10124: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10125: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10152: 4 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10169: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10181: 4 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10192: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10193: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10194: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10205: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10206: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10207: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10210: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10223: 3 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10233: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10240: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10241: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10247: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10260: 9 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10278: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10281: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10283: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10303: 8 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10305: 8 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10343: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10348: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10349: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10350_17: zielgleich mit Basis (keine Positionsklasse) -> Hülle
+- v10350_18: zielgleich mit Basis (keine Positionsklasse) -> Hülle
+- v10352: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10353: 8 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10354: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10355: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10356: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10359: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10362: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10363: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10364: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10365: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10367: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10368: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10369: 10 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10370: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10371: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10372: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10377: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10378: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10379: 7 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10388: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10391: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10392: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10393: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10394: 4 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10395: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10396: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10397: 7 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10398: 7 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10399: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10400: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10401: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10530: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10531: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10532: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10533: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10534: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10535: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10556: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10557: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10561: 3 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10567_17: zielgleich mit Basis (keine Positionsklasse) -> Hülle
+- v10567_18: zielgleich mit Basis (keine Positionsklasse) -> Hülle
+- v10568_17: zielgleich mit Basis (keine Positionsklasse) -> Hülle
+- v10568_18: zielgleich mit Basis (keine Positionsklasse) -> Hülle
+- v10569_17: zielgleich mit Basis (keine Positionsklasse) -> Hülle
+- v10569_18: zielgleich mit Basis (keine Positionsklasse) -> Hülle
+- v10570: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10571: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10572: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10573: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10574: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10575: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10576: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10577: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10578: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10579: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10580: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10584: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10585: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10586: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10602: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10603: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10604: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10605: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10609: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10610_17: zielgleich mit Basis (keine Positionsklasse) -> Hülle
+- v10610_18: zielgleich mit Basis (keine Positionsklasse) -> Hülle
+- v10611: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10622: 4 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10646: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10647: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10648: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10649: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10650: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10651: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10652: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10653: 4 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10654: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10660: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10661: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10662: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10665: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10666: 4 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10667: 4 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10668: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10669: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10670: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10672: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10673: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10675: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10679: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10684: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10685: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10686: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v10764: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v11137: 8 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v11315: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v11344: 4 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v11766: 4 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v11780: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v11794: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v11811: 3 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v11817: 4 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v11842: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v11847: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v11883: 6 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v11891: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v11897: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v11901: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v12059: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v12060: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v12061: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v12074: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v12075: 5 Suffixzeile(n) zielgleich kollabiert -> Hülle
+- v12077: 2 Suffixzeile(n) zielgleich kollabiert -> Hülle
+
+## H3 (217)
+- v10006 'Antenne Dach' < e33639 'Fahrzeugantennen' (teilt Ziel mit 3 unverwandten Spitzen)
+- v10191 'Antenne elektrisch' < e33639 'Fahrzeugantennen' (teilt Ziel mit 3 unverwandten Spitzen)
+- v11361 'Antennenkopf' < e33639 'Fahrzeugantennen' (teilt Ziel mit 3 unverwandten Spitzen)
+- v11790 'Antennenverstärker' < e33639 'Fahrzeugantennen' (teilt Ziel mit 3 unverwandten Spitzen)
+- v10007 'Aufprallträger' < e262146 'Stoßstangeneinlagen & -abdeckungen' (teilt Ziel mit 5 unverwandten Spitzen)
+- v10124 'Pralldämpfer' < e262146 'Stoßstangeneinlagen & -abdeckungen' (teilt Ziel mit 5 unverwandten Spitzen)
+- v10392 'Stoßstangenabdeckung' < e262146 'Stoßstangeneinlagen & -abdeckungen' (teilt Ziel mit 5 unverwandten Spitzen)
+- v11297 'Stoßfängerabdeckung für Anhängevorrichtung' < e262146 'Stoßstangeneinlagen & -abdeckungen' (teilt Ziel mit 5 unverwandten Spitzen)
+- v11697 'Stoßstangenabdeckung für Anhängevorrichtung' < e262146 'Stoßstangeneinlagen & -abdeckungen' (teilt Ziel mit 5 unverwandten Spitzen)
+- v11698 'Stoßstangenhalter für Anhängevorrichtung' < e262146 'Stoßstangeneinlagen & -abdeckungen' (teilt Ziel mit 5 unverwandten Spitzen)
+- v10023 'Dämpfer Hecktür' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (teilt Ziel mit 21 unverwandten Spitzen)
+- v10135 'Schließbolzen' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (teilt Ziel mit 21 unverwandten Spitzen)
+- v10136 'Schließplatte' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (teilt Ziel mit 21 unverwandten Spitzen)
+- v10137 'Schließzylinder' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (teilt Ziel mit 21 unverwandten Spitzen)
+- v10138 'Schließzylinder Heckdeckel' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (teilt Ziel mit 21 unverwandten Spitzen)
+- v10139 'Schließzylinder Hecktür' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (teilt Ziel mit 21 unverwandten Spitzen)
+- v10141 'Schließzylinder Schiebetür' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (teilt Ziel mit 21 unverwandten Spitzen)
+- v10142 'Schloss Heckdeckel' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (teilt Ziel mit 21 unverwandten Spitzen)
+- v10143 'Schloss Hecktür' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (teilt Ziel mit 21 unverwandten Spitzen)
+- v10167 'Türbremse' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (teilt Ziel mit 21 unverwandten Spitzen)
+- v10168 'Türfeststeller' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (teilt Ziel mit 21 unverwandten Spitzen)
+- v10169 'Türschloss' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (teilt Ziel mit 21 unverwandten Spitzen)
+- v10377 'Heckklappendämpfer' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (teilt Ziel mit 21 unverwandten Spitzen)
+- v10399 'Türrahmen' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (teilt Ziel mit 21 unverwandten Spitzen)
+- v11065 'Heckklappengriff' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (teilt Ziel mit 21 unverwandten Spitzen)
+- v11136 'Türgriffbetätigung' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (teilt Ziel mit 21 unverwandten Spitzen)
+- v11137 'Türscharnier' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (teilt Ziel mit 21 unverwandten Spitzen)
+- v11342 'Dichtung für Heckklappe' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (teilt Ziel mit 21 unverwandten Spitzen)
+- v11710 'Türgriffrahmen' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (teilt Ziel mit 21 unverwandten Spitzen)
+- v11761 'Schloss Hecktür' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (teilt Ziel mit 21 unverwandten Spitzen)
+- v11834 'Türschlüssel' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (teilt Ziel mit 21 unverwandten Spitzen)
+- v11897 'Heckklappenscharnier' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (teilt Ziel mit 21 unverwandten Spitzen)
+- v10066 'Klappenscharnier' < e262156 'Scharniere, Verschlüsse & weitere Motorhaubenteile' (teilt Ziel mit 4 unverwandten Spitzen)
+- v10067 'Klappenschlosszug' < e262156 'Scharniere, Verschlüsse & weitere Motorhaubenteile' (teilt Ziel mit 4 unverwandten Spitzen)
+- v10109 'Motorhaubenscharnier' < e262156 'Scharniere, Verschlüsse & weitere Motorhaubenteile' (teilt Ziel mit 4 unverwandten Spitzen)
+- v10110 'Motorhaubenzug' < e262156 'Scharniere, Verschlüsse & weitere Motorhaubenteile' (teilt Ziel mit 4 unverwandten Spitzen)
+- v10144 'Schloss Motorhaube' < e262156 'Scharniere, Verschlüsse & weitere Motorhaubenteile' (teilt Ziel mit 4 unverwandten Spitzen)
+- v10133 'Schiebedach' < e262172 'Panorama-, Schiebedächer & Teile' (teilt Ziel mit 5 unverwandten Spitzen)
+- v10134 'Schiebedachdeckel' < e262172 'Panorama-, Schiebedächer & Teile' (teilt Ziel mit 5 unverwandten Spitzen)
+- v10237 'Motor Schiebedach' < e262172 'Panorama-, Schiebedächer & Teile' (teilt Ziel mit 5 unverwandten Spitzen)
+- v11260 'Getriebe Schiebedach' < e262172 'Panorama-, Schiebedächer & Teile' (teilt Ziel mit 5 unverwandten Spitzen)
+- v11410 'Dichtung für Schiebedach' < e262172 'Panorama-, Schiebedächer & Teile' (teilt Ziel mit 5 unverwandten Spitzen)
+- v11880 'Panoramadach' < e262172 'Panorama-, Schiebedächer & Teile' (teilt Ziel mit 5 unverwandten Spitzen)
+- v10161 'Tankklappe' < e262167 'Tankdeckel & Zubehör' (teilt Ziel mit 1 unverwandten Spitzen)
+- v10162 'Tankklappenzug' < e262167 'Tankdeckel & Zubehör' (teilt Ziel mit 1 unverwandten Spitzen)
+- v10163 'Tankverschluss' < e262072 'Tankdeckel' (teilt Ziel mit 2 unverwandten Spitzen)
+- v11134 'Tankdeckelschloss' < e262072 'Tankdeckel' (teilt Ziel mit 2 unverwandten Spitzen)
+- v11644 'Tankklappenscharnier' < e262072 'Tankdeckel' (teilt Ziel mit 2 unverwandten Spitzen)
+- v10192 'Blinker' < e33717 'Blinkleuchten' (teilt Ziel mit 5 unverwandten Spitzen)
+- v10194 'Blinker Kotflügel' < e33717 'Blinkleuchten' (teilt Ziel mit 5 unverwandten Spitzen)
+- v10281 'Stand-/Blinkleuchte' < e33717 'Blinkleuchten' (teilt Ziel mit 5 unverwandten Spitzen)
+- v10653 'Lichtscheibe für Blinkleuchte' < e33717 'Blinkleuchten' (teilt Ziel mit 5 unverwandten Spitzen)
+- v10654 'Lichtscheibe für Heckleuchte' < e33717 'Blinkleuchten' (teilt Ziel mit 5 unverwandten Spitzen)
+- v11475 'Blinkergehäuse' < e33717 'Blinkleuchten' (teilt Ziel mit 5 unverwandten Spitzen)
+- v10205 'Fensterheber' < e33706 'Fensterheber & -motoren' (teilt Ziel mit 1 unverwandten Spitzen)
+- v10233 'Motor Fensterheber' < e33706 'Fensterheber & -motoren' (teilt Ziel mit 1 unverwandten Spitzen)
+- v10206 'Hauptfernscheinwerfer' < e33710 'Frontscheinwerfer' (teilt Ziel mit 16 unverwandten Spitzen)
+- v10207 'Fernscheinwerfer' < e33710 'Frontscheinwerfer' (teilt Ziel mit 16 unverwandten Spitzen)
+- v10210 'Hauptscheinwerfer' < e33710 'Frontscheinwerfer' (teilt Ziel mit 16 unverwandten Spitzen)
+- v10278 'Scheinwerferglas' < e33710 'Frontscheinwerfer' (teilt Ziel mit 16 unverwandten Spitzen)
+- v10530 'Hauptscheinwerfer höhenverstellbar' < e33710 'Frontscheinwerfer' (teilt Ziel mit 16 unverwandten Spitzen)
+- v10531 'Hauptscheinwerfer nicht höhenverstellbar' < e33710 'Frontscheinwerfer' (teilt Ziel mit 16 unverwandten Spitzen)
+- v10646 'Streuscheibe Hauptscheinwerfer' < e33710 'Frontscheinwerfer' (teilt Ziel mit 16 unverwandten Spitzen)
+- v10647 'Streuscheibe Fernscheinwerfer' < e33710 'Frontscheinwerfer' (teilt Ziel mit 16 unverwandten Spitzen)
+- v10650 'Scheinwerfereinsatz Fernscheinwerfer' < e33710 'Frontscheinwerfer' (teilt Ziel mit 16 unverwandten Spitzen)
+- v10651 'Scheinwerfereinsatz Hauptscheinwerfer' < e33710 'Frontscheinwerfer' (teilt Ziel mit 16 unverwandten Spitzen)
+- v10679 'Umrüstsatz Scheinwerfer' < e33710 'Frontscheinwerfer' (teilt Ziel mit 16 unverwandten Spitzen)
+- v10752 'Scheinwerfereinsatz für Suchscheinwerfer' < e33710 'Frontscheinwerfer' (teilt Ziel mit 16 unverwandten Spitzen)
+- v11293 'Hauptscheinwerfergehäuse' < e33710 'Frontscheinwerfer' (teilt Ziel mit 16 unverwandten Spitzen)
+- v11485 'Glühlampe für Fernscheinwerfer' < e33710 'Frontscheinwerfer' (teilt Ziel mit 16 unverwandten Spitzen)
+- v11551 'Lampenfassung für Hauptscheinwerfer' < e33710 'Frontscheinwerfer' (teilt Ziel mit 16 unverwandten Spitzen)
+- v11555 'Lichtscheibe für Hauptscheinwerfer' < e33710 'Frontscheinwerfer' (teilt Ziel mit 16 unverwandten Spitzen)
+- v11770 'Glühlampe Xenon' < e33710 'Frontscheinwerfer' (teilt Ziel mit 16 unverwandten Spitzen)
+- v10220 'Kabel Tür' < e179847 'Kabel, Kabelbäume & Steckverbinder' (teilt Ziel mit 3 unverwandten Spitzen)
+- v11512 'Kabelsatz für Fernscheinwerfer' < e179847 'Kabel, Kabelbäume & Steckverbinder' (teilt Ziel mit 3 unverwandten Spitzen)
+- v11513 'Kabelsatz für Hauptscheinwerfer' < e179847 'Kabel, Kabelbäume & Steckverbinder' (teilt Ziel mit 3 unverwandten Spitzen)
+- v11936 'HV-Ladeanschluss' < e179847 'Kabel, Kabelbäume & Steckverbinder' (teilt Ziel mit 3 unverwandten Spitzen)
+- v10223 'Kennzeichenleuchte' < e262208 'Kennzeichenbeleuchtung' (teilt Ziel mit 2 unverwandten Spitzen)
+- v11048 'Gehäuse für Kennzeichenleuchte' < e262208 'Kennzeichenbeleuchtung' (teilt Ziel mit 2 unverwandten Spitzen)
+- v11556 'Lichtscheibe für Kennzeichenleuchte' < e262208 'Kennzeichenbeleuchtung' (teilt Ziel mit 2 unverwandten Spitzen)
+- v10234 'Motor Klappscheinwerfer' < e177708 'Elektromotoren' (teilt Ziel mit 5 unverwandten Spitzen)
+- v10236 'Motor Leuchtweitenregulierung' < e177708 'Elektromotoren' (teilt Ziel mit 5 unverwandten Spitzen)
+- v10238 'Motor Verdeck' < e177708 'Elektromotoren' (teilt Ziel mit 5 unverwandten Spitzen)
+- v10749 'Motor Heckklappe' < e177708 'Elektromotoren' (teilt Ziel mit 5 unverwandten Spitzen)
+- v11329 'Stellmotor Tankklappe' < e177708 'Elektromotoren' (teilt Ziel mit 5 unverwandten Spitzen)
+- v11780 'Motor Schiebetür' < e177708 'Elektromotoren' (teilt Ziel mit 5 unverwandten Spitzen)
+- v10240 'Nebelscheinwerfer' < e33709 'Nebelscheinwerfer' (teilt Ziel mit 3 unverwandten Spitzen)
+- v10649 'Streuscheibe Nebelscheinwerfer' < e33709 'Nebelscheinwerfer' (teilt Ziel mit 3 unverwandten Spitzen)
+- v10652 'Scheinwerfereinsatz Nebelscheinwerfer' < e33709 'Nebelscheinwerfer' (teilt Ziel mit 3 unverwandten Spitzen)
+- v11058 'Glühlampe für Nebelscheinwerfer' < e33709 'Nebelscheinwerfer' (teilt Ziel mit 3 unverwandten Spitzen)
+- v10241 'Nebelschlussleuchte' < e33716 'Rück- & Bremsleuchten' (teilt Ziel mit 15 unverwandten Spitzen)
+- v10260 'Rückleuchte' < e33716 'Rück- & Bremsleuchten' (teilt Ziel mit 15 unverwandten Spitzen)
+- v10261 'Rückleuchte Leiterplatte' < e33716 'Rück- & Bremsleuchten' (teilt Ziel mit 15 unverwandten Spitzen)
+- v10262 'Rückleuchtenband' < e33716 'Rück- & Bremsleuchten' (teilt Ziel mit 15 unverwandten Spitzen)
+- v10561 'Bremsleuchte' < e33716 'Rück- & Bremsleuchten' (teilt Ziel mit 15 unverwandten Spitzen)
+- v10665 'Gehäuse Heckleuchte' < e33716 'Rück- & Bremsleuchten' (teilt Ziel mit 15 unverwandten Spitzen)
+- v10859 'Heckleuchtensatz' < e33716 'Rück- & Bremsleuchten' (teilt Ziel mit 15 unverwandten Spitzen)
+- v11052 'Glühlampe für Brems-/Schlusslicht' < e33716 'Rück- & Bremsleuchten' (teilt Ziel mit 15 unverwandten Spitzen)
+- v11060 'Glühlampe für Rückfahrleuchte' < e33716 'Rück- & Bremsleuchten' (teilt Ziel mit 15 unverwandten Spitzen)
+- v11476 'Rückfahrleuchtengehäuse' < e33716 'Rück- & Bremsleuchten' (teilt Ziel mit 15 unverwandten Spitzen)
+- v11478 'Rückleuchtengehäuse' < e33716 'Rück- & Bremsleuchten' (teilt Ziel mit 15 unverwandten Spitzen)
+- v11484 'Glühlampe für Bremsleuchte' < e33716 'Rück- & Bremsleuchten' (teilt Ziel mit 15 unverwandten Spitzen)
+- v11488 'Glühlampe für Rückleuchte' < e33716 'Rück- & Bremsleuchten' (teilt Ziel mit 15 unverwandten Spitzen)
+- v11558 'Lichtscheibe für Rückfahrleuchte' < e33716 'Rück- & Bremsleuchten' (teilt Ziel mit 15 unverwandten Spitzen)
+- v11559 'Lichtscheibe für Schlussleuchte' < e33716 'Rück- & Bremsleuchten' (teilt Ziel mit 15 unverwandten Spitzen)
+- v11847 'Rückleuchte in Stoßstange' < e33716 'Rück- & Bremsleuchten' (teilt Ziel mit 15 unverwandten Spitzen)
+- v10283 'Standleuchte' < e33715 'Seitenmarkierungsleuchten' (teilt Ziel mit 7 unverwandten Spitzen)
+- v10662 'Begrenzungsleuchte' < e33715 'Seitenmarkierungsleuchten' (teilt Ziel mit 7 unverwandten Spitzen)
+- v10677 'Umrißleuchte' < e33715 'Seitenmarkierungsleuchten' (teilt Ziel mit 7 unverwandten Spitzen)
+- v11059 'Glühlampe für Park-/Positionsleuchte' < e33715 'Seitenmarkierungsleuchten' (teilt Ziel mit 7 unverwandten Spitzen)
+- v11487 'Glühlampe für Positions-/Begrenzungsleuchte' < e33715 'Seitenmarkierungsleuchten' (teilt Ziel mit 7 unverwandten Spitzen)
+- v11557 'Lichtscheibe für Positionsleuchte' < e33715 'Seitenmarkierungsleuchten' (teilt Ziel mit 7 unverwandten Spitzen)
+- v11560 'Lichtscheibe für Seitenmarkierungsleuchte' < e33715 'Seitenmarkierungsleuchten' (teilt Ziel mit 7 unverwandten Spitzen)
+- v11662 'Seitenmarkierungsleuchte' < e33715 'Seitenmarkierungsleuchten' (teilt Ziel mit 7 unverwandten Spitzen)
+- v10303 'Wischermotor' < e61941 'Wischermotoren & -gestänge' (teilt Ziel mit 1 unverwandten Spitzen)
+- v10622 'Wischergestänge' < e61941 'Wischermotoren & -gestänge' (teilt Ziel mit 1 unverwandten Spitzen)
+- v10340 'Dach Cabrio' < e262171 'Hardtops, Autodächer & Teile' (teilt Ziel mit 3 unverwandten Spitzen)
+- v10341 'Dach mit Sonnendachausschnitt' < e262171 'Hardtops, Autodächer & Teile' (teilt Ziel mit 3 unverwandten Spitzen)
+- v10342 'Dach Targa' < e262171 'Hardtops, Autodächer & Teile' (teilt Ziel mit 3 unverwandten Spitzen)
+- v10344 'Faltdach' < e262171 'Hardtops, Autodächer & Teile' (teilt Ziel mit 3 unverwandten Spitzen)
+- v10347 'Heckklappe / Heckdeckel' < e33656 'Kofferraum- & Heckklappen' (teilt Ziel mit 2 unverwandten Spitzen)
+- v10554 'Heckklappe mit Fensterausschnitt' < e33656 'Kofferraum- & Heckklappen' (teilt Ziel mit 2 unverwandten Spitzen)
+- v10555 'Heckklappe geschlossen' < e33656 'Kofferraum- & Heckklappen' (teilt Ziel mit 2 unverwandten Spitzen)
+- v10349 'Hecktür' < e179850 'Türen & Türenbleche' (teilt Ziel mit 6 unverwandten Spitzen)
+- v10355 'Tür' < e179850 'Türen & Türenbleche' (teilt Ziel mit 6 unverwandten Spitzen)
+- v10532 'Hecktür (1-türig) mit Fensterausschnitt' < e179850 'Türen & Türenbleche' (teilt Ziel mit 6 unverwandten Spitzen)
+- v10533 'Hecktür (1-türig) geschlossen' < e179850 'Türen & Türenbleche' (teilt Ziel mit 6 unverwandten Spitzen)
+- v10534 'Hecktür (2-türig) mit Fensterausschnitt' < e179850 'Türen & Türenbleche' (teilt Ziel mit 6 unverwandten Spitzen)
+- v10535 'Hecktür (2-türig) geschlossen' < e179850 'Türen & Türenbleche' (teilt Ziel mit 6 unverwandten Spitzen)
+- v11344 'Türblatt' < e179850 'Türen & Türenbleche' (teilt Ziel mit 6 unverwandten Spitzen)
+- v10352 'Schiebetür' < e262149 'Schiebetüren' (teilt Ziel mit 1 unverwandten Spitzen)
+- v11632 'Rollenführung für Schiebetür' < e262149 'Schiebetüren' (teilt Ziel mit 1 unverwandten Spitzen)
+- v10359 'Abdeckung Außenspiegel' < e262162 'Spiegelkomponenten' (teilt Ziel mit 8 unverwandten Spitzen)
+- v10363 'Außenspiegelgehäuse' < e262162 'Spiegelkomponenten' (teilt Ziel mit 8 unverwandten Spitzen)
+- v10364 'Außenspiegelglas' < e262162 'Spiegelkomponenten' (teilt Ziel mit 8 unverwandten Spitzen)
+- v10671 'Stellelement für Leuchtweiteregulierung' < e262162 'Spiegelkomponenten' (teilt Ziel mit 8 unverwandten Spitzen)
+- v10672 'Stellelement für Außenspiegel' < e262162 'Spiegelkomponenten' (teilt Ziel mit 8 unverwandten Spitzen)
+- v10673 'Halter Außenspiegel' < e262162 'Spiegelkomponenten' (teilt Ziel mit 8 unverwandten Spitzen)
+- v10674 'Scheinwerferleiste' < e262162 'Spiegelkomponenten' (teilt Ziel mit 8 unverwandten Spitzen)
+- v11316 'Außenspiegelblende' < e262162 'Spiegelkomponenten' (teilt Ziel mit 8 unverwandten Spitzen)
+- v11357 'Anschlussleitung für Außenspiegel' < e262162 'Spiegelkomponenten' (teilt Ziel mit 8 unverwandten Spitzen)
+- v10361 'Anhängerkupplung mit E-Satz abnehmbar' < e33653 'Anhängerkupplungen & Komplettsätze' (teilt Ziel mit 4 unverwandten Spitzen)
+- v10593 'Anhängerkupplung mit E-Satz nicht abnehmbar' < e33653 'Anhängerkupplungen & Komplettsätze' (teilt Ziel mit 4 unverwandten Spitzen)
+- v10594 'Anhängerkupplung ohne E-Satz nicht abnehmbar' < e33653 'Anhängerkupplungen & Komplettsätze' (teilt Ziel mit 4 unverwandten Spitzen)
+- v10612 'Anhängerkupplung ohne E-Satz abnehmbar' < e33653 'Anhängerkupplungen & Komplettsätze' (teilt Ziel mit 4 unverwandten Spitzen)
+- v11234 'Anhängerkupplung' < e33653 'Anhängerkupplungen & Komplettsätze' (teilt Ziel mit 4 unverwandten Spitzen)
+- v10371 'Dachzierleiste' < e33654 'Schutz- & Zierleisten' (teilt Ziel mit 12 unverwandten Spitzen)
+- v10383 'Schutzleiste Kotflügel' < e33654 'Schutz- & Zierleisten' (teilt Ziel mit 12 unverwandten Spitzen)
+- v10384 'Schutzleiste Seitenwand' < e33654 'Schutz- & Zierleisten' (teilt Ziel mit 12 unverwandten Spitzen)
+- v10385 'Schutzleiste Tür' < e33654 'Schutz- & Zierleisten' (teilt Ziel mit 12 unverwandten Spitzen)
+- v10389 'Steinschlagschutz' < e33654 'Schutz- & Zierleisten' (teilt Ziel mit 12 unverwandten Spitzen)
+- v10390 'Steinschlagschutz Stoßstange' < e33654 'Schutz- & Zierleisten' (teilt Ziel mit 12 unverwandten Spitzen)
+- v10405 'Ziergitter' < e33654 'Schutz- & Zierleisten' (teilt Ziel mit 12 unverwandten Spitzen)
+- v10406 'Zierleiste' < e33654 'Schutz- & Zierleisten' (teilt Ziel mit 12 unverwandten Spitzen)
+- v10748 'Schutzleiste Schweller' < e33654 'Schutz- & Zierleisten' (teilt Ziel mit 12 unverwandten Spitzen)
+- v10801 'Zier-/Schutzleiste für Frontverkleidung' < e33654 'Schutz- & Zierleisten' (teilt Ziel mit 12 unverwandten Spitzen)
+- v11300 'Zier-/Schutzleistensatz für Stoßfänger' < e33654 'Schutz- & Zierleisten' (teilt Ziel mit 12 unverwandten Spitzen)
+- v11313 'Zier-/Schutzleistensatz für Kühlergitter' < e33654 'Schutz- & Zierleisten' (teilt Ziel mit 12 unverwandten Spitzen)
+- v11747 'Zier-/Schutzleiste für Türscheibe' < e33654 'Schutz- & Zierleisten' (teilt Ziel mit 12 unverwandten Spitzen)
+- v10379 'Kühlergrill' < e33645 'Front- & Kühlergrills' (teilt Ziel mit 1 unverwandten Spitzen)
+- v10380 'Kühlergrillrahmen' < e33645 'Front- & Kühlergrills' (teilt Ziel mit 1 unverwandten Spitzen)
+- v10386 'Schwellerleisten' < e33650 'Einstiegsleisten' (teilt Ziel mit 3 unverwandten Spitzen)
+- v10678 'Trittbrett' < e33650 'Einstiegsleisten' (teilt Ziel mit 3 unverwandten Spitzen)
+- v11658 'Schwellerverkleidung' < e33650 'Einstiegsleisten' (teilt Ziel mit 3 unverwandten Spitzen)
+- v11883 'Einstiegleiste' < e33650 'Einstiegsleisten' (teilt Ziel mit 3 unverwandten Spitzen)
+- v10388 'Spoiler' < e33638 'Spoiler & Heckflügel' (teilt Ziel mit 1 unverwandten Spitzen)
+- v10816 'Spoiler für Kühlergitter' < e33638 'Spoiler & Heckflügel' (teilt Ziel mit 1 unverwandten Spitzen)
+- v10391 'Stoßstange Grundausführung für Kunststoff SW/Grau mit Nebelscheinwerfer mit Spoiler' < e33640 'Stoßstangen & -verstärker' (teilt Ziel mit 15 unverwandten Spitzen)
+- v10393 'Stoßstangenbefestigung' < e33640 'Stoßstangen & -verstärker' (teilt Ziel mit 15 unverwandten Spitzen)
+- v10394 'Stoßstangenecke' < e33640 'Stoßstangen & -verstärker' (teilt Ziel mit 15 unverwandten Spitzen)
+- v10395 'Stoßstangenhalter' < e33640 'Stoßstangen & -verstärker' (teilt Ziel mit 15 unverwandten Spitzen)
+- v10570 'Stoßstange Grundausführung für Kunststoff SW/grau mit Nebelscheinwerfer ohne Spoiler' < e33640 'Stoßstangen & -verstärker' (teilt Ziel mit 15 unverwandten Spitzen)
+- v10571 'Stoßstange Grundausführung für Kunststoff SW/grau ohne Nebelscheinwerfer mit Spoiler' < e33640 'Stoßstangen & -verstärker' (teilt Ziel mit 15 unverwandten Spitzen)
+- v10572 'Stoßstange Grundausführung für Kunststoff SW/grau ohne Nebelscheinwerfer ohne Spoiler' < e33640 'Stoßstangen & -verstärker' (teilt Ziel mit 15 unverwandten Spitzen)
+- v10573 'Stoßstange teilgrundiert mit Nebelscheinwerfer mit Spoiler' < e33640 'Stoßstangen & -verstärker' (teilt Ziel mit 15 unverwandten Spitzen)
+- v10574 'Stoßstange teilgrundiert mit Nebelscheinwerfer ohne Spoiler' < e33640 'Stoßstangen & -verstärker' (teilt Ziel mit 15 unverwandten Spitzen)
+- v10575 'Stoßstange teilgrundiert ohne Nebelscheinwerfer mit Spoiler' < e33640 'Stoßstangen & -verstärker' (teilt Ziel mit 15 unverwandten Spitzen)
+- v10576 'Stoßstange teilgrundiert ohne Nebelscheinwerfer ohne Spoiler' < e33640 'Stoßstangen & -verstärker' (teilt Ziel mit 15 unverwandten Spitzen)
+- v10577 'Stoßstange teillackiert mit Nebelscheinwerfer mit Spoiler' < e33640 'Stoßstangen & -verstärker' (teilt Ziel mit 15 unverwandten Spitzen)
+- v10578 'Stoßstange teillackiert mit Nebelscheinwerfer ohne Spoiler' < e33640 'Stoßstangen & -verstärker' (teilt Ziel mit 15 unverwandten Spitzen)
+- v10579 'Stoßstange teillackiert ohne Nebelscheinwerfer mit Spoiler' < e33640 'Stoßstangen & -verstärker' (teilt Ziel mit 15 unverwandten Spitzen)
+- v10580 'Stoßstange teillackiert ohne Nebelscheinwerfer ohne Spoiler' < e33640 'Stoßstangen & -verstärker' (teilt Ziel mit 15 unverwandten Spitzen)
+- v10611 'Stoßstange' < e33640 'Stoßstangen & -verstärker' (teilt Ziel mit 15 unverwandten Spitzen)
+- v10398 'Türgummi' < e262148 'Türdichtungen' (teilt Ziel mit 1 unverwandten Spitzen)
+- v10523 'Türdichtung' < e262148 'Türdichtungen' (teilt Ziel mit 1 unverwandten Spitzen)
+- v10402 'Windabweiser Dach' < e38659 'Wind- & Regenabweiser' (teilt Ziel mit 2 unverwandten Spitzen)
+- v10403 'Windabweiser Fenster' < e38659 'Wind- & Regenabweiser' (teilt Ziel mit 2 unverwandten Spitzen)
+- v10404 'Windlauf' < e38659 'Wind- & Regenabweiser' (teilt Ziel mit 2 unverwandten Spitzen)
+- v10644 'Deckel Verdeckkasten' < e262170 'Cabrioverdecke & Teile' (teilt Ziel mit 2 unverwandten Spitzen)
+- v12065 'Verdeckbezug' < e262170 'Cabrioverdecke & Teile' (teilt Ziel mit 2 unverwandten Spitzen)
+- v12066 'Verdeckschloss' < e262170 'Cabrioverdecke & Teile' (teilt Ziel mit 2 unverwandten Spitzen)
+- v10667 'Lampenträger Blinkleuchte' < e262209 'Halterungen & Befestigungen' (teilt Ziel mit 3 unverwandten Spitzen)
+- v10668 'Lampenträger Bremsleuchte' < e262209 'Halterungen & Befestigungen' (teilt Ziel mit 3 unverwandten Spitzen)
+- v10669 'Lampenträger Heckleuchte' < e262209 'Halterungen & Befestigungen' (teilt Ziel mit 3 unverwandten Spitzen)
+- v10670 'Lampenträger Schlußleuchte' < e262209 'Halterungen & Befestigungen' (teilt Ziel mit 3 unverwandten Spitzen)
+- v10812 'Sensor für Außentemperatur' < e173863 'Temperatursensoren' (teilt Ziel mit 1 unverwandten Spitzen)
+- v10845 'Sensor für Außentemperatur' < e173863 'Temperatursensoren' (teilt Ziel mit 1 unverwandten Spitzen)
+- v10940 'Fahrradträger Dach' < e173830 'Fahrrad- & E-Bike-Träger' (teilt Ziel mit 1 unverwandten Spitzen)
+- v10941 'Fahrradträger Heck' < e173830 'Fahrrad- & E-Bike-Träger' (teilt Ziel mit 1 unverwandten Spitzen)
+- v11223 'Zusatzbremsleuchte' < e262205 'Dritte & Mittlere Bremsleuchten' (teilt Ziel mit 1 unverwandten Spitzen)
+- v11490 'Glühlampe für Zusatzbremsleuchte' < e262205 'Dritte & Mittlere Bremsleuchten' (teilt Ziel mit 1 unverwandten Spitzen)
+- v11302 'Rückstrahler' < e174062 'Reflektoren' (teilt Ziel mit 2 unverwandten Spitzen)
+- v11314 'Reflektor für Positions-/Begrenzungsleuchte' < e174062 'Reflektoren' (teilt Ziel mit 2 unverwandten Spitzen)
+- v11605 'Reflektor für Blinkleuchte' < e174062 'Reflektoren' (teilt Ziel mit 2 unverwandten Spitzen)
+- v11315 'Tagfahrleuchte' < e262206 'Tagfahrleuchten' (teilt Ziel mit 2 unverwandten Spitzen)
+- v11320 'Tagfahrleuchtensatz' < e262206 'Tagfahrleuchten' (teilt Ziel mit 2 unverwandten Spitzen)
+- v11489 'Glühlampe für Tagfahrleuchte' < e262206 'Tagfahrleuchten' (teilt Ziel mit 2 unverwandten Spitzen)
+- v11635 'Schalter für Allradantrieb' < e50459 'Schalter, Kontrollelemente & Zündschlösser' (teilt Ziel mit 7 unverwandten Spitzen)
+- v11636 'Schalter für Bremsbetätigung' < e50459 'Schalter, Kontrollelemente & Zündschlösser' (teilt Ziel mit 7 unverwandten Spitzen)
+- v11637 'Schalter für Fahrstufe' < e50459 'Schalter, Kontrollelemente & Zündschlösser' (teilt Ziel mit 7 unverwandten Spitzen)
+- v11638 'Schalter für Handbremskontrollleuchte' < e50459 'Schalter, Kontrollelemente & Zündschlösser' (teilt Ziel mit 7 unverwandten Spitzen)
+- v11639 'Schalter für Hupe' < e50459 'Schalter, Kontrollelemente & Zündschlösser' (teilt Ziel mit 7 unverwandten Spitzen)
+- v11640 'Schalter für Kupplungsbetätigung' < e50459 'Schalter, Kontrollelemente & Zündschlösser' (teilt Ziel mit 7 unverwandten Spitzen)
+- v11641 'Schalter für Scheibenwischerintervall' < e50459 'Schalter, Kontrollelemente & Zündschlösser' (teilt Ziel mit 7 unverwandten Spitzen)
+- v11642 'Schalter für Türverriegelung' < e50459 'Schalter, Kontrollelemente & Zündschlösser' (teilt Ziel mit 7 unverwandten Spitzen)
+- v11734 'Vorschaltgerät für Gasentladungslampe' < e262207 'Scheinwerfer-Vorschaltgeräte & -Zündgeräte' (teilt Ziel mit 1 unverwandten Spitzen)
+- v11840 'Zündgerät Scheinwerfer' < e262207 'Scheinwerfer-Vorschaltgeräte & -Zündgeräte' (teilt Ziel mit 1 unverwandten Spitzen)
+
+## H4 (174)
+- v10037 'Fanghaken Klappe' < e14769 'Sonstige'
+- v10068 'Klappenstützen' < e14769 'Sonstige'
+- v10125 'Querträger' < e14769 'Sonstige'
+- v10131 'Scheibenwaschdüse' < e262179 'Weitere Scheibenwischerteile'
+- v10132 'Scheinwerfertragrahmen' < e14769 'Sonstige'
+- v10145 'Schlosszapfen' < e14769 'Sonstige'
+- v10152 'Stellelement für Zentralverriegelung' < e14769 'Sonstige'
+- v10154 'Stütze Heckwischer' < e14769 'Sonstige'
+- v10179 'Vorderwand' < e262168 'Weitere Karosseriebleche'
+- v10182 'Wischergetriebe' < e262179 'Weitere Scheibenwischerteile'
+- v10247 'Parkleuchte' < e174065 'Sonstige'
+- v10294 'Temperaturfühler' < e33578 'Sonstige'
+- v10305 'Zentralverriegelung' < e33578 'Sonstige'
+- v10337 'Abschlussblech' < e262168 'Weitere Karosseriebleche'
+- v10338 'Auspuffblende' < e14769 'Sonstige'
+- v10339 'Ausstellscheibe' < e6781 'Weitere Autoglas- & Fensterteile'
+- v10343 'Dreieckscheibe' < e6781 'Weitere Autoglas- & Fensterteile'
+- v10345 'Frontblech' < e262168 'Weitere Karosseriebleche'
+- v10346 'Frontscheibe ohne Bandfilter' < e6781 'Weitere Autoglas- & Fensterteile'
+- v10348 'Heckscheibe' < e6781 'Weitere Autoglas- & Fensterteile'
+- v10353 'Seitenscheibe' < e6781 'Weitere Autoglas- & Fensterteile'
+- v10354 'Seitenscheibe Schiebetür' < e6781 'Weitere Autoglas- & Fensterteile'
+- v10357 'Vorbau ohne Stirnwand' < e262168 'Weitere Karosseriebleche'
+- v10358 'Abdeckung Abschlepphaken' < e14769 'Sonstige'
+- v10360 'Abschleppöse' < e38790 'Sonstige'
+- v10365 'Blende Kotflügel' < e262168 'Weitere Karosseriebleche'
+- v10366 'Blende Kühlergrill' < e262168 'Weitere Karosseriebleche'
+- v10367 'Blende Nebelscheinwerfer' < e262168 'Weitere Karosseriebleche'
+- v10368 'Blende Scheinwerfer' < e262168 'Weitere Karosseriebleche'
+- v10369 'Blende Stoßstange' < e262168 'Weitere Karosseriebleche'
+- v10370 'Dachreling' < e14769 'Sonstige'
+- v10372 'Frontschürze' < e262168 'Weitere Karosseriebleche'
+- v10373 'Frontverkleidung' < e262168 'Weitere Karosseriebleche'
+- v10374 'Gepäckträger' < e14769 'Sonstige'
+- v10375 'Grill Windlauf' < e14769 'Sonstige'
+- v10376 'Heckblende' < e262168 'Weitere Karosseriebleche'
+- v10378 'Kotflügelverbreiterung' < e262168 'Weitere Karosseriebleche'
+- v10382 'Schürze' < e262168 'Weitere Karosseriebleche'
+- v10400 'Verkleidung Innenkotflügel' < e262168 'Weitere Karosseriebleche'
+- v10401 'Verkleidung Scheinwerfer' < e262168 'Weitere Karosseriebleche'
+- v10489 'Dichtung für Frontscheibe' < e14769 'Sonstige'
+- v10490 'Dichtung für Motorhaube' < e14769 'Sonstige'
+- v10492 'Dichtung für Heckscheibe' < e14769 'Sonstige'
+- v10564 'Frontscheibe mit grünem Bandfilter' < e6781 'Weitere Autoglas- & Fensterteile'
+- v10565 'Frontscheibe mit blauem Bandfilter' < e6781 'Weitere Autoglas- & Fensterteile'
+- v10566 'Frontscheibe mit brozenem Bandfilter' < e6781 'Weitere Autoglas- & Fensterteile'
+- v10634 'Dach geschlossen' < e14769 'Sonstige'
+- v10648 'Kappe Hauptscheinwerfer' < e14769 'Sonstige'
+- v10655 'Glühlampe Blinkleuchte' < e174065 'Sonstige'
+- v10656 'Glühlampe Hauptscheinwerfer' < e174065 'Sonstige'
+- v10657 'Glühlampe Kennzeichenleuchte' < e174065 'Sonstige'
+- v10658 'Glühlampe Nebelschlußleuchte' < e174065 'Sonstige'
+- v10659 'Einstiegblech' < e14769 'Sonstige'
+- v10660 'Frontscheibenrahmen' < e14769 'Sonstige'
+- v10661 'Rückfahrleuchte' < e174065 'Sonstige'
+- v10663 'Wischgummi' < e262179 'Weitere Scheibenwischerteile'
+- v10664 'Heckwand' < e14769 'Sonstige'
+- v10666 'Verbreiterungssatz Kotflügel' < e262168 'Weitere Karosseriebleche'
+- v10676 'Karosserie' < e14769 'Sonstige'
+- v10684 'Verkleidung Dachabschluss' < e14769 'Sonstige'
+- v10685 'Verkleidung Dachrahmen' < e14769 'Sonstige'
+- v10686 'Verkleidung Schweller' < e14769 'Sonstige'
+- v10704 'Dichtung für Koffer-/Laderaumklappe' < e14769 'Sonstige'
+- v10764 'Waschwasserdüse für Scheibenreinigung' < e262179 'Weitere Scheibenwischerteile'
+- v10903 'Schließzylinder für Zündschloß' < e9887 'Sonstige'
+- v11009 'Clip für Stoßfänger' < e14769 'Sonstige'
+- v11012 'Dichtung für Heckscheibe' < e14769 'Sonstige'
+- v11022 'Dichtung für Seitenscheibe' < e14769 'Sonstige'
+- v11047 'Gasfeder für Heckscheibe' < e14769 'Sonstige'
+- v11053 'Glühlampe für Hauptlichtschalter' < e174065 'Sonstige'
+- v11062 'Halter für Hauptscheinwerfer' < e14769 'Sonstige'
+- v11070 'Kofferraumleuchte' < e174065 'Sonstige'
+- v11090 'Puffer für Motorhaube' < e14769 'Sonstige'
+- v11148 'Verriegelungsknopf' < e14769 'Sonstige'
+- v11215 'Teilepaket Front' < e262168 'Weitere Karosseriebleche'
+- v11216 'Teilepaket Heck' < e262168 'Weitere Karosseriebleche'
+- v11224 'Heckscheibenrahmen' < e14769 'Sonstige'
+- v11233 'Frontscheibe' < e6781 'Weitere Autoglas- & Fensterteile'
+- v11242 'Verdeckgriff' < e14769 'Sonstige'
+- v11246 'Tankentlüftungsventil' < e14769 'Sonstige'
+- v11248 'Unterfahrschutz' < e14769 'Sonstige'
+- v11259 'Frontschutzbügel' < e14769 'Sonstige'
+- v11288 'Karosserieboden' < e262168 'Weitere Karosseriebleche'
+- v11290 'Halterahmen, Scheibenreinigungsanlage' < e14769 'Sonstige'
+- v11291 'Karosserieboden Koffer-/Laderaum' < e262168 'Weitere Karosseriebleche'
+- v11292 'Halter für Kühlergitter' < e14769 'Sonstige'
+- v11294 'Nebelscheinwerferrahmen' < e174065 'Sonstige'
+- v11296 'Reserveradwanne' < e14769 'Sonstige'
+- v11298 'Trittbrettstufe für Anhängevorrichtung' < e38790 'Sonstige'
+- v11299 'Dachsäule' < e262168 'Weitere Karosseriebleche'
+- v11301 'Nebelscheinwerferkappe' < e174065 'Sonstige'
+- v11303 'Leuchtenaufnahme' < e14769 'Sonstige'
+- v11309 'Abdeckung' < e14769 'Sonstige'
+- v11310 'Gitter' < e14769 'Sonstige'
+- v11311 'Haltersatz für Stoßfänger' < e14769 'Sonstige'
+- v11319 'Kühlergittereinsatz' < e14769 'Sonstige'
+- v11324 'Ersatzradhalter' < e14769 'Sonstige'
+- v11325 'Persening' < e14769 'Sonstige'
+- v11326 'Abbiegelicht' < e174065 'Sonstige'
+- v11334 'Radmutternsatz' < e33746 'Sonstige'
+- v11340 'Überrollbügel' < e14769 'Sonstige'
+- v11346 'Abdeckkappe Türgriff' < e14769 'Sonstige'
+- v11348 'Abdeckung Frontschürze' < e14769 'Sonstige'
+- v11349 'Abdeckung Griffmulde' < e14769 'Sonstige'
+- v11355 'Anhängebock für Anhängevorrichtung' < e38790 'Sonstige'
+- v11356 'Anschlagpuffer für Fahrerhaus' < e14769 'Sonstige'
+- v11360 'Anschraubplatte für Anhängevorrichtung' < e38790 'Sonstige'
+- v11366 'Be-/Entlüftungsventil für Kraftstoffbehälter' < e14769 'Sonstige'
+- v11379 'Clip für Zier-/Schutzleiste' < e14769 'Sonstige'
+- v11390 'Dichtung für Blinkleuchte' < e14769 'Sonstige'
+- v11393 'Dichtung für Faltdach' < e14769 'Sonstige'
+- v11396 'Dichtung für Hauptscheinwerfer' < e14769 'Sonstige'
+- v11399 'Dichtung für Kennzeichenleuchte' < e14769 'Sonstige'
+- v11400 'Dichtung für Kotflügel' < e14769 'Sonstige'
+- v11401 'Dichtung für Kraftstoffeinfüllstutzen' < e14769 'Sonstige'
+- v11409 'Dichtung für Rahmen Hauptscheinwerfer' < e14769 'Sonstige'
+- v11411 'Dichtung für Schlussleuchte' < e14769 'Sonstige'
+- v11413 'Dichtung für Türscheibe' < e14769 'Sonstige'
+- v11414 'Dichtung für Türsicherungsleuchte' < e14769 'Sonstige'
+- v11425 'Domstrebe' < e14769 'Sonstige'
+- v11433 'Druckschalter für Bremshydraulik' < e262088 'Weitere Bremssensoren & -schalter'
+- v11438 'Einfüllstutzen für Kraftstoffbehälter' < e42604 'Sonstige'
+- v11466 'Führungsarm für Scheibenreinigung' < e262179 'Weitere Scheibenwischerteile'
+- v11471 'Gasfeder für Reserveradhalter' < e14769 'Sonstige'
+- v11473 'Gasfeder für Verdeck' < e14769 'Sonstige'
+- v11481 'Gleitbacke für Fensterheber' < e14769 'Sonstige'
+- v11486 'Glühlampe für Kofferraumleuchte' < e174065 'Sonstige'
+- v11499 'Halter für Heckleuchte' < e14769 'Sonstige'
+- v11514 'Kappe für Nebelscheinwerfer' < e14769 'Sonstige'
+- v11515 'Kappe für Wischarm' < e14769 'Sonstige'
+- v11521 'Koffer-/Laderaumwanne' < e262168 'Weitere Karosseriebleche'
+- v11528 'Kondenswasserablaufschlauch für Innenraumluftfiltergehäuse' < e14769 'Sonstige'
+- v11576 'Montagesatz für Kotflügel' < e14769 'Sonstige'
+- v11581 'Montagesatz für Stoßfänger' < e14769 'Sonstige'
+- v11603 'Rahmen für Hauptscheinwerfer' < e14769 'Sonstige'
+- v11604 'Rahmen für Nebelscheinwerfer' < e14769 'Sonstige'
+- v11646 'Scheinwerferaufnahme für Beleuchtung' < e14769 'Sonstige'
+- v11650 'Schlosssatz für Schließanlage' < e14769 'Sonstige'
+- v11682 'Spritzwand' < e262168 'Weitere Karosseriebleche'
+- v11684 'Spurverbreiterung' < e14769 'Sonstige'
+- v11700 'Stütze Kühlergitter' < e14769 'Sonstige'
+- v11712 'Umrüstsatz Stoßfänger' < e14769 'Sonstige'
+- v11725 'Verbindungsrohr für Heizungskanal' < e46094 'Sonstige'
+- v11738 'Warmluftkanal' < e46094 'Sonstige'
+- v11742 'Wischerlager' < e262179 'Weitere Scheibenwischerteile'
+- v11766 'Scharniersäule' < e262168 'Weitere Karosseriebleche'
+- v11783 'Reserveradhalter' < e14769 'Sonstige'
+- v11791 'Spritzdüse für Scheinwerferreinigungsanlage' < e262179 'Weitere Scheibenwischerteile'
+- v11794 'Aktor Fussgängerschutz' < e14769 'Sonstige'
+- v11805 'Elektro-Seilwinde' < e33578 'Sonstige'
+- v11809 'Heckleiter' < e262168 'Weitere Karosseriebleche'
+- v11811 'Hydro-Seilwinde komplett' < e33578 'Sonstige'
+- v11813 'Konsole Seilwinde' < e262168 'Weitere Karosseriebleche'
+- v11817 'Lufthutze Deckel' < e262168 'Weitere Karosseriebleche'
+- v11842 'Hubzylinder für Scheinwerferreinigungsanlage' < e174065 'Sonstige'
+- v11891 'Aktuator Motorhaube' < e262168 'Weitere Karosseriebleche'
+- v11895 'Tür-Zuzieh-Hilfe' < e262168 'Weitere Karosseriebleche'
+- v11945 'Doppelrohrbügel' < e262168 'Weitere Karosseriebleche'
+- v11947 'Schwellerrohre' < e262168 'Weitere Karosseriebleche'
+- v11958 'Teilepaket Karosserie' < e262168 'Weitere Karosseriebleche'
+- v12056 'Markise' < e14769 'Sonstige'
+- v12059 'Blende Seitenblinker' < e14769 'Sonstige'
+- v12060 'Rahmenspitze' < e14769 'Sonstige'
+- v12061 'Kotflügelträger' < e14769 'Sonstige'
+- v12068 'Halter' < e9887 'Sonstige'
+- v12070 'Heckklappenleiste' < e14769 'Sonstige'
+- v12071 'Motor Heckspoiler' < e33578 'Sonstige'
+- v12073 'Heckscheibenöffner' < e14769 'Sonstige'
+- v12074 'Blende Heckleuchte' < e14769 'Sonstige'
+- v12075 'Beplankung' < e14769 'Sonstige'
+- v12076 'Abdeckung Schiebetürschienen' < e9887 'Sonstige'
+- v12077 'Motor Ausstellfenster' < e33578 'Sonstige'
+- v12078 'Motor Drallklappen' < e33578 'Sonstige'
+- v12095 'Abgasrohr Heizgerät' < e46097 'Sonstige'
+
+## H5 (10)
+- v10350_65 'Kotflügel mit Blinker mit Antennenloch, hinten links' < e262166 'Seitenwände & Kotflügel Hinten'
+- v10350_66 'Kotflügel mit Blinker mit Antennenloch, hinten rechts' < e262166 'Seitenwände & Kotflügel Hinten'
+- v10567_65 'Kotflügel ohne Blinker mit Antennenloch, hinten links' < e262166 'Seitenwände & Kotflügel Hinten'
+- v10567_66 'Kotflügel ohne Blinker mit Antennenloch, hinten rechts' < e262166 'Seitenwände & Kotflügel Hinten'
+- v10568_65 'Kotflügel mit Blinker ohne Antennenloch, hinten links' < e262166 'Seitenwände & Kotflügel Hinten'
+- v10568_66 'Kotflügel mit Blinker ohne Antennenloch, hinten rechts' < e262166 'Seitenwände & Kotflügel Hinten'
+- v10569_65 'Kotflügel ohne Blinker ohne Antennenloch, hinten links' < e262166 'Seitenwände & Kotflügel Hinten'
+- v10569_66 'Kotflügel ohne Blinker ohne Antennenloch, hinten rechts' < e262166 'Seitenwände & Kotflügel Hinten'
+- v10610_65 'Kotflügel, hinten links' < e262166 'Seitenwände & Kotflügel Hinten'
+- v10610_66 'Kotflügel, hinten rechts' < e262166 'Seitenwände & Kotflügel Hinten'
+
+## H6 (5)
+- v10350 'Kotflügel mit Blinker mit Antennenloch' > e33644 'Kotflügel Vorn' (Doppelziel-Basis)
+- v10567 'Kotflügel ohne Blinker mit Antennenloch' > e33644 'Kotflügel Vorn' (Doppelziel-Basis)
+- v10568 'Kotflügel mit Blinker ohne Antennenloch' > e33644 'Kotflügel Vorn' (Doppelziel-Basis)
+- v10569 'Kotflügel ohne Blinker ohne Antennenloch' > e33644 'Kotflügel Vorn' (Doppelziel-Basis)
+- v10610 'Kotflügel' > e33644 'Kotflügel Vorn' (Doppelziel-Basis)
+
+## H7 (19)
+- v10140 'Schließzylinder Satz' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (Vorfahre in derselben Zielgruppe behält '=')
+- v11823 'Schließzylinder Alarmanlage' < e262150 'Gasfedern, Verschlüsse, Scharniere & weitere Teile' (Vorfahre in derselben Zielgruppe behält '=')
+- v10387 'Sonnendach' < e262172 'Panorama-, Schiebedächer & Teile' (Vorfahre in derselben Zielgruppe behält '=')
+- v10957 'Schiebedach Glas' < e262172 'Panorama-, Schiebedächer & Teile' (Vorfahre in derselben Zielgruppe behält '=')
+- v10958 'Schiebedach Metall' < e262172 'Panorama-, Schiebedächer & Teile' (Vorfahre in derselben Zielgruppe behält '=')
+- v10193 'Blinker Außenspiegel' < e33717 'Blinkleuchten' (Vorfahre in derselben Zielgruppe behält '=')
+- v11901 'Blinker Dach' < e33717 'Blinkleuchten' (Vorfahre in derselben Zielgruppe behält '=')
+- v11084 'Nebelscheinwerfersatz' < e33709 'Nebelscheinwerfer' (Vorfahre in derselben Zielgruppe behält '=')
+- v10556 'Schiebetür mit Fensterausschnitt' < e262149 'Schiebetüren' (Vorfahre in derselben Zielgruppe behält '=')
+- v10557 'Schiebetür geschlossen' < e262149 'Schiebetüren' (Vorfahre in derselben Zielgruppe behält '=')
+- v10362 'Außenspiegel elektrisch lackiert' < e262161 'Außenspiegel' (Vorfahre in derselben Zielgruppe behält '=')
+- v10584 'Außenspiegel elektrisch teilgrundiert' < e262161 'Außenspiegel' (Vorfahre in derselben Zielgruppe behält '=')
+- v10585 'Außenspiegel elektrisch grundiert' < e262161 'Außenspiegel' (Vorfahre in derselben Zielgruppe behält '=')
+- v10586 'Außenspiegel elektrisch Standard' < e262161 'Außenspiegel' (Vorfahre in derselben Zielgruppe behält '=')
+- v10602 'Außenspiegel mechanisch lackiert' < e262161 'Außenspiegel' (Vorfahre in derselben Zielgruppe behält '=')
+- v10603 'Außenspiegel mechanisch teilgrundiert' < e262161 'Außenspiegel' (Vorfahre in derselben Zielgruppe behält '=')
+- v10604 'Außenspiegel mechanisch grundiert' < e262161 'Außenspiegel' (Vorfahre in derselben Zielgruppe behält '=')
+- v10605 'Außenspiegel mechanisch Standard' < e262161 'Außenspiegel' (Vorfahre in derselben Zielgruppe behält '=')
+- v11882 'Einstiegleistenset' < e33650 'Einstiegsleisten' (Vorfahre in derselben Zielgruppe behält '=')
+
+## ADJ (4)
+- v10065 'Kennzeichenverstärkung' < e52638 'Nummernschilder & -rahmen' (Adjudikation A. Markic 2026-07-17)
+- v10356 'Türscheibe' < e33684 'Autoglas' (Adjudikation A. Markic 2026-07-17)
+- v11535 'Kupplungspedal' < e33700 'Pedale, Pedalkappen & Fußstützen' (Adjudikation A. Markic 2026-07-17)
+- v11878 'Radarsensor' < e184616 'Kameras, Überwachungsgeräte & Sensorsätze' (Adjudikation A. Markic 2026-07-17)
+
+## Konflikte (0)
+
+## Nicht auflösbare Zeilen (0)

@@ -1,0 +1,85 @@
+{
+  "confusion": {
+    "=": {
+      "=": 11,
+      "<": 1,
+      ">": 0,
+      "none": 0
+    },
+    "<": {
+      "=": 0,
+      "<": 16,
+      ">": 0,
+      "none": 2
+    },
+    ">": {
+      "=": 2,
+      "<": 26,
+      ">": 19,
+      "none": 5
+    },
+    "none": {
+      "=": 1,
+      "<": 297,
+      ">": 4,
+      "none": 659
+    }
+  },
+  "per_class": {
+    "=": {
+      "precision": 0.7857142857142857,
+      "recall": 0.9166666666666666,
+      "f1": 0.8461538461538461,
+      "tp": 11,
+      "fp": 3,
+      "fn": 1,
+      "support": 12
+    },
+    "<": {
+      "precision": 0.047058823529411764,
+      "recall": 0.8888888888888888,
+      "f1": 0.08938547486033518,
+      "tp": 16,
+      "fp": 324,
+      "fn": 2,
+      "support": 18
+    },
+    ">": {
+      "precision": 0.8260869565217391,
+      "recall": 0.36538461538461536,
+      "f1": 0.5066666666666666,
+      "tp": 19,
+      "fp": 4,
+      "fn": 33,
+      "support": 52
+    }
+  },
+  "macro_f1": 0.48073532922694934,
+  "micro_precision": 0.1220159151193634,
+  "micro_recall": 0.5609756097560976,
+  "micro_f1": 0.20043572984749455,
+  "direction_accuracy": 0.5737704918032787,
+  "direction_correct": 35,
+  "direction_swapped": 26,
+  "n_universe": 1043,
+  "n_candidates_total": 1040,
+  "n_reference_total": 83,
+  "n_reference_after_filter": 82,
+  "dropped_relations_count": 1,
+  "dropped_relations_breakdown": {
+    "PartOf": 1
+  },
+  "n_gold_not_in_candidates": 3,
+  "predicted_partof_count": 0,
+  "runtime": {
+    "stage1_seconds": 0.06228565896162763,
+    "stage2_seconds": 2638.3203977440135
+  },
+  "reranker_canonical_counts": {
+    "none": 663,
+    "subclass": 340,
+    "superclass": 23,
+    "equivalent": 14
+  },
+  "reranker_parse_fail_rate": 0.0
+}

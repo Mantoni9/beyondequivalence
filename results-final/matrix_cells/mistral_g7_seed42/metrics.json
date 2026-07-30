@@ -1,0 +1,89 @@
+{
+  "confusion": {
+    "=": {
+      "=": 9,
+      "<": 3,
+      ">": 0,
+      "none": 0
+    },
+    "<": {
+      "=": 3,
+      "<": 13,
+      ">": 0,
+      "none": 2
+    },
+    ">": {
+      "=": 1,
+      "<": 46,
+      ">": 0,
+      "none": 5
+    },
+    "none": {
+      "=": 1,
+      "<": 438,
+      ">": 0,
+      "none": 522
+    }
+  },
+  "per_class": {
+    "=": {
+      "precision": 0.6428571428571429,
+      "recall": 0.75,
+      "f1": 0.6923076923076924,
+      "tp": 9,
+      "fp": 5,
+      "fn": 3,
+      "support": 12
+    },
+    "<": {
+      "precision": 0.026,
+      "recall": 0.7222222222222222,
+      "f1": 0.05019305019305018,
+      "tp": 13,
+      "fp": 487,
+      "fn": 5,
+      "support": 18
+    },
+    ">": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 52,
+      "support": 52
+    }
+  },
+  "macro_f1": 0.24750024750024754,
+  "micro_precision": 0.042801556420233464,
+  "micro_recall": 0.2682926829268293,
+  "micro_f1": 0.07382550335570469,
+  "direction_accuracy": 0.22033898305084745,
+  "direction_correct": 13,
+  "direction_swapped": 46,
+  "flip_gt_to_lt": 46,
+  "flip_lt_to_gt": 0,
+  "flip_rate_gt": 1.0,
+  "flip_rate_lt": 0.0,
+  "direction_asymmetry": 1.0,
+  "n_universe": 1043,
+  "n_candidates_total": 1040,
+  "n_reference_total": 83,
+  "n_reference_after_filter": 82,
+  "dropped_relations_count": 1,
+  "dropped_relations_breakdown": {
+    "PartOf": 1
+  },
+  "n_gold_not_in_candidates": 3,
+  "predicted_partof_count": 0,
+  "runtime": {
+    "stage1_seconds": 0.2323967800475657,
+    "stage2_seconds": 2367.4848794180434
+  },
+  "reranker_canonical_counts": {
+    "none": 526,
+    "subclass": 500,
+    "equivalent": 14
+  },
+  "reranker_parse_fail_rate": 0.0
+}
