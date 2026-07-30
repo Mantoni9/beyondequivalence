@@ -1,0 +1,279 @@
+source_uri	target_uri	rel	p_yes	p_yes_rev
+http://goodreads.com/Art	http://bookIndustryCommunication.com/Fiction_and_related_items/Graphic_novels	>	0.0	0.0
+http://goodreads.com/Art	http://bookIndustryCommunication.com/Humanities	<	0.0	0.0
+http://goodreads.com/Art	http://bookIndustryCommunication.com/Lifestyle_and_sport_and_leisure	<	1.3e-05	0.0
+http://goodreads.com/Art	http://bookIndustryCommunication.com/Lifestyle_and_sport_and_leisure/Handicrafts_and_decorative_arts_and_crafts	>	9.6e-05	0.0
+http://goodreads.com/Art	http://bookIndustryCommunication.com/Society_and_social_sciences/Society_and_culture_general_issues	<	0.0	0.0
+http://goodreads.com/Art	http://bookIndustryCommunication.com/The_arts	<	0.067547	0.0
+http://goodreads.com/Art	http://bookIndustryCommunication.com/The_arts/Architecture	>	0.999891	0.0
+http://goodreads.com/Art	http://bookIndustryCommunication.com/The_arts/Art_forms	=	0.0	
+http://goodreads.com/Art	http://bookIndustryCommunication.com/The_arts/Art_treatments_and_subjects	>	1e-06	0.0
+http://goodreads.com/Art	http://bookIndustryCommunication.com/The_arts/Dance_and_other_performing_arts	>	0.817574	0.0
+http://goodreads.com/Art	http://bookIndustryCommunication.com/The_arts/Film_and_TV_and_radio	>	0.996406	0.0
+http://goodreads.com/Art	http://bookIndustryCommunication.com/The_arts/History_of_art_OR_art_and_design_styles	>	0.468791	0.0
+http://goodreads.com/Art	http://bookIndustryCommunication.com/The_arts/Industrial_OR_commcercial_art_and_design	>	0.999569	0.0
+http://goodreads.com/Art	http://bookIndustryCommunication.com/The_arts/Music	>	0.999374	0.0
+http://goodreads.com/Art	http://bookIndustryCommunication.com/The_arts/Photography_and_photographs	>	0.99992	0.0
+http://goodreads.com/Art	http://bookIndustryCommunication.com/The_arts/Theatre_studies	>	0.017986	0.0
+http://goodreads.com/Biography	http://bookIndustryCommunication.com/Biography_and_True_Stories	<	0.999972	0.0
+http://goodreads.com/Biography	http://bookIndustryCommunication.com/Biography_and_True_Stories/Biography_general	=	0.999999	
+http://goodreads.com/Biography	http://bookIndustryCommunication.com/Biography_and_True_Stories/Collected_biographies	>	0.999938	0.0
+http://goodreads.com/Biography	http://bookIndustryCommunication.com/Biography_and_True_Stories/Diaries_and_letters_and_journals	>	0.029312	0.0
+http://goodreads.com/Biography	http://bookIndustryCommunication.com/Biography_and_True_Stories/Memoirs	>	0.99539	0.0
+http://goodreads.com/Biography	http://bookIndustryCommunication.com/Biography_and_True_Stories/True_stories	=	0.0	
+http://goodreads.com/Biography	http://bookIndustryCommunication.com/Literature_and_literary_studies	<	0.0	0.0
+http://goodreads.com/Biography	http://bookIndustryCommunication.com/Literature_and_literary_studies/non_fiction_Prose	<	0.047426	0.0
+http://goodreads.com/Business	http://bookIndustryCommunication.com/Computing_and_information_technology/Business_applications	>	0.0	0.0
+http://goodreads.com/Business	http://bookIndustryCommunication.com/Economics_and_finance_and_business_and_management	<	0.999972	0.0
+http://goodreads.com/Business	http://bookIndustryCommunication.com/Economics_and_finance_and_business_and_management/Business_and_management	=	0.468791	
+http://goodreads.com/Business	http://bookIndustryCommunication.com/Economics_and_finance_and_business_and_management/Finance_and_accounting	>	0.010987	0.0
+http://goodreads.com/Business	http://bookIndustryCommunication.com/Economics_and_finance_and_business_and_management/Industry_and_industrial_studies	>	4e-05	0.0
+http://goodreads.com/Business	http://bookIndustryCommunication.com/English_language_teaching	>	0.0	0.0
+http://goodreads.com/Business	http://bookIndustryCommunication.com/Society_and_social_sciences	<	0.0	0.0
+http://goodreads.com/Chick_Lit	http://bookIndustryCommunication.com/Fiction_and_related_items	<	0.999998	0.0
+http://goodreads.com/Chick_Lit	http://bookIndustryCommunication.com/Fiction_and_related_items/Fiction_related_items	<	0.0	0.0
+http://goodreads.com/Chick_Lit	http://bookIndustryCommunication.com/Fiction_and_related_items/Modern_and_contemporary_fiction	<	0.997199	0.0
+http://goodreads.com/Chick_Lit	http://bookIndustryCommunication.com/Fiction_and_related_items/Romance	<	0.020332	0.0
+http://goodreads.com/Chick_Lit	http://bookIndustryCommunication.com/Literature_and_literary_studies	<	1.3e-05	0.0
+http://goodreads.com/Childrens	http://bookIndustryCommunication.com/Children_s_and_teenage_and_educational	<	0.679179	0.0
+http://goodreads.com/Childrens	http://bookIndustryCommunication.com/Children_s_and_teenage_and_educational/Children_s_and_teenage_fiction_and_true_stories	>	0.904651	0.0
+http://goodreads.com/Childrens	http://bookIndustryCommunication.com/Children_s_and_teenage_and_educational/Children_s_and_teenage_general_non_fiction	>	0.985936	0.0
+http://goodreads.com/Childrens	http://bookIndustryCommunication.com/Children_s_and_teenage_and_educational/Children_s_and_teenage_poetry_and_anthologies_and_annuals	>	0.132964	0.0
+http://goodreads.com/Childrens	http://bookIndustryCommunication.com/Children_s_and_teenage_and_educational/Children_s_and_teenage_reference_material	>	0.000804	0.0
+http://goodreads.com/Childrens	http://bookIndustryCommunication.com/Children_s_and_teenage_and_educational/Personal_and_social_issues	>	4.5e-05	0.0
+http://goodreads.com/Childrens	http://bookIndustryCommunication.com/Children_s_and_teenage_and_educational/Picture_books_and_activity_books_and_early_learning_material	>	0.999877	0.0
+http://goodreads.com/Childrens	http://bookIndustryCommunication.com/Fiction_and_related_items	<	0.0	0.0
+http://goodreads.com/Childrens	http://bookIndustryCommunication.com/Fiction_and_related_items/Fiction_related_items	<	0.0	0.0
+http://goodreads.com/Christian	http://bookIndustryCommunication.com/Fiction_and_related_items/Religious_and_spiritual_fiction	<	0.0	0.0
+http://goodreads.com/Christian	http://bookIndustryCommunication.com/Humanities	<	3e-06	0.0
+http://goodreads.com/Christian	http://bookIndustryCommunication.com/Humanities/Religion_and_beliefs	<	0.132964	0.0
+http://goodreads.com/Christian	http://bookIndustryCommunication.com/Society_and_social_sciences	<	0.0	0.0
+http://goodreads.com/Christian	http://bookIndustryCommunication.com/Society_and_social_sciences/Society_and_culture_general_issues	<	0.0	0.0
+http://goodreads.com/Classics	http://bookIndustryCommunication.com/Fiction_and_related_items	<	0.000123	0.0
+http://goodreads.com/Classics	http://bookIndustryCommunication.com/Fiction_and_related_items/Classic_fiction	=	0.0	
+http://goodreads.com/Classics	http://bookIndustryCommunication.com/Humanities	<	0.0	0.0
+http://goodreads.com/Classics	http://bookIndustryCommunication.com/Literature_and_literary_studies	<	0.015906	0.0
+http://goodreads.com/Classics	http://bookIndustryCommunication.com/Literature_and_literary_studies/Classical_texts	=	0.0	
+http://goodreads.com/Classics	http://bookIndustryCommunication.com/Literature_and_literary_studies/Literature_history_and_criticism	<	0.0	0.0
+http://goodreads.com/Classics	http://bookIndustryCommunication.com/The_arts	<	0.0	0.0
+http://goodreads.com/Comics	http://bookIndustryCommunication.com/Fiction_and_related_items	<	0.00071	0.0
+http://goodreads.com/Comics	http://bookIndustryCommunication.com/Fiction_and_related_items/Fiction_related_items	<	0.0	0.0
+http://goodreads.com/Comics	http://bookIndustryCommunication.com/Fiction_and_related_items/Graphic_novels	>	0.987568	0.0
+http://goodreads.com/Comics	http://bookIndustryCommunication.com/Literature_and_literary_studies	<	0.0	0.0
+http://goodreads.com/Comics	http://bookIndustryCommunication.com/The_arts/The_arts_general_issues	<	0.0	0.0
+http://goodreads.com/Contemporary	http://bookIndustryCommunication.com/Fiction_and_related_items	<	0.0	0.0
+http://goodreads.com/Contemporary	http://bookIndustryCommunication.com/Fiction_and_related_items/Modern_and_contemporary_fiction	<	3e-06	0.0
+http://goodreads.com/Contemporary	http://bookIndustryCommunication.com/Literature_and_literary_studies	<	0.0	0.0
+http://goodreads.com/Cookbooks	http://bookIndustryCommunication.com/Lifestyle_and_sport_and_leisure	<	1.0	0.0
+http://goodreads.com/Cookbooks	http://bookIndustryCommunication.com/Lifestyle_and_sport_and_leisure/Cookery_and_food_and_drink_etc	=	0.999998	
+http://goodreads.com/Cookbooks	http://bookIndustryCommunication.com/Lifestyle_and_sport_and_leisure/Lifestyle_and_personcal_style_guides	<	0.0	0.0
+http://goodreads.com/Cookbooks	http://bookIndustryCommunication.com/Literature_and_literary_studies/non_fiction_Prose	<	9.6e-05	0.0
+http://goodreads.com/Cookbooks	http://bookIndustryCommunication.com/Reference_and_information_and_interdisciplinary_subjects	<	0.0	0.0
+http://goodreads.com/Crime	http://bookIndustryCommunication.com/Fiction_and_related_items	<	0.957912	0.0
+http://goodreads.com/Crime	http://bookIndustryCommunication.com/Fiction_and_related_items/Crime_and_mystery	=	1e-06	
+http://goodreads.com/Crime	http://bookIndustryCommunication.com/Fiction_and_related_items/Fiction_related_items	<	0.0	0.0
+http://goodreads.com/Crime	http://bookIndustryCommunication.com/Society_and_social_sciences	<	0.000553	0.0
+http://goodreads.com/Crime	http://bookIndustryCommunication.com/Society_and_social_sciences/Social_services_and_welfare_and_criminology	<	0.0	0.0
+http://goodreads.com/Crime	http://bookIndustryCommunication.com/Society_and_social_sciences/Society_and_culture_general_issues	<	0.0	0.0
+http://goodreads.com/Crime	http://bookIndustryCommunication.com/Society_and_social_sciences/Sociology_and_anthropology	<	0.0	0.0
+http://goodreads.com/Fantasy	http://bookIndustryCommunication.com/Fiction_and_related_items	<	1.0	0.0
+http://goodreads.com/Fantasy	http://bookIndustryCommunication.com/Fiction_and_related_items/Fantasy	=	0.999999	
+http://goodreads.com/Fantasy	http://bookIndustryCommunication.com/Fiction_and_related_items/Fiction_related_items	<	0.0	0.0
+http://goodreads.com/Fantasy	http://bookIndustryCommunication.com/Fiction_and_related_items/Modern_and_contemporary_fiction	<	0.0	0.0
+http://goodreads.com/Fantasy	http://bookIndustryCommunication.com/Fiction_and_related_items/Myth_and_legend_told_as_fiction	>	0.0	0.0
+http://goodreads.com/Fantasy	http://bookIndustryCommunication.com/Literature_and_literary_studies	<	0.0	0.0
+http://goodreads.com/Fiction	http://bookIndustryCommunication.com/Children_s_and_teenage_and_educational/Children_s_and_teenage_fiction_and_true_stories	>	0.651355	0.0
+http://goodreads.com/Fiction	http://bookIndustryCommunication.com/Fiction_and_related_items	=	0.0	
+http://goodreads.com/Fiction	http://bookIndustryCommunication.com/Fiction_and_related_items/Adventure	>	0.999704	0.0
+http://goodreads.com/Fiction	http://bookIndustryCommunication.com/Fiction_and_related_items/Classic_fiction	>	0.999952	0.0
+http://goodreads.com/Fiction	http://bookIndustryCommunication.com/Fiction_and_related_items/Crime_and_mystery	>	0.999739	0.0
+http://goodreads.com/Fiction	http://bookIndustryCommunication.com/Fiction_and_related_items/Erotic_fiction	>	0.999842	0.0
+http://goodreads.com/Fiction	http://bookIndustryCommunication.com/Fiction_and_related_items/Fantasy	>	0.999925	0.0
+http://goodreads.com/Fiction	http://bookIndustryCommunication.com/Fiction_and_related_items/Graphic_novels	>	0.992423	0.0
+http://goodreads.com/Fiction	http://bookIndustryCommunication.com/Fiction_and_related_items/Historical_fiction	>	0.999962	0.0
+http://goodreads.com/Fiction	http://bookIndustryCommunication.com/Fiction_and_related_items/Horror_and_ghost_stories	>	0.999851	0.0
+http://goodreads.com/Fiction	http://bookIndustryCommunication.com/Fiction_and_related_items/Modern_and_contemporary_fiction	>	0.999949	0.0
+http://goodreads.com/Fiction	http://bookIndustryCommunication.com/Fiction_and_related_items/Myth_and_legend_told_as_fiction	>	0.999704	0.0
+http://goodreads.com/Fiction	http://bookIndustryCommunication.com/Fiction_and_related_items/Religious_and_spiritual_fiction	>	0.999569	0.0
+http://goodreads.com/Fiction	http://bookIndustryCommunication.com/Fiction_and_related_items/Romance	>	0.99992	0.0
+http://goodreads.com/Fiction	http://bookIndustryCommunication.com/Fiction_and_related_items/Sagas	>	0.994089	0.0
+http://goodreads.com/Fiction	http://bookIndustryCommunication.com/Fiction_and_related_items/Science_fiction	>	0.999977	0.0
+http://goodreads.com/Fiction	http://bookIndustryCommunication.com/Fiction_and_related_items/Thriller_and_suspense	>	0.999934	0.0
+http://goodreads.com/Fiction	http://bookIndustryCommunication.com/Literature_and_literary_studies	<	0.0	0.0
+http://goodreads.com/Gay_And_Lesbian	http://bookIndustryCommunication.com/Children_s_and_teenage_and_educational/Personal_and_social_issues	<	0.0	0.0
+http://goodreads.com/Gay_And_Lesbian	http://bookIndustryCommunication.com/Society_and_social_sciences	<	0.0	0.0
+http://goodreads.com/Gay_And_Lesbian	http://bookIndustryCommunication.com/Society_and_social_sciences/Society_and_culture_general_issues	<	6e-06	0.0
+http://goodreads.com/Graphic_Novels	http://bookIndustryCommunication.com/Fiction_and_related_items	<	8.5e-05	0.0
+http://goodreads.com/Graphic_Novels	http://bookIndustryCommunication.com/Fiction_and_related_items/Fiction_related_items	<	0.0	0.0
+http://goodreads.com/Graphic_Novels	http://bookIndustryCommunication.com/Fiction_and_related_items/Graphic_novels	=	1.0	
+http://goodreads.com/Graphic_Novels	http://bookIndustryCommunication.com/Literature_and_literary_studies	<	0.0	0.0
+http://goodreads.com/Historical_Fiction	http://bookIndustryCommunication.com/Fiction_and_related_items	<	0.999999	0.0
+http://goodreads.com/Historical_Fiction	http://bookIndustryCommunication.com/Fiction_and_related_items/Fiction_related_items	<	0.0	0.0
+http://goodreads.com/Historical_Fiction	http://bookIndustryCommunication.com/Fiction_and_related_items/Historical_fiction	=	1.0	
+http://goodreads.com/Historical_Fiction	http://bookIndustryCommunication.com/Humanities/History	<	0.0	0.0
+http://goodreads.com/Historical_Fiction	http://bookIndustryCommunication.com/Literature_and_literary_studies	<	0.0	0.0
+http://goodreads.com/History	http://bookIndustryCommunication.com/Humanities	<	1.0	0.0
+http://goodreads.com/History	http://bookIndustryCommunication.com/Humanities/History	=	1.0	
+http://goodreads.com/History	http://bookIndustryCommunication.com/Lifestyle_and_sport_and_leisure/Local_interest_and_familiy_history_and_nostalgia	>	0.0	0.0
+http://goodreads.com/History	http://bookIndustryCommunication.com/Literature_and_literary_studies/non_fiction_Prose	<	0.0	0.0
+http://goodreads.com/History	http://bookIndustryCommunication.com/Reference_and_information_and_interdisciplinary_subjects/Museology_and_heritage_studies	>	0.0	0.0
+http://goodreads.com/History	http://bookIndustryCommunication.com/Society_and_social_sciences	<	0.0	0.0
+http://goodreads.com/History	http://bookIndustryCommunication.com/Society_and_social_sciences/Society_and_culture_general_issues	<	0.0	0.0
+http://goodreads.com/History	http://bookIndustryCommunication.com/Society_and_social_sciences/Warfare_and_defence	>	0.0	0.0
+http://goodreads.com/History	http://bookIndustryCommunication.com/The_arts/History_of_art_OR_art_and_design_styles	>	2.8e-05	0.0
+http://goodreads.com/Horror	http://bookIndustryCommunication.com/Fiction_and_related_items	<	0.999904	0.0
+http://goodreads.com/Horror	http://bookIndustryCommunication.com/Fiction_and_related_items/Fiction_related_items	<	0.0	0.0
+http://goodreads.com/Horror	http://bookIndustryCommunication.com/Fiction_and_related_items/Horror_and_ghost_stories	=	0.999993	
+http://goodreads.com/Horror	http://bookIndustryCommunication.com/Literature_and_literary_studies	<	0.0	0.0
+http://goodreads.com/Humor_and_Comedy	http://bookIndustryCommunication.com/Fiction_and_related_items	<	0.0	0.0
+http://goodreads.com/Humor_and_Comedy	http://bookIndustryCommunication.com/Fiction_and_related_items/Fiction_related_items	<	0.0	0.0
+http://goodreads.com/Humor_and_Comedy	http://bookIndustryCommunication.com/Lifestyle_and_sport_and_leisure/Humour	=	0.00018	
+http://goodreads.com/Humor_and_Comedy	http://bookIndustryCommunication.com/Literature_and_literary_studies	<	0.0	0.0
+http://goodreads.com/Humor_and_Comedy	http://bookIndustryCommunication.com/The_arts	<	7e-06	0.0
+http://goodreads.com/Humor_and_Comedy	http://bookIndustryCommunication.com/The_arts/Art_forms	<	2e-06	0.0
+http://goodreads.com/Manga	http://bookIndustryCommunication.com/Fiction_and_related_items	<	0.294215	0.0
+http://goodreads.com/Manga	http://bookIndustryCommunication.com/Fiction_and_related_items/Fiction_related_items	<	1e-06	0.0
+http://goodreads.com/Manga	http://bookIndustryCommunication.com/Fiction_and_related_items/Graphic_novels	<	0.025957	0.0
+http://goodreads.com/Manga	http://bookIndustryCommunication.com/Literature_and_literary_studies	<	0.0	0.0
+http://goodreads.com/Manga	http://bookIndustryCommunication.com/The_arts/The_arts_general_issues	<	0.0	0.0
+http://goodreads.com/Memoir	http://bookIndustryCommunication.com/Biography_and_True_Stories	<	1.0	0.0
+http://goodreads.com/Memoir	http://bookIndustryCommunication.com/Biography_and_True_Stories/Biography_general	<	0.037327	0.0
+http://goodreads.com/Memoir	http://bookIndustryCommunication.com/Biography_and_True_Stories/Memoirs	=	1.0	
+http://goodreads.com/Memoir	http://bookIndustryCommunication.com/Biography_and_True_Stories/True_stories	<	0.997527	0.0
+http://goodreads.com/Memoir	http://bookIndustryCommunication.com/Literature_and_literary_studies	<	0.0	0.0
+http://goodreads.com/Memoir	http://bookIndustryCommunication.com/Literature_and_literary_studies/non_fiction_Prose	<	0.999512	0.0
+http://goodreads.com/Music	http://bookIndustryCommunication.com/Humanities	<	0.0	0.0
+http://goodreads.com/Music	http://bookIndustryCommunication.com/Society_and_social_sciences/Society_and_culture_general_issues	<	0.0	0.0
+http://goodreads.com/Music	http://bookIndustryCommunication.com/The_arts	<	0.999898	0.0
+http://goodreads.com/Music	http://bookIndustryCommunication.com/The_arts/Art_forms	<	0.999665	0.0
+http://goodreads.com/Music	http://bookIndustryCommunication.com/The_arts/Art_treatments_and_subjects	<	0.0	0.0
+http://goodreads.com/Music	http://bookIndustryCommunication.com/The_arts/Dance_and_other_performing_arts	<	0.0	0.0
+http://goodreads.com/Music	http://bookIndustryCommunication.com/The_arts/Music	=	0.999999	
+http://goodreads.com/Mystery	http://bookIndustryCommunication.com/Fiction_and_related_items	<	1.0	0.0
+http://goodreads.com/Mystery	http://bookIndustryCommunication.com/Fiction_and_related_items/Crime_and_mystery	<	0.999969	0.0
+http://goodreads.com/Mystery	http://bookIndustryCommunication.com/Fiction_and_related_items/Fiction_related_items	<	0.0	0.0
+http://goodreads.com/Mystery	http://bookIndustryCommunication.com/Fiction_and_related_items/Modern_and_contemporary_fiction	<	0.0	0.0
+http://goodreads.com/Mystery	http://bookIndustryCommunication.com/Fiction_and_related_items/Thriller_and_suspense	=	0.0	
+http://goodreads.com/Mystery	http://bookIndustryCommunication.com/Literature_and_literary_studies	<	0.0	0.0
+http://goodreads.com/Non_Fiction	http://bookIndustryCommunication.com/Biography_and_True_Stories	>	1.0	0.0
+http://goodreads.com/Non_Fiction	http://bookIndustryCommunication.com/Biography_and_True_Stories/Biography_general	>	1.0	0.0
+http://goodreads.com/Non_Fiction	http://bookIndustryCommunication.com/Biography_and_True_Stories/Collected_biographies	>	1.0	0.0
+http://goodreads.com/Non_Fiction	http://bookIndustryCommunication.com/Biography_and_True_Stories/Diaries_and_letters_and_journals	>	1.0	0.0
+http://goodreads.com/Non_Fiction	http://bookIndustryCommunication.com/Biography_and_True_Stories/Memoirs	>	1.0	0.0
+http://goodreads.com/Non_Fiction	http://bookIndustryCommunication.com/Biography_and_True_Stories/True_stories	>	1.0	0.0
+http://goodreads.com/Non_Fiction	http://bookIndustryCommunication.com/Children_s_and_teenage_and_educational	>	0.0	0.0
+http://goodreads.com/Non_Fiction	http://bookIndustryCommunication.com/Children_s_and_teenage_and_educational/Children_s_and_teenage_general_non_fiction	>	0.999998	0.0
+http://goodreads.com/Non_Fiction	http://bookIndustryCommunication.com/Children_s_and_teenage_and_educational/Edudcational_material	>	2e-06	0.0
+http://goodreads.com/Non_Fiction	http://bookIndustryCommunication.com/Literature_and_literary_studies	>	0.0	0.0
+http://goodreads.com/Non_Fiction	http://bookIndustryCommunication.com/Literature_and_literary_studies/Classical_texts	>	0.0	0.0
+http://goodreads.com/Non_Fiction	http://bookIndustryCommunication.com/Literature_and_literary_studies/non_fiction_Prose	>	0.99982	0.0
+http://goodreads.com/Non_Fiction	http://bookIndustryCommunication.com/Reference_and_information_and_interdisciplinary_subjects	>	0.999643	0.0
+http://goodreads.com/Non_Fiction	http://bookIndustryCommunication.com/Reference_and_information_and_interdisciplinary_subjects/Encyclopaedias_and_reference_works	>	0.999665	0.0
+http://goodreads.com/Non_Fiction	http://bookIndustryCommunication.com/Society_and_social_sciences	>	0.999993	0.0
+http://goodreads.com/Non_Fiction	http://bookIndustryCommunication.com/Society_and_social_sciences/Society_and_culture_general_issues	>	0.017986	0.0
+http://goodreads.com/Paranormal	http://bookIndustryCommunication.com/Fiction_and_related_items	<	0.997527	0.0
+http://goodreads.com/Paranormal	http://bookIndustryCommunication.com/Fiction_and_related_items/Fantasy	<	2e-06	0.0
+http://goodreads.com/Paranormal	http://bookIndustryCommunication.com/Fiction_and_related_items/Fiction_related_items	<	0.0	0.0
+http://goodreads.com/Paranormal	http://bookIndustryCommunication.com/Fiction_and_related_items/Horror_and_ghost_stories	<	0.0	0.0
+http://goodreads.com/Paranormal	http://bookIndustryCommunication.com/Humanities/Religion_and_beliefs	<	0.0	0.0
+http://goodreads.com/Philosophy	http://bookIndustryCommunication.com/Humanities	<	1.0	0.0
+http://goodreads.com/Philosophy	http://bookIndustryCommunication.com/Humanities/Philosophy	=	1.0	
+http://goodreads.com/Philosophy	http://bookIndustryCommunication.com/Law/Jurisprudence_and_gernal_issues	>	0.0	0.0
+http://goodreads.com/Poetry	http://bookIndustryCommunication.com/Children_s_and_teenage_and_educational/Children_s_and_teenage_poetry_and_anthologies_and_annuals	>	0.99999	0.0
+http://goodreads.com/Poetry	http://bookIndustryCommunication.com/Fiction_and_related_items	<	0.0	0.0
+http://goodreads.com/Poetry	http://bookIndustryCommunication.com/Fiction_and_related_items/Fiction_related_items	<	0.0	0.0
+http://goodreads.com/Poetry	http://bookIndustryCommunication.com/Literature_and_literary_studies	<	1.0	0.0
+http://goodreads.com/Poetry	http://bookIndustryCommunication.com/Literature_and_literary_studies/Literature_history_and_criticism	<	0.0	0.0
+http://goodreads.com/Poetry	http://bookIndustryCommunication.com/Literature_and_literary_studies/Poetry	=	1.0	
+http://goodreads.com/Poetry	http://bookIndustryCommunication.com/The_arts	<	0.999374	0.0
+http://goodreads.com/Poetry	http://bookIndustryCommunication.com/The_arts/Art_forms	<	0.999955	0.0
+http://goodreads.com/Poetry	http://bookIndustryCommunication.com/The_arts/Art_treatments_and_subjects	<	0.0	0.0
+http://goodreads.com/Poetry	http://bookIndustryCommunication.com/The_arts/The_arts_general_issues	<	0.0	0.0
+http://goodreads.com/Psychology	http://bookIndustryCommunication.com/Children_s_and_teenage_and_educational/Personal_and_social_issues	<	0.0	0.0
+http://goodreads.com/Psychology	http://bookIndustryCommunication.com/Health_and_personal_development	<	0.000804	0.0
+http://goodreads.com/Psychology	http://bookIndustryCommunication.com/Health_and_personal_development/Mind_and_Body_and_Spirit	<	5e-06	0.0
+http://goodreads.com/Psychology	http://bookIndustryCommunication.com/Health_and_personal_development/Selfhelp_and_personal_development	>	0.0	0.0
+http://goodreads.com/Psychology	http://bookIndustryCommunication.com/Humanities	<	0.0	0.0
+http://goodreads.com/Psychology	http://bookIndustryCommunication.com/Mathematics_and_science/Science_general_issuses	<	0.0	0.0
+http://goodreads.com/Psychology	http://bookIndustryCommunication.com/Society_and_social_sciences	<	1.0	0.0
+http://goodreads.com/Psychology	http://bookIndustryCommunication.com/Society_and_social_sciences/Psychology	=	1.0	
+http://goodreads.com/Psychology	http://bookIndustryCommunication.com/Society_and_social_sciences/Society_and_culture_general_issues	<	0.0	0.0
+http://goodreads.com/Religion	http://bookIndustryCommunication.com/Fiction_and_related_items/Religious_and_spiritual_fiction	>	0.0	0.0
+http://goodreads.com/Religion	http://bookIndustryCommunication.com/Health_and_personal_development	<	0.0	0.0
+http://goodreads.com/Religion	http://bookIndustryCommunication.com/Health_and_personal_development/Mind_and_Body_and_Spirit	<	0.0	0.0
+http://goodreads.com/Religion	http://bookIndustryCommunication.com/Humanities	<	0.999999	0.0
+http://goodreads.com/Religion	http://bookIndustryCommunication.com/Humanities/Religion_and_beliefs	=	0.999971	
+http://goodreads.com/Religion	http://bookIndustryCommunication.com/Society_and_social_sciences	<	7e-06	0.0
+http://goodreads.com/Religion	http://bookIndustryCommunication.com/Society_and_social_sciences/Society_and_culture_general_issues	<	1e-06	0.0
+http://goodreads.com/Religion	http://bookIndustryCommunication.com/Society_and_social_sciences/Sociology_and_anthropology	<	0.0	0.0
+http://goodreads.com/Romance	http://bookIndustryCommunication.com/Fiction_and_related_items	<	0.999992	0.0
+http://goodreads.com/Romance	http://bookIndustryCommunication.com/Fiction_and_related_items/Erotic_fiction	>	0.0	0.0
+http://goodreads.com/Romance	http://bookIndustryCommunication.com/Fiction_and_related_items/Fiction_related_items	<	0.0	0.0
+http://goodreads.com/Romance	http://bookIndustryCommunication.com/Fiction_and_related_items/Modern_and_contemporary_fiction	<	0.0	0.0
+http://goodreads.com/Romance	http://bookIndustryCommunication.com/Fiction_and_related_items/Romance	=	1.0	
+http://goodreads.com/Romance	http://bookIndustryCommunication.com/Literature_and_literary_studies	<	0.0	0.0
+http://goodreads.com/Science	http://bookIndustryCommunication.com/Computing_and_information_technology/Computer_science	>	0.999704	0.0
+http://goodreads.com/Science	http://bookIndustryCommunication.com/Computing_and_information_technology/Information_technology_general_issues	>	0.0	0.0
+http://goodreads.com/Science	http://bookIndustryCommunication.com/Earth_sciences_and_geography_and_environment_and_planning	>	0.999942	0.0
+http://goodreads.com/Science	http://bookIndustryCommunication.com/Earth_sciences_and_geography_and_environment_and_planning/Earth_sciences	>	0.999998	0.0
+http://goodreads.com/Science	http://bookIndustryCommunication.com/Earth_sciences_and_geography_and_environment_and_planning/Geography	>	0.294215	0.0
+http://goodreads.com/Science	http://bookIndustryCommunication.com/Earth_sciences_and_geography_and_environment_and_planning/The_environment	>	7e-06	0.0
+http://goodreads.com/Science	http://bookIndustryCommunication.com/Mathematics_and_science	<	0.999374	0.0
+http://goodreads.com/Science	http://bookIndustryCommunication.com/Mathematics_and_science/Astronomy_and_space_and_time	>	0.999904	0.0
+http://goodreads.com/Science	http://bookIndustryCommunication.com/Mathematics_and_science/Biology_and_life_sciences	>	0.999957	0.0
+http://goodreads.com/Science	http://bookIndustryCommunication.com/Mathematics_and_science/Chemistry	>	0.999985	0.0
+http://goodreads.com/Science	http://bookIndustryCommunication.com/Mathematics_and_science/Mathematics	>	0.182426	0.0
+http://goodreads.com/Science	http://bookIndustryCommunication.com/Mathematics_and_science/Physics	>	0.999998	0.0
+http://goodreads.com/Science	http://bookIndustryCommunication.com/Mathematics_and_science/Science_general_issuses	=	0.0	
+http://goodreads.com/Science	http://bookIndustryCommunication.com/Medicine	>	0.979668	0.0
+http://goodreads.com/Science	http://bookIndustryCommunication.com/Medicine/Basic_sciences_of_pre_clinical_medicine	>	0.531209	0.0
+http://goodreads.com/Science	http://bookIndustryCommunication.com/Society_and_social_sciences	>	0.037327	0.0
+http://goodreads.com/Science	http://bookIndustryCommunication.com/Society_and_social_sciences/Psychology	>	0.985936	0.0
+http://goodreads.com/Science	http://bookIndustryCommunication.com/Technology_and_egineering_and_agriculture/Environmental_science_and_egineering_and_technology	>	0.468791	0.0
+http://goodreads.com/Science	http://bookIndustryCommunication.com/Technology_and_egineering_and_agriculture/Other_technologies_and_applied_sciences	>	0.000261	0.0
+http://goodreads.com/Science_Fiction	http://bookIndustryCommunication.com/Fiction_and_related_items	<	0.999997	0.0
+http://goodreads.com/Science_Fiction	http://bookIndustryCommunication.com/Fiction_and_related_items/Fiction_related_items	<	0.0	0.0
+http://goodreads.com/Science_Fiction	http://bookIndustryCommunication.com/Fiction_and_related_items/Science_fiction	=	1.0	
+http://goodreads.com/Science_Fiction	http://bookIndustryCommunication.com/Literature_and_literary_studies	<	0.0	0.0
+http://goodreads.com/Self_Help	http://bookIndustryCommunication.com/Children_s_and_teenage_and_educational/Personal_and_social_issues	<	0.0	0.0
+http://goodreads.com/Self_Help	http://bookIndustryCommunication.com/Health_and_personal_development	<	1.0	0.0
+http://goodreads.com/Self_Help	http://bookIndustryCommunication.com/Health_and_personal_development/Mind_and_Body_and_Spirit	=	0.0	
+http://goodreads.com/Self_Help	http://bookIndustryCommunication.com/Health_and_personal_development/Selfhelp_and_personal_development	=	1.0	
+http://goodreads.com/Self_Help	http://bookIndustryCommunication.com/Lifestyle_and_sport_and_leisure	<	0.0	0.0
+http://goodreads.com/Self_Help	http://bookIndustryCommunication.com/Lifestyle_and_sport_and_leisure/Lifestyle_and_personcal_style_guides	<	0.0	0.0
+http://goodreads.com/Self_Help	http://bookIndustryCommunication.com/Literature_and_literary_studies/non_fiction_Prose	<	3.1e-05	0.0
+http://goodreads.com/Self_Help	http://bookIndustryCommunication.com/Society_and_social_sciences	<	0.0	0.0
+http://goodreads.com/Spirituality	http://bookIndustryCommunication.com/Fiction_and_related_items/Religious_and_spiritual_fiction	>	0.0	0.0
+http://goodreads.com/Spirituality	http://bookIndustryCommunication.com/Health_and_personal_development	<	0.731059	0.0
+http://goodreads.com/Spirituality	http://bookIndustryCommunication.com/Health_and_personal_development/Mind_and_Body_and_Spirit	<	7e-06	0.0
+http://goodreads.com/Spirituality	http://bookIndustryCommunication.com/Health_and_personal_development/Selfhelp_and_personal_development	<	0.0	0.0
+http://goodreads.com/Spirituality	http://bookIndustryCommunication.com/Humanities	<	0.00014	0.0
+http://goodreads.com/Spirituality	http://bookIndustryCommunication.com/Humanities/Philosophy	<	0.0	0.0
+http://goodreads.com/Spirituality	http://bookIndustryCommunication.com/Humanities/Religion_and_beliefs	<	2.8e-05	0.0
+http://goodreads.com/Spirituality	http://bookIndustryCommunication.com/Society_and_social_sciences	<	0.0	0.0
+http://goodreads.com/Spirituality	http://bookIndustryCommunication.com/Society_and_social_sciences/Society_and_culture_general_issues	<	0.0	0.0
+http://goodreads.com/Sports	http://bookIndustryCommunication.com/Lifestyle_and_sport_and_leisure	<	0.997199	0.0
+http://goodreads.com/Sports	http://bookIndustryCommunication.com/Lifestyle_and_sport_and_leisure/Sports_and_outdoor_recreation	<	0.001927	9e-06
+http://goodreads.com/Sports	http://bookIndustryCommunication.com/Society_and_social_sciences/Society_and_culture_general_issues	<	0.0	0.0
+http://goodreads.com/Suspense	http://bookIndustryCommunication.com/Fiction_and_related_items	<	0.999982	0.0
+http://goodreads.com/Suspense	http://bookIndustryCommunication.com/Fiction_and_related_items/Crime_and_mystery	<	1e-06	0.0
+http://goodreads.com/Suspense	http://bookIndustryCommunication.com/Fiction_and_related_items/Fiction_related_items	<	0.0	0.0
+http://goodreads.com/Suspense	http://bookIndustryCommunication.com/Fiction_and_related_items/Modern_and_contemporary_fiction	<	0.0	0.0
+http://goodreads.com/Suspense	http://bookIndustryCommunication.com/Fiction_and_related_items/Thriller_and_suspense	<	0.5	0.0
+http://goodreads.com/Suspense	http://bookIndustryCommunication.com/Literature_and_literary_studies	<	0.0	0.0
+http://goodreads.com/Thriller	http://bookIndustryCommunication.com/Fiction_and_related_items	<	0.999998	0.0
+http://goodreads.com/Thriller	http://bookIndustryCommunication.com/Fiction_and_related_items/Crime_and_mystery	<	0.0	0.0
+http://goodreads.com/Thriller	http://bookIndustryCommunication.com/Fiction_and_related_items/Fiction_related_items	<	0.0	0.0
+http://goodreads.com/Thriller	http://bookIndustryCommunication.com/Fiction_and_related_items/Thriller_and_suspense	=	0.99991	
+http://goodreads.com/Thriller	http://bookIndustryCommunication.com/Literature_and_literary_studies	<	0.0	0.0
+http://goodreads.com/Travel	http://bookIndustryCommunication.com/Earth_sciences_and_geography_and_environment_and_planning	<	0.0	0.0
+http://goodreads.com/Travel	http://bookIndustryCommunication.com/Lifestyle_and_sport_and_leisure	<	5.8e-05	0.0
+http://goodreads.com/Travel	http://bookIndustryCommunication.com/Lifestyle_and_sport_and_leisure/Transport_general_interest	>	0.0	0.0
+http://goodreads.com/Travel	http://bookIndustryCommunication.com/Lifestyle_and_sport_and_leisure/Travel_and_holiday	=	0.999998	
+http://goodreads.com/Travel	http://bookIndustryCommunication.com/Literature_and_literary_studies/non_fiction_Prose	<	0.0	0.0
+http://goodreads.com/Young_Adult	http://bookIndustryCommunication.com/Children_s_and_teenage_and_educational	<	0.998968	0.0
+http://goodreads.com/Young_Adult	http://bookIndustryCommunication.com/Children_s_and_teenage_and_educational/Children_s_and_teenage_fiction_and_true_stories	<	0.990292	0.0
+http://goodreads.com/Young_Adult	http://bookIndustryCommunication.com/Children_s_and_teenage_and_educational/Children_s_and_teenage_poetry_and_anthologies_and_annuals	>	0.0	0.0
+http://goodreads.com/Young_Adult	http://bookIndustryCommunication.com/Fiction_and_related_items	<	1e-06	0.0
+http://goodreads.com/Young_Adult	http://bookIndustryCommunication.com/Fiction_and_related_items/Fiction_related_items	<	0.0	0.0
+http://goodreads.com/Young_Adult	http://bookIndustryCommunication.com/Literature_and_literary_studies	<	0.0	0.0

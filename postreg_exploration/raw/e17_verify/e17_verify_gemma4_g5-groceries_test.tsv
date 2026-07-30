@@ -1,0 +1,491 @@
+source_uri	target_uri	rel	p_yes	p_yes_rev
+http://amazonGroceries.com/Baking_Chips	http://ebayGroceries.com/Candy_&_Chocolate/Fruits,_Nuts_&_Snacks	<	0.0	0.0
+http://amazonGroceries.com/Baking_Chips	http://ebayGroceries.com/Cooking_&_Baking	<	0.999842	0.0
+http://amazonGroceries.com/Baking_Chips	http://ebayGroceries.com/Snack_Foods/Ice_Cream_Cones_&_Toppings	<	0.0	0.0
+http://amazonGroceries.com/Baking_Chocolate	http://ebayGroceries.com/Candy_&_Chocolate	<	0.5	0.0
+http://amazonGroceries.com/Baking_Chocolate	http://ebayGroceries.com/Cooking_&_Baking	<	1.0	0.0
+http://amazonGroceries.com/Baking_Chocolate	http://ebayGroceries.com/Cooking_&_Baking/Baking_Chocolates,_Carob_&_Cocoa	<	0.999769	0.0
+http://amazonGroceries.com/Baking_Chocolate	http://ebayGroceries.com/Cooking_&_Baking/Baking_Chocolates,_Carob_&_Cocoa/Chocolates	=	0.835484	
+http://amazonGroceries.com/Baking_Chocolate	http://ebayGroceries.com/Gourmet_Gifts	<	0.0	0.0
+http://amazonGroceries.com/Baking_Chocolate	http://ebayGroceries.com/Gourmet_Gifts/Dessert_Gifts	<	0.0	0.0
+http://amazonGroceries.com/Baking_Mixes	http://ebayGroceries.com/Cooking_&_Baking	<	1.0	0.0
+http://amazonGroceries.com/Baking_Mixes	http://ebayGroceries.com/Cooking_&_Baking/Baking_Mixes	=	1.0	
+http://amazonGroceries.com/Baking_Mixes	http://ebayGroceries.com/Cooking_&_Baking/Baking_Mixes/Biscuits	>	0.99999	0.0
+http://amazonGroceries.com/Baking_Mixes	http://ebayGroceries.com/Cooking_&_Baking/Baking_Mixes/Breads	>	0.999447	0.0
+http://amazonGroceries.com/Baking_Mixes	http://ebayGroceries.com/Cooking_&_Baking/Baking_Mixes/Brownies	>	0.999991	0.0
+http://amazonGroceries.com/Baking_Mixes	http://ebayGroceries.com/Cooking_&_Baking/Baking_Mixes/Cakes	>	0.999942	0.0
+http://amazonGroceries.com/Baking_Mixes	http://ebayGroceries.com/Cooking_&_Baking/Baking_Mixes/Muffins	>	0.999934	0.0
+http://amazonGroceries.com/Baking_Mixes	http://ebayGroceries.com/Cooking_&_Baking/Baking_Mixes/Pancakes_&_Waffles	>	0.999998	0.0
+http://amazonGroceries.com/Baking_Mixes	http://ebayGroceries.com/Cooking_&_Baking/Baking_Mixes/Pie_Crusts	>	0.999995	0.0
+http://amazonGroceries.com/Baking_Mixes	http://ebayGroceries.com/Cooking_&_Baking/Breadcrumbs_&_Seasoned_Coatings/Seasoned_Coatings	>	0.0	0.0
+http://amazonGroceries.com/Baking_Mixes	http://ebayGroceries.com/Cooking_&_Baking/Doughs,_Shells_&_Crusts	<	0.0	0.0
+http://amazonGroceries.com/Baking_Mixes	http://ebayGroceries.com/Cooking_&_Baking/Flours_&_Meals	<	0.0	0.0
+http://amazonGroceries.com/Baking_Mixes	http://ebayGroceries.com/Cooking_&_Baking/Flours_&_Meals/Barley_Flour	>	0.0	0.0
+http://amazonGroceries.com/Baking_Mixes	http://ebayGroceries.com/Cooking_&_Baking/Flours_&_Meals/Oat_Flour	>	0.0	0.0
+http://amazonGroceries.com/Baking_Mixes	http://ebayGroceries.com/Cooking_&_Baking/Leaveners_&_Yeasts/Baking_Powder	>	0.0	0.0
+http://amazonGroceries.com/Beer_&_Wine_Making	http://ebayGroceries.com/Beverages	<	0.0	0.0
+http://amazonGroceries.com/Beer_&_Wine_Making	http://ebayGroceries.com/Cooking_&_Baking/Leaveners_&_Yeasts/Yeast_Starters	>	0.0	0.0
+http://amazonGroceries.com/Bread	http://ebayGroceries.com/Breakfast_Foods	<	0.0	0.0
+http://amazonGroceries.com/Bread	http://ebayGroceries.com/Cooking_&_Baking/Baking_Mixes	<	0.997527	0.0
+http://amazonGroceries.com/Bread	http://ebayGroceries.com/Cooking_&_Baking/Baking_Mixes/Breads	=	0.0	
+http://amazonGroceries.com/Bread	http://ebayGroceries.com/Cooking_&_Baking/Doughs,_Shells_&_Crusts	<	0.0	0.0
+http://amazonGroceries.com/Bread	http://ebayGroceries.com/Snack_Foods/Breadsticks	>	4e-05	0.0
+http://amazonGroceries.com/Bread	http://ebayGroceries.com/Snack_Foods/Crackers/Flatbread	>	0.00407	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate	http://ebayGroceries.com/Candy_&_Chocolate	=	0.99998	
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate	http://ebayGroceries.com/Candy_&_Chocolate/Assortments	>	0.999949	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate	http://ebayGroceries.com/Candy_&_Chocolate/Bars	>	0.999993	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate	http://ebayGroceries.com/Candy_&_Chocolate/Candy_&_Chocolate_Gifts	>	0.992423	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate	http://ebayGroceries.com/Candy_&_Chocolate/Chewing_Gum	>	1.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate	http://ebayGroceries.com/Candy_&_Chocolate/Chocolate_Truffels	>	0.999974	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate	http://ebayGroceries.com/Candy_&_Chocolate/Fruit_Candy	>	0.99996	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate	http://ebayGroceries.com/Candy_&_Chocolate/Fruits,_Nuts_&_Snacks	>	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate	http://ebayGroceries.com/Candy_&_Chocolate/Ginger_Candy	>	0.999995	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate	http://ebayGroceries.com/Candy_&_Chocolate/Gummy_Candy	>	0.999955	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate	http://ebayGroceries.com/Candy_&_Chocolate/Hard_Candy	>	0.999915	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate	http://ebayGroceries.com/Candy_&_Chocolate/Jelly_Beans	>	0.999942	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate	http://ebayGroceries.com/Candy_&_Chocolate/Licorice	>	0.999891	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate	http://ebayGroceries.com/Candy_&_Chocolate/Marshmallows	>	0.99883	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate	http://ebayGroceries.com/Candy_&_Chocolate/Nut_Clusters	>	0.999877	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate	http://ebayGroceries.com/Candy_&_Chocolate/Sour_Candy	>	0.999987	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate	http://ebayGroceries.com/Candy_&_Chocolate/Suckers_&_Lollipops	>	0.999957	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate	http://ebayGroceries.com/Gourmet_Gifts/Candy_Gifts	>	0.000203	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate	http://ebayGroceries.com/Gourmet_Gifts/Chocolate_Gifts	>	0.020332	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate	http://ebayGroceries.com/Snack_Foods/Fruit_Leather	>	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate	http://ebayGroceries.com/Snack_Foods/Fruit_Snacks	>	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate	http://ebayGroceries.com/Snack_Foods/Jerky_&_Dried_Meats	>	0.00117	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Buffalo,_Beef_&_Turkey_Jerky	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Canned_&_Jarred_Food/Meat_&_Seafood	<	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Buffalo,_Beef_&_Turkey_Jerky	http://ebayGroceries.com/Gourmet_Gifts/Meat_Gifts	<	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Buffalo,_Beef_&_Turkey_Jerky	http://ebayGroceries.com/Snack_Foods/Jerky_&_Dried_Meats	<	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Candy_Ingredients	http://ebayGroceries.com/Candy_&_Chocolate	<	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Chewing_Gum	http://ebayGroceries.com/Candy_&_Chocolate	<	0.999196	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Chewing_Gum	http://ebayGroceries.com/Candy_&_Chocolate/Chewing_Gum	=	1.0	
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Chewy_Candy	http://ebayGroceries.com/Candy_&_Chocolate	<	0.999998	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Chewy_Candy	http://ebayGroceries.com/Candy_&_Chocolate/Caramels	>	0.002473	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Chewy_Candy	http://ebayGroceries.com/Candy_&_Chocolate/Gummy_Candy	=	0.999938	
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Chewy_Candy	http://ebayGroceries.com/Candy_&_Chocolate/Jelly_Beans	>	0.731059	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Chewy_Candy	http://ebayGroceries.com/Snack_Foods/Fruit_Leather	>	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Chocolate	http://ebayGroceries.com/Candy_&_Chocolate	<	0.99996	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Chocolate	http://ebayGroceries.com/Candy_&_Chocolate/Bars	=	0.0	
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Chocolate	http://ebayGroceries.com/Candy_&_Chocolate/Chocolate_Truffels	>	1.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Chocolate	http://ebayGroceries.com/Candy_&_Chocolate/Nut_Clusters	>	1e-06	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Chocolate	http://ebayGroceries.com/Cooking_&_Baking/Baking_Chocolates,_Carob_&_Cocoa/Chocolates	>	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Chocolate	http://ebayGroceries.com/Gourmet_Gifts/Chocolate_Gifts	>	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Chocolate	http://ebayGroceries.com/Gourmet_Gifts/Dessert_Gifts	<	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Chocolate	http://ebayGroceries.com/Snack_Foods/Cookies/Chocolate_Chip	>	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Chocolate_Covered_Fruit	http://ebayGroceries.com/Candy_&_Chocolate	<	0.999996	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Chocolate_Covered_Fruit	http://ebayGroceries.com/Candy_&_Chocolate/Fruit_Candy	<	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Chocolate_Covered_Fruit	http://ebayGroceries.com/Candy_&_Chocolate/Fruits,_Nuts_&_Snacks	<	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Chocolate_Covered_Fruit	http://ebayGroceries.com/Gourmet_Gifts/Candy_Gifts	<	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Chocolate_Covered_Fruit	http://ebayGroceries.com/Gourmet_Gifts/Chocolate_Gifts	<	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Chocolate_Covered_Fruit	http://ebayGroceries.com/Gourmet_Gifts/Dessert_Gifts	<	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Chocolate_Covered_Fruit	http://ebayGroceries.com/Snack_Foods/Fruit_Snacks	<	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Fondant_&_Gum_Paste	http://ebayGroceries.com/Candy_&_Chocolate	<	0.999997	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Fondant_&_Gum_Paste	http://ebayGroceries.com/Cooking_&_Baking/Frosting,_Icing_&_Decorations	<	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Fondant_&_Gum_Paste	http://ebayGroceries.com/Cooking_&_Baking/Frosting,_Icing_&_Decorations/Frostings_&_Icings	<	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Fondant_&_Gum_Paste	http://ebayGroceries.com/Gourmet_Gifts	<	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Fudge	http://ebayGroceries.com/Candy_&_Chocolate	<	1.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Fudge	http://ebayGroceries.com/Candy_&_Chocolate/Fudge	=	1.0	
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Fudge	http://ebayGroceries.com/Gourmet_Gifts/Candy_Gifts	<	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Gummy_Candy	http://ebayGroceries.com/Candy_&_Chocolate	<	0.999996	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Gummy_Candy	http://ebayGroceries.com/Candy_&_Chocolate/Gummy_Candy	=	1.0	
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Hard_Candy_&_Lollipops	http://ebayGroceries.com/Candy_&_Chocolate	<	0.999998	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Hard_Candy_&_Lollipops	http://ebayGroceries.com/Candy_&_Chocolate/Hard_Candy	=	0.999992	
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Hard_Candy_&_Lollipops	http://ebayGroceries.com/Candy_&_Chocolate/Suckers_&_Lollipops	=	0.999999	
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Jelly_Beans	http://ebayGroceries.com/Candy_&_Chocolate	<	0.999997	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Jelly_Beans	http://ebayGroceries.com/Candy_&_Chocolate/Fruit_Candy	<	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Jelly_Beans	http://ebayGroceries.com/Candy_&_Chocolate/Gummy_Candy	<	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Jelly_Beans	http://ebayGroceries.com/Candy_&_Chocolate/Jelly_Beans	=	1.0	
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Jelly_Beans	http://ebayGroceries.com/Gourmet_Gifts/Candy_Gifts	<	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Jelly_Beans	http://ebayGroceries.com/Snack_Foods/Fruit_Snacks	<	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Licorice	http://ebayGroceries.com/Candy_&_Chocolate	<	0.99999	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Licorice	http://ebayGroceries.com/Candy_&_Chocolate/Licorice	=	1.0	
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Mints	http://ebayGroceries.com/Candy_&_Chocolate	<	0.999904	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Mints	http://ebayGroceries.com/Candy_&_Chocolate/Hard_Candy	<	0.0	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Mints	http://ebayGroceries.com/Candy_&_Chocolate/Mints	=	1.0	
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Seasonal_Candy	http://ebayGroceries.com/Candy_&_Chocolate	<	0.999962	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Sugar_Free_Candy_&_Chocolate	http://ebayGroceries.com/Candy_&_Chocolate	<	0.999998	0.0
+http://amazonGroceries.com/Candy,_Gum_&_Chocolate/Sugar_Free_Candy_&_Chocolate	http://ebayGroceries.com/Gourmet_Gifts	<	0.0	0.0
+http://amazonGroceries.com/Cereals_&_Breakfast_Food	http://ebayGroceries.com/Beverages/Powdered_Drink_Mixes/Instant_Breakfast_Drinks_	>	0.0	0.0
+http://amazonGroceries.com/Cereals_&_Breakfast_Food	http://ebayGroceries.com/Breakfast_Foods	=	1.0	
+http://amazonGroceries.com/Cereals_&_Breakfast_Food	http://ebayGroceries.com/Breakfast_Foods/Breakfast_&_Cereal_Bars	>	0.003594	0.0
+http://amazonGroceries.com/Cereals_&_Breakfast_Food	http://ebayGroceries.com/Breakfast_Foods/Breakfast_&_Cereal_Bars/Cereal	>	0.999904	0.0
+http://amazonGroceries.com/Cereals_&_Breakfast_Food	http://ebayGroceries.com/Breakfast_Foods/Breakfast_&_Cereal_Bars/Energy_&_Nutritional	>	0.99929	0.0
+http://amazonGroceries.com/Cereals_&_Breakfast_Food	http://ebayGroceries.com/Breakfast_Foods/Breakfast_&_Cereal_Bars/Granola,_Trail_Mix	>	0.999904	0.0
+http://amazonGroceries.com/Cereals_&_Breakfast_Food	http://ebayGroceries.com/Breakfast_Foods/Cereals	>	0.993307	0.0
+http://amazonGroceries.com/Cereals_&_Breakfast_Food	http://ebayGroceries.com/Breakfast_Foods/Cereals/Gold_Cereal	>	0.999995	0.0
+http://amazonGroceries.com/Cereals_&_Breakfast_Food	http://ebayGroceries.com/Breakfast_Foods/Cereals/Granola	>	1.0	0.0
+http://amazonGroceries.com/Cereals_&_Breakfast_Food	http://ebayGroceries.com/Breakfast_Foods/Cereals/Grits	>	1.0	0.0
+http://amazonGroceries.com/Cereals_&_Breakfast_Food	http://ebayGroceries.com/Breakfast_Foods/Cereals/Muesli	>	1.0	0.0
+http://amazonGroceries.com/Cereals_&_Breakfast_Food	http://ebayGroceries.com/Breakfast_Foods/Cereals/Oatmeal	>	1.0	0.0
+http://amazonGroceries.com/Cereals_&_Breakfast_Food	http://ebayGroceries.com/Breakfast_Foods/Instant_Breakfast_Drinks	>	0.025957	0.0
+http://amazonGroceries.com/Cereals_&_Breakfast_Food	http://ebayGroceries.com/Breakfast_Foods/Toaster_Pastries	>	0.998073	0.0
+http://amazonGroceries.com/Cereals_&_Breakfast_Food	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Dried_Beans,_Grains_&_Rice/Grains_&_Rice	>	0.0	0.0
+http://amazonGroceries.com/Cereals_&_Breakfast_Food	http://ebayGroceries.com/Cooking_&_Baking/Flours_&_Meals/Oat_Bran	>	1e-06	0.0
+http://amazonGroceries.com/Cereals_&_Breakfast_Food	http://ebayGroceries.com/Cooking_&_Baking/Flours_&_Meals/Oat_Flour	>	0.0	0.0
+http://amazonGroceries.com/Cereals_&_Breakfast_Food	http://ebayGroceries.com/Cooking_&_Baking/Flours_&_Meals/Polenta_Meal	>	0.0	0.0
+http://amazonGroceries.com/Cereals_&_Breakfast_Food	http://ebayGroceries.com/Snack_Foods/Granola_&_Trail_Mix	>	0.0	0.0
+http://amazonGroceries.com/Cheese	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Packaged_Meals_&_Side_Dishes/Macaroni_&_Cheese	>	0.0	0.0
+http://amazonGroceries.com/Cheese	http://ebayGroceries.com/Gourmet_Gifts/Cheese_Gifts	>	1e-06	0.0
+http://amazonGroceries.com/Coconut_Water	http://ebayGroceries.com/Beverages	<	1.0	0.0
+http://amazonGroceries.com/Coconut_Water	http://ebayGroceries.com/Beverages/Coconut_Water	=	1.0	
+http://amazonGroceries.com/Coconut_Water	http://ebayGroceries.com/Beverages/Juices	<	1e-06	0.0
+http://amazonGroceries.com/Coconut_Water	http://ebayGroceries.com/Beverages/Juices/Fruit_Juice	<	7.5e-05	0.0
+http://amazonGroceries.com/Coconut_Water	http://ebayGroceries.com/Beverages/Soft_Drinks	<	0.0	0.0
+http://amazonGroceries.com/Coconut_Water	http://ebayGroceries.com/Beverages/Sports_Drinks	<	0.0	0.0
+http://amazonGroceries.com/Coconut_Water	http://ebayGroceries.com/Beverages/Water	<	3.1e-05	0.0
+http://amazonGroceries.com/Coconut_Water	http://ebayGroceries.com/Beverages/Water/Flavored_&_Enhanced_Water	<	0.002473	0.0
+http://amazonGroceries.com/Coffee	http://ebayGroceries.com/Beverages	<	1.0	0.0
+http://amazonGroceries.com/Coffee	http://ebayGroceries.com/Beverages/Coffee	=	1.0	
+http://amazonGroceries.com/Coffee	http://ebayGroceries.com/Beverages/Coffee/Coffee_Substitutes	>	0.999977	0.0
+http://amazonGroceries.com/Coffee	http://ebayGroceries.com/Beverages/Coffee/Ground_Coffee	>	1.0	0.0
+http://amazonGroceries.com/Coffee	http://ebayGroceries.com/Beverages/Coffee/Instant_Coffee	>	1.0	0.0
+http://amazonGroceries.com/Coffee	http://ebayGroceries.com/Beverages/Coffee/Single-Serve_Cups	>	1.0	0.0
+http://amazonGroceries.com/Coffee	http://ebayGroceries.com/Beverages/Coffee/Unroasted_Beans	>	1.0	0.0
+http://amazonGroceries.com/Coffee	http://ebayGroceries.com/Beverages/Coffee/Whole_Beans	>	1.0	0.0
+http://amazonGroceries.com/Coffee	http://ebayGroceries.com/Candy_&_Chocolate/Fruits,_Nuts_&_Snacks/Espresso_Beans	>	0.0	0.0
+http://amazonGroceries.com/Coffee/Coffee_Beans	http://ebayGroceries.com/Beverages	<	1.0	0.0
+http://amazonGroceries.com/Coffee/Coffee_Beans	http://ebayGroceries.com/Beverages/Coffee	<	0.999942	0.0
+http://amazonGroceries.com/Coffee/Coffee_Beans	http://ebayGroceries.com/Beverages/Coffee/Unroasted_Beans	>	0.000203	0.0
+http://amazonGroceries.com/Coffee/Coffee_Beans	http://ebayGroceries.com/Beverages/Coffee/Whole_Beans	=	0.999988	
+http://amazonGroceries.com/Coffee/Coffee_Beans	http://ebayGroceries.com/Candy_&_Chocolate/Fruits,_Nuts_&_Snacks/Espresso_Beans	>	0.0	0.0
+http://amazonGroceries.com/Coffee/Coffee_Pods_&_K-Cups	http://ebayGroceries.com/Beverages	<	1.0	0.0
+http://amazonGroceries.com/Coffee/Coffee_Pods_&_K-Cups	http://ebayGroceries.com/Beverages/Coffee	<	1.0	0.0
+http://amazonGroceries.com/Coffee/Coffee_Pods_&_K-Cups	http://ebayGroceries.com/Beverages/Coffee/Single-Serve_Cups	=	1.0	
+http://amazonGroceries.com/Coffee/Flavored_Coffee	http://ebayGroceries.com/Beverages	<	1.0	0.0
+http://amazonGroceries.com/Coffee/Flavored_Coffee	http://ebayGroceries.com/Beverages/Coffee	<	1.0	0.0
+http://amazonGroceries.com/Coffee/Ground_Coffee	http://ebayGroceries.com/Beverages	<	1.0	0.0
+http://amazonGroceries.com/Coffee/Ground_Coffee	http://ebayGroceries.com/Beverages/Coffee	<	1.0	0.0
+http://amazonGroceries.com/Coffee/Ground_Coffee	http://ebayGroceries.com/Beverages/Coffee/Ground_Coffee	=	1.0	
+http://amazonGroceries.com/Coffee/Ground_Coffee	http://ebayGroceries.com/Gourmet_Gifts	<	0.0	0.0
+http://amazonGroceries.com/Coffee_&_Soda_Syrups	http://ebayGroceries.com/Beverages	<	0.99998	0.0
+http://amazonGroceries.com/Coffee_&_Soda_Syrups	http://ebayGroceries.com/Beverages/Flavoring_Syrup	=	0.999809	
+http://amazonGroceries.com/Coffee_&_Soda_Syrups	http://ebayGroceries.com/Beverages/Soda_Syrups	>	0.880797	0.0
+http://amazonGroceries.com/Coffee_&_Soda_Syrups	http://ebayGroceries.com/Cooking_&_Baking/Dessert_Syrups_&_Sauces	<	0.0	0.0
+http://amazonGroceries.com/Coffee_&_Soda_Syrups	http://ebayGroceries.com/Cooking_&_Baking/Dessert_Syrups_&_Sauces/Flavoring_Syrups	=	2e-06	
+http://amazonGroceries.com/Coffee_&_Soda_Syrups	http://ebayGroceries.com/Cooking_&_Baking/Extracts_&_Flavoring	<	0.0	0.0
+http://amazonGroceries.com/Coffee_&_Soda_Syrups	http://ebayGroceries.com/Cooking_&_Baking/Syrup,_Sugars_&_Sweeteners	<	1e-05	0.0
+http://amazonGroceries.com/Coffee_&_Soda_Syrups	http://ebayGroceries.com/Cooking_&_Baking/Syrup,_Sugars_&_Sweeteners/Maple_Syrup	>	0.0	0.0
+http://amazonGroceries.com/Coffee_&_Soda_Syrups	http://ebayGroceries.com/Cooking_&_Baking/Syrup,_Sugars_&_Sweeteners/Simple_Syrup	>	0.0	0.0
+http://amazonGroceries.com/Condiments	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods	<	1.0	0.0
+http://amazonGroceries.com/Condiments	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Condiments,_Pickles_&_Relishes	<	0.998299	0.0
+http://amazonGroceries.com/Condiments	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Condiments,_Pickles_&_Relishes/Cocktail_Sauce	>	1.0	0.0
+http://amazonGroceries.com/Condiments	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Condiments,_Pickles_&_Relishes/Mustard	>	1.0	0.0
+http://amazonGroceries.com/Condiments	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Condiments,_Pickles_&_Relishes/Pickled_Vegetables	>	0.999992	0.0
+http://amazonGroceries.com/Condiments	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Condiments,_Pickles_&_Relishes/Salad_Toppings	>	0.999967	0.0
+http://amazonGroceries.com/Condiments	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Condiments,_Pickles_&_Relishes/Sandwich_Spreads	>	0.999999	0.0
+http://amazonGroceries.com/Condiments	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Condiments,_Pickles_&_Relishes/Tartar_Sauce	>	1.0	0.0
+http://amazonGroceries.com/Condiments	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Condiments,_Pickles_&_Relishes/Worcestershire_Sauce	>	1.0	0.0
+http://amazonGroceries.com/Condiments	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Herbs,_Spices_&_Seasonings	>	0.0	0.0
+http://amazonGroceries.com/Condiments	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Herbs,_Spices_&_Seasonings/Mixed_Spices_&_Seasonings	>	0.0	0.0
+http://amazonGroceries.com/Condiments	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Herbs,_Spices_&_Seasonings/Salt_&_Salt_Substitutes	>	3e-06	0.0
+http://amazonGroceries.com/Condiments	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Herbs,_Spices_&_Seasonings/Single_Herbs_&_Spices	>	0.0	0.0
+http://amazonGroceries.com/Condiments	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Herbs,_Spices_&_Seasonings/Spices_Gifts_	>	0.0	0.0
+http://amazonGroceries.com/Condiments	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Oils,_Vinegars_&_Salad_Dressings	>	0.00461	0.0
+http://amazonGroceries.com/Condiments	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Sauces,_Gravies_&_Marinades	=	0.0	
+http://amazonGroceries.com/Condiments	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Sauces,_Gravies_&_Marinades/Marinades_&_Seasoning_Mixes	>	0.904651	0.0
+http://amazonGroceries.com/Condiments	http://ebayGroceries.com/Cooking_&_Baking/Breadcrumbs_&_Seasoned_Coatings/Seasoned_Coatings	>	0.0	0.0
+http://amazonGroceries.com/Condiments	http://ebayGroceries.com/Cooking_&_Baking/Cooking_Oils,_Vinegars_&_Sprays	>	1.3e-05	0.0
+http://amazonGroceries.com/Condiments	http://ebayGroceries.com/Cooking_&_Baking/Dessert_Syrups_&_Sauces	>	0.0	0.0
+http://amazonGroceries.com/Condiments	http://ebayGroceries.com/Cooking_&_Baking/Dessert_Syrups_&_Sauces/Flavoring_Syrups	>	0.0	0.0
+http://amazonGroceries.com/Condiments	http://ebayGroceries.com/Gourmet_Gifts/Sauces_Gifts	>	4e-06	0.0
+http://amazonGroceries.com/Condiments	http://ebayGroceries.com/Gourmet_Gifts/Spices_Gifts	>	0.0	0.0
+http://amazonGroceries.com/Cookies_&_Biscotti	http://ebayGroceries.com/Cooking_&_Baking/Baking_Mixes	<	0.0	0.0
+http://amazonGroceries.com/Cookies_&_Biscotti	http://ebayGroceries.com/Cooking_&_Baking/Baking_Mixes/Biscuits	=	0.0	
+http://amazonGroceries.com/Cookies_&_Biscotti	http://ebayGroceries.com/Gourmet_Gifts/Dessert_Gifts	<	0.0	0.0
+http://amazonGroceries.com/Cookies_&_Biscotti	http://ebayGroceries.com/Gourmet_Gifts/Snack_Gifts	<	0.0	0.0
+http://amazonGroceries.com/Cookies_&_Biscotti	http://ebayGroceries.com/Snack_Foods	<	1.0	0.0
+http://amazonGroceries.com/Cookies_&_Biscotti	http://ebayGroceries.com/Snack_Foods/Cookies	=	0.999991	
+http://amazonGroceries.com/Cookies_&_Biscotti	http://ebayGroceries.com/Snack_Foods/Cookies/Assortments_&_Sampler	>	0.99982	0.0
+http://amazonGroceries.com/Cookies_&_Biscotti	http://ebayGroceries.com/Snack_Foods/Cookies/Biscotti	>	0.999089	0.0
+http://amazonGroceries.com/Cookies_&_Biscotti	http://ebayGroceries.com/Snack_Foods/Cookies/Chocolate	>	0.999996	0.0
+http://amazonGroceries.com/Cookies_&_Biscotti	http://ebayGroceries.com/Snack_Foods/Cookies/Chocolate_Chip	>	0.999998	0.0
+http://amazonGroceries.com/Cookies_&_Biscotti	http://ebayGroceries.com/Snack_Foods/Cookies/Ginger_Snaps	>	1.0	0.0
+http://amazonGroceries.com/Cookies_&_Biscotti	http://ebayGroceries.com/Snack_Foods/Cookies/Ladyfingers	>	0.999999	0.0
+http://amazonGroceries.com/Cookies_&_Biscotti	http://ebayGroceries.com/Snack_Foods/Cookies/Peanut_Butter	>	0.999993	0.0
+http://amazonGroceries.com/Cookies_&_Biscotti	http://ebayGroceries.com/Snack_Foods/Cookies/Pizzelles	>	1.0	0.0
+http://amazonGroceries.com/Cookies_&_Biscotti	http://ebayGroceries.com/Snack_Foods/Cookies/Shortbread	>	0.999996	0.0
+http://amazonGroceries.com/Cookies_&_Biscotti	http://ebayGroceries.com/Snack_Foods/Cookies/Snickerdoodles	>	1.0	0.0
+http://amazonGroceries.com/Cookies_&_Biscotti	http://ebayGroceries.com/Snack_Foods/Cookies/Wafers	>	0.999997	0.0
+http://amazonGroceries.com/Desserts	http://ebayGroceries.com/Candy_&_Chocolate	>	0.003173	0.0
+http://amazonGroceries.com/Desserts	http://ebayGroceries.com/Candy_&_Chocolate/Candy_&_Chocolate_Gifts	>	0.000158	0.0
+http://amazonGroceries.com/Desserts	http://ebayGroceries.com/Candy_&_Chocolate/Chocolate_Truffels	>	0.999569	0.0
+http://amazonGroceries.com/Desserts	http://ebayGroceries.com/Candy_&_Chocolate/Fruit_Candy	>	0.754915	0.0
+http://amazonGroceries.com/Desserts	http://ebayGroceries.com/Candy_&_Chocolate/Nut_Clusters	>	0.029312	0.0
+http://amazonGroceries.com/Desserts	http://ebayGroceries.com/Candy_&_Chocolate/Suckers_&_Lollipops	>	0.033086	0.0
+http://amazonGroceries.com/Desserts	http://ebayGroceries.com/Cooking_&_Baking/Baking_Mixes/Pie_Crusts	>	0.0	0.0
+http://amazonGroceries.com/Desserts	http://ebayGroceries.com/Cooking_&_Baking/Dessert_Syrups_&_Sauces	>	0.000261	0.0
+http://amazonGroceries.com/Desserts	http://ebayGroceries.com/Cooking_&_Baking/Dessert_Syrups_&_Sauces/Flavoring_Syrups	>	0.0	0.0
+http://amazonGroceries.com/Desserts	http://ebayGroceries.com/Cooking_&_Baking/Frosting,_Icing_&_Decorations	>	0.0	0.0
+http://amazonGroceries.com/Desserts	http://ebayGroceries.com/Cooking_&_Baking/Frosting,_Icing_&_Decorations/Frostings_&_Icings	>	0.0	0.0
+http://amazonGroceries.com/Desserts	http://ebayGroceries.com/Cooking_&_Baking/Pie_&_Pastry_Fillings	>	0.0	0.0
+http://amazonGroceries.com/Desserts	http://ebayGroceries.com/Cooking_&_Baking/Pudding_&_Gelatin	>	0.977023	0.0
+http://amazonGroceries.com/Desserts	http://ebayGroceries.com/Gourmet_Gifts	<	1.1e-05	0.0
+http://amazonGroceries.com/Desserts	http://ebayGroceries.com/Gourmet_Gifts/Candy_Gifts	>	0.000123	0.0
+http://amazonGroceries.com/Desserts	http://ebayGroceries.com/Gourmet_Gifts/Dessert_Gifts	>	0.999925	0.0
+http://amazonGroceries.com/Desserts	http://ebayGroceries.com/Snack_Foods/Cookies	>	0.00117	0.0
+http://amazonGroceries.com/Desserts	http://ebayGroceries.com/Snack_Foods/Cookies/Assortments_&_Sampler	>	0.000488	0.0
+http://amazonGroceries.com/Desserts	http://ebayGroceries.com/Snack_Foods/Fruit_Snacks	>	0.0	0.0
+http://amazonGroceries.com/Desserts	http://ebayGroceries.com/Snack_Foods/Ice_Cream_Cones_&_Toppings	>	1e-06	0.0
+http://amazonGroceries.com/Desserts	http://ebayGroceries.com/Snack_Foods/Pudding_&_Gelantine	>	0.996406	0.0
+http://amazonGroceries.com/Drink_Mixes	http://ebayGroceries.com/Beverages	<	0.999569	0.0
+http://amazonGroceries.com/Drink_Mixes	http://ebayGroceries.com/Beverages/Cocktail_Mixers	=	0.0	
+http://amazonGroceries.com/Drink_Mixes	http://ebayGroceries.com/Beverages/Flavoring_Syrup	>	0.0	0.0
+http://amazonGroceries.com/Drink_Mixes	http://ebayGroceries.com/Beverages/Iced_Tea_&_Lemonade	>	0.0	0.0
+http://amazonGroceries.com/Drink_Mixes	http://ebayGroceries.com/Beverages/Powdered_Drink_Mixes	>	0.999999	0.0
+http://amazonGroceries.com/Drink_Mixes	http://ebayGroceries.com/Beverages/Powdered_Drink_Mixes/Chocolate_Drink_Mixes	>	0.999995	0.0
+http://amazonGroceries.com/Drink_Mixes	http://ebayGroceries.com/Beverages/Powdered_Drink_Mixes/Instant_Breakfast_Drinks_	>	0.999962	0.0
+http://amazonGroceries.com/Drink_Mixes	http://ebayGroceries.com/Beverages/Powdered_Drink_Mixes/Powdered_Milk	>	0.005911	0.0
+http://amazonGroceries.com/Drink_Mixes	http://ebayGroceries.com/Beverages/Powdered_Drink_Mixes/Soft_Drink_Mixes	>	0.999998	0.0
+http://amazonGroceries.com/Drink_Mixes	http://ebayGroceries.com/Beverages/Soda_Syrups	>	5.1e-05	0.0
+http://amazonGroceries.com/Drink_Mixes	http://ebayGroceries.com/Beverages/Water/Flavored_&_Enhanced_Water	>	0.0	0.0
+http://amazonGroceries.com/Drink_Mixes	http://ebayGroceries.com/Breakfast_Foods/Instant_Breakfast_Drinks	>	6e-06	0.0
+http://amazonGroceries.com/Fake_Food	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Canned_&_Jarred_Food/Meat_Substitutes	>	0.0	0.0
+http://amazonGroceries.com/Fruit_Juices	http://ebayGroceries.com/Beverages	<	0.99982	0.0
+http://amazonGroceries.com/Fruit_Juices	http://ebayGroceries.com/Beverages/Juices	<	0.999569	0.0
+http://amazonGroceries.com/Fruit_Juices	http://ebayGroceries.com/Beverages/Juices/Ciders	>	0.001325	0.0
+http://amazonGroceries.com/Fruit_Juices	http://ebayGroceries.com/Beverages/Juices/Fruit_Juice	=	1.0	
+http://amazonGroceries.com/Fruit_Juices	http://ebayGroceries.com/Beverages/Juices/Smoothies	>	0.000203	0.0
+http://amazonGroceries.com/Fruit_Juices	http://ebayGroceries.com/Beverages/Juices/Sparkling_Juice	>	0.053403	0.0
+http://amazonGroceries.com/Fruits	http://ebayGroceries.com/Beverages/Juices	>	0.0	0.0
+http://amazonGroceries.com/Fruits	http://ebayGroceries.com/Beverages/Juices/Fruit_Juice	>	0.0	0.0
+http://amazonGroceries.com/Fruits	http://ebayGroceries.com/Beverages/Juices/Sparkling_Juice	>	0.0	0.0
+http://amazonGroceries.com/Fruits	http://ebayGroceries.com/Candy_&_Chocolate/Fruits,_Nuts_&_Snacks	<	0.0	0.0
+http://amazonGroceries.com/Fruits	http://ebayGroceries.com/Candy_&_Chocolate/Fruits,_Nuts_&_Snacks/Fruits_	=	0.0	
+http://amazonGroceries.com/Fruits	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Canned_&_Jarred_Food/Fruits	>	0.999891	0.0
+http://amazonGroceries.com/Fruits	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Jams,_Jellies_&_Sweet_Spreads/Fruit_Butters	>	0.0	0.0
+http://amazonGroceries.com/Fruits	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Jams,_Jellies_&_Sweet_Spreads/Jams,_Jellies_&_Preserves	>	0.0	0.0
+http://amazonGroceries.com/Fruits	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Jams,_Jellies_&_Sweet_Spreads/Jams_&_Preserves_Gifts_	>	0.0	0.0
+http://amazonGroceries.com/Fruits	http://ebayGroceries.com/Cooking_&_Baking/Dried_Fruit_&_Raisins	>	1.9e-05	0.0
+http://amazonGroceries.com/Fruits	http://ebayGroceries.com/Gourmet_Gifts/Fruit_Gifts	>	0.000158	0.0
+http://amazonGroceries.com/Fruits	http://ebayGroceries.com/Snack_Foods/Applesauce_&_Fruit_Cups	>	5e-06	0.0
+http://amazonGroceries.com/Fruits	http://ebayGroceries.com/Snack_Foods/Fruit_Leather	>	0.0	0.0
+http://amazonGroceries.com/Fruits	http://ebayGroceries.com/Snack_Foods/Fruit_Snacks	>	0.0	0.0
+http://amazonGroceries.com/Grains_&_Pasta	http://ebayGroceries.com/Breakfast_Foods/Cereals	>	1e-06	0.0
+http://amazonGroceries.com/Grains_&_Pasta	http://ebayGroceries.com/Breakfast_Foods/Cereals/Gold_Cereal	>	7.5e-05	0.0
+http://amazonGroceries.com/Grains_&_Pasta	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods	<	0.99993	0.0
+http://amazonGroceries.com/Grains_&_Pasta	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Dried_Beans,_Grains_&_Rice	=	3e-06	
+http://amazonGroceries.com/Grains_&_Pasta	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Dried_Beans,_Grains_&_Rice/Grains_&_Rice	>	0.000488	0.0
+http://amazonGroceries.com/Grains_&_Pasta	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Packaged_Meals_&_Side_Dishes	>	0.0	0.0
+http://amazonGroceries.com/Grains_&_Pasta	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Packaged_Meals_&_Side_Dishes/Pasta_&_Noodle_Dinner_Kits	>	0.798187	0.0
+http://amazonGroceries.com/Grains_&_Pasta	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Packaged_Meals_&_Side_Dishes/Pasta_Salad_Kits	>	0.000158	0.0
+http://amazonGroceries.com/Grains_&_Pasta	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Packaged_Meals_&_Side_Dishes/Rice_Dishes	>	0.067547	0.0
+http://amazonGroceries.com/Grains_&_Pasta	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Pasta_&_Noodles	=	0.007577	
+http://amazonGroceries.com/Grains_&_Pasta	http://ebayGroceries.com/Cooking_&_Baking/Breadcrumbs_&_Seasoned_Coatings	>	0.0	0.0
+http://amazonGroceries.com/Grains_&_Pasta	http://ebayGroceries.com/Cooking_&_Baking/Flours_&_Meals	>	0.0	0.0
+http://amazonGroceries.com/Grains_&_Pasta	http://ebayGroceries.com/Cooking_&_Baking/Flours_&_Meals/Barley_Flour	>	0.00071	0.0
+http://amazonGroceries.com/Grains_&_Pasta	http://ebayGroceries.com/Cooking_&_Baking/Flours_&_Meals/Oat_Bran	>	4.5e-05	0.0
+http://amazonGroceries.com/Grains_&_Pasta	http://ebayGroceries.com/Cooking_&_Baking/Flours_&_Meals/Oat_Flour	>	1.1e-05	0.0
+http://amazonGroceries.com/Grains_&_Pasta	http://ebayGroceries.com/Cooking_&_Baking/Flours_&_Meals/Polenta_Meal	>	0.000911	0.0
+http://amazonGroceries.com/Grains_&_Pasta	http://ebayGroceries.com/Cooking_&_Baking/Flours_&_Meals/Rice_Flour	>	6e-06	0.0
+http://amazonGroceries.com/Grains_&_Pasta	http://ebayGroceries.com/Cooking_&_Baking/Flours_&_Meals/Wheat_Flours_&_Meals	>	1.7e-05	0.0
+http://amazonGroceries.com/Honey_&_Syrup_&_Sweeteners	http://ebayGroceries.com/Beverages/Flavoring_Syrup	>	0.0	0.0
+http://amazonGroceries.com/Honey_&_Syrup_&_Sweeteners	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Jams,_Jellies_&_Sweet_Spreads/Hazelnut_Spread	>	0.0	0.0
+http://amazonGroceries.com/Honey_&_Syrup_&_Sweeteners	http://ebayGroceries.com/Cooking_&_Baking/Dessert_Syrups_&_Sauces	>	1.1e-05	0.0
+http://amazonGroceries.com/Honey_&_Syrup_&_Sweeteners	http://ebayGroceries.com/Cooking_&_Baking/Dessert_Syrups_&_Sauces/Flavoring_Syrups	>	0.957912	0.0
+http://amazonGroceries.com/Honey_&_Syrup_&_Sweeteners	http://ebayGroceries.com/Cooking_&_Baking/Sugar_Substitutes	>	0.0	0.0
+http://amazonGroceries.com/Honey_&_Syrup_&_Sweeteners	http://ebayGroceries.com/Cooking_&_Baking/Syrup,_Sugars_&_Sweeteners	=	0.999999	
+http://amazonGroceries.com/Honey_&_Syrup_&_Sweeteners	http://ebayGroceries.com/Cooking_&_Baking/Syrup,_Sugars_&_Sweeteners/Agave_Nectar_&_Syrup	>	0.999957	0.0
+http://amazonGroceries.com/Honey_&_Syrup_&_Sweeteners	http://ebayGroceries.com/Cooking_&_Baking/Syrup,_Sugars_&_Sweeteners/Honey	>	0.999999	0.0
+http://amazonGroceries.com/Honey_&_Syrup_&_Sweeteners	http://ebayGroceries.com/Cooking_&_Baking/Syrup,_Sugars_&_Sweeteners/Maple_Syrup	>	0.999993	0.0
+http://amazonGroceries.com/Honey_&_Syrup_&_Sweeteners	http://ebayGroceries.com/Cooking_&_Baking/Syrup,_Sugars_&_Sweeteners/Molasses	>	0.999957	0.0
+http://amazonGroceries.com/Honey_&_Syrup_&_Sweeteners	http://ebayGroceries.com/Cooking_&_Baking/Syrup,_Sugars_&_Sweeteners/Simple_Syrup	>	0.999965	0.0
+http://amazonGroceries.com/Honey_&_Syrup_&_Sweeteners	http://ebayGroceries.com/Cooking_&_Baking/Syrup,_Sugars_&_Sweeteners/Sugars	>	0.817574	0.0
+http://amazonGroceries.com/International_Food	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Packaged_Meals_&_Side_Dishes	>	0.0	0.0
+http://amazonGroceries.com/International_Food	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Packaged_Meals_&_Side_Dishes/Asian_Dishes	>	0.003173	0.0
+http://amazonGroceries.com/International_Food	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Packaged_Meals_&_Side_Dishes/Indian_Dishes	>	0.348645	0.0
+http://amazonGroceries.com/International_Food	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Packaged_Meals_&_Side_Dishes/Mexican_Dinner_Kits	>	0.000109	0.0
+http://amazonGroceries.com/International_Food	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Packaged_Meals_&_Side_Dishes/Pasta_Salad_Kits	>	0.0	0.0
+http://amazonGroceries.com/International_Food	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Packaged_Meals_&_Side_Dishes/Rice_Dishes	>	0.0	0.0
+http://amazonGroceries.com/International_Food	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Pasta_&_Noodles	>	0.0	0.0
+http://amazonGroceries.com/International_Food	http://ebayGroceries.com/Cooking_&_Baking/Dried_Seaweed_&_Nori	>	0.0	0.0
+http://amazonGroceries.com/International_Food	http://ebayGroceries.com/Cooking_&_Baking/Flours_&_Meals/Polenta_Meal	>	0.0	0.0
+http://amazonGroceries.com/International_Food	http://ebayGroceries.com/Cooking_&_Baking/Flours_&_Meals/Wheat_Flours_&_Meals	>	0.0	0.0
+http://amazonGroceries.com/International_Food	http://ebayGroceries.com/Gourmet_Gifts/Seafood_Gifts	>	0.0	0.0
+http://amazonGroceries.com/International_Food	http://ebayGroceries.com/Gourmet_Gifts/Spices_Gifts	>	0.0	0.0
+http://amazonGroceries.com/International_Food	http://ebayGroceries.com/Snack_Foods/Wasabi_Peas	>	0.0	0.0
+http://amazonGroceries.com/Jams,_Jellies_&_Preserves	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods	<	0.999999	0.0
+http://amazonGroceries.com/Jams,_Jellies_&_Preserves	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Canned_&_Jarred_Food	<	0.001927	0.0
+http://amazonGroceries.com/Jams,_Jellies_&_Preserves	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Condiments,_Pickles_&_Relishes	<	4.5e-05	0.0
+http://amazonGroceries.com/Jams,_Jellies_&_Preserves	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Condiments,_Pickles_&_Relishes/Sandwich_Spreads	<	1e-06	0.0
+http://amazonGroceries.com/Jams,_Jellies_&_Preserves	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Jams,_Jellies_&_Sweet_Spreads	<	1.0	0.0
+http://amazonGroceries.com/Jams,_Jellies_&_Preserves	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Jams,_Jellies_&_Sweet_Spreads/Fruit_Butters	>	0.999957	0.0
+http://amazonGroceries.com/Jams,_Jellies_&_Preserves	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Jams,_Jellies_&_Sweet_Spreads/Hazelnut_Spread	>	0.992423	0.0
+http://amazonGroceries.com/Jams,_Jellies_&_Preserves	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Jams,_Jellies_&_Sweet_Spreads/Jams,_Jellies_&_Preserves	=	1.0	
+http://amazonGroceries.com/Jams,_Jellies_&_Preserves	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Jams,_Jellies_&_Sweet_Spreads/Jams_&_Preserves_Gifts_	>	0.00038	0.0
+http://amazonGroceries.com/Jams,_Jellies_&_Preserves	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Jams,_Jellies_&_Sweet_Spreads/Marmalades	>	0.999982	0.0
+http://amazonGroceries.com/Jams,_Jellies_&_Preserves	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Jams,_Jellies_&_Sweet_Spreads/Marshmallow_Spread	>	0.679179	0.0
+http://amazonGroceries.com/Jams,_Jellies_&_Preserves	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Jams,_Jellies_&_Sweet_Spreads/Nut_Butters	>	1e-06	0.0
+http://amazonGroceries.com/Jams,_Jellies_&_Preserves	http://ebayGroceries.com/Cooking_&_Baking/Pie_&_Pastry_Fillings	<	0.0	0.0
+http://amazonGroceries.com/Jams,_Jellies_&_Preserves	http://ebayGroceries.com/Gourmet_Gifts/Jams_&_Preserves_Gifts	>	0.982014	0.0
+http://amazonGroceries.com/Meat,_Poultry_&_Seafood	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Canned_&_Jarred_Food/Meat_&_Seafood	>	0.651355	0.0
+http://amazonGroceries.com/Meat,_Poultry_&_Seafood	http://ebayGroceries.com/Cooking_&_Baking/Dried_Seaweed_&_Nori	>	0.0	0.0
+http://amazonGroceries.com/Meat,_Poultry_&_Seafood	http://ebayGroceries.com/Cooking_&_Baking/Lard_&_Shortening	>	0.0	0.0
+http://amazonGroceries.com/Meat,_Poultry_&_Seafood	http://ebayGroceries.com/Cooking_&_Baking/Powdered_Eggs	>	0.0	0.0
+http://amazonGroceries.com/Meat,_Poultry_&_Seafood	http://ebayGroceries.com/Gourmet_Gifts/Meat_Gifts	>	0.999569	0.0
+http://amazonGroceries.com/Meat,_Poultry_&_Seafood	http://ebayGroceries.com/Gourmet_Gifts/Seafood_Gifts	>	0.00522	0.0
+http://amazonGroceries.com/Meat,_Poultry_&_Seafood	http://ebayGroceries.com/Snack_Foods/Jerky_&_Dried_Meats	>	0.000804	0.0
+http://amazonGroceries.com/Meat,_Poultry_&_Seafood	http://ebayGroceries.com/Snack_Foods/Pork_Rinds	>	0.0	0.0
+http://amazonGroceries.com/Milk_&_Non-Dairy_Milks	http://ebayGroceries.com/Beverages	<	0.999869	0.0
+http://amazonGroceries.com/Milk_&_Non-Dairy_Milks	http://ebayGroceries.com/Beverages/Powdered_Drink_Mixes	>	0.0	0.0
+http://amazonGroceries.com/Milk_&_Non-Dairy_Milks	http://ebayGroceries.com/Beverages/Powdered_Drink_Mixes/Powdered_Milk	>	0.132964	0.0
+http://amazonGroceries.com/Milk_&_Non-Dairy_Milks	http://ebayGroceries.com/Cooking_&_Baking/Condensed_&_Powdered_Milk	>	1.3e-05	0.0
+http://amazonGroceries.com/Nuts_&_Seeds	http://ebayGroceries.com/Candy_&_Chocolate/Fruits,_Nuts_&_Snacks	<	0.033086	0.0
+http://amazonGroceries.com/Nuts_&_Seeds	http://ebayGroceries.com/Candy_&_Chocolate/Fruits,_Nuts_&_Snacks/Nuts	>	0.053403	0.0
+http://amazonGroceries.com/Nuts_&_Seeds	http://ebayGroceries.com/Candy_&_Chocolate/Nut_Clusters	>	0.0	0.0
+http://amazonGroceries.com/Nuts_&_Seeds	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods	<	0.0	0.0
+http://amazonGroceries.com/Nuts_&_Seeds	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Jams,_Jellies_&_Sweet_Spreads/Hazelnut_Spread	>	0.0	0.0
+http://amazonGroceries.com/Nuts_&_Seeds	http://ebayGroceries.com/Cooking_&_Baking/Nuts_&_Seeds	=	1.0	
+http://amazonGroceries.com/Nuts_&_Seeds	http://ebayGroceries.com/Snack_Foods/Cookies/Nut	>	0.0	0.0
+http://amazonGroceries.com/Nuts_&_Seeds	http://ebayGroceries.com/Snack_Foods/Granola_&_Trail_Mix	>	0.0	0.0
+http://amazonGroceries.com/Nuts_&_Seeds	http://ebayGroceries.com/Snack_Foods/Nuts,_Seeds	=	1.0	
+http://amazonGroceries.com/Nuts_&_Seeds	http://ebayGroceries.com/Snack_Foods/Nuts,_Seeds/Almonds	>	1.0	0.0
+http://amazonGroceries.com/Nuts_&_Seeds	http://ebayGroceries.com/Snack_Foods/Nuts,_Seeds/Cashews	>	1.0	0.0
+http://amazonGroceries.com/Nuts_&_Seeds	http://ebayGroceries.com/Snack_Foods/Nuts,_Seeds/Chia_Seeds	>	0.999998	0.0
+http://amazonGroceries.com/Nuts_&_Seeds	http://ebayGroceries.com/Snack_Foods/Nuts,_Seeds/Hazelnuts	>	1.0	0.0
+http://amazonGroceries.com/Nuts_&_Seeds	http://ebayGroceries.com/Snack_Foods/Nuts,_Seeds/Macadmia_Nuts	>	0.999996	0.0
+http://amazonGroceries.com/Nuts_&_Seeds	http://ebayGroceries.com/Snack_Foods/Nuts,_Seeds/Mixed_Nuts	>	0.999999	0.0
+http://amazonGroceries.com/Nuts_&_Seeds	http://ebayGroceries.com/Snack_Foods/Nuts,_Seeds/Peanuts	>	1.0	0.0
+http://amazonGroceries.com/Nuts_&_Seeds	http://ebayGroceries.com/Snack_Foods/Nuts,_Seeds/Pecans	>	1.0	0.0
+http://amazonGroceries.com/Nuts_&_Seeds	http://ebayGroceries.com/Snack_Foods/Nuts,_Seeds/Pistachio_Nuts	>	0.999998	0.0
+http://amazonGroceries.com/Nuts_&_Seeds	http://ebayGroceries.com/Snack_Foods/Nuts,_Seeds/Pumpkin_Nuts	>	0.999995	0.0
+http://amazonGroceries.com/Nuts_&_Seeds	http://ebayGroceries.com/Snack_Foods/Nuts,_Seeds/Pumpkin_Seeds	>	0.999997	0.0
+http://amazonGroceries.com/Nuts_&_Seeds	http://ebayGroceries.com/Snack_Foods/Nuts,_Seeds/Sunflower_Seeds	>	0.999997	0.0
+http://amazonGroceries.com/Nuts_&_Seeds	http://ebayGroceries.com/Snack_Foods/Nuts,_Seeds/Walnuts	>	1.0	0.0
+http://amazonGroceries.com/Oils	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Oils,_Vinegars_&_Salad_Dressings	<	0.999942	0.0
+http://amazonGroceries.com/Oils	http://ebayGroceries.com/Cooking_&_Baking/Cooking_Oils,_Vinegars_&_Sprays	<	1.0	0.0
+http://amazonGroceries.com/Oils	http://ebayGroceries.com/Cooking_&_Baking/Cooking_Oils,_Vinegars_&_Sprays/Non-Stick_Cooking_Oil_Sprays	>	0.999942	0.0
+http://amazonGroceries.com/Oils	http://ebayGroceries.com/Cooking_&_Baking/Cooking_Oils,_Vinegars_&_Sprays/Oils	=	0.999994	
+http://amazonGroceries.com/Oils	http://ebayGroceries.com/Cooking_&_Baking/Lard_&_Shortening	>	0.0	0.0
+http://amazonGroceries.com/Sauces	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods	<	0.999374	0.0
+http://amazonGroceries.com/Sauces	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Condiments,_Pickles_&_Relishes	<	0.99999	0.0
+http://amazonGroceries.com/Sauces	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Condiments,_Pickles_&_Relishes/Cocktail_Sauce	>	0.999999	0.0
+http://amazonGroceries.com/Sauces	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Condiments,_Pickles_&_Relishes/Mayonnaise	>	0.000109	0.0
+http://amazonGroceries.com/Sauces	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Condiments,_Pickles_&_Relishes/Sandwich_Spreads	>	0.0	0.0
+http://amazonGroceries.com/Sauces	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Condiments,_Pickles_&_Relishes/Steak_Sauce	>	1.0	0.0
+http://amazonGroceries.com/Sauces	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Condiments,_Pickles_&_Relishes/Tartar_Sauce	>	0.999999	0.0
+http://amazonGroceries.com/Sauces	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Condiments,_Pickles_&_Relishes/Worcestershire_Sauce	>	0.999993	0.0
+http://amazonGroceries.com/Sauces	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Oils,_Vinegars_&_Salad_Dressings	<	0.0	0.0
+http://amazonGroceries.com/Sauces	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Sauces,_Gravies_&_Marinades	<	0.999989	0.0
+http://amazonGroceries.com/Sauces	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Sauces,_Gravies_&_Marinades/Glazes	>	0.999967	0.0
+http://amazonGroceries.com/Sauces	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Sauces,_Gravies_&_Marinades/Gravies	>	0.984094	0.0
+http://amazonGroceries.com/Sauces	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Sauces,_Gravies_&_Marinades/Hot_Sauces	>	1.0	0.0
+http://amazonGroceries.com/Sauces	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Sauces,_Gravies_&_Marinades/Marinades_&_Seasoning_Mixes	>	0.994089	0.0
+http://amazonGroceries.com/Sauces	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Sauces,_Gravies_&_Marinades/Sauces	=	1.0	
+http://amazonGroceries.com/Sauces	http://ebayGroceries.com/Cooking_&_Baking/Dessert_Syrups_&_Sauces	>	1e-06	0.0
+http://amazonGroceries.com/Sauces	http://ebayGroceries.com/Cooking_&_Baking/Dessert_Syrups_&_Sauces/Flavoring_Syrups	>	0.0	0.0
+http://amazonGroceries.com/Sauces	http://ebayGroceries.com/Gourmet_Gifts/Sauces_Gifts	>	0.999196	0.0
+http://amazonGroceries.com/Sauces	http://ebayGroceries.com/Snack_Foods/Applesauce_&_Fruit_Cups	>	0.0	0.0
+http://amazonGroceries.com/Sauces	http://ebayGroceries.com/Snack_Foods/Salsas,_Dips_&_Spreads	=	0.0	
+http://amazonGroceries.com/Snack_Foods	http://ebayGroceries.com/Candy_&_Chocolate/Fruits,_Nuts_&_Snacks	=	0.0	
+http://amazonGroceries.com/Snack_Foods	http://ebayGroceries.com/Candy_&_Chocolate/Fruits,_Nuts_&_Snacks/Potato_Chips	>	0.468791	0.0
+http://amazonGroceries.com/Snack_Foods	http://ebayGroceries.com/Gourmet_Gifts/Snack_Gifts	>	0.592667	0.0
+http://amazonGroceries.com/Snack_Foods	http://ebayGroceries.com/Snack_Foods	=	0.999998	
+http://amazonGroceries.com/Snack_Foods	http://ebayGroceries.com/Snack_Foods/Applesauce_&_Fruit_Cups	>	0.999971	0.0
+http://amazonGroceries.com/Snack_Foods	http://ebayGroceries.com/Snack_Foods/Chips_&_Crisps	>	0.999976	0.0
+http://amazonGroceries.com/Snack_Foods	http://ebayGroceries.com/Snack_Foods/Cookies/Assortments_&_Sampler	>	1.0	0.0
+http://amazonGroceries.com/Snack_Foods	http://ebayGroceries.com/Snack_Foods/Cookies/Chocolate_Chip	>	1.0	0.0
+http://amazonGroceries.com/Snack_Foods	http://ebayGroceries.com/Snack_Foods/Cookies/Peanut_Butter	>	1.0	0.0
+http://amazonGroceries.com/Snack_Foods	http://ebayGroceries.com/Snack_Foods/Crackers	>	0.999992	0.0
+http://amazonGroceries.com/Snack_Foods	http://ebayGroceries.com/Snack_Foods/Crackers/Assortments_&_Samplers	>	1.0	0.0
+http://amazonGroceries.com/Snack_Foods	http://ebayGroceries.com/Snack_Foods/Crackers/Bagel_Chips	>	1.0	0.0
+http://amazonGroceries.com/Snack_Foods	http://ebayGroceries.com/Snack_Foods/Fruit_Leather	>	0.999995	0.0
+http://amazonGroceries.com/Snack_Foods	http://ebayGroceries.com/Snack_Foods/Fruit_Snacks	>	0.999971	0.0
+http://amazonGroceries.com/Snack_Foods	http://ebayGroceries.com/Snack_Foods/Granola_&_Trail_Mix	>	0.999996	0.0
+http://amazonGroceries.com/Snack_Foods	http://ebayGroceries.com/Snack_Foods/Ice_Cream_Cones_&_Toppings	>	0.999869	0.0
+http://amazonGroceries.com/Snack_Foods	http://ebayGroceries.com/Snack_Foods/Jerky_&_Dried_Meats	>	0.999995	0.0
+http://amazonGroceries.com/Snack_Foods	http://ebayGroceries.com/Snack_Foods/Party_Mix	>	0.999996	0.0
+http://amazonGroceries.com/Snack_Foods	http://ebayGroceries.com/Snack_Foods/Pork_Rinds	>	0.999995	0.0
+http://amazonGroceries.com/Snack_Foods	http://ebayGroceries.com/Snack_Foods/Pretzels	>	0.999965	0.0
+http://amazonGroceries.com/Snack_Foods	http://ebayGroceries.com/Snack_Foods/Puffed_Snacks	>	0.999989	0.0
+http://amazonGroceries.com/Snack_Foods	http://ebayGroceries.com/Snack_Foods/Rice_Cakes,_Chips_&_Crackers	>	0.999994	0.0
+http://amazonGroceries.com/Snack_Foods	http://ebayGroceries.com/Snack_Foods/Trail_Mix	>	0.999988	0.0
+http://amazonGroceries.com/Soft_Drinks	http://ebayGroceries.com/Beverages	<	0.999986	0.0
+http://amazonGroceries.com/Soft_Drinks	http://ebayGroceries.com/Beverages/Energy_Drinks	>	1e-06	0.0
+http://amazonGroceries.com/Soft_Drinks	http://ebayGroceries.com/Beverages/Iced_Tea_&_Lemonade	>	4.5e-05	0.0
+http://amazonGroceries.com/Soft_Drinks	http://ebayGroceries.com/Beverages/Juices/Sparkling_Juice	>	0.0	0.0
+http://amazonGroceries.com/Soft_Drinks	http://ebayGroceries.com/Beverages/Powdered_Drink_Mixes	>	0.0	0.0
+http://amazonGroceries.com/Soft_Drinks	http://ebayGroceries.com/Beverages/Powdered_Drink_Mixes/Chocolate_Drink_Mixes	>	0.0	0.0
+http://amazonGroceries.com/Soft_Drinks	http://ebayGroceries.com/Beverages/Powdered_Drink_Mixes/Soft_Drink_Mixes	>	7e-06	0.0
+http://amazonGroceries.com/Soft_Drinks	http://ebayGroceries.com/Beverages/Soda_Syrups	>	0.0	0.0
+http://amazonGroceries.com/Soft_Drinks	http://ebayGroceries.com/Beverages/Soft_Drinks	=	1.0	
+http://amazonGroceries.com/Soft_Drinks	http://ebayGroceries.com/Beverages/Sports_Drinks	>	1e-06	0.0
+http://amazonGroceries.com/Soft_Drinks	http://ebayGroceries.com/Beverages/Water/Flavored_&_Enhanced_Water	>	0.0	0.0
+http://amazonGroceries.com/Soft_Drinks	http://ebayGroceries.com/Beverages/Water/Seltzer_&_Tonic_Water	>	0.0	0.0
+http://amazonGroceries.com/Soups_&_Stews	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Canned_&_Jarred_Food	<	0.0	0.0
+http://amazonGroceries.com/Soups_&_Stews	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Canned_&_Jarred_Food/Soups,_Stews_&_Chili	=	0.996406	
+http://amazonGroceries.com/Soups_&_Stews	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Canned_&_Jarred_Food/Stocks,_Broths_&_Bouillon	>	0.0	0.0
+http://amazonGroceries.com/Soups_&_Stews	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Packaged_Meals_&_Side_Dishes	<	0.0	0.0
+http://amazonGroceries.com/Spices,_Seasonings_&_Extracts	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods	<	0.999998	0.0
+http://amazonGroceries.com/Spices,_Seasonings_&_Extracts	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Herbs,_Spices_&_Seasonings	=	0.999999	
+http://amazonGroceries.com/Spices,_Seasonings_&_Extracts	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Herbs,_Spices_&_Seasonings/Mixed_Spices_&_Seasonings	>	0.999999	0.0
+http://amazonGroceries.com/Spices,_Seasonings_&_Extracts	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Herbs,_Spices_&_Seasonings/Pepper_&_Peppercorns	>	0.999996	0.0
+http://amazonGroceries.com/Spices,_Seasonings_&_Extracts	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Herbs,_Spices_&_Seasonings/Salt_&_Salt_Substitutes	>	0.99992	0.0
+http://amazonGroceries.com/Spices,_Seasonings_&_Extracts	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Herbs,_Spices_&_Seasonings/Single_Herbs_&_Spices	>	0.999999	0.0
+http://amazonGroceries.com/Spices,_Seasonings_&_Extracts	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Herbs,_Spices_&_Seasonings/Spices_Gifts_	>	0.437823	0.0
+http://amazonGroceries.com/Spices,_Seasonings_&_Extracts	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Sauces,_Gravies_&_Marinades/Marinades_&_Seasoning_Mixes	>	0.00522	0.0
+http://amazonGroceries.com/Spices,_Seasonings_&_Extracts	http://ebayGroceries.com/Cooking_&_Baking	<	2e-06	0.0
+http://amazonGroceries.com/Spices,_Seasonings_&_Extracts	http://ebayGroceries.com/Cooking_&_Baking/Breadcrumbs_&_Seasoned_Coatings/Seasoned_Coatings	>	0.0	0.0
+http://amazonGroceries.com/Spices,_Seasonings_&_Extracts	http://ebayGroceries.com/Cooking_&_Baking/Dessert_Syrups_&_Sauces/Flavoring_Syrups	>	0.0	0.0
+http://amazonGroceries.com/Spices,_Seasonings_&_Extracts	http://ebayGroceries.com/Cooking_&_Baking/Dried_Seaweed_&_Nori	>	0.0	0.0
+http://amazonGroceries.com/Spices,_Seasonings_&_Extracts	http://ebayGroceries.com/Cooking_&_Baking/Extracts_&_Flavoring	>	0.99539	0.0
+http://amazonGroceries.com/Spices,_Seasonings_&_Extracts	http://ebayGroceries.com/Gourmet_Gifts/Spices_Gifts	>	0.977023	0.0
+http://amazonGroceries.com/Tea	http://ebayGroceries.com/Beverages	<	0.999982	0.0
+http://amazonGroceries.com/Tea	http://ebayGroceries.com/Beverages/Iced_Tea_&_Lemonade	>	0.00014	0.0
+http://amazonGroceries.com/Tea	http://ebayGroceries.com/Beverages/Tea	=	1.0	
+http://amazonGroceries.com/Tea	http://ebayGroceries.com/Beverages/Tea/Black	>	1.0	0.0
+http://amazonGroceries.com/Tea	http://ebayGroceries.com/Beverages/Tea/Chai	>	1.0	0.0
+http://amazonGroceries.com/Tea	http://ebayGroceries.com/Beverages/Tea/Green	>	1.0	0.0
+http://amazonGroceries.com/Tea	http://ebayGroceries.com/Beverages/Tea/Herbal	>	1.0	0.0
+http://amazonGroceries.com/Tea	http://ebayGroceries.com/Beverages/Tea/Oolong	>	1.0	0.0
+http://amazonGroceries.com/Tea	http://ebayGroceries.com/Beverages/Tea/Rooibos	>	1.0	0.0
+http://amazonGroceries.com/Tea	http://ebayGroceries.com/Beverages/Tea/Tea_Gifts_	>	0.999842	0.0
+http://amazonGroceries.com/Tea	http://ebayGroceries.com/Beverages/Tea/Tea_Samplers	>	1.0	0.0
+http://amazonGroceries.com/Tea	http://ebayGroceries.com/Beverages/Tea/White_	>	1.0	0.0
+http://amazonGroceries.com/Tea	http://ebayGroceries.com/Gourmet_Gifts/Tea_Gifts	>	4e-05	0.0
+http://amazonGroceries.com/Trail_Mix	http://ebayGroceries.com/Breakfast_Foods/Breakfast_&_Cereal_Bars	<	0.999994	0.0
+http://amazonGroceries.com/Trail_Mix	http://ebayGroceries.com/Breakfast_Foods/Breakfast_&_Cereal_Bars/Granola,_Trail_Mix	=	0.201813	
+http://amazonGroceries.com/Trail_Mix	http://ebayGroceries.com/Candy_&_Chocolate/Fruits,_Nuts_&_Snacks	<	0.000626	0.0
+http://amazonGroceries.com/Trail_Mix	http://ebayGroceries.com/Cooking_&_Baking/Dried_Fruit_&_Raisins	<	0.0	0.0
+http://amazonGroceries.com/Trail_Mix	http://ebayGroceries.com/Cooking_&_Baking/Nuts_&_Seeds	<	1e-06	0.0
+http://amazonGroceries.com/Trail_Mix	http://ebayGroceries.com/Gourmet_Gifts/Snack_Gifts	<	0.0	0.0
+http://amazonGroceries.com/Trail_Mix	http://ebayGroceries.com/Snack_Foods	<	0.998299	0.0
+http://amazonGroceries.com/Trail_Mix	http://ebayGroceries.com/Snack_Foods/Granola_&_Trail_Mix	<	0.999512	0.0
+http://amazonGroceries.com/Trail_Mix	http://ebayGroceries.com/Snack_Foods/Nuts,_Seeds	<	0.0	0.0
+http://amazonGroceries.com/Trail_Mix	http://ebayGroceries.com/Snack_Foods/Nuts,_Seeds/Mixed_Nuts	<	0.0	0.0
+http://amazonGroceries.com/Trail_Mix	http://ebayGroceries.com/Snack_Foods/Party_Mix	=	0.0	
+http://amazonGroceries.com/Trail_Mix	http://ebayGroceries.com/Snack_Foods/Trail_Mix	=	1.0	
+http://amazonGroceries.com/Vegetables	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Condiments,_Pickles_&_Relishes/Pickled_Vegetables	>	3.5e-05	0.0
+http://amazonGroceries.com/Vegetables	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Condiments,_Pickles_&_Relishes/Salad_Toppings	>	0.0	0.0
+http://amazonGroceries.com/Vegetables	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Packaged_Meals_&_Side_Dishes/Pasta_Salad_Kits	>	0.0	0.0
+http://amazonGroceries.com/Vegetables	http://ebayGroceries.com/Canned,_Dry_&_Packaged_Foods/Packaged_Meals_&_Side_Dishes/Potatoes_&_Stuffings	>	0.0	0.0
+http://amazonGroceries.com/Vegetables	http://ebayGroceries.com/Cooking_&_Baking/Dried_Seaweed_&_Nori	>	0.0	0.0
+http://amazonGroceries.com/Vegetables	http://ebayGroceries.com/Snack_Foods/Chips_&_Crisps/Vegetables	>	2.4e-05	0.0
+http://amazonGroceries.com/Vegetables	http://ebayGroceries.com/Snack_Foods/Wasabi_Peas	>	0.0	0.0
+http://amazonGroceries.com/Water	http://ebayGroceries.com/Beverages	<	0.999704	0.0
+http://amazonGroceries.com/Water	http://ebayGroceries.com/Beverages/Coconut_Water	>	0.0	0.0
+http://amazonGroceries.com/Water	http://ebayGroceries.com/Beverages/Water	=	1.0	
+http://amazonGroceries.com/Water	http://ebayGroceries.com/Beverages/Water/Flavored_&_Enhanced_Water	>	1.0	0.0
+http://amazonGroceries.com/Water	http://ebayGroceries.com/Beverages/Water/Seltzer_&_Tonic_Water	>	0.999996	0.0
+http://amazonGroceries.com/Water	http://ebayGroceries.com/Beverages/Water/Sparkling_&_Mineral_Water	>	1.0	0.0
+http://amazonGroceries.com/Water_Flavor_Enhancers	http://ebayGroceries.com/Beverages	<	0.00071	0.0
+http://amazonGroceries.com/Water_Flavor_Enhancers	http://ebayGroceries.com/Beverages/Flavoring_Syrup	=	0.0	
+http://amazonGroceries.com/Water_Flavor_Enhancers	http://ebayGroceries.com/Beverages/Powdered_Drink_Mixes	<	0.0	0.0
+http://amazonGroceries.com/Water_Flavor_Enhancers	http://ebayGroceries.com/Beverages/Powdered_Drink_Mixes/Chocolate_Drink_Mixes	>	0.0	0.0
+http://amazonGroceries.com/Water_Flavor_Enhancers	http://ebayGroceries.com/Beverages/Powdered_Drink_Mixes/Soft_Drink_Mixes	=	0.0	
+http://amazonGroceries.com/Water_Flavor_Enhancers	http://ebayGroceries.com/Beverages/Soda_Syrups	=	0.0	
+http://amazonGroceries.com/Water_Flavor_Enhancers	http://ebayGroceries.com/Beverages/Water	<	0.0	0.0
+http://amazonGroceries.com/Water_Flavor_Enhancers	http://ebayGroceries.com/Beverages/Water/Flavored_&_Enhanced_Water	>	0.0	0.0
+http://amazonGroceries.com/Water_Flavor_Enhancers	http://ebayGroceries.com/Cooking_&_Baking/Dessert_Syrups_&_Sauces/Flavoring_Syrups	=	0.0	
+http://amazonGroceries.com/Water_Flavor_Enhancers	http://ebayGroceries.com/Cooking_&_Baking/Extracts_&_Flavoring	<	0.0	0.0
+http://amazonGroceries.com/Wine	http://ebayGroceries.com/Cooking_&_Baking/Cooking_Wine	>	0.014064	0.0
+http://amazonGroceries.com/Wine	http://ebayGroceries.com/Gourmet_Gifts	<	0.0	0.0
+http://amazonGroceries.com/Wine	http://ebayGroceries.com/Gourmet_Gifts/Mixed_Wine_Packs	>	0.003594	0.0
+http://amazonGroceries.com/Wine	http://ebayGroceries.com/Wine	=	1.0	
+http://amazonGroceries.com/Wine	http://ebayGroceries.com/Wine/Dessert	>	1.0	0.0
+http://amazonGroceries.com/Wine	http://ebayGroceries.com/Wine/Fruit	>	8.5e-05	0.0
+http://amazonGroceries.com/Wine	http://ebayGroceries.com/Wine/Mead	>	0.99986	0.0
+http://amazonGroceries.com/Wine	http://ebayGroceries.com/Wine/Mixed_Packs	>	0.999999	0.0
+http://amazonGroceries.com/Wine	http://ebayGroceries.com/Wine/Red	>	1.0	0.0
+http://amazonGroceries.com/Wine	http://ebayGroceries.com/Wine/Rosé	>	1.0	0.0
+http://amazonGroceries.com/Wine	http://ebayGroceries.com/Wine/Sparkling	>	1.0	0.0
+http://amazonGroceries.com/Wine	http://ebayGroceries.com/Wine/White	>	1.0	0.0

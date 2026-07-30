@@ -1,0 +1,2304 @@
+source_uri	target_uri	rel	p_yes	p_yes_rev
+http://OpenCalais.com/Academic	http://AlchemyAPI.com/Academic	=	0.999992	
+http://OpenCalais.com/Academic	http://AlchemyAPI.com/Anthropologist	>	0.962673	0.0
+http://OpenCalais.com/Academic	http://AlchemyAPI.com/Astronomer	>	0.002801	0.0
+http://OpenCalais.com/Academic	http://AlchemyAPI.com/Chemist	>	0.99478	0.0
+http://OpenCalais.com/Academic	http://AlchemyAPI.com/Historian	>	0.009708	0.0
+http://OpenCalais.com/Academic	http://AlchemyAPI.com/Nobel_Laureate	>	1.9e-05	0.0
+http://OpenCalais.com/Academic	http://AlchemyAPI.com/Organization	<	2e-06	0.0
+http://OpenCalais.com/Academic	http://AlchemyAPI.com/Paleontologist	>	0.99883	0.0
+http://OpenCalais.com/Academic	http://AlchemyAPI.com/Person	<	0.999983	0.0
+http://OpenCalais.com/Academic	http://AlchemyAPI.com/Philosopher	>	9.6e-05	0.0
+http://OpenCalais.com/Academic	http://AlchemyAPI.com/Physician	>	1.5e-05	0.0
+http://OpenCalais.com/Academic	http://AlchemyAPI.com/Physicist	>	0.987568	0.0
+http://OpenCalais.com/Academic	http://AlchemyAPI.com/Scientist	>	0.000203	0.0
+http://OpenCalais.com/AcademicInstitution	http://AlchemyAPI.com/Academic	=	0.0	
+http://OpenCalais.com/AcademicInstitution	http://AlchemyAPI.com/Business_Organization	<	0.001927	0.0
+http://OpenCalais.com/AcademicInstitution	http://AlchemyAPI.com/Educational_Institution	=	0.99996	
+http://OpenCalais.com/AcademicInstitution	http://AlchemyAPI.com/Facility	<	0.00461	0.0
+http://OpenCalais.com/AcademicInstitution	http://AlchemyAPI.com/Non-ProfitOrganisation	<	0.0	0.0
+http://OpenCalais.com/AcademicInstitution	http://AlchemyAPI.com/Nonprofit_Organization	<	0.0	0.0
+http://OpenCalais.com/AcademicInstitution	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/AcademicInstitution	http://AlchemyAPI.com/ReportIssuingInstitution	<	0.0	7.5e-05
+http://OpenCalais.com/AcademicInstitution	http://AlchemyAPI.com/Research_Institution	=	0.0	
+http://OpenCalais.com/AcademicInstitution	http://AlchemyAPI.com/SchoolDistrict	>	0.0	0.0
+http://OpenCalais.com/AcademicInstitution	http://AlchemyAPI.com/U	=	0.0	
+http://OpenCalais.com/Actor	http://AlchemyAPI.com/Actor	=	1.0	
+http://OpenCalais.com/Actor	http://AlchemyAPI.com/Artist	<	0.000553	0.0
+http://OpenCalais.com/Actor	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Adherents	http://AlchemyAPI.com/Activist	<	0.0	2e-06
+http://OpenCalais.com/Adherents	http://AlchemyAPI.com/MusicalGroupMember	<	0.0	0.0
+http://OpenCalais.com/Adherents	http://AlchemyAPI.com/Organization	<	0.0	0.0
+http://OpenCalais.com/Adherents	http://AlchemyAPI.com/Person	<	0.007577	0.0
+http://OpenCalais.com/Adherents	http://AlchemyAPI.com/Political_Organization	<	0.0	0.0
+http://OpenCalais.com/AdministrativeDivision	http://AlchemyAPI.com/AdministrativeDivision	=	1.0	
+http://OpenCalais.com/AdministrativeDivision	http://AlchemyAPI.com/Cabinet_Department	>	0.987568	0.0
+http://OpenCalais.com/AdministrativeDivision	http://AlchemyAPI.com/Continent	>	0.000261	0.0
+http://OpenCalais.com/AdministrativeDivision	http://AlchemyAPI.com/District	>	1.0	0.0
+http://OpenCalais.com/AdministrativeDivision	http://AlchemyAPI.com/EnglishCivilParish	>	1.0	0.0
+http://OpenCalais.com/AdministrativeDivision	http://AlchemyAPI.com/GeographicFeature	<	2.4e-05	0.0
+http://OpenCalais.com/AdministrativeDivision	http://AlchemyAPI.com/Location	<	0.999999	0.0
+http://OpenCalais.com/AdministrativeDivision	http://AlchemyAPI.com/Neighborhood	>	0.999842	0.0
+http://OpenCalais.com/AdministrativeDivision	http://AlchemyAPI.com/Prefecture	>	1.0	0.0
+http://OpenCalais.com/AdministrativeDivision	http://AlchemyAPI.com/Region	=	0.003594	
+http://OpenCalais.com/AdministrativeDivision	http://AlchemyAPI.com/SchoolDistrict	>	0.974043	0.0
+http://OpenCalais.com/AdministrativeDivision	http://AlchemyAPI.com/SpanishAutonomousCommunity	>	1.0	0.0
+http://OpenCalais.com/AdministrativeDivision	http://AlchemyAPI.com/State	>	1.0	0.0
+http://OpenCalais.com/AdministrativeDivision	http://AlchemyAPI.com/StateOrCounty	>	1.0	0.0
+http://OpenCalais.com/AdministrativeDivision	http://AlchemyAPI.com/USState	>	1.0	0.0
+http://OpenCalais.com/Advertising_Agency	http://AlchemyAPI.com/Advertising_Agency	=	1.0	
+http://OpenCalais.com/Advertising_Agency	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/Advertising_Agency	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/Advertising_Agency	http://AlchemyAPI.com/Entertainment_Company	<	0.0	0.0
+http://OpenCalais.com/Advertising_Agency	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Aerospace_Company	http://AlchemyAPI.com/Aerospace_Company	=	1.0	
+http://OpenCalais.com/Aerospace_Company	http://AlchemyAPI.com/AircraftDesigner	=	0.000109	
+http://OpenCalais.com/Aerospace_Company	http://AlchemyAPI.com/Airline	>	0.99986	0.0
+http://OpenCalais.com/Aerospace_Company	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/Aerospace_Company	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/Aerospace_Company	http://AlchemyAPI.com/Manufacturing_Company	<	0.999942	0.0
+http://OpenCalais.com/Aerospace_Company	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Aerospace_Company	http://AlchemyAPI.com/RocketEngineDesigner	>	0.033086	0.0
+http://OpenCalais.com/Aerospace_Company	http://AlchemyAPI.com/Technology_Company	<	0.99478	0.0
+http://OpenCalais.com/AircraftDesigner	http://AlchemyAPI.com/Aerospace_Company	=	0.0	
+http://OpenCalais.com/AircraftDesigner	http://AlchemyAPI.com/AircraftDesigner	=	1.0	
+http://OpenCalais.com/AircraftDesigner	http://AlchemyAPI.com/Architect	<	0.0	0.0
+http://OpenCalais.com/AircraftDesigner	http://AlchemyAPI.com/Aviator	<	0.0	0.0
+http://OpenCalais.com/AircraftDesigner	http://AlchemyAPI.com/Business_Person	<	2.1e-05	0.0
+http://OpenCalais.com/AircraftDesigner	http://AlchemyAPI.com/Engineer	<	0.999986	0.0
+http://OpenCalais.com/AircraftDesigner	http://AlchemyAPI.com/Inventor	<	0.7773	0.0
+http://OpenCalais.com/AircraftDesigner	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/AircraftDesigner	http://AlchemyAPI.com/Scientist	<	0.0	0.0
+http://OpenCalais.com/AircraftDesigner	http://AlchemyAPI.com/Technologist	<	0.0	0.0
+http://OpenCalais.com/AircraftManufacturer	http://AlchemyAPI.com/Aerospace_Company	<	1.0	0.0
+http://OpenCalais.com/AircraftManufacturer	http://AlchemyAPI.com/AircraftDesigner	=	0.904651	
+http://OpenCalais.com/AircraftManufacturer	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/AircraftManufacturer	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/AircraftManufacturer	http://AlchemyAPI.com/Manufacturing_Company	<	1.0	0.0
+http://OpenCalais.com/AircraftManufacturer	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/AircraftManufacturer	http://AlchemyAPI.com/Technology_Company	<	8e-06	0.0
+http://OpenCalais.com/Airline	http://AlchemyAPI.com/Aerospace_Company	<	0.029312	0.0
+http://OpenCalais.com/Airline	http://AlchemyAPI.com/Airline	=	1.0	
+http://OpenCalais.com/Airline	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/Airline	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/Airline	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Airport	http://AlchemyAPI.com/Airport	=	1.0	
+http://OpenCalais.com/Airport	http://AlchemyAPI.com/Building	<	0.867036	0.0
+http://OpenCalais.com/Airport	http://AlchemyAPI.com/Facility	<	0.999999	0.0
+http://OpenCalais.com/Airport	http://AlchemyAPI.com/GeographicFeature	<	0.00071	0.0
+http://OpenCalais.com/Airport	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/Airport	http://AlchemyAPI.com/Structure	<	2.4e-05	0.0
+http://OpenCalais.com/AirportOperator	http://AlchemyAPI.com/Aerospace_Company	<	0.0	0.0
+http://OpenCalais.com/AirportOperator	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/AirportOperator	http://AlchemyAPI.com/Executive_Body	<	0.0	0.0
+http://OpenCalais.com/AirportOperator	http://AlchemyAPI.com/Facility	<	4e-05	0.0
+http://OpenCalais.com/AirportOperator	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Amusement_Park	http://AlchemyAPI.com/Building	<	3.1e-05	0.0
+http://OpenCalais.com/Amusement_Park	http://AlchemyAPI.com/Business_Organization	<	0.000158	0.0
+http://OpenCalais.com/Amusement_Park	http://AlchemyAPI.com/Facility	<	0.999997	0.0
+http://OpenCalais.com/Amusement_Park	http://AlchemyAPI.com/GeographicFeature	<	0.0	0.0
+http://OpenCalais.com/Amusement_Park	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/Amusement_Park	http://AlchemyAPI.com/Organization	<	0.0	0.0
+http://OpenCalais.com/Amusement_Park	http://AlchemyAPI.com/Structure	<	1.5e-05	0.0
+http://OpenCalais.com/Appellation	http://AlchemyAPI.com/Prefecture	>	2e-06	0.0
+http://OpenCalais.com/Appellation	http://AlchemyAPI.com/Region	=	0.0	
+http://OpenCalais.com/Appellation	http://AlchemyAPI.com/State	<	0.0	0.0
+http://OpenCalais.com/Appellation	http://AlchemyAPI.com/U	=	0.0	
+http://OpenCalais.com/Appellation	http://AlchemyAPI.com/U/S	=	0.0	
+http://OpenCalais.com/Appointee	http://AlchemyAPI.com/Ambassador	>	0.106691	0.0
+http://OpenCalais.com/Appointee	http://AlchemyAPI.com/Cabinet_Member	>	0.999877	0.0
+http://OpenCalais.com/Appointee	http://AlchemyAPI.com/Country_Leader	<	0.0	0.000231
+http://OpenCalais.com/Appointee	http://AlchemyAPI.com/Government_Person	<	0.060087	0.0
+http://OpenCalais.com/Appointee	http://AlchemyAPI.com/Judge	<	0.0	0.000553
+http://OpenCalais.com/Appointee	http://AlchemyAPI.com/OfficeHolder	=	0.982014	
+http://OpenCalais.com/Appointee	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Appointee	http://AlchemyAPI.com/U/S/Congressperson	>	0.0	0.0
+http://OpenCalais.com/Appointer	http://AlchemyAPI.com/Business_Executive	<	0.0	0.0
+http://OpenCalais.com/Appointer	http://AlchemyAPI.com/Business_Person	<	0.0	0.0
+http://OpenCalais.com/Appointer	http://AlchemyAPI.com/Government_Person	<	0.0	0.0
+http://OpenCalais.com/Appointer	http://AlchemyAPI.com/OfficeHolder	=	7.5e-05	
+http://OpenCalais.com/Appointer	http://AlchemyAPI.com/Organization	<	0.0	0.0
+http://OpenCalais.com/Appointer	http://AlchemyAPI.com/Person	<	0.029312	0.0
+http://OpenCalais.com/Architect	http://AlchemyAPI.com/AircraftDesigner	>	9.6e-05	0.0
+http://OpenCalais.com/Architect	http://AlchemyAPI.com/Architect	=	1.0	
+http://OpenCalais.com/Architect	http://AlchemyAPI.com/Artist	<	0.0	0.0
+http://OpenCalais.com/Architect	http://AlchemyAPI.com/Engineer	<	0.0	0.0
+http://OpenCalais.com/Architect	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Architect	http://AlchemyAPI.com/RocketEngineDesigner	>	0.0	0.0
+http://OpenCalais.com/Architect	http://AlchemyAPI.com/VisualArtist	<	0.0	0.0
+http://OpenCalais.com/ArchitectureFirmPartner	http://AlchemyAPI.com/Architect	<	0.000911	0.0
+http://OpenCalais.com/ArchitectureFirmPartner	http://AlchemyAPI.com/Business_Executive	<	0.407333	0.0
+http://OpenCalais.com/ArchitectureFirmPartner	http://AlchemyAPI.com/Business_Person	<	0.999999	0.0
+http://OpenCalais.com/ArchitectureFirmPartner	http://AlchemyAPI.com/Executive_Body	<	0.0	0.0
+http://OpenCalais.com/ArchitectureFirmPartner	http://AlchemyAPI.com/Organization	<	0.0	0.0
+http://OpenCalais.com/ArchitectureFirmPartner	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/ArmedForce	http://AlchemyAPI.com/Armed_Force	=	1.0	
+http://OpenCalais.com/ArmedForce	http://AlchemyAPI.com/Business_Organization	<	0.0	0.0
+http://OpenCalais.com/ArmedForce	http://AlchemyAPI.com/GovernmentAgency	<	0.015906	0.0
+http://OpenCalais.com/ArmedForce	http://AlchemyAPI.com/Government_Agency	<	0.754915	0.0
+http://OpenCalais.com/ArmedForce	http://AlchemyAPI.com/Irregular_Military	>	0.999999	0.0
+http://OpenCalais.com/ArmedForce	http://AlchemyAPI.com/Military_Unit	=	1e-05	
+http://OpenCalais.com/ArmedForce	http://AlchemyAPI.com/Organization	<	0.999998	0.0
+http://OpenCalais.com/ArmedForce	http://AlchemyAPI.com/Political_Organization	<	1e-06	0.0
+http://OpenCalais.com/Astronaut	http://AlchemyAPI.com/Explorer	<	0.000488	0.0
+http://OpenCalais.com/Astronaut	http://AlchemyAPI.com/Government_Person	<	0.0	0.0
+http://OpenCalais.com/Astronaut	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Astronaut	http://AlchemyAPI.com/Scientist	<	1.3e-05	0.0
+http://OpenCalais.com/Astronaut	http://AlchemyAPI.com/Technologist	<	0.0	0.0
+http://OpenCalais.com/Astronomer	http://AlchemyAPI.com/Astronomer	=	1.0	
+http://OpenCalais.com/Astronomer	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Astronomer	http://AlchemyAPI.com/Scientist	<	1.0	0.0
+http://OpenCalais.com/Astronomer	http://AlchemyAPI.com/Technologist	<	0.0	0.0
+http://OpenCalais.com/Athlete	http://AlchemyAPI.com/Athlete	=	1.0	
+http://OpenCalais.com/Athlete	http://AlchemyAPI.com/Australian_Rules_Footballer	>	1.0	0.0
+http://OpenCalais.com/Athlete	http://AlchemyAPI.com/Baseball_Player	>	1.0	0.0
+http://OpenCalais.com/Athlete	http://AlchemyAPI.com/Basketball_Player	>	1.0	0.0
+http://OpenCalais.com/Athlete	http://AlchemyAPI.com/Cricketer	>	1.0	0.0
+http://OpenCalais.com/Athlete	http://AlchemyAPI.com/Field_Hockey_Player	>	1.0	0.0
+http://OpenCalais.com/Athlete	http://AlchemyAPI.com/Football_Player	>	1.0	0.0
+http://OpenCalais.com/Athlete	http://AlchemyAPI.com/Hockey_Player	>	1.0	0.0
+http://OpenCalais.com/Athlete	http://AlchemyAPI.com/OlympicAthlete	>	1.0	0.0
+http://OpenCalais.com/Athlete	http://AlchemyAPI.com/Olympic_Medalist	>	1.0	0.0
+http://OpenCalais.com/Athlete	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Athlete	http://AlchemyAPI.com/Rugby_Player	>	1.0	0.0
+http://OpenCalais.com/Athlete	http://AlchemyAPI.com/Soccer_Player	>	1.0	0.0
+http://OpenCalais.com/Athlete	http://AlchemyAPI.com/Track_and_Field_Athlete	>	1.0	0.0
+http://OpenCalais.com/Australian_Rules_Footballer	http://AlchemyAPI.com/Athlete	<	1.0	0.0
+http://OpenCalais.com/Australian_Rules_Footballer	http://AlchemyAPI.com/Australian_Rules_Footballer	=	1.0	
+http://OpenCalais.com/Australian_Rules_Footballer	http://AlchemyAPI.com/Football_Player	<	7.5e-05	0.0
+http://OpenCalais.com/Automobile	http://AlchemyAPI.com/Automobile	=	1.0	
+http://OpenCalais.com/Automobile	http://AlchemyAPI.com/Model	<	0.0	0.0
+http://OpenCalais.com/Automobile	http://AlchemyAPI.com/Product	<	0.999994	0.0
+http://OpenCalais.com/AutomobileCompany	http://AlchemyAPI.com/Automotive_Company	=	1.0	
+http://OpenCalais.com/AutomobileCompany	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/AutomobileCompany	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/AutomobileCompany	http://AlchemyAPI.com/Manufacturing_Company	<	1.0	0.0
+http://OpenCalais.com/AutomobileCompany	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/AutomobileCompany	http://AlchemyAPI.com/Technology_Company	<	8e-06	0.0
+http://OpenCalais.com/AwardNominee	http://AlchemyAPI.com/Nobel_Laureate	>	0.999976	0.0
+http://OpenCalais.com/AwardNominee	http://AlchemyAPI.com/Person	<	0.592667	0.0
+http://OpenCalais.com/AwardPresentingOrganization	http://AlchemyAPI.com/Business_Organization	<	4.5e-05	0.0
+http://OpenCalais.com/AwardPresentingOrganization	http://AlchemyAPI.com/ComicBookPublisher	>	2e-06	0.0
+http://OpenCalais.com/AwardPresentingOrganization	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Band	http://AlchemyAPI.com/Artist	<	0.996827	0.0
+http://OpenCalais.com/Band	http://AlchemyAPI.com/Band	=	1.0	
+http://OpenCalais.com/Band	http://AlchemyAPI.com/Business_Organization	<	0.0	0.0
+http://OpenCalais.com/Band	http://AlchemyAPI.com/Entertainment_Company	<	0.0	0.0
+http://OpenCalais.com/Band	http://AlchemyAPI.com/FilmMusicContributor	<	0.0	0.0
+http://OpenCalais.com/Band	http://AlchemyAPI.com/MusicalArtist	<	1.0	0.0
+http://OpenCalais.com/Band	http://AlchemyAPI.com/MusicalGroup	=	1.0	
+http://OpenCalais.com/Band	http://AlchemyAPI.com/Musician	<	0.0	0.0
+http://OpenCalais.com/Band	http://AlchemyAPI.com/Organization	<	0.999985	0.0
+http://OpenCalais.com/Baseball_Player	http://AlchemyAPI.com/Athlete	<	1.0	0.0
+http://OpenCalais.com/Baseball_Player	http://AlchemyAPI.com/Baseball_Player	=	1.0	
+http://OpenCalais.com/Baseball_Player	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/BasketballCoach	http://AlchemyAPI.com/Athlete	<	3e-06	0.0
+http://OpenCalais.com/BasketballCoach	http://AlchemyAPI.com/Coach	<	1.0	0.0
+http://OpenCalais.com/BasketballCoach	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/BasketballCoach	http://AlchemyAPI.com/Sports_Executive	<	0.0	0.0
+http://OpenCalais.com/BasketballConference	http://AlchemyAPI.com/Business_Organization	<	0.0	0.0
+http://OpenCalais.com/BasketballConference	http://AlchemyAPI.com/Organization	<	0.468791	0.0
+http://OpenCalais.com/BasketballConference	http://AlchemyAPI.com/Professional_Association	<	0.0	0.0
+http://OpenCalais.com/BasketballConference	http://AlchemyAPI.com/Sport	<	0.0	0.0
+http://OpenCalais.com/BasketballConference	http://AlchemyAPI.com/Sports_Conference	<	1.0	0.0
+http://OpenCalais.com/BasketballConference	http://AlchemyAPI.com/Sports_League	<	0.989013	0.0
+http://OpenCalais.com/BasketballConference	http://AlchemyAPI.com/Sports_Organization	<	0.99593	0.0
+http://OpenCalais.com/BasketballPlayer	http://AlchemyAPI.com/Athlete	<	1.0	0.0
+http://OpenCalais.com/BasketballPlayer	http://AlchemyAPI.com/Basketball_Player	=	1.0	
+http://OpenCalais.com/BasketballPlayer	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Basketball_Player	http://AlchemyAPI.com/Athlete	<	1.0	0.0
+http://OpenCalais.com/Basketball_Player	http://AlchemyAPI.com/Basketball_Player	=	1.0	
+http://OpenCalais.com/Basketball_Player	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Bassist	http://AlchemyAPI.com/Artist	<	1.0	0.0
+http://OpenCalais.com/Bassist	http://AlchemyAPI.com/MusicalArtist	<	1.0	0.0
+http://OpenCalais.com/Bassist	http://AlchemyAPI.com/MusicalGroupMember	<	0.999999	0.0
+http://OpenCalais.com/Bassist	http://AlchemyAPI.com/Musician	<	1.0	0.0
+http://OpenCalais.com/Bassist	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Blogger	http://AlchemyAPI.com/Artist	<	0.0	0.0
+http://OpenCalais.com/Blogger	http://AlchemyAPI.com/Author	<	0.00461	0.0
+http://OpenCalais.com/Blogger	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Blogger	http://AlchemyAPI.com/Socialite	<	0.0	0.0
+http://OpenCalais.com/BodyOfWater	http://AlchemyAPI.com/Body_of_Water	=	1.0	
+http://OpenCalais.com/BodyOfWater	http://AlchemyAPI.com/GeographicFeature	<	1.0	0.0
+http://OpenCalais.com/BodyOfWater	http://AlchemyAPI.com/Location	<	0.999995	0.0
+http://OpenCalais.com/BodyOfWater	http://AlchemyAPI.com/Region	<	0.0	0.0
+http://OpenCalais.com/BodyOfWater	http://AlchemyAPI.com/Structure	<	0.0	0.0
+http://OpenCalais.com/Boxer	http://AlchemyAPI.com/Athlete	<	1.0	0.0
+http://OpenCalais.com/Boxer	http://AlchemyAPI.com/Martial_Artist	<	2.8e-05	0.0
+http://OpenCalais.com/Boxer	http://AlchemyAPI.com/Olympic_Sport	<	0.0	0.0
+http://OpenCalais.com/Boxer	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Boxer	http://AlchemyAPI.com/Sport	<	0.0	0.0
+http://OpenCalais.com/Bridge	http://AlchemyAPI.com/Bridge	=	3e-06	
+http://OpenCalais.com/Bridge	http://AlchemyAPI.com/Building	<	0.999988	0.0
+http://OpenCalais.com/Bridge	http://AlchemyAPI.com/Facility	<	1.3e-05	0.0
+http://OpenCalais.com/Bridge	http://AlchemyAPI.com/GeographicFeature	<	2.4e-05	0.0
+http://OpenCalais.com/Bridge	http://AlchemyAPI.com/Location	<	7.5e-05	0.0
+http://OpenCalais.com/Bridge	http://AlchemyAPI.com/Structure	<	0.0	0.0
+http://OpenCalais.com/BritishRoyalty	http://AlchemyAPI.com/Country_Leader	<	0.0	0.0
+http://OpenCalais.com/BritishRoyalty	http://AlchemyAPI.com/Government_Person	<	0.00018	0.0
+http://OpenCalais.com/BritishRoyalty	http://AlchemyAPI.com/Nobility	<	1.0	0.0
+http://OpenCalais.com/BritishRoyalty	http://AlchemyAPI.com/OfficeHolder	<	0.0	0.0
+http://OpenCalais.com/BritishRoyalty	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/BritishRoyalty	http://AlchemyAPI.com/Political_Organization	<	0.0	0.0
+http://OpenCalais.com/BritishRoyalty	http://AlchemyAPI.com/Politician	<	0.0	0.0
+http://OpenCalais.com/BritishRoyalty	http://AlchemyAPI.com/Socialite	<	0.0	0.0
+http://OpenCalais.com/BroadcastArtist	http://AlchemyAPI.com/Artist	<	0.999994	0.0
+http://OpenCalais.com/BroadcastArtist	http://AlchemyAPI.com/Musician	<	0.0	0.0
+http://OpenCalais.com/BroadcastArtist	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/BroadcastArtist	http://AlchemyAPI.com/Radio_Personality	=	0.999995	
+http://OpenCalais.com/BroadcastArtist	http://AlchemyAPI.com/Sports_Announcer	>	0.999934	0.0
+http://OpenCalais.com/BroadcastArtist	http://AlchemyAPI.com/Television_Personality	=	0.99962	
+http://OpenCalais.com/Building	http://AlchemyAPI.com/Building	=	1.0	
+http://OpenCalais.com/Building	http://AlchemyAPI.com/Educational_Institution	>	0.000911	0.0
+http://OpenCalais.com/Building	http://AlchemyAPI.com/Facility	<	0.060087	9.6e-05
+http://OpenCalais.com/Building	http://AlchemyAPI.com/GeographicFeature	<	0.0	0.0
+http://OpenCalais.com/Building	http://AlchemyAPI.com/Hotel	>	1.0	0.0
+http://OpenCalais.com/Building	http://AlchemyAPI.com/House	>	1.0	0.0
+http://OpenCalais.com/Building	http://AlchemyAPI.com/Location	<	0.999979	0.0
+http://OpenCalais.com/Building	http://AlchemyAPI.com/ManufacturingPlant	>	1.0	0.0
+http://OpenCalais.com/Building	http://AlchemyAPI.com/Museum	>	1.0	0.0
+http://OpenCalais.com/Building	http://AlchemyAPI.com/ShoppingCenter	>	1.0	0.0
+http://OpenCalais.com/Building	http://AlchemyAPI.com/Sports_Venue	>	1.0	0.0
+http://OpenCalais.com/Building	http://AlchemyAPI.com/Structure	<	0.999831	0.0
+http://OpenCalais.com/CauseOfDeath	http://AlchemyAPI.com/Condition	<	0.0	0.0
+http://OpenCalais.com/CauseOfDeath	http://AlchemyAPI.com/Disorder	<	0.0	0.0
+http://OpenCalais.com/CauseOfDeath	http://AlchemyAPI.com/Event	<	0.0	0.0
+http://OpenCalais.com/Celebrity	http://AlchemyAPI.com/Actor	>	0.999569	0.0
+http://OpenCalais.com/Celebrity	http://AlchemyAPI.com/Cartoonist	>	0.0	0.0
+http://OpenCalais.com/Celebrity	http://AlchemyAPI.com/Comedian	>	0.966914	0.0
+http://OpenCalais.com/Celebrity	http://AlchemyAPI.com/Cricketer	>	0.998299	0.0
+http://OpenCalais.com/Celebrity	http://AlchemyAPI.com/FilmDirector	>	0.00038	0.0
+http://OpenCalais.com/Celebrity	http://AlchemyAPI.com/MusicalArtist	>	0.012432	0.0
+http://OpenCalais.com/Celebrity	http://AlchemyAPI.com/MusicalGroupMember	>	5e-06	0.0
+http://OpenCalais.com/Celebrity	http://AlchemyAPI.com/Musician	>	0.679179	0.0
+http://OpenCalais.com/Celebrity	http://AlchemyAPI.com/Nobel_Laureate	>	1e-06	0.0
+http://OpenCalais.com/Celebrity	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Celebrity	http://AlchemyAPI.com/Poet	>	0.0	0.0
+http://OpenCalais.com/Celebrity	http://AlchemyAPI.com/Radio_Personality	>	0.99883	0.0
+http://OpenCalais.com/Celebrity	http://AlchemyAPI.com/Socialite	>	8.5e-05	0.0
+http://OpenCalais.com/Celebrity	http://AlchemyAPI.com/Television_Personality	>	0.999447	0.0
+http://OpenCalais.com/Chancellor	http://AlchemyAPI.com/Business_Executive	<	1e-06	0.0
+http://OpenCalais.com/Chancellor	http://AlchemyAPI.com/Business_Person	<	0.0	0.0
+http://OpenCalais.com/Chancellor	http://AlchemyAPI.com/Cabinet_Member	<	0.0	0.0
+http://OpenCalais.com/Chancellor	http://AlchemyAPI.com/Country_Leader	<	4e-05	0.0
+http://OpenCalais.com/Chancellor	http://AlchemyAPI.com/Executive_Body	<	0.0	0.0
+http://OpenCalais.com/Chancellor	http://AlchemyAPI.com/Government_Person	<	0.999995	0.0
+http://OpenCalais.com/Chancellor	http://AlchemyAPI.com/OfficeHolder	<	1.0	0.0
+http://OpenCalais.com/Chancellor	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Chancellor	http://AlchemyAPI.com/Politician	<	0.996827	0.0
+http://OpenCalais.com/Chancellor	http://AlchemyAPI.com/U/S	<	0.0	0.0
+http://OpenCalais.com/Chancellor	http://AlchemyAPI.com/U/S/_Politician	<	1.7e-05	0.0
+http://OpenCalais.com/Chef	http://AlchemyAPI.com/Business_Person	<	0.0	0.0
+http://OpenCalais.com/Chef	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Chef	http://AlchemyAPI.com/Producer	<	0.0	0.0
+http://OpenCalais.com/ChivalricOrderFounder	http://AlchemyAPI.com/MilitaryPerson	<	0.0	0.0
+http://OpenCalais.com/ChivalricOrderFounder	http://AlchemyAPI.com/Military_Leader	<	0.0	0.0
+http://OpenCalais.com/ChivalricOrderFounder	http://AlchemyAPI.com/Military_Person	<	0.0	0.0
+http://OpenCalais.com/ChivalricOrderFounder	http://AlchemyAPI.com/Nobility	<	0.0	0.0
+http://OpenCalais.com/ChivalricOrderFounder	http://AlchemyAPI.com/OfficeHolder	<	0.0	0.0
+http://OpenCalais.com/ChivalricOrderFounder	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/ChivalricOrderFounder	http://AlchemyAPI.com/Spiritual_Leader	<	0.0	0.0
+http://OpenCalais.com/ChivalricOrderMember	http://AlchemyAPI.com/MilitaryPerson	<	0.0	0.0
+http://OpenCalais.com/ChivalricOrderMember	http://AlchemyAPI.com/Military_Person	<	0.0	0.0
+http://OpenCalais.com/ChivalricOrderMember	http://AlchemyAPI.com/Nobility	<	0.0	0.0
+http://OpenCalais.com/ChivalricOrderMember	http://AlchemyAPI.com/OfficeHolder	<	0.0	0.0
+http://OpenCalais.com/ChivalricOrderMember	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/ChivalricOrderOfficer	http://AlchemyAPI.com/Government_Person	<	0.0	0.0
+http://OpenCalais.com/ChivalricOrderOfficer	http://AlchemyAPI.com/MilitaryPerson	<	0.0	0.0
+http://OpenCalais.com/ChivalricOrderOfficer	http://AlchemyAPI.com/Military_Person	<	0.0	0.0
+http://OpenCalais.com/ChivalricOrderOfficer	http://AlchemyAPI.com/Nobility	<	1e-06	0.0
+http://OpenCalais.com/ChivalricOrderOfficer	http://AlchemyAPI.com/OfficeHolder	<	0.998968	0.0
+http://OpenCalais.com/ChivalricOrderOfficer	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/ChristianBishop	http://AlchemyAPI.com/Architect	<	0.0	0.0
+http://OpenCalais.com/ChristianBishop	http://AlchemyAPI.com/Business_Executive	<	0.0	0.0
+http://OpenCalais.com/ChristianBishop	http://AlchemyAPI.com/Business_Person	<	0.0	0.0
+http://OpenCalais.com/ChristianBishop	http://AlchemyAPI.com/Cabinet_Member	<	0.0	0.0
+http://OpenCalais.com/ChristianBishop	http://AlchemyAPI.com/Government_Person	<	0.0	0.0
+http://OpenCalais.com/ChristianBishop	http://AlchemyAPI.com/Historian	<	0.0	0.0
+http://OpenCalais.com/ChristianBishop	http://AlchemyAPI.com/Military_Leader	<	0.0	0.0
+http://OpenCalais.com/ChristianBishop	http://AlchemyAPI.com/OfficeHolder	<	0.0	0.0
+http://OpenCalais.com/ChristianBishop	http://AlchemyAPI.com/Person	<	0.999769	0.0
+http://OpenCalais.com/ChristianBishop	http://AlchemyAPI.com/Philosopher	<	0.0	0.0
+http://OpenCalais.com/ChristianBishop	http://AlchemyAPI.com/Politician	<	0.0	0.0
+http://OpenCalais.com/ChristianBishop	http://AlchemyAPI.com/ReligiousLeader	<	8e-06	0.0
+http://OpenCalais.com/ChristianBishop	http://AlchemyAPI.com/Spiritual_Leader	<	0.0	0.0
+http://OpenCalais.com/ChristianBishop	http://AlchemyAPI.com/Sports_Executive	<	0.0	0.0
+http://OpenCalais.com/City	http://AlchemyAPI.com/AdministrativeDivision	<	0.999996	0.0
+http://OpenCalais.com/City	http://AlchemyAPI.com/City	=	1.0	
+http://OpenCalais.com/City	http://AlchemyAPI.com/EnglishCivilParish	>	0.0	0.0
+http://OpenCalais.com/City	http://AlchemyAPI.com/GeographicFeature	<	0.999999	0.0
+http://OpenCalais.com/City	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/City	http://AlchemyAPI.com/Prefecture	<	0.0	0.0
+http://OpenCalais.com/City	http://AlchemyAPI.com/Region	<	0.085099	0.0
+http://OpenCalais.com/City	http://AlchemyAPI.com/U/S	<	0.999447	0.0
+http://OpenCalais.com/City	http://AlchemyAPI.com/U/S/_City	=	0.999983	
+http://OpenCalais.com/CityTown	http://AlchemyAPI.com/AdministrativeDivision	<	0.999972	0.0
+http://OpenCalais.com/CityTown	http://AlchemyAPI.com/City	=	1.0	
+http://OpenCalais.com/CityTown	http://AlchemyAPI.com/EnglishCivilParish	>	0.006693	0.0
+http://OpenCalais.com/CityTown	http://AlchemyAPI.com/GeographicFeature	<	1.0	0.0
+http://OpenCalais.com/CityTown	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/CityTown	http://AlchemyAPI.com/Neighborhood	>	1e-06	0.0
+http://OpenCalais.com/CityTown	http://AlchemyAPI.com/Prefecture	<	0.0	0.0
+http://OpenCalais.com/CityTown	http://AlchemyAPI.com/Region	<	0.7773	0.0
+http://OpenCalais.com/CityTown	http://AlchemyAPI.com/SpanishAutonomousCommunity	>	0.000431	0.0
+http://OpenCalais.com/CityTown	http://AlchemyAPI.com/U/S	<	0.817574	0.0
+http://OpenCalais.com/CityTown	http://AlchemyAPI.com/U/S/_City	=	0.999869	
+http://OpenCalais.com/Clothing_Company	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/Clothing_Company	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/Clothing_Company	http://AlchemyAPI.com/Manufacturing_Company	<	0.407333	0.0
+http://OpenCalais.com/Clothing_Company	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Collector	http://AlchemyAPI.com/Paleontologist	>	0.0	0.0
+http://OpenCalais.com/Collector	http://AlchemyAPI.com/Person	<	0.999938	0.0
+http://OpenCalais.com/CollegeUniversity	http://AlchemyAPI.com/Academic	<	0.679179	0.0
+http://OpenCalais.com/CollegeUniversity	http://AlchemyAPI.com/Business_Organization	<	0.00038	0.0
+http://OpenCalais.com/CollegeUniversity	http://AlchemyAPI.com/College_Basketball_Team	>	0.0	0.0
+http://OpenCalais.com/CollegeUniversity	http://AlchemyAPI.com/Educational_Institution	<	1.0	0.0
+http://OpenCalais.com/CollegeUniversity	http://AlchemyAPI.com/Facility	<	0.932453	0.0
+http://OpenCalais.com/CollegeUniversity	http://AlchemyAPI.com/Non-ProfitOrganisation	<	0.0	0.0
+http://OpenCalais.com/CollegeUniversity	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/CollegeUniversity	http://AlchemyAPI.com/ReportIssuingInstitution	<	0.0	3.5e-05
+http://OpenCalais.com/CollegeUniversity	http://AlchemyAPI.com/Research_Institution	=	0.0	
+http://OpenCalais.com/CollegeUniversity	http://AlchemyAPI.com/Structure	<	0.0	0.0
+http://OpenCalais.com/CollegeUniversity	http://AlchemyAPI.com/U	=	0.000296	
+http://OpenCalais.com/Comedian	http://AlchemyAPI.com/Artist	<	0.000123	0.0
+http://OpenCalais.com/Comedian	http://AlchemyAPI.com/Comedian	=	1.0	
+http://OpenCalais.com/Comedian	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/ComicBookColorist	http://AlchemyAPI.com/Artist	<	1.0	0.0
+http://OpenCalais.com/ComicBookColorist	http://AlchemyAPI.com/Author	<	0.0	0.0
+http://OpenCalais.com/ComicBookColorist	http://AlchemyAPI.com/Cartoonist	<	1e-06	0.0
+http://OpenCalais.com/ComicBookColorist	http://AlchemyAPI.com/Comics_Creator	<	1.0	0.0
+http://OpenCalais.com/ComicBookColorist	http://AlchemyAPI.com/Painter	<	0.0	0.0
+http://OpenCalais.com/ComicBookColorist	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/ComicBookColorist	http://AlchemyAPI.com/VisualArtist	<	1.0	0.0
+http://OpenCalais.com/ComicBookCreator	http://AlchemyAPI.com/Artist	<	0.999938	0.0
+http://OpenCalais.com/ComicBookCreator	http://AlchemyAPI.com/Author	<	0.999996	0.0
+http://OpenCalais.com/ComicBookCreator	http://AlchemyAPI.com/Cartoonist	=	0.754915	
+http://OpenCalais.com/ComicBookCreator	http://AlchemyAPI.com/Comics_Creator	=	1.0	
+http://OpenCalais.com/ComicBookCreator	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/ComicBookCreator	http://AlchemyAPI.com/Producer	<	6e-06	0.0
+http://OpenCalais.com/ComicBookCreator	http://AlchemyAPI.com/VisualArtist	<	0.984094	0.0
+http://OpenCalais.com/ComicBookEditor	http://AlchemyAPI.com/Author	<	0.0	0.0
+http://OpenCalais.com/ComicBookEditor	http://AlchemyAPI.com/Business_Person	<	0.622459	0.0
+http://OpenCalais.com/ComicBookEditor	http://AlchemyAPI.com/Comics_Creator	<	0.999999	0.0
+http://OpenCalais.com/ComicBookEditor	http://AlchemyAPI.com/Journalist	<	0.0	0.0
+http://OpenCalais.com/ComicBookEditor	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/ComicBookEditor	http://AlchemyAPI.com/Producer	<	0.0	0.0
+http://OpenCalais.com/ComicBookInker	http://AlchemyAPI.com/Artist	<	1.0	0.0
+http://OpenCalais.com/ComicBookInker	http://AlchemyAPI.com/Author	<	3.5e-05	0.0
+http://OpenCalais.com/ComicBookInker	http://AlchemyAPI.com/Cartoonist	<	0.000296	0.0
+http://OpenCalais.com/ComicBookInker	http://AlchemyAPI.com/Comics_Creator	<	1.0	0.0
+http://OpenCalais.com/ComicBookInker	http://AlchemyAPI.com/Painter	<	0.0	0.0
+http://OpenCalais.com/ComicBookInker	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/ComicBookInker	http://AlchemyAPI.com/VisualArtist	<	1.0	0.0
+http://OpenCalais.com/ComicBookPenciler	http://AlchemyAPI.com/Artist	<	1.0	0.0
+http://OpenCalais.com/ComicBookPenciler	http://AlchemyAPI.com/Author	<	0.999942	0.0
+http://OpenCalais.com/ComicBookPenciler	http://AlchemyAPI.com/Cartoonist	<	0.999993	0.0
+http://OpenCalais.com/ComicBookPenciler	http://AlchemyAPI.com/Comics_Creator	<	1.0	0.0
+http://OpenCalais.com/ComicBookPenciler	http://AlchemyAPI.com/Painter	<	0.0	0.0
+http://OpenCalais.com/ComicBookPenciler	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/ComicBookPenciler	http://AlchemyAPI.com/VisualArtist	<	1.0	0.0
+http://OpenCalais.com/ComicBookSeries	http://AlchemyAPI.com/PrintMedia	<	0.99999	0.0
+http://OpenCalais.com/ComicBookSeries	http://AlchemyAPI.com/Product	<	0.0	0.0
+http://OpenCalais.com/ComicBookSeries	http://AlchemyAPI.com/Publication	<	1.0	0.0
+http://OpenCalais.com/ComicBookWriter	http://AlchemyAPI.com/Artist	<	0.999704	0.0
+http://OpenCalais.com/ComicBookWriter	http://AlchemyAPI.com/Author	<	1.0	0.0
+http://OpenCalais.com/ComicBookWriter	http://AlchemyAPI.com/Cartoonist	<	1.9e-05	0.0
+http://OpenCalais.com/ComicBookWriter	http://AlchemyAPI.com/Comics_Creator	<	1.0	0.0
+http://OpenCalais.com/ComicBookWriter	http://AlchemyAPI.com/Journalist	<	0.0	0.0
+http://OpenCalais.com/ComicBookWriter	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/ComicStripArtist	http://AlchemyAPI.com/Artist	<	1.0	0.0
+http://OpenCalais.com/ComicStripArtist	http://AlchemyAPI.com/Author	<	1.0	0.0
+http://OpenCalais.com/ComicStripArtist	http://AlchemyAPI.com/Cartoonist	<	1.0	0.0
+http://OpenCalais.com/ComicStripArtist	http://AlchemyAPI.com/Comics_Creator	<	1.0	0.0
+http://OpenCalais.com/ComicStripArtist	http://AlchemyAPI.com/Painter	<	0.0	0.0
+http://OpenCalais.com/ComicStripArtist	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/ComicStripArtist	http://AlchemyAPI.com/VisualArtist	<	1.0	0.0
+http://OpenCalais.com/Company	http://AlchemyAPI.com/Advertising_Agency	>	1.0	0.0
+http://OpenCalais.com/Company	http://AlchemyAPI.com/Aerospace_Company	>	1.0	0.0
+http://OpenCalais.com/Company	http://AlchemyAPI.com/Automotive_Company	>	1.0	0.0
+http://OpenCalais.com/Company	http://AlchemyAPI.com/Business_Organization	=	1.0	
+http://OpenCalais.com/Company	http://AlchemyAPI.com/ComicBookPublisher	>	1.0	0.0
+http://OpenCalais.com/Company	http://AlchemyAPI.com/Company	=	1.0	
+http://OpenCalais.com/Company	http://AlchemyAPI.com/Energy_Company	>	1.0	0.0
+http://OpenCalais.com/Company	http://AlchemyAPI.com/Entertainment_Company	>	1.0	0.0
+http://OpenCalais.com/Company	http://AlchemyAPI.com/Film_Production_Company	>	1.0	0.0
+http://OpenCalais.com/Company	http://AlchemyAPI.com/Financial_Services_Company	>	1.0	0.0
+http://OpenCalais.com/Company	http://AlchemyAPI.com/Food_Company	>	1.0	0.0
+http://OpenCalais.com/Company	http://AlchemyAPI.com/Gaming_Company	>	1.0	0.0
+http://OpenCalais.com/Company	http://AlchemyAPI.com/Manufacturing_Company	>	1.0	0.0
+http://OpenCalais.com/Company	http://AlchemyAPI.com/Non-ProfitOrganisation	>	1.3e-05	0.0
+http://OpenCalais.com/Company	http://AlchemyAPI.com/Nonprofit_Organization	>	1e-06	0.0
+http://OpenCalais.com/Company	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Company	http://AlchemyAPI.com/Railway_Company	>	1.0	0.0
+http://OpenCalais.com/Company	http://AlchemyAPI.com/Software_Company	>	1.0	0.0
+http://OpenCalais.com/Company	http://AlchemyAPI.com/Sports_Organization	>	0.999769	0.0
+http://OpenCalais.com/Company	http://AlchemyAPI.com/Technology_Company	>	1.0	0.0
+http://OpenCalais.com/Company	http://AlchemyAPI.com/Telecommunications_Company	>	1.0	0.0
+http://OpenCalais.com/CompanyAdvisor	http://AlchemyAPI.com/Advertising_Agency	<	0.0	0.0
+http://OpenCalais.com/CompanyAdvisor	http://AlchemyAPI.com/Business_Executive	=	0.0	
+http://OpenCalais.com/CompanyAdvisor	http://AlchemyAPI.com/Business_Organization	<	0.0	0.0
+http://OpenCalais.com/CompanyAdvisor	http://AlchemyAPI.com/Business_Person	<	0.007577	0.0
+http://OpenCalais.com/CompanyAdvisor	http://AlchemyAPI.com/Company	<	0.0	0.0
+http://OpenCalais.com/CompanyAdvisor	http://AlchemyAPI.com/Executive_Body	<	0.0	0.0
+http://OpenCalais.com/CompanyAdvisor	http://AlchemyAPI.com/Financial_Services_Company	<	0.0	0.0
+http://OpenCalais.com/CompanyAdvisor	http://AlchemyAPI.com/Lawyer	<	0.0	0.0
+http://OpenCalais.com/CompanyAdvisor	http://AlchemyAPI.com/Organization	<	0.020332	0.0
+http://OpenCalais.com/CompanyAdvisor	http://AlchemyAPI.com/Person	<	0.970688	0.0
+http://OpenCalais.com/CompanyFounder	http://AlchemyAPI.com/Business_Executive	<	0.970688	0.0
+http://OpenCalais.com/CompanyFounder	http://AlchemyAPI.com/Business_Person	<	0.999998	0.0
+http://OpenCalais.com/CompanyFounder	http://AlchemyAPI.com/Executive_Body	<	0.0	0.0
+http://OpenCalais.com/CompanyFounder	http://AlchemyAPI.com/OfficeHolder	<	0.0	0.0
+http://OpenCalais.com/CompanyFounder	http://AlchemyAPI.com/Person	<	0.999089	0.0
+http://OpenCalais.com/CompanyFounder	http://AlchemyAPI.com/Producer	<	0.0	0.0
+http://OpenCalais.com/Composer	http://AlchemyAPI.com/Artist	<	0.999988	0.0
+http://OpenCalais.com/Composer	http://AlchemyAPI.com/Author	<	1.2e-05	0.0
+http://OpenCalais.com/Composer	http://AlchemyAPI.com/Composer	=	1.0	
+http://OpenCalais.com/Composer	http://AlchemyAPI.com/FilmMusicContributor	>	0.164516	0.0
+http://OpenCalais.com/Composer	http://AlchemyAPI.com/MusicalArtist	<	1.0	0.0
+http://OpenCalais.com/Composer	http://AlchemyAPI.com/Musician	<	1.0	0.0
+http://OpenCalais.com/Composer	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Composer	http://AlchemyAPI.com/Producer	<	0.0	0.0
+http://OpenCalais.com/Composer	http://AlchemyAPI.com/Songwriter	=	0.0	
+http://OpenCalais.com/ComputerDesigner	http://AlchemyAPI.com/Artist	<	0.0	0.0
+http://OpenCalais.com/ComputerDesigner	http://AlchemyAPI.com/Business_Person	<	0.00018	0.0
+http://OpenCalais.com/ComputerDesigner	http://AlchemyAPI.com/ComputerDesigner	=	1.0	
+http://OpenCalais.com/ComputerDesigner	http://AlchemyAPI.com/Engineer	<	0.998299	0.0
+http://OpenCalais.com/ComputerDesigner	http://AlchemyAPI.com/Inventor	<	3e-06	0.0
+http://OpenCalais.com/ComputerDesigner	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/ComputerDesigner	http://AlchemyAPI.com/Scientist	<	0.0	0.0
+http://OpenCalais.com/ComputerDesigner	http://AlchemyAPI.com/Technologist	<	0.201813	0.0
+http://OpenCalais.com/ComputerDesigner	http://AlchemyAPI.com/Technology_Company	<	0.0	0.0
+http://OpenCalais.com/ComputerScientist	http://AlchemyAPI.com/ComputerDesigner	>	5e-06	0.0
+http://OpenCalais.com/ComputerScientist	http://AlchemyAPI.com/Engineer	<	0.0	0.0
+http://OpenCalais.com/ComputerScientist	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/ComputerScientist	http://AlchemyAPI.com/Scientist	<	1.0	0.0
+http://OpenCalais.com/ComputerScientist	http://AlchemyAPI.com/Technologist	<	0.99996	0.0
+http://OpenCalais.com/Conductor	http://AlchemyAPI.com/Artist	<	1e-06	0.0
+http://OpenCalais.com/Conductor	http://AlchemyAPI.com/Conductor	=	0.437823	
+http://OpenCalais.com/Conductor	http://AlchemyAPI.com/FilmMusicContributor	<	0.0	0.0
+http://OpenCalais.com/Conductor	http://AlchemyAPI.com/MusicalArtist	<	4e-06	0.0
+http://OpenCalais.com/Conductor	http://AlchemyAPI.com/Musician	<	0.003173	0.0
+http://OpenCalais.com/Conductor	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Conductor	http://AlchemyAPI.com/Producer	<	0.0	0.0
+http://OpenCalais.com/Congressional_Committee	http://AlchemyAPI.com/GovernmentAgency	<	0.006693	0.0
+http://OpenCalais.com/Congressional_Committee	http://AlchemyAPI.com/Government_Agency	<	0.053403	0.0
+http://OpenCalais.com/Congressional_Committee	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Congressional_Committee	http://AlchemyAPI.com/Political_Organization	<	0.999998	0.0
+http://OpenCalais.com/Continent	http://AlchemyAPI.com/Continent	=	1.0	
+http://OpenCalais.com/Continent	http://AlchemyAPI.com/Country	>	0.0	0.0
+http://OpenCalais.com/Continent	http://AlchemyAPI.com/GeographicFeature	<	0.999999	0.0
+http://OpenCalais.com/Continent	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/Continent	http://AlchemyAPI.com/Region	<	0.022977	0.0
+http://OpenCalais.com/Continent	http://AlchemyAPI.com/SpanishAutonomousCommunity	>	0.0	0.0
+http://OpenCalais.com/Country	http://AlchemyAPI.com/AdministrativeDivision	<	0.000488	4e-06
+http://OpenCalais.com/Country	http://AlchemyAPI.com/Country	=	1.0	
+http://OpenCalais.com/Country	http://AlchemyAPI.com/EnglishCivilParish	>	0.0	0.0
+http://OpenCalais.com/Country	http://AlchemyAPI.com/GeographicFeature	<	0.008577	0.0
+http://OpenCalais.com/Country	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/Country	http://AlchemyAPI.com/Political_Organization	<	0.000488	0.0
+http://OpenCalais.com/Country	http://AlchemyAPI.com/Prefecture	>	3e-06	0.0
+http://OpenCalais.com/Country	http://AlchemyAPI.com/Region	<	0.067547	0.0
+http://OpenCalais.com/Country	http://AlchemyAPI.com/SpanishAutonomousCommunity	>	0.999374	0.0
+http://OpenCalais.com/Country	http://AlchemyAPI.com/State	=	0.0	
+http://OpenCalais.com/Country	http://AlchemyAPI.com/USState	>	0.002473	0.0
+http://OpenCalais.com/County	http://AlchemyAPI.com/AdministrativeDivision	<	1.0	0.0
+http://OpenCalais.com/County	http://AlchemyAPI.com/District	=	0.0	
+http://OpenCalais.com/County	http://AlchemyAPI.com/GeographicFeature	<	0.999769	0.0
+http://OpenCalais.com/County	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/County	http://AlchemyAPI.com/Political_Organization	<	0.0	0.0
+http://OpenCalais.com/County	http://AlchemyAPI.com/Prefecture	=	0.0	
+http://OpenCalais.com/County	http://AlchemyAPI.com/Region	<	0.999665	0.0
+http://OpenCalais.com/County	http://AlchemyAPI.com/StateOrCounty	<	0.999997	0.0
+http://OpenCalais.com/CricketAdministrativeBody	http://AlchemyAPI.com/Business_Organization	<	0.987568	0.0
+http://OpenCalais.com/CricketAdministrativeBody	http://AlchemyAPI.com/Executive_Body	<	0.037327	0.0
+http://OpenCalais.com/CricketAdministrativeBody	http://AlchemyAPI.com/International_Organization	<	0.531209	0.0
+http://OpenCalais.com/CricketAdministrativeBody	http://AlchemyAPI.com/Non-ProfitOrganisation	<	0.0	0.0
+http://OpenCalais.com/CricketAdministrativeBody	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/CricketAdministrativeBody	http://AlchemyAPI.com/Professional_Association	<	9.6e-05	0.0
+http://OpenCalais.com/CricketAdministrativeBody	http://AlchemyAPI.com/Sports_Organization	<	1.0	0.0
+http://OpenCalais.com/CricketAdministrativeBody	http://AlchemyAPI.com/Trade_Association	<	0.0	0.0
+http://OpenCalais.com/CricketBowler	http://AlchemyAPI.com/Athlete	<	1.0	0.0
+http://OpenCalais.com/CricketBowler	http://AlchemyAPI.com/Cricketer	<	1.0	0.0
+http://OpenCalais.com/CricketBowler	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/CricketBowler	http://AlchemyAPI.com/Sport	<	0.0	0.0
+http://OpenCalais.com/CricketBowler	http://AlchemyAPI.com/U	<	0.0	0.0
+http://OpenCalais.com/CricketCoach	http://AlchemyAPI.com/Athlete	<	0.000911	0.0
+http://OpenCalais.com/CricketCoach	http://AlchemyAPI.com/Coach	<	1.0	0.0
+http://OpenCalais.com/CricketCoach	http://AlchemyAPI.com/Cricketer	<	0.987568	0.0
+http://OpenCalais.com/CricketCoach	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/CricketCoach	http://AlchemyAPI.com/Sport	<	0.0	0.0
+http://OpenCalais.com/CricketCoach	http://AlchemyAPI.com/Sports_Executive	<	0.0	0.0
+http://OpenCalais.com/CricketCoach	http://AlchemyAPI.com/Sports_Official	<	0.0	0.0
+http://OpenCalais.com/CricketPlayer	http://AlchemyAPI.com/Athlete	<	1.0	0.0
+http://OpenCalais.com/CricketPlayer	http://AlchemyAPI.com/Cricketer	=	1.0	
+http://OpenCalais.com/CricketPlayer	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/CricketStadium	http://AlchemyAPI.com/Building	<	1.0	0.0
+http://OpenCalais.com/CricketStadium	http://AlchemyAPI.com/Facility	<	0.999999	0.0
+http://OpenCalais.com/CricketStadium	http://AlchemyAPI.com/GeographicFeature	<	0.0	0.0
+http://OpenCalais.com/CricketStadium	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/CricketStadium	http://AlchemyAPI.com/Sports_Venue	<	1.0	0.0
+http://OpenCalais.com/CricketStadium	http://AlchemyAPI.com/Structure	<	0.2227	0.0
+http://OpenCalais.com/CricketUmpire	http://AlchemyAPI.com/Athlete	<	1e-06	0.0
+http://OpenCalais.com/CricketUmpire	http://AlchemyAPI.com/Cricketer	<	6e-06	0.0
+http://OpenCalais.com/CricketUmpire	http://AlchemyAPI.com/Judge	<	0.0	0.0
+http://OpenCalais.com/CricketUmpire	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/CricketUmpire	http://AlchemyAPI.com/Sports_Official	<	1.0	0.0
+http://OpenCalais.com/CricketUmpire	http://AlchemyAPI.com/U	=	0.0	
+http://OpenCalais.com/Criminal	http://AlchemyAPI.com/Criminal	=	1.0	
+http://OpenCalais.com/Criminal	http://AlchemyAPI.com/Fugitive	>	0.993307	0.0
+http://OpenCalais.com/Criminal	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Criminal	http://AlchemyAPI.com/U	<	0.0	0.0
+http://OpenCalais.com/Cyclist	http://AlchemyAPI.com/Athlete	<	1.0	0.0
+http://OpenCalais.com/Cyclist	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Dedicatee	http://AlchemyAPI.com/Person	<	0.939913	0.0
+http://OpenCalais.com/Dedicator	http://AlchemyAPI.com/Artist	<	0.0	0.0
+http://OpenCalais.com/Dedicator	http://AlchemyAPI.com/Author	<	0.0	0.0
+http://OpenCalais.com/Dedicator	http://AlchemyAPI.com/Person	<	0.001325	0.0
+http://OpenCalais.com/Defense_Company	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/Defense_Company	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/Defense_Company	http://AlchemyAPI.com/Manufacturing_Company	<	0.994089	0.0
+http://OpenCalais.com/Defense_Company	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Defense_Company	http://AlchemyAPI.com/Technology_Company	<	2.4e-05	0.0
+http://OpenCalais.com/DietFollower	http://AlchemyAPI.com/Person	<	0.999998	0.0
+http://OpenCalais.com/Director	http://AlchemyAPI.com/Artist	<	0.0	0.0
+http://OpenCalais.com/Director	http://AlchemyAPI.com/Business_Executive	<	5.1e-05	0.0
+http://OpenCalais.com/Director	http://AlchemyAPI.com/Business_Person	<	1.9e-05	0.0
+http://OpenCalais.com/Director	http://AlchemyAPI.com/Director	=	0.999996	
+http://OpenCalais.com/Director	http://AlchemyAPI.com/Executive_Body	<	0.0	0.0
+http://OpenCalais.com/Director	http://AlchemyAPI.com/FilmDirector	>	0.999999	0.0
+http://OpenCalais.com/Director	http://AlchemyAPI.com/OfficeHolder	<	0.0	0.0
+http://OpenCalais.com/Director	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/DisasterSurvivor	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/DiseaseCause	http://AlchemyAPI.com/Event	<	0.0	0.0
+http://OpenCalais.com/DiseaseCause	http://AlchemyAPI.com/Virus	>	0.0	0.0
+http://OpenCalais.com/DiseaseOrMedicalCondition	http://AlchemyAPI.com/Condition	=	0.999962	
+http://OpenCalais.com/DiseaseOrMedicalCondition	http://AlchemyAPI.com/Disorder	=	1.0	
+http://OpenCalais.com/DiseaseOrMedicalCondition	http://AlchemyAPI.com/Virus	>	0.99999	0.0
+http://OpenCalais.com/Drug	http://AlchemyAPI.com/Anti-diabetic_Drug	>	1.0	0.0
+http://OpenCalais.com/Drug	http://AlchemyAPI.com/Anti-obesity_Drug	>	1.0	0.0
+http://OpenCalais.com/Drug	http://AlchemyAPI.com/Antiasthmatic_Drug	>	1.0	0.0
+http://OpenCalais.com/Drug	http://AlchemyAPI.com/Product	<	0.001701	0.0
+http://OpenCalais.com/Drug	http://AlchemyAPI.com/Psychoactive_Drug	>	1.0	0.0
+http://OpenCalais.com/Drug	http://AlchemyAPI.com/Steroid	>	0.999999	0.0
+http://OpenCalais.com/Drug	http://AlchemyAPI.com/Substance	<	0.99986	0.0
+http://OpenCalais.com/DutchMunicipality	http://AlchemyAPI.com/AdministrativeDivision	<	1.0	0.0
+http://OpenCalais.com/DutchMunicipality	http://AlchemyAPI.com/City	<	1.0	0.0
+http://OpenCalais.com/DutchMunicipality	http://AlchemyAPI.com/District	<	0.000231	0.0
+http://OpenCalais.com/DutchMunicipality	http://AlchemyAPI.com/GeographicFeature	<	1.0	0.0
+http://OpenCalais.com/DutchMunicipality	http://AlchemyAPI.com/GovernmentAgency	<	0.0	0.0
+http://OpenCalais.com/DutchMunicipality	http://AlchemyAPI.com/Government_Agency	<	0.0	0.0
+http://OpenCalais.com/DutchMunicipality	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/DutchMunicipality	http://AlchemyAPI.com/Political_Organization	<	6e-06	0.0
+http://OpenCalais.com/DutchMunicipality	http://AlchemyAPI.com/Prefecture	<	1e-06	0.0
+http://OpenCalais.com/DutchMunicipality	http://AlchemyAPI.com/Region	<	0.999985	0.0
+http://OpenCalais.com/DutchMunicipality	http://AlchemyAPI.com/StateOrCounty	<	0.029312	0.0
+http://OpenCalais.com/DutchMunicipality	http://AlchemyAPI.com/U/S/_City	<	0.985936	0.0
+http://OpenCalais.com/Educational_Institution	http://AlchemyAPI.com/Academic	=	0.0	
+http://OpenCalais.com/Educational_Institution	http://AlchemyAPI.com/Business_Organization	<	1e-06	0.0
+http://OpenCalais.com/Educational_Institution	http://AlchemyAPI.com/Educational_Institution	=	1.0	
+http://OpenCalais.com/Educational_Institution	http://AlchemyAPI.com/Facility	<	0.880797	0.0
+http://OpenCalais.com/Educational_Institution	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Educational_Institution	http://AlchemyAPI.com/ReportIssuingInstitution	>	0.893309	0.0
+http://OpenCalais.com/Educational_Institution	http://AlchemyAPI.com/Research_Institution	>	0.939913	0.0
+http://OpenCalais.com/Educational_Institution	http://AlchemyAPI.com/SchoolDistrict	>	0.999999	0.0
+http://OpenCalais.com/Educational_Institution	http://AlchemyAPI.com/U	=	0.0	
+http://OpenCalais.com/Electronics_Company	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/Electronics_Company	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/Electronics_Company	http://AlchemyAPI.com/ComputerDesigner	>	0.047426	1e-06
+http://OpenCalais.com/Electronics_Company	http://AlchemyAPI.com/Manufacturing_Company	<	0.985936	0.0
+http://OpenCalais.com/Electronics_Company	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Electronics_Company	http://AlchemyAPI.com/Technology_Company	<	0.999999	0.0
+http://OpenCalais.com/Engineer	http://AlchemyAPI.com/AircraftDesigner	>	1.0	0.0
+http://OpenCalais.com/Engineer	http://AlchemyAPI.com/ComputerDesigner	>	0.999938	0.0
+http://OpenCalais.com/Engineer	http://AlchemyAPI.com/Engineer	=	1.0	
+http://OpenCalais.com/Engineer	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Engineer	http://AlchemyAPI.com/RocketEngineDesigner	>	1.0	0.0
+http://OpenCalais.com/Engineer	http://AlchemyAPI.com/Technologist	<	0.000123	0.0
+http://OpenCalais.com/EngineeringFirm	http://AlchemyAPI.com/Aerospace_Company	>	0.531209	0.0
+http://OpenCalais.com/EngineeringFirm	http://AlchemyAPI.com/AircraftDesigner	>	0.977023	0.0
+http://OpenCalais.com/EngineeringFirm	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/EngineeringFirm	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/EngineeringFirm	http://AlchemyAPI.com/ComputerDesigner	>	0.0	0.0
+http://OpenCalais.com/EngineeringFirm	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/EngineeringFirm	http://AlchemyAPI.com/RocketEngineDesigner	>	0.012432	0.0
+http://OpenCalais.com/EngineeringFirm	http://AlchemyAPI.com/Technology_Company	<	5.8e-05	0.0
+http://OpenCalais.com/EnglishMetropolitanBorough	http://AlchemyAPI.com/AdministrativeDivision	<	1.0	0.0
+http://OpenCalais.com/EnglishMetropolitanBorough	http://AlchemyAPI.com/City	<	0.999512	0.0
+http://OpenCalais.com/EnglishMetropolitanBorough	http://AlchemyAPI.com/District	<	0.997199	0.0
+http://OpenCalais.com/EnglishMetropolitanBorough	http://AlchemyAPI.com/Executive_Body	<	0.0	0.0
+http://OpenCalais.com/EnglishMetropolitanBorough	http://AlchemyAPI.com/GeographicFeature	<	0.999952	0.0
+http://OpenCalais.com/EnglishMetropolitanBorough	http://AlchemyAPI.com/GovernmentAgency	<	0.0	0.0
+http://OpenCalais.com/EnglishMetropolitanBorough	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/EnglishMetropolitanBorough	http://AlchemyAPI.com/Neighborhood	<	0.0	0.0
+http://OpenCalais.com/EnglishMetropolitanBorough	http://AlchemyAPI.com/Political_Organization	<	1e-06	0.0
+http://OpenCalais.com/EnglishMetropolitanBorough	http://AlchemyAPI.com/Region	<	0.999997	0.0
+http://OpenCalais.com/EnglishMetropolitanBorough	http://AlchemyAPI.com/StateOrCounty	<	0.00014	0.0
+http://OpenCalais.com/EnglishMetropolitanBorough	http://AlchemyAPI.com/U/S/_City	<	0.020332	0.0
+http://OpenCalais.com/EntertainmentAward	http://AlchemyAPI.com/Award	<	1.0	0.0
+http://OpenCalais.com/EntertainmentAward	http://AlchemyAPI.com/Event	<	1e-06	0.0
+http://OpenCalais.com/Facility	http://AlchemyAPI.com/Building	>	0.99998	0.0
+http://OpenCalais.com/Facility	http://AlchemyAPI.com/Educational_Institution	>	0.000261	0.0
+http://OpenCalais.com/Facility	http://AlchemyAPI.com/Facility	=	0.999957	
+http://OpenCalais.com/Facility	http://AlchemyAPI.com/Hotel	>	0.999998	0.0
+http://OpenCalais.com/Facility	http://AlchemyAPI.com/Location	<	0.999089	0.0
+http://OpenCalais.com/Facility	http://AlchemyAPI.com/ManufacturingPlant	>	1.0	0.0
+http://OpenCalais.com/Facility	http://AlchemyAPI.com/Museum	>	0.999992	0.0
+http://OpenCalais.com/Facility	http://AlchemyAPI.com/Research_Institution	>	0.997527	0.0
+http://OpenCalais.com/Facility	http://AlchemyAPI.com/SchoolDistrict	>	1e-06	0.0
+http://OpenCalais.com/Facility	http://AlchemyAPI.com/ShoppingCenter	>	0.999984	0.0
+http://OpenCalais.com/Facility	http://AlchemyAPI.com/Sports_Venue	>	0.999999	0.0
+http://OpenCalais.com/Facility	http://AlchemyAPI.com/Structure	=	0.0	
+http://OpenCalais.com/Facility	http://AlchemyAPI.com/Television_Station	>	0.999569	0.0
+http://OpenCalais.com/FashionDesigner	http://AlchemyAPI.com/Artist	<	0.999739	0.0
+http://OpenCalais.com/FashionDesigner	http://AlchemyAPI.com/Business_Executive	<	0.0	0.0
+http://OpenCalais.com/FashionDesigner	http://AlchemyAPI.com/Business_Person	<	0.00407	0.0
+http://OpenCalais.com/FashionDesigner	http://AlchemyAPI.com/Fashion_Designer	=	1.0	
+http://OpenCalais.com/FashionDesigner	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/FashionDesigner	http://AlchemyAPI.com/Producer	<	6e-06	0.0
+http://OpenCalais.com/FashionDesigner	http://AlchemyAPI.com/VisualArtist	<	0.0	0.0
+http://OpenCalais.com/FictionalUniverseCreator	http://AlchemyAPI.com/Artist	<	2e-06	0.0
+http://OpenCalais.com/FictionalUniverseCreator	http://AlchemyAPI.com/Author	<	0.000911	0.0
+http://OpenCalais.com/FictionalUniverseCreator	http://AlchemyAPI.com/Cartoonist	>	1e-06	0.0
+http://OpenCalais.com/FictionalUniverseCreator	http://AlchemyAPI.com/ComicBookPublisher	>	1.1e-05	0.0
+http://OpenCalais.com/FictionalUniverseCreator	http://AlchemyAPI.com/Comics_Creator	>	0.009708	0.0
+http://OpenCalais.com/FictionalUniverseCreator	http://AlchemyAPI.com/Inventor	<	0.0	0.0
+http://OpenCalais.com/FictionalUniverseCreator	http://AlchemyAPI.com/Person	<	0.99539	0.0
+http://OpenCalais.com/FictionalUniverseCreator	http://AlchemyAPI.com/Playwright	>	0.0	0.0
+http://OpenCalais.com/FictionalUniverseCreator	http://AlchemyAPI.com/Producer	<	0.0	0.0
+http://OpenCalais.com/FictionalUniverseCreator	http://AlchemyAPI.com/Screenwriter	<	0.0	0.0
+http://OpenCalais.com/Field_Hockey_Player	http://AlchemyAPI.com/Athlete	<	1.0	0.0
+http://OpenCalais.com/Field_Hockey_Player	http://AlchemyAPI.com/Field_Hockey_Player	=	1.0	
+http://OpenCalais.com/Field_Hockey_Player	http://AlchemyAPI.com/Hockey_Player	<	0.029312	0.0
+http://OpenCalais.com/Film	http://AlchemyAPI.com/Film	=	1.0	
+http://OpenCalais.com/Film	http://AlchemyAPI.com/Movie	=	1.0	
+http://OpenCalais.com/FilmActor	http://AlchemyAPI.com/Actor	=	1.0	
+http://OpenCalais.com/FilmActor	http://AlchemyAPI.com/Artist	<	0.006693	0.0
+http://OpenCalais.com/FilmActor	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/FilmCharacter	http://AlchemyAPI.com/Person	<	0.999797	0.0
+http://OpenCalais.com/FilmCompany	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/FilmCompany	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/FilmCompany	http://AlchemyAPI.com/Entertainment_Company	<	1.0	0.0
+http://OpenCalais.com/FilmCompany	http://AlchemyAPI.com/Film_Production_Company	=	1.0	
+http://OpenCalais.com/FilmCompany	http://AlchemyAPI.com/Manufacturing_Company	<	0.0	0.0
+http://OpenCalais.com/FilmCompany	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/FilmCompany	http://AlchemyAPI.com/Television_Production_Company	=	0.0	
+http://OpenCalais.com/FilmCrewmember	http://AlchemyAPI.com/Actor	>	0.992423	0.0
+http://OpenCalais.com/FilmCrewmember	http://AlchemyAPI.com/Animator	>	0.999915	0.0
+http://OpenCalais.com/FilmCrewmember	http://AlchemyAPI.com/Artist	<	0.0	0.0
+http://OpenCalais.com/FilmCrewmember	http://AlchemyAPI.com/Cinematographer	>	1.0	0.0
+http://OpenCalais.com/FilmCrewmember	http://AlchemyAPI.com/Director	>	0.999999	0.0
+http://OpenCalais.com/FilmCrewmember	http://AlchemyAPI.com/FilmCinematographer	>	1.0	0.0
+http://OpenCalais.com/FilmCrewmember	http://AlchemyAPI.com/FilmCritic	>	0.0	0.0
+http://OpenCalais.com/FilmCrewmember	http://AlchemyAPI.com/FilmDirector	>	1.0	0.0
+http://OpenCalais.com/FilmCrewmember	http://AlchemyAPI.com/FilmMusicContributor	>	0.998073	0.0
+http://OpenCalais.com/FilmCrewmember	http://AlchemyAPI.com/FilmProductionDesigner	>	1.0	0.0
+http://OpenCalais.com/FilmCrewmember	http://AlchemyAPI.com/FilmWriter	>	0.999998	0.0
+http://OpenCalais.com/FilmCrewmember	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/FilmCrewmember	http://AlchemyAPI.com/Photographer	>	0.0	0.0
+http://OpenCalais.com/FilmCrewmember	http://AlchemyAPI.com/Producer	>	0.999196	0.0
+http://OpenCalais.com/FilmCrewmember	http://AlchemyAPI.com/Screenwriter	>	0.999999	0.0
+http://OpenCalais.com/FilmDistributor	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/FilmDistributor	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/FilmDistributor	http://AlchemyAPI.com/Entertainment_Company	<	1.0	0.0
+http://OpenCalais.com/FilmDistributor	http://AlchemyAPI.com/Film_Production_Company	=	0.0	
+http://OpenCalais.com/FilmDistributor	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/FilmDistributor	http://AlchemyAPI.com/Producer	<	0.0	0.0
+http://OpenCalais.com/FilmMusicContributor	http://AlchemyAPI.com/Artist	<	0.106691	0.0
+http://OpenCalais.com/FilmMusicContributor	http://AlchemyAPI.com/Composer	<	4e-06	3e-06
+http://OpenCalais.com/FilmMusicContributor	http://AlchemyAPI.com/FilmMusicContributor	=	1.0	
+http://OpenCalais.com/FilmMusicContributor	http://AlchemyAPI.com/MusicalArtist	<	0.00071	0.0
+http://OpenCalais.com/FilmMusicContributor	http://AlchemyAPI.com/Musician	<	0.060087	0.0
+http://OpenCalais.com/FilmMusicContributor	http://AlchemyAPI.com/Person	<	0.99999	0.0
+http://OpenCalais.com/FilmMusicContributor	http://AlchemyAPI.com/Songwriter	<	0.0	0.0
+http://OpenCalais.com/FilmProducer	http://AlchemyAPI.com/Artist	<	1.5e-05	0.0
+http://OpenCalais.com/FilmProducer	http://AlchemyAPI.com/Business_Executive	<	0.002183	0.0
+http://OpenCalais.com/FilmProducer	http://AlchemyAPI.com/Business_Person	<	0.987568	0.0
+http://OpenCalais.com/FilmProducer	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/FilmProducer	http://AlchemyAPI.com/Producer	<	0.999969	0.0
+http://OpenCalais.com/FilmScreeningVenue	http://AlchemyAPI.com/Building	<	0.992423	0.0
+http://OpenCalais.com/FilmScreeningVenue	http://AlchemyAPI.com/Facility	<	0.999976	0.0
+http://OpenCalais.com/FilmScreeningVenue	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/FilmScreeningVenue	http://AlchemyAPI.com/Organization	<	7e-06	0.0
+http://OpenCalais.com/FilmTheorist	http://AlchemyAPI.com/Critic	<	0.0	0.0
+http://OpenCalais.com/FilmTheorist	http://AlchemyAPI.com/FilmCritic	=	0.0	
+http://OpenCalais.com/FilmTheorist	http://AlchemyAPI.com/Person	<	0.999965	0.0
+http://OpenCalais.com/FilmTheorist	http://AlchemyAPI.com/VisualArtist	<	0.0	0.0
+http://OpenCalais.com/FilmWriter	http://AlchemyAPI.com/Artist	<	0.020332	0.0
+http://OpenCalais.com/FilmWriter	http://AlchemyAPI.com/Author	<	0.999996	0.0
+http://OpenCalais.com/FilmWriter	http://AlchemyAPI.com/FilmWriter	=	1.0	
+http://OpenCalais.com/FilmWriter	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/FilmWriter	http://AlchemyAPI.com/Screenwriter	=	0.99998	
+http://OpenCalais.com/Film_Production_Company	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/Film_Production_Company	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/Film_Production_Company	http://AlchemyAPI.com/Entertainment_Company	<	1.0	0.0
+http://OpenCalais.com/Film_Production_Company	http://AlchemyAPI.com/Film_Production_Company	=	1.0	
+http://OpenCalais.com/Film_Production_Company	http://AlchemyAPI.com/Manufacturing_Company	<	0.0	0.0
+http://OpenCalais.com/Film_Production_Company	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Film_Production_Company	http://AlchemyAPI.com/Producer	=	0.0	
+http://OpenCalais.com/FinancialMarketIndex	http://AlchemyAPI.com/Economics_Concept	<	0.2227	0.0
+http://OpenCalais.com/FinancialMarketIndex	http://AlchemyAPI.com/Product	<	0.0	0.0
+http://OpenCalais.com/FinancialMarketIndex	http://AlchemyAPI.com/Stock_Market_Index	=	1.0	
+http://OpenCalais.com/First_Lady	http://AlchemyAPI.com/First_Lady	=	1.0	
+http://OpenCalais.com/First_Lady	http://AlchemyAPI.com/Government_Person	<	0.998299	0.0
+http://OpenCalais.com/First_Lady	http://AlchemyAPI.com/OfficeHolder	<	1e-05	0.0
+http://OpenCalais.com/First_Lady	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/First_Lady	http://AlchemyAPI.com/Socialite	<	0.0	0.0
+http://OpenCalais.com/FootballManager	http://AlchemyAPI.com/Business_Executive	<	1e-06	0.0
+http://OpenCalais.com/FootballManager	http://AlchemyAPI.com/Business_Person	<	0.0	0.0
+http://OpenCalais.com/FootballManager	http://AlchemyAPI.com/Coach	<	0.99962	0.0
+http://OpenCalais.com/FootballManager	http://AlchemyAPI.com/Director	<	0.0	0.0
+http://OpenCalais.com/FootballManager	http://AlchemyAPI.com/Executive_Body	<	0.0	0.0
+http://OpenCalais.com/FootballManager	http://AlchemyAPI.com/Person	<	0.999998	0.0
+http://OpenCalais.com/FootballManager	http://AlchemyAPI.com/Sport	<	0.0	0.0
+http://OpenCalais.com/FootballManager	http://AlchemyAPI.com/Sports_Executive	<	0.999999	0.0
+http://OpenCalais.com/FootballManager	http://AlchemyAPI.com/Sports_Official	<	0.00461	0.0
+http://OpenCalais.com/FootballOrganization	http://AlchemyAPI.com/Business_Organization	<	0.989013	0.0
+http://OpenCalais.com/FootballOrganization	http://AlchemyAPI.com/Executive_Body	<	0.0	0.0
+http://OpenCalais.com/FootballOrganization	http://AlchemyAPI.com/Football_Team	=	0.999949	
+http://OpenCalais.com/FootballOrganization	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/FootballOrganization	http://AlchemyAPI.com/ProfessionalSportsTeam	<	0.952574	0.000231
+http://OpenCalais.com/FootballOrganization	http://AlchemyAPI.com/Professional_Association	<	0.0	0.0
+http://OpenCalais.com/FootballOrganization	http://AlchemyAPI.com/SoccerClub	=	1.0	
+http://OpenCalais.com/FootballOrganization	http://AlchemyAPI.com/Soccer_Team	=	1.0	
+http://OpenCalais.com/FootballOrganization	http://AlchemyAPI.com/Sport	<	1e-06	0.0
+http://OpenCalais.com/FootballOrganization	http://AlchemyAPI.com/SportsTeam	<	0.999997	8.5e-05
+http://OpenCalais.com/FootballOrganization	http://AlchemyAPI.com/Sports_League	<	1e-06	0.0
+http://OpenCalais.com/FootballOrganization	http://AlchemyAPI.com/Sports_Organization	<	1.0	0.0
+http://OpenCalais.com/FootballPlayer	http://AlchemyAPI.com/Athlete	<	1.0	0.0
+http://OpenCalais.com/FootballPlayer	http://AlchemyAPI.com/Australian_Rules_Footballer	>	0.000804	0.0
+http://OpenCalais.com/FootballPlayer	http://AlchemyAPI.com/Football_Player	=	1.0	
+http://OpenCalais.com/FootballPlayer	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/FootballPlayer	http://AlchemyAPI.com/Soccer_Player	=	1.0	
+http://OpenCalais.com/FootballTeam	http://AlchemyAPI.com/Football_Team	=	1.0	
+http://OpenCalais.com/FootballTeam	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/FootballTeam	http://AlchemyAPI.com/ProfessionalSportsTeam	<	1.0	0.0
+http://OpenCalais.com/FootballTeam	http://AlchemyAPI.com/SoccerClub	=	1.0	
+http://OpenCalais.com/FootballTeam	http://AlchemyAPI.com/Soccer_Team	=	1.0	
+http://OpenCalais.com/FootballTeam	http://AlchemyAPI.com/Sport	<	0.0	0.0
+http://OpenCalais.com/FootballTeam	http://AlchemyAPI.com/SportsTeam	<	1.0	0.0
+http://OpenCalais.com/FootballTeam	http://AlchemyAPI.com/Sports_Organization	<	1.0	0.0
+http://OpenCalais.com/Football_Player	http://AlchemyAPI.com/Athlete	<	1.0	0.0
+http://OpenCalais.com/Football_Player	http://AlchemyAPI.com/Australian_Rules_Footballer	>	0.009708	0.0
+http://OpenCalais.com/Football_Player	http://AlchemyAPI.com/Football_Player	=	1.0	
+http://OpenCalais.com/Football_Player	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Football_Player	http://AlchemyAPI.com/Soccer_Player	=	1.0	
+http://OpenCalais.com/Football_Team	http://AlchemyAPI.com/Football_Team	=	1.0	
+http://OpenCalais.com/Football_Team	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Football_Team	http://AlchemyAPI.com/ProfessionalSportsTeam	<	1.0	0.0
+http://OpenCalais.com/Football_Team	http://AlchemyAPI.com/SoccerClub	=	1.0	
+http://OpenCalais.com/Football_Team	http://AlchemyAPI.com/Soccer_Team	=	1.0	
+http://OpenCalais.com/Football_Team	http://AlchemyAPI.com/SportsTeam	<	1.0	0.0
+http://OpenCalais.com/Football_Team	http://AlchemyAPI.com/Sports_Organization	<	1.0	0.0
+http://OpenCalais.com/FoundingFigure	http://AlchemyAPI.com/Business_Person	<	0.009708	0.0
+http://OpenCalais.com/FoundingFigure	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/GameDesigner	http://AlchemyAPI.com/Artist	<	5.1e-05	0.0
+http://OpenCalais.com/GameDesigner	http://AlchemyAPI.com/Business_Person	<	8e-06	0.0
+http://OpenCalais.com/GameDesigner	http://AlchemyAPI.com/Engineer	<	0.0	0.0
+http://OpenCalais.com/GameDesigner	http://AlchemyAPI.com/Inventor	<	0.0	0.0
+http://OpenCalais.com/GameDesigner	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/GameDesigner	http://AlchemyAPI.com/Technologist	<	0.0	0.0
+http://OpenCalais.com/GamePublisher	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/GamePublisher	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/GamePublisher	http://AlchemyAPI.com/Entertainment_Company	<	1.0	0.0
+http://OpenCalais.com/GamePublisher	http://AlchemyAPI.com/Gaming_Company	=	0.999996	
+http://OpenCalais.com/GamePublisher	http://AlchemyAPI.com/Manufacturing_Company	<	0.0	0.0
+http://OpenCalais.com/GamePublisher	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/GamePublisher	http://AlchemyAPI.com/Software_Company	<	0.999996	0.0
+http://OpenCalais.com/GamePublisher	http://AlchemyAPI.com/Technology_Company	<	0.407333	0.0
+http://OpenCalais.com/GeographicFeature	http://AlchemyAPI.com/AdministrativeDivision	>	0.977023	0.0
+http://OpenCalais.com/GeographicFeature	http://AlchemyAPI.com/Body_of_Water	>	1.0	0.0
+http://OpenCalais.com/GeographicFeature	http://AlchemyAPI.com/Building	>	4e-06	0.0
+http://OpenCalais.com/GeographicFeature	http://AlchemyAPI.com/Continent	>	1.0	0.0
+http://OpenCalais.com/GeographicFeature	http://AlchemyAPI.com/Desert	>	1.0	0.0
+http://OpenCalais.com/GeographicFeature	http://AlchemyAPI.com/Ecoregion	>	0.999934	0.0
+http://OpenCalais.com/GeographicFeature	http://AlchemyAPI.com/Facility	>	0.0	0.0
+http://OpenCalais.com/GeographicFeature	http://AlchemyAPI.com/GeographicFeature	=	1.0	
+http://OpenCalais.com/GeographicFeature	http://AlchemyAPI.com/Island	>	1.0	0.0
+http://OpenCalais.com/GeographicFeature	http://AlchemyAPI.com/Location	=	0.996406	
+http://OpenCalais.com/GeographicFeature	http://AlchemyAPI.com/Mountain	>	1.0	0.0
+http://OpenCalais.com/GeographicFeature	http://AlchemyAPI.com/Mountain_Range	>	1.0	0.0
+http://OpenCalais.com/GeographicFeature	http://AlchemyAPI.com/Neighborhood	>	0.999985	0.0
+http://OpenCalais.com/GeographicFeature	http://AlchemyAPI.com/Prefecture	>	0.999997	0.0
+http://OpenCalais.com/GeographicFeature	http://AlchemyAPI.com/Region	>	0.999797	2e-06
+http://OpenCalais.com/GeographicFeature	http://AlchemyAPI.com/Sports_Venue	>	0.017986	0.0
+http://OpenCalais.com/GeographicFeature	http://AlchemyAPI.com/State	>	0.979668	0.0
+http://OpenCalais.com/GeographicFeature	http://AlchemyAPI.com/StateOrCounty	>	0.999999	0.0
+http://OpenCalais.com/GeographicFeature	http://AlchemyAPI.com/USState	>	0.999997	0.0
+http://OpenCalais.com/GeographicFeature	http://AlchemyAPI.com/Volcano	>	1.0	0.0
+http://OpenCalais.com/GermanState	http://AlchemyAPI.com/AdministrativeDivision	<	1.0	0.0
+http://OpenCalais.com/GermanState	http://AlchemyAPI.com/Country	<	0.00071	0.0
+http://OpenCalais.com/GermanState	http://AlchemyAPI.com/District	<	0.0	0.0
+http://OpenCalais.com/GermanState	http://AlchemyAPI.com/GeographicFeature	<	0.999196	0.0
+http://OpenCalais.com/GermanState	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/GermanState	http://AlchemyAPI.com/Political_Organization	<	0.979668	0.0
+http://OpenCalais.com/GermanState	http://AlchemyAPI.com/Prefecture	<	0.0	0.0
+http://OpenCalais.com/GermanState	http://AlchemyAPI.com/Region	<	0.999999	0.0
+http://OpenCalais.com/GermanState	http://AlchemyAPI.com/State	<	0.999898	0.0
+http://OpenCalais.com/GermanState	http://AlchemyAPI.com/StateOrCounty	<	0.999979	0.0
+http://OpenCalais.com/GermanUrbanDistrict	http://AlchemyAPI.com/AdministrativeDivision	<	1.0	0.0
+http://OpenCalais.com/GermanUrbanDistrict	http://AlchemyAPI.com/City	<	0.007577	0.0
+http://OpenCalais.com/GermanUrbanDistrict	http://AlchemyAPI.com/District	<	1.0	0.0
+http://OpenCalais.com/GermanUrbanDistrict	http://AlchemyAPI.com/GeographicFeature	<	1.0	0.0
+http://OpenCalais.com/GermanUrbanDistrict	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/GermanUrbanDistrict	http://AlchemyAPI.com/Neighborhood	<	0.119203	0.0
+http://OpenCalais.com/GermanUrbanDistrict	http://AlchemyAPI.com/Political_Organization	<	0.0	0.0
+http://OpenCalais.com/GermanUrbanDistrict	http://AlchemyAPI.com/Region	<	0.999925	0.0
+http://OpenCalais.com/GermanUrbanDistrict	http://AlchemyAPI.com/StateOrCounty	<	0.0	0.0
+http://OpenCalais.com/GermanUrbanDistrict	http://AlchemyAPI.com/U	<	0.0	0.0
+http://OpenCalais.com/GermanUrbanDistrict	http://AlchemyAPI.com/U/S	<	1e-06	0.0
+http://OpenCalais.com/GermanUrbanDistrict	http://AlchemyAPI.com/U/S/_City	<	0.000296	0.0
+http://OpenCalais.com/Golfer	http://AlchemyAPI.com/Athlete	<	1.0	0.0
+http://OpenCalais.com/Golfer	http://AlchemyAPI.com/Golfer	=	1.0	
+http://OpenCalais.com/Golfer	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/GovernmentAgency	http://AlchemyAPI.com/Business_Organization	<	0.0	0.0
+http://OpenCalais.com/GovernmentAgency	http://AlchemyAPI.com/Cabinet_Department	>	1.0	0.0
+http://OpenCalais.com/GovernmentAgency	http://AlchemyAPI.com/Executive_Body	=	2e-06	
+http://OpenCalais.com/GovernmentAgency	http://AlchemyAPI.com/GovernmentAgency	=	1.0	
+http://OpenCalais.com/GovernmentAgency	http://AlchemyAPI.com/Government_Agency	=	1.0	
+http://OpenCalais.com/GovernmentAgency	http://AlchemyAPI.com/Law_Enforcement_Agency	>	1.0	0.0
+http://OpenCalais.com/GovernmentAgency	http://AlchemyAPI.com/Military_Unit	>	2e-06	0.0
+http://OpenCalais.com/GovernmentAgency	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/GovernmentAgency	http://AlchemyAPI.com/Political_Organization	<	0.939913	0.0
+http://OpenCalais.com/Government_Agency	http://AlchemyAPI.com/Business_Organization	<	0.0	0.0
+http://OpenCalais.com/Government_Agency	http://AlchemyAPI.com/Cabinet_Department	>	1.0	0.0
+http://OpenCalais.com/Government_Agency	http://AlchemyAPI.com/Executive_Body	=	5e-06	
+http://OpenCalais.com/Government_Agency	http://AlchemyAPI.com/GovernmentAgency	=	1.0	
+http://OpenCalais.com/Government_Agency	http://AlchemyAPI.com/Government_Agency	=	1.0	
+http://OpenCalais.com/Government_Agency	http://AlchemyAPI.com/Law_Enforcement_Agency	>	1.0	0.0
+http://OpenCalais.com/Government_Agency	http://AlchemyAPI.com/Military_Unit	>	3.5e-05	0.0
+http://OpenCalais.com/Government_Agency	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Government_Agency	http://AlchemyAPI.com/Political_Organization	<	0.407333	0.0
+http://OpenCalais.com/Government_Person	http://AlchemyAPI.com/Cabinet_Member	>	1.0	0.0
+http://OpenCalais.com/Government_Person	http://AlchemyAPI.com/Country_Leader	>	1.0	0.0
+http://OpenCalais.com/Government_Person	http://AlchemyAPI.com/Government_Person	=	1.0	
+http://OpenCalais.com/Government_Person	http://AlchemyAPI.com/OfficeHolder	=	0.5	
+http://OpenCalais.com/Government_Person	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Government_Person	http://AlchemyAPI.com/Politician	=	1e-06	
+http://OpenCalais.com/Government_Person	http://AlchemyAPI.com/U/S	<	3e-06	0.0
+http://OpenCalais.com/Government_Person	http://AlchemyAPI.com/U/S/Congressperson	>	0.999769	0.0
+http://OpenCalais.com/Government_Person	http://AlchemyAPI.com/U/S/_Politician	=	0.0	
+http://OpenCalais.com/GovernmentalBody	http://AlchemyAPI.com/Cabinet_Department	>	1.0	0.0
+http://OpenCalais.com/GovernmentalBody	http://AlchemyAPI.com/Cabinet_Member	>	0.0	0.0
+http://OpenCalais.com/GovernmentalBody	http://AlchemyAPI.com/Executive_Body	>	0.999196	0.0
+http://OpenCalais.com/GovernmentalBody	http://AlchemyAPI.com/GovernmentAgency	=	1.0	
+http://OpenCalais.com/GovernmentalBody	http://AlchemyAPI.com/Government_Agency	=	1.0	
+http://OpenCalais.com/GovernmentalBody	http://AlchemyAPI.com/Law_Enforcement_Agency	>	1.0	0.0
+http://OpenCalais.com/GovernmentalBody	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/GovernmentalBody	http://AlchemyAPI.com/Political_Organization	<	0.997817	0.000231
+http://OpenCalais.com/GovernmentalBody	http://AlchemyAPI.com/StateOrCounty	>	5.8e-05	0.0
+http://OpenCalais.com/GovernmentalJurisdiction	http://AlchemyAPI.com/AdministrativeDivision	=	0.99883	
+http://OpenCalais.com/GovernmentalJurisdiction	http://AlchemyAPI.com/Cabinet_Department	>	0.999993	0.0
+http://OpenCalais.com/GovernmentalJurisdiction	http://AlchemyAPI.com/District	>	0.998299	0.0
+http://OpenCalais.com/GovernmentalJurisdiction	http://AlchemyAPI.com/EnglishCivilParish	>	0.999962	0.0
+http://OpenCalais.com/GovernmentalJurisdiction	http://AlchemyAPI.com/GeographicFeature	<	0.0	0.0
+http://OpenCalais.com/GovernmentalJurisdiction	http://AlchemyAPI.com/GovernmentAgency	>	3e-06	0.0
+http://OpenCalais.com/GovernmentalJurisdiction	http://AlchemyAPI.com/Government_Agency	>	1e-06	0.0
+http://OpenCalais.com/GovernmentalJurisdiction	http://AlchemyAPI.com/Law_Enforcement_Agency	>	1.9e-05	0.0
+http://OpenCalais.com/GovernmentalJurisdiction	http://AlchemyAPI.com/Location	<	0.999704	0.0
+http://OpenCalais.com/GovernmentalJurisdiction	http://AlchemyAPI.com/Organization	<	0.999374	0.0
+http://OpenCalais.com/GovernmentalJurisdiction	http://AlchemyAPI.com/Political_Organization	<	0.000296	0.0
+http://OpenCalais.com/GovernmentalJurisdiction	http://AlchemyAPI.com/Prefecture	>	1.0	0.0
+http://OpenCalais.com/GovernmentalJurisdiction	http://AlchemyAPI.com/Region	<	1e-06	0.0
+http://OpenCalais.com/GovernmentalJurisdiction	http://AlchemyAPI.com/SchoolDistrict	>	0.999704	0.0
+http://OpenCalais.com/GovernmentalJurisdiction	http://AlchemyAPI.com/SpanishAutonomousCommunity	>	1.0	0.0
+http://OpenCalais.com/GovernmentalJurisdiction	http://AlchemyAPI.com/State	>	0.999665	0.0
+http://OpenCalais.com/GovernmentalJurisdiction	http://AlchemyAPI.com/StateOrCounty	>	1.0	0.0
+http://OpenCalais.com/GovernmentalJurisdiction	http://AlchemyAPI.com/USState	>	1.0	0.0
+http://OpenCalais.com/Governor	http://AlchemyAPI.com/Executive_Body	<	0.0	0.0
+http://OpenCalais.com/Governor	http://AlchemyAPI.com/Government_Person	<	1.0	0.0
+http://OpenCalais.com/Governor	http://AlchemyAPI.com/OfficeHolder	<	1.0	0.0
+http://OpenCalais.com/Governor	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Governor	http://AlchemyAPI.com/Politician	<	1.0	0.0
+http://OpenCalais.com/Governor	http://AlchemyAPI.com/U/S	<	0.000553	0.0
+http://OpenCalais.com/Governor	http://AlchemyAPI.com/U/S/_Politician	<	0.999997	0.0
+http://OpenCalais.com/Guitarist	http://AlchemyAPI.com/Artist	<	1.0	0.0
+http://OpenCalais.com/Guitarist	http://AlchemyAPI.com/Guitarist	=	1.0	
+http://OpenCalais.com/Guitarist	http://AlchemyAPI.com/MusicalArtist	<	1.0	0.0
+http://OpenCalais.com/Guitarist	http://AlchemyAPI.com/MusicalGroupMember	<	0.001701	0.0
+http://OpenCalais.com/Guitarist	http://AlchemyAPI.com/Musician	<	1.0	0.0
+http://OpenCalais.com/Guitarist	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/HallOfFameInductee	http://AlchemyAPI.com/Award	<	0.0	0.0
+http://OpenCalais.com/HallOfFameInductee	http://AlchemyAPI.com/AwardWinner	<	0.982014	0.0
+http://OpenCalais.com/HallOfFameInductee	http://AlchemyAPI.com/Person	<	0.999898	0.0
+http://OpenCalais.com/HealthCondition	http://AlchemyAPI.com/Condition	=	0.022977	
+http://OpenCalais.com/HealthCondition	http://AlchemyAPI.com/Disorder	=	0.999996	
+http://OpenCalais.com/HealthCondition	http://AlchemyAPI.com/Virus	>	0.994089	0.0
+http://OpenCalais.com/Hobbyist	http://AlchemyAPI.com/Cartoonist	>	2e-06	0.0
+http://OpenCalais.com/Hobbyist	http://AlchemyAPI.com/Cricketer	>	7.5e-05	0.0
+http://OpenCalais.com/Hobbyist	http://AlchemyAPI.com/Field_Hockey_Player	>	0.000231	0.0
+http://OpenCalais.com/Hobbyist	http://AlchemyAPI.com/Golfer	>	0.99962	0.0
+http://OpenCalais.com/Hobbyist	http://AlchemyAPI.com/Painter	>	0.001701	0.0
+http://OpenCalais.com/Hobbyist	http://AlchemyAPI.com/Paleontologist	>	0.0	0.0
+http://OpenCalais.com/Hobbyist	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Hobbyist	http://AlchemyAPI.com/Photographer	>	0.132964	0.0
+http://OpenCalais.com/Hobbyist	http://AlchemyAPI.com/Sculptor	>	0.531209	0.0
+http://OpenCalais.com/HockeyCoach	http://AlchemyAPI.com/Athlete	<	3.1e-05	0.0
+http://OpenCalais.com/HockeyCoach	http://AlchemyAPI.com/Coach	<	1.0	0.0
+http://OpenCalais.com/HockeyCoach	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/HockeyCoach	http://AlchemyAPI.com/Sports_Executive	<	0.0	0.0
+http://OpenCalais.com/HockeyPlayer	http://AlchemyAPI.com/Athlete	<	1.0	0.0
+http://OpenCalais.com/HockeyPlayer	http://AlchemyAPI.com/Hockey_Player	=	1.0	
+http://OpenCalais.com/HockeyTeam	http://AlchemyAPI.com/Hockey_Team	=	1.0	
+http://OpenCalais.com/HockeyTeam	http://AlchemyAPI.com/ProfessionalSportsTeam	<	1.0	0.0
+http://OpenCalais.com/HockeyTeam	http://AlchemyAPI.com/Sport	<	1e-06	0.0
+http://OpenCalais.com/HockeyTeam	http://AlchemyAPI.com/SportsTeam	<	1.0	0.0
+http://OpenCalais.com/HockeyTeam	http://AlchemyAPI.com/Sports_Organization	<	1.0	0.0
+http://OpenCalais.com/Hockey_Player	http://AlchemyAPI.com/Athlete	<	1.0	0.0
+http://OpenCalais.com/Hockey_Player	http://AlchemyAPI.com/Field_Hockey_Player	>	1e-06	0.0
+http://OpenCalais.com/Hockey_Player	http://AlchemyAPI.com/Hockey_Player	=	1.0	
+http://OpenCalais.com/HonoraryDegreeRecipient	http://AlchemyAPI.com/Award	<	0.0	0.0
+http://OpenCalais.com/HonoraryDegreeRecipient	http://AlchemyAPI.com/AwardWinner	<	0.999842	0.0
+http://OpenCalais.com/HonoraryDegreeRecipient	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Hospital	http://AlchemyAPI.com/Building	<	1.0	0.0
+http://OpenCalais.com/Hospital	http://AlchemyAPI.com/Business_Organization	<	0.962673	0.0
+http://OpenCalais.com/Hospital	http://AlchemyAPI.com/Facility	<	1.0	0.0
+http://OpenCalais.com/Hospital	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/Hospital	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Hospital	http://AlchemyAPI.com/Structure	<	2e-06	0.0
+http://OpenCalais.com/Hospitality_Company	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/Hospitality_Company	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/Hospitality_Company	http://AlchemyAPI.com/Facility	<	0.0	0.0
+http://OpenCalais.com/Hospitality_Company	http://AlchemyAPI.com/Hotel	>	0.999196	0.0
+http://OpenCalais.com/Hospitality_Company	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Hotel	http://AlchemyAPI.com/Building	<	1.0	0.0
+http://OpenCalais.com/Hotel	http://AlchemyAPI.com/Business_Organization	<	0.164516	0.0
+http://OpenCalais.com/Hotel	http://AlchemyAPI.com/Facility	<	0.999977	0.0
+http://OpenCalais.com/Hotel	http://AlchemyAPI.com/GeographicFeature	<	0.0	0.0
+http://OpenCalais.com/Hotel	http://AlchemyAPI.com/Hotel	=	1.0	
+http://OpenCalais.com/Hotel	http://AlchemyAPI.com/Location	<	0.999942	0.0
+http://OpenCalais.com/Hotel	http://AlchemyAPI.com/Organization	<	2e-06	0.0
+http://OpenCalais.com/Hotel	http://AlchemyAPI.com/Structure	<	3.1e-05	0.0
+http://OpenCalais.com/House	http://AlchemyAPI.com/Building	<	1.0	0.0
+http://OpenCalais.com/House	http://AlchemyAPI.com/Facility	<	0.245085	0.0
+http://OpenCalais.com/House	http://AlchemyAPI.com/GeographicFeature	<	0.0	0.0
+http://OpenCalais.com/House	http://AlchemyAPI.com/House	=	0.999569	
+http://OpenCalais.com/House	http://AlchemyAPI.com/Location	<	0.999998	0.0
+http://OpenCalais.com/House	http://AlchemyAPI.com/Product	<	0.0	0.0
+http://OpenCalais.com/House	http://AlchemyAPI.com/Structure	<	0.997199	0.0
+http://OpenCalais.com/Illustrator	http://AlchemyAPI.com/Artist	<	0.999993	0.0
+http://OpenCalais.com/Illustrator	http://AlchemyAPI.com/Cartoonist	>	0.003594	0.0
+http://OpenCalais.com/Illustrator	http://AlchemyAPI.com/Comics_Creator	<	0.0	4e-06
+http://OpenCalais.com/Illustrator	http://AlchemyAPI.com/Painter	=	0.0	
+http://OpenCalais.com/Illustrator	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Illustrator	http://AlchemyAPI.com/VisualArtist	<	0.999979	0.0
+http://OpenCalais.com/IndianCity	http://AlchemyAPI.com/AdministrativeDivision	<	0.99998	0.0
+http://OpenCalais.com/IndianCity	http://AlchemyAPI.com/City	<	1.0	0.0
+http://OpenCalais.com/IndianCity	http://AlchemyAPI.com/GeographicFeature	<	0.999999	0.0
+http://OpenCalais.com/IndianCity	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/IndianCity	http://AlchemyAPI.com/Prefecture	<	0.0	0.0
+http://OpenCalais.com/IndianCity	http://AlchemyAPI.com/Region	<	0.999739	0.0
+http://OpenCalais.com/IndianCity	http://AlchemyAPI.com/U/S	<	0.001325	0.0
+http://OpenCalais.com/IndianCity	http://AlchemyAPI.com/U/S/_City	<	0.999512	0.0
+http://OpenCalais.com/IndonesianCity	http://AlchemyAPI.com/AdministrativeDivision	<	1.0	0.0
+http://OpenCalais.com/IndonesianCity	http://AlchemyAPI.com/City	<	1.0	0.0
+http://OpenCalais.com/IndonesianCity	http://AlchemyAPI.com/District	<	0.0	0.0
+http://OpenCalais.com/IndonesianCity	http://AlchemyAPI.com/GeographicFeature	<	0.999997	0.0
+http://OpenCalais.com/IndonesianCity	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/IndonesianCity	http://AlchemyAPI.com/Prefecture	<	0.0	0.0
+http://OpenCalais.com/IndonesianCity	http://AlchemyAPI.com/Region	<	0.999993	0.0
+http://OpenCalais.com/IndonesianCity	http://AlchemyAPI.com/State	<	0.0	0.0
+http://OpenCalais.com/IndonesianCity	http://AlchemyAPI.com/StateOrCounty	<	0.0	0.0
+http://OpenCalais.com/IndonesianCity	http://AlchemyAPI.com/U/S/_City	<	0.999374	0.0
+http://OpenCalais.com/IndonesianProvince	http://AlchemyAPI.com/AdministrativeDivision	<	1.0	0.0
+http://OpenCalais.com/IndonesianProvince	http://AlchemyAPI.com/District	<	0.0	0.0
+http://OpenCalais.com/IndonesianProvince	http://AlchemyAPI.com/GeographicFeature	<	0.999512	0.0
+http://OpenCalais.com/IndonesianProvince	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/IndonesianProvince	http://AlchemyAPI.com/Political_Organization	<	1e-06	0.0
+http://OpenCalais.com/IndonesianProvince	http://AlchemyAPI.com/Prefecture	<	0.0	0.0
+http://OpenCalais.com/IndonesianProvince	http://AlchemyAPI.com/Region	<	1.0	0.0
+http://OpenCalais.com/IndonesianProvince	http://AlchemyAPI.com/State	<	0.99883	0.0
+http://OpenCalais.com/IndonesianProvince	http://AlchemyAPI.com/StateOrCounty	<	0.997817	0.0
+http://OpenCalais.com/InfectiousDisease	http://AlchemyAPI.com/Condition	<	0.999999	0.0
+http://OpenCalais.com/InfectiousDisease	http://AlchemyAPI.com/Disorder	<	0.999997	0.0
+http://OpenCalais.com/InfectiousDisease	http://AlchemyAPI.com/Virus	>	0.997817	0.0
+http://OpenCalais.com/Inventor	http://AlchemyAPI.com/AircraftDesigner	>	1.0	0.0
+http://OpenCalais.com/Inventor	http://AlchemyAPI.com/Author	<	0.0	0.0
+http://OpenCalais.com/Inventor	http://AlchemyAPI.com/ComputerDesigner	>	0.99593	0.0
+http://OpenCalais.com/Inventor	http://AlchemyAPI.com/ElementDiscoverer	>	0.999999	0.0
+http://OpenCalais.com/Inventor	http://AlchemyAPI.com/Inventor	=	1.0	
+http://OpenCalais.com/Inventor	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Inventor	http://AlchemyAPI.com/RocketEngineDesigner	>	0.999996	0.0
+http://OpenCalais.com/Inventor	http://AlchemyAPI.com/Scientist	<	1e-06	0.0
+http://OpenCalais.com/Inventor	http://AlchemyAPI.com/Technologist	<	1e-06	0.0
+http://OpenCalais.com/Island	http://AlchemyAPI.com/GeographicFeature	<	1.0	0.0
+http://OpenCalais.com/Island	http://AlchemyAPI.com/Island	=	1.0	
+http://OpenCalais.com/Island	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/Island	http://AlchemyAPI.com/Region	<	5e-06	0.0
+http://OpenCalais.com/ItalianComune	http://AlchemyAPI.com/AdministrativeDivision	<	1.0	0.0
+http://OpenCalais.com/ItalianComune	http://AlchemyAPI.com/City	<	1.0	0.0
+http://OpenCalais.com/ItalianComune	http://AlchemyAPI.com/District	<	0.002473	0.0
+http://OpenCalais.com/ItalianComune	http://AlchemyAPI.com/GeographicFeature	<	0.999989	0.0
+http://OpenCalais.com/ItalianComune	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/ItalianComune	http://AlchemyAPI.com/Neighborhood	<	0.0	0.0
+http://OpenCalais.com/ItalianComune	http://AlchemyAPI.com/Political_Organization	<	0.0	0.0
+http://OpenCalais.com/ItalianComune	http://AlchemyAPI.com/Prefecture	<	9e-06	0.0
+http://OpenCalais.com/ItalianComune	http://AlchemyAPI.com/Region	<	0.99986	0.0
+http://OpenCalais.com/ItalianComune	http://AlchemyAPI.com/State	<	0.0	0.0
+http://OpenCalais.com/ItalianComune	http://AlchemyAPI.com/StateOrCounty	<	0.001701	0.0
+http://OpenCalais.com/ItalianComune	http://AlchemyAPI.com/U/S	<	0.003173	0.0
+http://OpenCalais.com/ItalianComune	http://AlchemyAPI.com/U/S/_City	<	0.99929	0.0
+http://OpenCalais.com/ItalianRegion	http://AlchemyAPI.com/AdministrativeDivision	<	1.0	0.0
+http://OpenCalais.com/ItalianRegion	http://AlchemyAPI.com/District	<	0.0	0.0
+http://OpenCalais.com/ItalianRegion	http://AlchemyAPI.com/GeographicFeature	<	0.999934	0.0
+http://OpenCalais.com/ItalianRegion	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/ItalianRegion	http://AlchemyAPI.com/Political_Organization	<	0.0	0.0
+http://OpenCalais.com/ItalianRegion	http://AlchemyAPI.com/Region	<	1.0	0.0
+http://OpenCalais.com/ItalianRegion	http://AlchemyAPI.com/State	<	0.00407	0.0
+http://OpenCalais.com/ItalianRegion	http://AlchemyAPI.com/StateOrCounty	<	0.531209	0.0
+http://OpenCalais.com/ItalianRegion	http://AlchemyAPI.com/Structure	<	0.0	0.0
+http://OpenCalais.com/JapaneseDesignatedCity	http://AlchemyAPI.com/AdministrativeDivision	<	1.0	0.0
+http://OpenCalais.com/JapaneseDesignatedCity	http://AlchemyAPI.com/City	<	1.0	0.0
+http://OpenCalais.com/JapaneseDesignatedCity	http://AlchemyAPI.com/District	<	0.0	0.0
+http://OpenCalais.com/JapaneseDesignatedCity	http://AlchemyAPI.com/GeographicFeature	<	0.990292	0.0
+http://OpenCalais.com/JapaneseDesignatedCity	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/JapaneseDesignatedCity	http://AlchemyAPI.com/Political_Organization	<	0.0	0.0
+http://OpenCalais.com/JapaneseDesignatedCity	http://AlchemyAPI.com/Region	<	0.997817	0.0
+http://OpenCalais.com/JapaneseDesignatedCity	http://AlchemyAPI.com/State	<	0.0	0.0
+http://OpenCalais.com/JapaneseDesignatedCity	http://AlchemyAPI.com/StateOrCounty	<	0.0	0.0
+http://OpenCalais.com/JapaneseDesignatedCity	http://AlchemyAPI.com/U/S	<	0.00014	0.0
+http://OpenCalais.com/JapaneseDesignatedCity	http://AlchemyAPI.com/U/S/_City	<	0.999569	0.0
+http://OpenCalais.com/JapanesePrefecture	http://AlchemyAPI.com/AdministrativeDivision	<	1.0	0.0
+http://OpenCalais.com/JapanesePrefecture	http://AlchemyAPI.com/District	<	0.0	0.0
+http://OpenCalais.com/JapanesePrefecture	http://AlchemyAPI.com/GeographicFeature	<	0.999988	0.0
+http://OpenCalais.com/JapanesePrefecture	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/JapanesePrefecture	http://AlchemyAPI.com/Political_Organization	<	0.0	0.0
+http://OpenCalais.com/JapanesePrefecture	http://AlchemyAPI.com/Prefecture	<	0.999997	0.0
+http://OpenCalais.com/JapanesePrefecture	http://AlchemyAPI.com/Region	<	1.0	0.0
+http://OpenCalais.com/JapanesePrefecture	http://AlchemyAPI.com/State	<	0.979668	0.0
+http://OpenCalais.com/JapanesePrefecture	http://AlchemyAPI.com/StateOrCounty	<	0.99929	0.0
+http://OpenCalais.com/JapanesePrefecture	http://AlchemyAPI.com/Structure	<	0.0	0.0
+http://OpenCalais.com/Joint_Chiefs_of_Staff	http://AlchemyAPI.com/Armed_Force	<	1e-06	0.0
+http://OpenCalais.com/Joint_Chiefs_of_Staff	http://AlchemyAPI.com/Executive_Body	<	0.437823	0.0
+http://OpenCalais.com/Joint_Chiefs_of_Staff	http://AlchemyAPI.com/GovernmentAgency	<	0.999957	0.0
+http://OpenCalais.com/Joint_Chiefs_of_Staff	http://AlchemyAPI.com/Government_Agency	<	0.999979	0.0
+http://OpenCalais.com/Joint_Chiefs_of_Staff	http://AlchemyAPI.com/Military_Leader	<	0.0	0.0
+http://OpenCalais.com/Joint_Chiefs_of_Staff	http://AlchemyAPI.com/Military_Unit	<	0.999986	0.0
+http://OpenCalais.com/Joint_Chiefs_of_Staff	http://AlchemyAPI.com/OfficeHolder	<	0.0	0.0
+http://OpenCalais.com/Joint_Chiefs_of_Staff	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Joint_Chiefs_of_Staff	http://AlchemyAPI.com/Political_Organization	<	0.015906	0.0
+http://OpenCalais.com/Journalist	http://AlchemyAPI.com/Author	<	2e-06	0.0
+http://OpenCalais.com/Journalist	http://AlchemyAPI.com/FilmCritic	>	0.999998	0.0
+http://OpenCalais.com/Journalist	http://AlchemyAPI.com/Journalist	=	1.0	
+http://OpenCalais.com/Journalist	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Journalist	http://AlchemyAPI.com/Sports_Announcer	>	5e-06	0.0
+http://OpenCalais.com/Lake	http://AlchemyAPI.com/Body_of_Water	<	1.0	0.0
+http://OpenCalais.com/Lake	http://AlchemyAPI.com/GeographicFeature	<	1.0	0.0
+http://OpenCalais.com/Lake	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/Lake	http://AlchemyAPI.com/Structure	<	0.0	0.0
+http://OpenCalais.com/LandscapeArchitect	http://AlchemyAPI.com/Architect	<	0.987568	0.0
+http://OpenCalais.com/LandscapeArchitect	http://AlchemyAPI.com/Artist	<	8e-06	0.0
+http://OpenCalais.com/LandscapeArchitect	http://AlchemyAPI.com/Business_Person	<	0.0	0.0
+http://OpenCalais.com/LandscapeArchitect	http://AlchemyAPI.com/Engineer	<	0.0	0.0
+http://OpenCalais.com/LandscapeArchitect	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/LandscapeArchitect	http://AlchemyAPI.com/VisualArtist	<	0.0	0.0
+http://OpenCalais.com/Legislature	http://AlchemyAPI.com/GovernmentAgency	<	0.006693	0.0
+http://OpenCalais.com/Legislature	http://AlchemyAPI.com/Government_Agency	<	0.005911	0.0
+http://OpenCalais.com/Legislature	http://AlchemyAPI.com/Organization	<	0.999998	0.0
+http://OpenCalais.com/Legislature	http://AlchemyAPI.com/Political_Organization	<	0.99999	0.0
+http://OpenCalais.com/Legislature	http://AlchemyAPI.com/U/S/Congressperson	>	0.0	0.0
+http://OpenCalais.com/Location	http://AlchemyAPI.com/AdministrativeDivision	>	0.999999	0.0
+http://OpenCalais.com/Location	http://AlchemyAPI.com/Building	>	0.998073	0.0
+http://OpenCalais.com/Location	http://AlchemyAPI.com/Continent	>	1.0	0.0
+http://OpenCalais.com/Location	http://AlchemyAPI.com/District	>	1.0	0.0
+http://OpenCalais.com/Location	http://AlchemyAPI.com/Ecoregion	>	0.047426	0.0
+http://OpenCalais.com/Location	http://AlchemyAPI.com/EnglishCivilParish	>	1.0	0.0
+http://OpenCalais.com/Location	http://AlchemyAPI.com/Facility	>	0.991423	0.0
+http://OpenCalais.com/Location	http://AlchemyAPI.com/GeographicFeature	=	0.0	
+http://OpenCalais.com/Location	http://AlchemyAPI.com/Location	=	0.999995	
+http://OpenCalais.com/Location	http://AlchemyAPI.com/ManufacturingPlant	>	0.005911	0.0
+http://OpenCalais.com/Location	http://AlchemyAPI.com/Neighborhood	>	1.0	0.0
+http://OpenCalais.com/Location	http://AlchemyAPI.com/Prefecture	>	1.0	0.0
+http://OpenCalais.com/Location	http://AlchemyAPI.com/Region	>	0.999993	1e-06
+http://OpenCalais.com/Location	http://AlchemyAPI.com/SchoolDistrict	>	0.99593	0.0
+http://OpenCalais.com/Location	http://AlchemyAPI.com/ShoppingCenter	>	0.998299	0.0
+http://OpenCalais.com/Location	http://AlchemyAPI.com/Sports_Venue	>	0.999999	0.0
+http://OpenCalais.com/Location	http://AlchemyAPI.com/State	>	0.999962	0.0
+http://OpenCalais.com/Location	http://AlchemyAPI.com/StateOrCounty	>	1.0	0.0
+http://OpenCalais.com/Location	http://AlchemyAPI.com/U/S/_City	>	0.999995	0.0
+http://OpenCalais.com/Location	http://AlchemyAPI.com/USState	>	1.0	0.0
+http://OpenCalais.com/Lyricist	http://AlchemyAPI.com/Artist	<	0.999877	0.0
+http://OpenCalais.com/Lyricist	http://AlchemyAPI.com/Author	<	0.962673	0.0
+http://OpenCalais.com/Lyricist	http://AlchemyAPI.com/FilmMusicContributor	<	0.0	0.0
+http://OpenCalais.com/Lyricist	http://AlchemyAPI.com/MusicalArtist	<	0.817574	0.0
+http://OpenCalais.com/Lyricist	http://AlchemyAPI.com/Musician	<	0.99993	0.0
+http://OpenCalais.com/Lyricist	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Lyricist	http://AlchemyAPI.com/Songwriter	<	0.939913	0.0
+http://OpenCalais.com/Magazine	http://AlchemyAPI.com/Economist	>	3e-06	0.0
+http://OpenCalais.com/Magazine	http://AlchemyAPI.com/Organization	<	0.0	0.0
+http://OpenCalais.com/Magazine	http://AlchemyAPI.com/PrintMedia	<	1.0	0.0
+http://OpenCalais.com/Magazine	http://AlchemyAPI.com/Product	<	5e-06	0.0
+http://OpenCalais.com/Magazine	http://AlchemyAPI.com/Publication	<	1.0	0.0
+http://OpenCalais.com/MartialArt	http://AlchemyAPI.com/Sport	<	0.999955	0.0
+http://OpenCalais.com/MartialArtist	http://AlchemyAPI.com/Athlete	<	1.0	0.0
+http://OpenCalais.com/MartialArtist	http://AlchemyAPI.com/Martial_Artist	=	1.0	
+http://OpenCalais.com/MartialArtist	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Media_Company	http://AlchemyAPI.com/Advertising_Agency	>	5.1e-05	0.0
+http://OpenCalais.com/Media_Company	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/Media_Company	http://AlchemyAPI.com/ComicBookPublisher	>	1.0	0.0
+http://OpenCalais.com/Media_Company	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/Media_Company	http://AlchemyAPI.com/Entertainment_Company	=	1e-06	
+http://OpenCalais.com/Media_Company	http://AlchemyAPI.com/Film_Production_Company	>	1.0	0.0
+http://OpenCalais.com/Media_Company	http://AlchemyAPI.com/Gaming_Company	>	0.000231	0.0
+http://OpenCalais.com/Media_Company	http://AlchemyAPI.com/News_Agency	>	1.0	0.0
+http://OpenCalais.com/Media_Company	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Media_Company	http://AlchemyAPI.com/PrintMedia	>	0.998299	0.0
+http://OpenCalais.com/Media_Company	http://AlchemyAPI.com/RecordLabel	>	0.999955	0.0
+http://OpenCalais.com/Media_Company	http://AlchemyAPI.com/TVChannel	>	1.0	0.0
+http://OpenCalais.com/Media_Company	http://AlchemyAPI.com/Television_Network	>	1.0	0.0
+http://OpenCalais.com/Media_Company	http://AlchemyAPI.com/Television_Production_Company	>	1.0	0.0
+http://OpenCalais.com/Media_Company	http://AlchemyAPI.com/Television_Station	>	1.0	0.0
+http://OpenCalais.com/MedicalSpecialty	http://AlchemyAPI.com/Anthropologist	>	0.0	0.0
+http://OpenCalais.com/MedicalSpecialty	http://AlchemyAPI.com/Chemist	>	0.0	0.0
+http://OpenCalais.com/MedicalSpecialty	http://AlchemyAPI.com/Psychiatrist	>	0.999739	0.0
+http://OpenCalais.com/MemberOfParliament	http://AlchemyAPI.com/Government_Person	<	1.0	0.0
+http://OpenCalais.com/MemberOfParliament	http://AlchemyAPI.com/OfficeHolder	<	1.0	0.0
+http://OpenCalais.com/MemberOfParliament	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/MemberOfParliament	http://AlchemyAPI.com/Politician	<	1.0	0.0
+http://OpenCalais.com/MemberOfParliament	http://AlchemyAPI.com/U/S	<	0.033086	0.0
+http://OpenCalais.com/MemberOfParliament	http://AlchemyAPI.com/U/S/_Politician	<	1.0	0.0
+http://OpenCalais.com/MembershipOrganization	http://AlchemyAPI.com/Business_Organization	<	0.893309	0.0
+http://OpenCalais.com/MembershipOrganization	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/MembershipOrganization	http://AlchemyAPI.com/Political_Party	>	0.977023	0.0
+http://OpenCalais.com/MembershipOrganization	http://AlchemyAPI.com/ProfessionalSportsTeam	>	2.4e-05	0.0
+http://OpenCalais.com/MembershipOrganization	http://AlchemyAPI.com/Professional_Association	=	0.957912	
+http://OpenCalais.com/MembershipOrganization	http://AlchemyAPI.com/Religious_Organization	>	8.5e-05	0.0
+http://OpenCalais.com/MembershipOrganization	http://AlchemyAPI.com/ReportIssuingInstitution	>	1e-06	0.0
+http://OpenCalais.com/MembershipOrganization	http://AlchemyAPI.com/SportsTeam	>	0.000804	0.0
+http://OpenCalais.com/MembershipOrganization	http://AlchemyAPI.com/Trade_Association	>	1.0	0.0
+http://OpenCalais.com/MexicanState	http://AlchemyAPI.com/AdministrativeDivision	<	1.0	0.0
+http://OpenCalais.com/MexicanState	http://AlchemyAPI.com/District	<	0.0	0.0
+http://OpenCalais.com/MexicanState	http://AlchemyAPI.com/GeographicFeature	<	0.999985	0.0
+http://OpenCalais.com/MexicanState	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/MexicanState	http://AlchemyAPI.com/Political_Organization	<	0.0	0.0
+http://OpenCalais.com/MexicanState	http://AlchemyAPI.com/Prefecture	=	0.0	
+http://OpenCalais.com/MexicanState	http://AlchemyAPI.com/Region	<	0.999998	0.0
+http://OpenCalais.com/MexicanState	http://AlchemyAPI.com/State	<	0.99982	0.0
+http://OpenCalais.com/MexicanState	http://AlchemyAPI.com/StateOrCounty	<	0.999993	0.0
+http://OpenCalais.com/MilitaryCommander	http://AlchemyAPI.com/Government_Person	<	2e-06	0.0
+http://OpenCalais.com/MilitaryCommander	http://AlchemyAPI.com/MilitaryPerson	<	1.0	0.0
+http://OpenCalais.com/MilitaryCommander	http://AlchemyAPI.com/Military_Leader	=	1.0	
+http://OpenCalais.com/MilitaryCommander	http://AlchemyAPI.com/Military_Person	<	1.0	0.0
+http://OpenCalais.com/MilitaryCommander	http://AlchemyAPI.com/OfficeHolder	<	3e-06	0.0
+http://OpenCalais.com/MilitaryCommander	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/MilitaryPerson	http://AlchemyAPI.com/Ambassador	>	3e-06	0.0
+http://OpenCalais.com/MilitaryPerson	http://AlchemyAPI.com/Government_Person	<	0.000431	0.0
+http://OpenCalais.com/MilitaryPerson	http://AlchemyAPI.com/Irregular_Military	>	0.000261	0.0
+http://OpenCalais.com/MilitaryPerson	http://AlchemyAPI.com/MilitaryPerson	=	1.0	
+http://OpenCalais.com/MilitaryPerson	http://AlchemyAPI.com/Military_Leader	>	1.0	0.0
+http://OpenCalais.com/MilitaryPerson	http://AlchemyAPI.com/Military_Person	=	1.0	
+http://OpenCalais.com/MilitaryPerson	http://AlchemyAPI.com/OfficeHolder	<	0.0	0.0
+http://OpenCalais.com/MilitaryPerson	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/MilitaryPost	http://AlchemyAPI.com/Building	<	0.999997	0.0
+http://OpenCalais.com/MilitaryPost	http://AlchemyAPI.com/Facility	<	0.999955	0.0
+http://OpenCalais.com/MilitaryPost	http://AlchemyAPI.com/GeographicFeature	<	1e-06	0.0
+http://OpenCalais.com/MilitaryPost	http://AlchemyAPI.com/GovernmentAgency	<	0.0	0.0
+http://OpenCalais.com/MilitaryPost	http://AlchemyAPI.com/Location	<	0.999997	0.0
+http://OpenCalais.com/MilitaryPost	http://AlchemyAPI.com/Organization	<	4e-05	0.0
+http://OpenCalais.com/MilitaryUnit	http://AlchemyAPI.com/Armed_Force	=	0.998299	
+http://OpenCalais.com/MilitaryUnit	http://AlchemyAPI.com/GovernmentAgency	<	0.0	0.0
+http://OpenCalais.com/MilitaryUnit	http://AlchemyAPI.com/Government_Agency	<	1e-06	0.0
+http://OpenCalais.com/MilitaryUnit	http://AlchemyAPI.com/Irregular_Military	>	1.0	0.0
+http://OpenCalais.com/MilitaryUnit	http://AlchemyAPI.com/Military_Unit	=	1.0	
+http://OpenCalais.com/MilitaryUnit	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/MilitaryUnit	http://AlchemyAPI.com/Political_Organization	<	0.0	0.0
+http://OpenCalais.com/Model	http://AlchemyAPI.com/Model	=	0.0	
+http://OpenCalais.com/Monarch	http://AlchemyAPI.com/Country_Leader	<	0.999089	5.1e-05
+http://OpenCalais.com/Monarch	http://AlchemyAPI.com/Executive_Body	<	0.0	0.0
+http://OpenCalais.com/Monarch	http://AlchemyAPI.com/Government_Person	<	0.00018	0.0
+http://OpenCalais.com/Monarch	http://AlchemyAPI.com/Nobility	<	0.00014	0.0
+http://OpenCalais.com/Monarch	http://AlchemyAPI.com/OfficeHolder	<	1.3e-05	0.0
+http://OpenCalais.com/Monarch	http://AlchemyAPI.com/Person	<	0.005911	0.0
+http://OpenCalais.com/Monarch	http://AlchemyAPI.com/Politician	<	0.000626	0.0
+http://OpenCalais.com/Monarch	http://AlchemyAPI.com/U/S/_Politician	<	0.0	0.0
+http://OpenCalais.com/Mountain	http://AlchemyAPI.com/GeographicFeature	<	1.0	0.0
+http://OpenCalais.com/Mountain	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/Mountain	http://AlchemyAPI.com/Mountain	=	1.0	
+http://OpenCalais.com/Mountain	http://AlchemyAPI.com/Structure	<	0.0	0.0
+http://OpenCalais.com/Mountain	http://AlchemyAPI.com/Volcano	>	0.622459	0.0
+http://OpenCalais.com/MountainRange	http://AlchemyAPI.com/GeographicFeature	<	1.0	0.0
+http://OpenCalais.com/MountainRange	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/MountainRange	http://AlchemyAPI.com/Mountain	<	8e-06	4.5e-05
+http://OpenCalais.com/MountainRange	http://AlchemyAPI.com/Mountain_Range	=	1.0	
+http://OpenCalais.com/MountainRange	http://AlchemyAPI.com/Region	<	0.0	0.0
+http://OpenCalais.com/MountainRange	http://AlchemyAPI.com/Structure	<	0.0	0.0
+http://OpenCalais.com/Mountaineer	http://AlchemyAPI.com/Athlete	<	0.999993	0.0
+http://OpenCalais.com/Mountaineer	http://AlchemyAPI.com/Explorer	<	0.0	0.0
+http://OpenCalais.com/Mountaineer	http://AlchemyAPI.com/Mountain_Climber	=	1.0	
+http://OpenCalais.com/Mountaineer	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Movie	http://AlchemyAPI.com/Film	=	1.0	
+http://OpenCalais.com/Movie	http://AlchemyAPI.com/Movie	=	1.0	
+http://OpenCalais.com/Museum	http://AlchemyAPI.com/Building	<	0.999512	0.0
+http://OpenCalais.com/Museum	http://AlchemyAPI.com/Business_Organization	<	0.0	0.0
+http://OpenCalais.com/Museum	http://AlchemyAPI.com/Facility	<	0.999877	0.0
+http://OpenCalais.com/Museum	http://AlchemyAPI.com/Location	<	0.99998	0.0
+http://OpenCalais.com/Museum	http://AlchemyAPI.com/Museum	=	1.0	
+http://OpenCalais.com/Museum	http://AlchemyAPI.com/Non-ProfitOrganisation	<	0.0	0.0
+http://OpenCalais.com/Museum	http://AlchemyAPI.com/Organization	<	0.998073	0.0
+http://OpenCalais.com/Museum	http://AlchemyAPI.com/Structure	<	0.0	0.0
+http://OpenCalais.com/MusicGroup	http://AlchemyAPI.com/Artist	<	0.106691	0.0
+http://OpenCalais.com/MusicGroup	http://AlchemyAPI.com/Band	=	1.0	
+http://OpenCalais.com/MusicGroup	http://AlchemyAPI.com/Business_Organization	<	8.5e-05	0.0
+http://OpenCalais.com/MusicGroup	http://AlchemyAPI.com/Entertainment_Company	<	0.0	0.0
+http://OpenCalais.com/MusicGroup	http://AlchemyAPI.com/MusicalArtist	<	0.99962	1.1e-05
+http://OpenCalais.com/MusicGroup	http://AlchemyAPI.com/MusicalGroup	=	1.0	
+http://OpenCalais.com/MusicGroup	http://AlchemyAPI.com/Musician	<	0.0	0.0
+http://OpenCalais.com/MusicGroup	http://AlchemyAPI.com/Orchestra	>	0.999999	0.0
+http://OpenCalais.com/MusicGroup	http://AlchemyAPI.com/Organization	<	0.999995	0.0
+http://OpenCalais.com/Music_Production_Company	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/Music_Production_Company	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/Music_Production_Company	http://AlchemyAPI.com/Entertainment_Company	<	1.0	0.0
+http://OpenCalais.com/Music_Production_Company	http://AlchemyAPI.com/Manufacturing_Company	<	0.0	0.0
+http://OpenCalais.com/Music_Production_Company	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Music_Production_Company	http://AlchemyAPI.com/Producer	<	1e-06	0.0
+http://OpenCalais.com/Music_Production_Company	http://AlchemyAPI.com/RecordLabel	=	3e-06	
+http://OpenCalais.com/MusicalArtist	http://AlchemyAPI.com/Artist	<	0.999949	0.0
+http://OpenCalais.com/MusicalArtist	http://AlchemyAPI.com/Band	>	1.0	0.0
+http://OpenCalais.com/MusicalArtist	http://AlchemyAPI.com/Composer	>	0.999999	0.0
+http://OpenCalais.com/MusicalArtist	http://AlchemyAPI.com/Drummer	>	1.0	0.0
+http://OpenCalais.com/MusicalArtist	http://AlchemyAPI.com/FilmMusicContributor	>	0.893309	0.0
+http://OpenCalais.com/MusicalArtist	http://AlchemyAPI.com/Guitarist	>	1.0	0.0
+http://OpenCalais.com/MusicalArtist	http://AlchemyAPI.com/MusicalArtist	=	1.0	
+http://OpenCalais.com/MusicalArtist	http://AlchemyAPI.com/MusicalGroup	>	0.999925	0.0
+http://OpenCalais.com/MusicalArtist	http://AlchemyAPI.com/MusicalGroupMember	>	0.245085	0.0
+http://OpenCalais.com/MusicalArtist	http://AlchemyAPI.com/Musician	=	1.0	
+http://OpenCalais.com/MusicalArtist	http://AlchemyAPI.com/Orchestra	>	0.000335	0.0
+http://OpenCalais.com/MusicalArtist	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/MusicalArtist	http://AlchemyAPI.com/Singer	>	1.0	0.0
+http://OpenCalais.com/MusicalArtist	http://AlchemyAPI.com/Songwriter	>	0.999993	0.0
+http://OpenCalais.com/MusicalArtist	http://AlchemyAPI.com/Violinist	>	1.0	0.0
+http://OpenCalais.com/MusicalGroup	http://AlchemyAPI.com/Artist	<	0.985936	0.0
+http://OpenCalais.com/MusicalGroup	http://AlchemyAPI.com/Band	=	1.0	
+http://OpenCalais.com/MusicalGroup	http://AlchemyAPI.com/Business_Organization	<	5e-06	0.0
+http://OpenCalais.com/MusicalGroup	http://AlchemyAPI.com/Entertainment_Company	<	0.0	0.0
+http://OpenCalais.com/MusicalGroup	http://AlchemyAPI.com/MusicalArtist	=	0.999949	
+http://OpenCalais.com/MusicalGroup	http://AlchemyAPI.com/MusicalGroup	=	1.0	
+http://OpenCalais.com/MusicalGroup	http://AlchemyAPI.com/Orchestra	>	1.0	0.0
+http://OpenCalais.com/MusicalGroup	http://AlchemyAPI.com/Organization	<	0.999996	0.0
+http://OpenCalais.com/MusicalGroupMember	http://AlchemyAPI.com/Artist	<	0.0	0.0
+http://OpenCalais.com/MusicalGroupMember	http://AlchemyAPI.com/Drummer	>	0.999942	0.0
+http://OpenCalais.com/MusicalGroupMember	http://AlchemyAPI.com/Guitarist	>	0.952574	0.0
+http://OpenCalais.com/MusicalGroupMember	http://AlchemyAPI.com/MusicalArtist	<	0.0	0.0
+http://OpenCalais.com/MusicalGroupMember	http://AlchemyAPI.com/MusicalGroupMember	=	1.0	
+http://OpenCalais.com/MusicalGroupMember	http://AlchemyAPI.com/Musician	<	0.0	0.0
+http://OpenCalais.com/MusicalGroupMember	http://AlchemyAPI.com/Person	<	0.99962	0.0
+http://OpenCalais.com/MusicalInstrumentCompany	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/MusicalInstrumentCompany	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/MusicalInstrumentCompany	http://AlchemyAPI.com/Entertainment_Company	<	0.999972	0.0
+http://OpenCalais.com/MusicalInstrumentCompany	http://AlchemyAPI.com/Manufacturing_Company	<	1.0	0.0
+http://OpenCalais.com/MusicalInstrumentCompany	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/MusicalInstrumentCompany	http://AlchemyAPI.com/Producer	<	7e-06	0.0
+http://OpenCalais.com/Musician	http://AlchemyAPI.com/Artist	<	0.99929	0.0
+http://OpenCalais.com/Musician	http://AlchemyAPI.com/Composer	>	1.0	0.0
+http://OpenCalais.com/Musician	http://AlchemyAPI.com/Conductor	>	0.999999	0.0
+http://OpenCalais.com/Musician	http://AlchemyAPI.com/Drummer	>	1.0	0.0
+http://OpenCalais.com/Musician	http://AlchemyAPI.com/FilmMusicContributor	>	0.999993	0.0
+http://OpenCalais.com/Musician	http://AlchemyAPI.com/Guitarist	>	1.0	0.0
+http://OpenCalais.com/Musician	http://AlchemyAPI.com/MusicalArtist	=	1.0	
+http://OpenCalais.com/Musician	http://AlchemyAPI.com/MusicalGroupMember	>	0.999972	0.0
+http://OpenCalais.com/Musician	http://AlchemyAPI.com/Musician	=	1.0	
+http://OpenCalais.com/Musician	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Musician	http://AlchemyAPI.com/Songwriter	>	1.0	0.0
+http://OpenCalais.com/Musician	http://AlchemyAPI.com/Violinist	>	1.0	0.0
+http://OpenCalais.com/NaturalDisaster	http://AlchemyAPI.com/Event	<	0.999965	0.0
+http://OpenCalais.com/NaturalDisaster	http://AlchemyAPI.com/Hurricane	>	1.0	0.0
+http://OpenCalais.com/NaturalDisaster	http://AlchemyAPI.com/Volcano	>	3e-06	0.0
+http://OpenCalais.com/NaturalOrCulturalPreservationAgency	http://AlchemyAPI.com/Advocacy_Group	<	0.0	0.0
+http://OpenCalais.com/NaturalOrCulturalPreservationAgency	http://AlchemyAPI.com/Business_Organization	<	0.000109	0.0
+http://OpenCalais.com/NaturalOrCulturalPreservationAgency	http://AlchemyAPI.com/Executive_Body	<	0.0	0.0
+http://OpenCalais.com/NaturalOrCulturalPreservationAgency	http://AlchemyAPI.com/GovernmentAgency	<	0.970688	0.0
+http://OpenCalais.com/NaturalOrCulturalPreservationAgency	http://AlchemyAPI.com/Government_Agency	<	0.977023	0.0
+http://OpenCalais.com/NaturalOrCulturalPreservationAgency	http://AlchemyAPI.com/International_Organization	<	0.0	0.0
+http://OpenCalais.com/NaturalOrCulturalPreservationAgency	http://AlchemyAPI.com/Non-ProfitOrganisation	<	0.320821	0.0
+http://OpenCalais.com/NaturalOrCulturalPreservationAgency	http://AlchemyAPI.com/Nonprofit_Organization	<	0.992423	0.0
+http://OpenCalais.com/NaturalOrCulturalPreservationAgency	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/NaturalOrCulturalPreservationAgency	http://AlchemyAPI.com/Political_Organization	<	0.0	0.0
+http://OpenCalais.com/NaturalOrCulturalPreservationAgency	http://AlchemyAPI.com/ReportIssuingInstitution	<	0.0	0.0
+http://OpenCalais.com/Neighborhood	http://AlchemyAPI.com/AdministrativeDivision	<	0.0	0.0
+http://OpenCalais.com/Neighborhood	http://AlchemyAPI.com/District	=	0.000123	
+http://OpenCalais.com/Neighborhood	http://AlchemyAPI.com/EnglishCivilParish	>	2.1e-05	0.0
+http://OpenCalais.com/Neighborhood	http://AlchemyAPI.com/GeographicFeature	<	0.053403	0.0
+http://OpenCalais.com/Neighborhood	http://AlchemyAPI.com/Location	<	0.999999	0.0
+http://OpenCalais.com/Neighborhood	http://AlchemyAPI.com/Neighborhood	=	1.0	
+http://OpenCalais.com/Neighborhood	http://AlchemyAPI.com/Region	<	4e-05	0.0
+http://OpenCalais.com/Neighborhood	http://AlchemyAPI.com/U/S	<	0.0	0.0
+http://OpenCalais.com/Newspaper	http://AlchemyAPI.com/Data_Storage_Medium	<	0.0	0.0
+http://OpenCalais.com/Newspaper	http://AlchemyAPI.com/Entertainment_Company	<	0.0	0.0
+http://OpenCalais.com/Newspaper	http://AlchemyAPI.com/Organization	<	3.1e-05	0.0
+http://OpenCalais.com/Newspaper	http://AlchemyAPI.com/PrintMedia	<	1.0	0.0
+http://OpenCalais.com/Newspaper	http://AlchemyAPI.com/Product	<	0.0	0.0
+http://OpenCalais.com/Newspaper	http://AlchemyAPI.com/Publication	<	1.0	0.0
+http://OpenCalais.com/Newspaper	http://AlchemyAPI.com/ReportIssuingInstitution	<	0.0	0.0
+http://OpenCalais.com/Nobel_Laureate	http://AlchemyAPI.com/Award	<	2e-06	0.0
+http://OpenCalais.com/Nobel_Laureate	http://AlchemyAPI.com/AwardWinner	<	1.0	0.0
+http://OpenCalais.com/Nobel_Laureate	http://AlchemyAPI.com/Nobel_Laureate	=	1.0	
+http://OpenCalais.com/Nobel_Laureate	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/NoblePerson	http://AlchemyAPI.com/Nobility	<	0.880797	0.0
+http://OpenCalais.com/NoblePerson	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Non-ProfitOrganisation	http://AlchemyAPI.com/Advocacy_Group	>	0.835484	0.0
+http://OpenCalais.com/Non-ProfitOrganisation	http://AlchemyAPI.com/Business_Organization	<	0.000431	0.0
+http://OpenCalais.com/Non-ProfitOrganisation	http://AlchemyAPI.com/Non-ProfitOrganisation	=	1.0	
+http://OpenCalais.com/Non-ProfitOrganisation	http://AlchemyAPI.com/Nonprofit_Organization	=	1.0	
+http://OpenCalais.com/Non-ProfitOrganisation	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Non-ProfitOrganisation	http://AlchemyAPI.com/Professional_Association	>	0.999967	0.0
+http://OpenCalais.com/Non-ProfitOrganisation	http://AlchemyAPI.com/Religious_Organization	>	0.999877	0.0
+http://OpenCalais.com/Non-ProfitOrganisation	http://AlchemyAPI.com/Trade_Association	>	0.999967	0.0
+http://OpenCalais.com/Nonprofit_Organization	http://AlchemyAPI.com/Advocacy_Group	>	0.851953	0.0
+http://OpenCalais.com/Nonprofit_Organization	http://AlchemyAPI.com/Business_Organization	<	9e-06	0.0
+http://OpenCalais.com/Nonprofit_Organization	http://AlchemyAPI.com/Non-ProfitOrganisation	=	1.0	
+http://OpenCalais.com/Nonprofit_Organization	http://AlchemyAPI.com/Nonprofit_Organization	=	1.0	
+http://OpenCalais.com/Nonprofit_Organization	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Nonprofit_Organization	http://AlchemyAPI.com/Professional_Association	>	0.999877	0.0
+http://OpenCalais.com/Nonprofit_Organization	http://AlchemyAPI.com/Religious_Organization	>	0.992423	0.0
+http://OpenCalais.com/Nonprofit_Organization	http://AlchemyAPI.com/Trade_Association	>	0.999089	0.0
+http://OpenCalais.com/OfficeHolder	http://AlchemyAPI.com/Ambassador	>	1.0	0.0
+http://OpenCalais.com/OfficeHolder	http://AlchemyAPI.com/Business_Executive	>	0.0	0.0
+http://OpenCalais.com/OfficeHolder	http://AlchemyAPI.com/Cabinet_Member	>	1.0	0.0
+http://OpenCalais.com/OfficeHolder	http://AlchemyAPI.com/Country_Leader	>	0.999994	0.0
+http://OpenCalais.com/OfficeHolder	http://AlchemyAPI.com/First_Lady	>	0.001325	0.0
+http://OpenCalais.com/OfficeHolder	http://AlchemyAPI.com/Government_Person	=	0.999898	
+http://OpenCalais.com/OfficeHolder	http://AlchemyAPI.com/Military_Leader	>	5.8e-05	0.0
+http://OpenCalais.com/OfficeHolder	http://AlchemyAPI.com/OfficeHolder	=	1.0	
+http://OpenCalais.com/OfficeHolder	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/OfficeHolder	http://AlchemyAPI.com/Politician	>	0.00407	2.8e-05
+http://OpenCalais.com/OfficeHolder	http://AlchemyAPI.com/ReligiousLeader	>	0.0	0.0
+http://OpenCalais.com/OfficeHolder	http://AlchemyAPI.com/Spiritual_Leader	>	0.0	0.0
+http://OpenCalais.com/OfficeHolder	http://AlchemyAPI.com/Sports_Executive	>	0.867036	0.0
+http://OpenCalais.com/OfficeHolder	http://AlchemyAPI.com/U/S	<	1.3e-05	0.0
+http://OpenCalais.com/OfficeHolder	http://AlchemyAPI.com/U/S/Congressperson	>	0.999704	0.0
+http://OpenCalais.com/OfficeHolder	http://AlchemyAPI.com/U/S/_Politician	>	0.000296	0.0
+http://OpenCalais.com/OlympicAthlete	http://AlchemyAPI.com/Athlete	<	1.0	0.0
+http://OpenCalais.com/OlympicAthlete	http://AlchemyAPI.com/OlympicAthlete	=	1.0	
+http://OpenCalais.com/OlympicAthlete	http://AlchemyAPI.com/Olympic_Medalist	>	1.0	0.0
+http://OpenCalais.com/OlympicAthlete	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/OlympicBiddingCity	http://AlchemyAPI.com/AdministrativeDivision	<	0.0	0.0
+http://OpenCalais.com/OlympicBiddingCity	http://AlchemyAPI.com/City	<	0.999995	0.0
+http://OpenCalais.com/OlympicBiddingCity	http://AlchemyAPI.com/Location	<	0.999987	0.0
+http://OpenCalais.com/OlympicBiddingCity	http://AlchemyAPI.com/Organization	<	0.0	0.0
+http://OpenCalais.com/OlympicBiddingCity	http://AlchemyAPI.com/Region	<	0.0	0.0
+http://OpenCalais.com/OlympicBiddingCity	http://AlchemyAPI.com/U/S/_City	<	0.7773	0.0
+http://OpenCalais.com/OlympicEvent	http://AlchemyAPI.com/Event	<	1.0	0.0
+http://OpenCalais.com/OlympicEvent	http://AlchemyAPI.com/Sport	<	0.245085	0.0
+http://OpenCalais.com/OlympicEvent	http://AlchemyAPI.com/Sports_Conference	<	0.0	0.0
+http://OpenCalais.com/OlympicEventCompetition	http://AlchemyAPI.com/Event	<	1.0	0.0
+http://OpenCalais.com/OlympicEventCompetition	http://AlchemyAPI.com/Olympic_Sport	=	0.0	
+http://OpenCalais.com/OlympicEventCompetition	http://AlchemyAPI.com/Sport	<	1.3e-05	0.0
+http://OpenCalais.com/OlympicEventCompetition	http://AlchemyAPI.com/Sports_Conference	<	0.0	0.0
+http://OpenCalais.com/OlympicEventCompetition	http://AlchemyAPI.com/Sports_League	<	0.0	0.0
+http://OpenCalais.com/OlympicHostCity	http://AlchemyAPI.com/AdministrativeDivision	<	0.0	0.0
+http://OpenCalais.com/OlympicHostCity	http://AlchemyAPI.com/City	<	1.0	0.0
+http://OpenCalais.com/OlympicHostCity	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/OlympicHostCity	http://AlchemyAPI.com/Organization	<	0.0	0.0
+http://OpenCalais.com/OlympicHostCity	http://AlchemyAPI.com/Region	<	0.0	0.0
+http://OpenCalais.com/OlympicHostCity	http://AlchemyAPI.com/U/S/_City	<	0.998499	0.0
+http://OpenCalais.com/OperaCharacter	http://AlchemyAPI.com/Actor	<	0.0	0.0
+http://OpenCalais.com/OperaCharacter	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/OperaCharacter	http://AlchemyAPI.com/TheaterCharacter	<	1.0	0.0
+http://OpenCalais.com/OperaHouse	http://AlchemyAPI.com/Building	<	1.0	0.0
+http://OpenCalais.com/OperaHouse	http://AlchemyAPI.com/Business_Organization	<	0.0	0.0
+http://OpenCalais.com/OperaHouse	http://AlchemyAPI.com/Entertainment_Company	<	0.0	0.0
+http://OpenCalais.com/OperaHouse	http://AlchemyAPI.com/Facility	<	0.999998	0.0
+http://OpenCalais.com/OperaHouse	http://AlchemyAPI.com/House	<	0.0	0.0
+http://OpenCalais.com/OperaHouse	http://AlchemyAPI.com/Location	<	0.999999	0.0
+http://OpenCalais.com/OperaHouse	http://AlchemyAPI.com/Organization	<	4e-06	0.0
+http://OpenCalais.com/OperaHouse	http://AlchemyAPI.com/Structure	<	0.998073	0.0
+http://OpenCalais.com/OperaSinger	http://AlchemyAPI.com/Actor	<	1.7e-05	0.0
+http://OpenCalais.com/OperaSinger	http://AlchemyAPI.com/Artist	<	1.0	0.0
+http://OpenCalais.com/OperaSinger	http://AlchemyAPI.com/MusicalArtist	<	1.0	0.0
+http://OpenCalais.com/OperaSinger	http://AlchemyAPI.com/MusicalGroupMember	<	0.0	0.0
+http://OpenCalais.com/OperaSinger	http://AlchemyAPI.com/Musician	<	1.0	0.0
+http://OpenCalais.com/OperaSinger	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/OperaSinger	http://AlchemyAPI.com/Singer	<	1.0	0.0
+http://OpenCalais.com/OperatingSystem	http://AlchemyAPI.com/Product	<	0.00461	0.0
+http://OpenCalais.com/OperatingSystem	http://AlchemyAPI.com/Software	<	1.0	0.0
+http://OpenCalais.com/OperatingSystemDeveloper	http://AlchemyAPI.com/Business_Organization	<	0.0	0.0
+http://OpenCalais.com/OperatingSystemDeveloper	http://AlchemyAPI.com/ComputerDesigner	<	0.0	0.0
+http://OpenCalais.com/OperatingSystemDeveloper	http://AlchemyAPI.com/Organization	<	0.984094	0.0
+http://OpenCalais.com/OperatingSystemDeveloper	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/OperatingSystemDeveloper	http://AlchemyAPI.com/Producer	<	0.0	0.0
+http://OpenCalais.com/OperatingSystemDeveloper	http://AlchemyAPI.com/Software_Company	<	1.9e-05	0.0
+http://OpenCalais.com/OperatingSystemDeveloper	http://AlchemyAPI.com/Technologist	<	0.998073	0.0
+http://OpenCalais.com/OperatingSystemDeveloper	http://AlchemyAPI.com/Technology_Company	<	3e-06	0.0
+http://OpenCalais.com/Orchestra	http://AlchemyAPI.com/Artist	<	0.0	0.0
+http://OpenCalais.com/Orchestra	http://AlchemyAPI.com/Band	<	0.0	0.0
+http://OpenCalais.com/Orchestra	http://AlchemyAPI.com/Entertainment_Company	<	0.0	0.0
+http://OpenCalais.com/Orchestra	http://AlchemyAPI.com/FilmMusicContributor	<	0.0	0.0
+http://OpenCalais.com/Orchestra	http://AlchemyAPI.com/MusicalArtist	<	0.0	0.0
+http://OpenCalais.com/Orchestra	http://AlchemyAPI.com/MusicalGroup	<	1.0	0.0
+http://OpenCalais.com/Orchestra	http://AlchemyAPI.com/Orchestra	=	1.0	
+http://OpenCalais.com/Orchestra	http://AlchemyAPI.com/Organization	<	0.592667	0.0
+http://OpenCalais.com/Organization	http://AlchemyAPI.com/Advocacy_Group	>	1.0	0.0
+http://OpenCalais.com/Organization	http://AlchemyAPI.com/Business_Organization	>	1.0	0.0
+http://OpenCalais.com/Organization	http://AlchemyAPI.com/Educational_Institution	>	1.0	0.0
+http://OpenCalais.com/Organization	http://AlchemyAPI.com/Entertainment_Company	>	1.0	0.0
+http://OpenCalais.com/Organization	http://AlchemyAPI.com/Executive_Body	>	0.999987	0.0
+http://OpenCalais.com/Organization	http://AlchemyAPI.com/Fictional_Organization	>	0.999999	0.0
+http://OpenCalais.com/Organization	http://AlchemyAPI.com/Financial_Services_Company	>	1.0	0.0
+http://OpenCalais.com/Organization	http://AlchemyAPI.com/GovernmentAgency	>	1.0	0.0
+http://OpenCalais.com/Organization	http://AlchemyAPI.com/Government_Agency	>	1.0	0.0
+http://OpenCalais.com/Organization	http://AlchemyAPI.com/International_Organization	>	1.0	0.0
+http://OpenCalais.com/Organization	http://AlchemyAPI.com/Law_Enforcement_Agency	>	1.0	0.0
+http://OpenCalais.com/Organization	http://AlchemyAPI.com/Non-ProfitOrganisation	>	1.0	0.0
+http://OpenCalais.com/Organization	http://AlchemyAPI.com/Nonprofit_Organization	>	1.0	0.0
+http://OpenCalais.com/Organization	http://AlchemyAPI.com/Organization	=	1.0	
+http://OpenCalais.com/Organization	http://AlchemyAPI.com/Political_Organization	>	1.0	0.0
+http://OpenCalais.com/Organization	http://AlchemyAPI.com/Professional_Association	>	1.0	0.0
+http://OpenCalais.com/Organization	http://AlchemyAPI.com/Religious_Organization	>	1.0	0.0
+http://OpenCalais.com/Organization	http://AlchemyAPI.com/ReportIssuingInstitution	>	1.0	0.0
+http://OpenCalais.com/Organization	http://AlchemyAPI.com/Research_Institution	>	1.0	0.0
+http://OpenCalais.com/Organization	http://AlchemyAPI.com/SportsTeam	>	1.0	0.0
+http://OpenCalais.com/Organization	http://AlchemyAPI.com/Sports_Organization	>	1.0	0.0
+http://OpenCalais.com/Organization	http://AlchemyAPI.com/Trade_Association	>	1.0	0.0
+http://OpenCalais.com/Palace	http://AlchemyAPI.com/Building	<	1.0	0.0
+http://OpenCalais.com/Palace	http://AlchemyAPI.com/Court	<	1e-06	0.0
+http://OpenCalais.com/Palace	http://AlchemyAPI.com/Facility	<	0.999374	0.0
+http://OpenCalais.com/Palace	http://AlchemyAPI.com/GeographicFeature	<	0.0	0.0
+http://OpenCalais.com/Palace	http://AlchemyAPI.com/House	<	0.000335	0.0
+http://OpenCalais.com/Palace	http://AlchemyAPI.com/Location	<	0.999999	0.0
+http://OpenCalais.com/Palace	http://AlchemyAPI.com/Structure	<	0.029312	0.0
+http://OpenCalais.com/Peninsula	http://AlchemyAPI.com/GeographicFeature	<	1.0	0.0
+http://OpenCalais.com/Peninsula	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/Peninsula	http://AlchemyAPI.com/Region	<	0.999965	0.0
+http://OpenCalais.com/PeriodicalEditor	http://AlchemyAPI.com/Author	<	0.0	0.0
+http://OpenCalais.com/PeriodicalEditor	http://AlchemyAPI.com/Business_Executive	<	0.0	0.0
+http://OpenCalais.com/PeriodicalEditor	http://AlchemyAPI.com/Business_Person	<	0.000123	0.0
+http://OpenCalais.com/PeriodicalEditor	http://AlchemyAPI.com/Journalist	<	1e-06	0.0
+http://OpenCalais.com/PeriodicalEditor	http://AlchemyAPI.com/OfficeHolder	<	0.0	0.0
+http://OpenCalais.com/PeriodicalEditor	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/PeriodicalPublisher	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/PeriodicalPublisher	http://AlchemyAPI.com/ComicBookPublisher	>	0.997527	0.0
+http://OpenCalais.com/PeriodicalPublisher	http://AlchemyAPI.com/Economist	>	0.0	0.0
+http://OpenCalais.com/PeriodicalPublisher	http://AlchemyAPI.com/News_Agency	<	0.0	0.000261
+http://OpenCalais.com/PeriodicalPublisher	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/PeriodicalPublisher	http://AlchemyAPI.com/ReportIssuingInstitution	<	0.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/Actor	>	1.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/Anthropologist	>	1.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/Architect	>	1.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/Author	>	1.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/Business_Executive	>	1.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/Business_Person	>	1.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/Engineer	>	1.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/Government_Person	>	1.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/Historian	>	1.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/MilitaryPerson	>	1.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/Military_Person	>	1.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/OfficeHolder	>	1.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/Person	=	1.0	
+http://OpenCalais.com/Person	http://AlchemyAPI.com/Philanthropist	>	1.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/Philosopher	>	1.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/Physician	>	1.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/Physicist	>	1.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/Politician	>	1.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/Psychiatrist	>	1.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/ReligiousLeader	>	1.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/Scientist	>	1.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/Socialite	>	1.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/Technologist	>	1.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/TheaterCharacter	>	0.999999	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/U/S	>	0.0	0.0
+http://OpenCalais.com/Person	http://AlchemyAPI.com/U/S/_Politician	>	0.999999	0.0
+http://OpenCalais.com/Pharmaceutical_Company	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/Pharmaceutical_Company	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/Pharmaceutical_Company	http://AlchemyAPI.com/Manufacturing_Company	<	0.999797	0.0
+http://OpenCalais.com/Pharmaceutical_Company	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Philosopher	http://AlchemyAPI.com/Academic	<	0.268941	0.0
+http://OpenCalais.com/Philosopher	http://AlchemyAPI.com/Author	<	0.0	0.0
+http://OpenCalais.com/Philosopher	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Philosopher	http://AlchemyAPI.com/Philosopher	=	1.0	
+http://OpenCalais.com/Physician	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Physician	http://AlchemyAPI.com/Physician	=	1.0	
+http://OpenCalais.com/Physician	http://AlchemyAPI.com/Psychiatrist	>	1.0	0.0
+http://OpenCalais.com/Pianist	http://AlchemyAPI.com/Artist	<	1.0	0.0
+http://OpenCalais.com/Pianist	http://AlchemyAPI.com/MusicalArtist	<	1.0	0.0
+http://OpenCalais.com/Pianist	http://AlchemyAPI.com/Musician	<	1.0	0.0
+http://OpenCalais.com/Pianist	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Pianist	http://AlchemyAPI.com/Pianist	=	1.0	
+http://OpenCalais.com/PlaceWithNeighborhoods	http://AlchemyAPI.com/AdministrativeDivision	<	2e-06	0.0
+http://OpenCalais.com/PlaceWithNeighborhoods	http://AlchemyAPI.com/City	<	0.0	2e-06
+http://OpenCalais.com/PlaceWithNeighborhoods	http://AlchemyAPI.com/District	=	1e-06	
+http://OpenCalais.com/PlaceWithNeighborhoods	http://AlchemyAPI.com/EnglishCivilParish	>	0.0	0.0
+http://OpenCalais.com/PlaceWithNeighborhoods	http://AlchemyAPI.com/GeographicFeature	<	0.990292	0.0
+http://OpenCalais.com/PlaceWithNeighborhoods	http://AlchemyAPI.com/Location	<	0.999982	0.0
+http://OpenCalais.com/PlaceWithNeighborhoods	http://AlchemyAPI.com/Neighborhood	>	0.0	0.0
+http://OpenCalais.com/PlaceWithNeighborhoods	http://AlchemyAPI.com/Region	<	0.00014	0.0
+http://OpenCalais.com/PlaceWithNeighborhoods	http://AlchemyAPI.com/SpanishAutonomousCommunity	>	1.2e-05	0.0
+http://OpenCalais.com/PlaceWithNeighborhoods	http://AlchemyAPI.com/U/S/_City	=	0.0	
+http://OpenCalais.com/PlaceWithNeighborhoods	http://AlchemyAPI.com/USState	>	0.0	0.0
+http://OpenCalais.com/PoliticalAppointer	http://AlchemyAPI.com/Ambassador	>	0.005911	0.0
+http://OpenCalais.com/PoliticalAppointer	http://AlchemyAPI.com/Cabinet_Member	>	0.7773	0.0
+http://OpenCalais.com/PoliticalAppointer	http://AlchemyAPI.com/Country_Leader	<	0.0	1e-06
+http://OpenCalais.com/PoliticalAppointer	http://AlchemyAPI.com/Government_Person	<	0.999739	0.0
+http://OpenCalais.com/PoliticalAppointer	http://AlchemyAPI.com/OfficeHolder	<	0.037327	0.0
+http://OpenCalais.com/PoliticalAppointer	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/PoliticalAppointer	http://AlchemyAPI.com/Politician	<	0.754915	0.0
+http://OpenCalais.com/PoliticalAppointer	http://AlchemyAPI.com/U/S	<	2e-06	0.0
+http://OpenCalais.com/PoliticalAppointer	http://AlchemyAPI.com/U/S/Congressperson	>	0.0	0.0
+http://OpenCalais.com/PoliticalAppointer	http://AlchemyAPI.com/U/S/_Politician	<	0.002801	0.0
+http://OpenCalais.com/PoliticalDistrict	http://AlchemyAPI.com/AdministrativeDivision	<	0.989013	0.0
+http://OpenCalais.com/PoliticalDistrict	http://AlchemyAPI.com/District	<	0.182426	0.0
+http://OpenCalais.com/PoliticalDistrict	http://AlchemyAPI.com/EnglishCivilParish	>	0.001927	0.0
+http://OpenCalais.com/PoliticalDistrict	http://AlchemyAPI.com/Location	<	0.999998	0.0
+http://OpenCalais.com/PoliticalDistrict	http://AlchemyAPI.com/Prefecture	>	0.731059	0.0
+http://OpenCalais.com/PoliticalDistrict	http://AlchemyAPI.com/Region	<	0.001032	0.0
+http://OpenCalais.com/PoliticalDistrict	http://AlchemyAPI.com/SchoolDistrict	>	0.0	0.0
+http://OpenCalais.com/PoliticalDistrict	http://AlchemyAPI.com/SpanishAutonomousCommunity	>	0.999996	0.0
+http://OpenCalais.com/PoliticalDistrict	http://AlchemyAPI.com/StateOrCounty	>	2.4e-05	1e-06
+http://OpenCalais.com/PoliticalDistrict	http://AlchemyAPI.com/U/S	<	0.0	0.0
+http://OpenCalais.com/PoliticalDistrict	http://AlchemyAPI.com/USState	>	0.010987	0.0
+http://OpenCalais.com/PoliticalParty	http://AlchemyAPI.com/Advocacy_Group	<	0.0	0.0
+http://OpenCalais.com/PoliticalParty	http://AlchemyAPI.com/Business_Organization	<	0.0	0.0
+http://OpenCalais.com/PoliticalParty	http://AlchemyAPI.com/Non-ProfitOrganisation	<	0.0	0.0
+http://OpenCalais.com/PoliticalParty	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/PoliticalParty	http://AlchemyAPI.com/Political_Organization	<	1.0	0.0
+http://OpenCalais.com/PoliticalParty	http://AlchemyAPI.com/Political_Party	=	1.0	
+http://OpenCalais.com/Politician	http://AlchemyAPI.com/Ambassador	>	0.999704	0.0
+http://OpenCalais.com/Politician	http://AlchemyAPI.com/Cabinet_Member	>	1.0	0.0
+http://OpenCalais.com/Politician	http://AlchemyAPI.com/Country_Leader	>	1.0	0.0
+http://OpenCalais.com/Politician	http://AlchemyAPI.com/Government_Person	=	0.002183	
+http://OpenCalais.com/Politician	http://AlchemyAPI.com/OfficeHolder	=	1e-06	
+http://OpenCalais.com/Politician	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Politician	http://AlchemyAPI.com/Politician	=	1.0	
+http://OpenCalais.com/Politician	http://AlchemyAPI.com/U/S	<	0.998675	0.0
+http://OpenCalais.com/Politician	http://AlchemyAPI.com/U/S/Congressperson	>	1.0	0.0
+http://OpenCalais.com/Politician	http://AlchemyAPI.com/U/S/_Politician	=	0.999999	
+http://OpenCalais.com/President	http://AlchemyAPI.com/Country_Leader	<	1.0	0.0
+http://OpenCalais.com/President	http://AlchemyAPI.com/Executive_Body	<	0.0	0.0
+http://OpenCalais.com/President	http://AlchemyAPI.com/Government_Person	<	1.0	0.0
+http://OpenCalais.com/President	http://AlchemyAPI.com/OfficeHolder	<	1.0	0.0
+http://OpenCalais.com/President	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/President	http://AlchemyAPI.com/Politician	<	1.0	0.0
+http://OpenCalais.com/President	http://AlchemyAPI.com/U/S	<	1.9e-05	0.0
+http://OpenCalais.com/President	http://AlchemyAPI.com/U/S/_Politician	<	0.999955	0.0
+http://OpenCalais.com/ProcessorManufacturer	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/ProcessorManufacturer	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/ProcessorManufacturer	http://AlchemyAPI.com/ComputerDesigner	<	0.000488	0.0
+http://OpenCalais.com/ProcessorManufacturer	http://AlchemyAPI.com/Manufacturing_Company	<	1.0	0.0
+http://OpenCalais.com/ProcessorManufacturer	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/ProcessorManufacturer	http://AlchemyAPI.com/Producer	<	0.999704	0.0
+http://OpenCalais.com/ProcessorManufacturer	http://AlchemyAPI.com/Technology_Company	<	1.0	0.0
+http://OpenCalais.com/Product	http://AlchemyAPI.com/Automobile	>	0.999999	0.0
+http://OpenCalais.com/Product	http://AlchemyAPI.com/Data_Storage_Medium	>	0.000203	0.0
+http://OpenCalais.com/Product	http://AlchemyAPI.com/Game_Console	>	1.0	0.0
+http://OpenCalais.com/Product	http://AlchemyAPI.com/Media_Device	>	0.987568	0.0
+http://OpenCalais.com/Product	http://AlchemyAPI.com/Product	=	0.999945	
+http://OpenCalais.com/Product	http://AlchemyAPI.com/Software	>	0.999769	0.0
+http://OpenCalais.com/ProductionCompany	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/ProductionCompany	http://AlchemyAPI.com/ComicBookPublisher	>	0.996827	0.0
+http://OpenCalais.com/ProductionCompany	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/ProductionCompany	http://AlchemyAPI.com/Entertainment_Company	<	0.999999	0.0
+http://OpenCalais.com/ProductionCompany	http://AlchemyAPI.com/Film_Production_Company	=	1.0	
+http://OpenCalais.com/ProductionCompany	http://AlchemyAPI.com/Gaming_Company	>	5.8e-05	0.0
+http://OpenCalais.com/ProductionCompany	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/ProductionCompany	http://AlchemyAPI.com/Producer	=	1e-06	
+http://OpenCalais.com/ProductionCompany	http://AlchemyAPI.com/Television_Production_Company	>	1.0	0.0
+http://OpenCalais.com/ProfessionalSportsTeam	http://AlchemyAPI.com/Baseball_Team	>	1.0	0.0
+http://OpenCalais.com/ProfessionalSportsTeam	http://AlchemyAPI.com/Basketball_Team	>	1.0	0.0
+http://OpenCalais.com/ProfessionalSportsTeam	http://AlchemyAPI.com/Business_Organization	<	0.999997	0.0
+http://OpenCalais.com/ProfessionalSportsTeam	http://AlchemyAPI.com/College_Basketball_Team	>	0.001501	0.0
+http://OpenCalais.com/ProfessionalSportsTeam	http://AlchemyAPI.com/Cricket_Team	>	1.0	0.0
+http://OpenCalais.com/ProfessionalSportsTeam	http://AlchemyAPI.com/Football_Team	>	1.0	0.0
+http://OpenCalais.com/ProfessionalSportsTeam	http://AlchemyAPI.com/Hockey_Team	>	1.0	0.0
+http://OpenCalais.com/ProfessionalSportsTeam	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/ProfessionalSportsTeam	http://AlchemyAPI.com/ProfessionalSportsTeam	=	1.0	
+http://OpenCalais.com/ProfessionalSportsTeam	http://AlchemyAPI.com/Rugby_Team	>	1.0	0.0
+http://OpenCalais.com/ProfessionalSportsTeam	http://AlchemyAPI.com/SoccerClub	>	1.0	0.0
+http://OpenCalais.com/ProfessionalSportsTeam	http://AlchemyAPI.com/Soccer_Team	>	1.0	0.0
+http://OpenCalais.com/ProfessionalSportsTeam	http://AlchemyAPI.com/SportsTeam	<	1.0	0.0
+http://OpenCalais.com/ProfessionalSportsTeam	http://AlchemyAPI.com/Sports_Organization	<	1.0	0.0
+http://OpenCalais.com/ProgrammingLanguageDesigner	http://AlchemyAPI.com/Author	<	0.0	0.0
+http://OpenCalais.com/ProgrammingLanguageDesigner	http://AlchemyAPI.com/ComputerDesigner	<	0.0	0.0
+http://OpenCalais.com/ProgrammingLanguageDesigner	http://AlchemyAPI.com/Engineer	<	0.0	0.0
+http://OpenCalais.com/ProgrammingLanguageDesigner	http://AlchemyAPI.com/Inventor	<	1.5e-05	0.0
+http://OpenCalais.com/ProgrammingLanguageDesigner	http://AlchemyAPI.com/LanguageCreator	=	0.904651	
+http://OpenCalais.com/ProgrammingLanguageDesigner	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/ProgrammingLanguageDesigner	http://AlchemyAPI.com/Producer	<	0.0	0.0
+http://OpenCalais.com/ProgrammingLanguageDesigner	http://AlchemyAPI.com/Technologist	<	0.99478	0.0
+http://OpenCalais.com/ProgrammingLanguageDeveloper	http://AlchemyAPI.com/Engineer	<	2.4e-05	0.0
+http://OpenCalais.com/ProgrammingLanguageDeveloper	http://AlchemyAPI.com/Inventor	<	0.0	0.0
+http://OpenCalais.com/ProgrammingLanguageDeveloper	http://AlchemyAPI.com/LanguageCreator	=	0.0	
+http://OpenCalais.com/ProgrammingLanguageDeveloper	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/ProgrammingLanguageDeveloper	http://AlchemyAPI.com/Producer	<	0.0	0.0
+http://OpenCalais.com/ProgrammingLanguageDeveloper	http://AlchemyAPI.com/Technologist	<	0.99883	0.0
+http://OpenCalais.com/ProtocolProvider	http://AlchemyAPI.com/Organization	<	2.1e-05	0.0
+http://OpenCalais.com/ProtocolProvider	http://AlchemyAPI.com/Producer	=	0.0	
+http://OpenCalais.com/ProtocolProvider	http://AlchemyAPI.com/ReportIssuingInstitution	=	0.0	
+http://OpenCalais.com/ProtocolProvider	http://AlchemyAPI.com/Software	<	0.0	0.0
+http://OpenCalais.com/ProtocolProvider	http://AlchemyAPI.com/Telecommunications_Company	<	0.0	0.0
+http://OpenCalais.com/Psychiatrist	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Psychiatrist	http://AlchemyAPI.com/Physician	<	1.0	0.0
+http://OpenCalais.com/Psychiatrist	http://AlchemyAPI.com/Psychiatrist	=	1.0	
+http://OpenCalais.com/Psychiatrist	http://AlchemyAPI.com/Scientist	<	0.00018	0.0
+http://OpenCalais.com/Public_Company	http://AlchemyAPI.com/Aerospace_Company	>	0.893309	0.0
+http://OpenCalais.com/Public_Company	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/Public_Company	http://AlchemyAPI.com/ComicBookPublisher	>	0.00407	0.0
+http://OpenCalais.com/Public_Company	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/Public_Company	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Public_Company	http://AlchemyAPI.com/Railway_Company	>	0.562177	0.0
+http://OpenCalais.com/Public_Company	http://AlchemyAPI.com/Telecommunications_Company	>	0.993307	0.0
+http://OpenCalais.com/Publication	http://AlchemyAPI.com/PrintMedia	>	0.987568	0.0
+http://OpenCalais.com/Publication	http://AlchemyAPI.com/Product	<	0.0	0.0
+http://OpenCalais.com/Publication	http://AlchemyAPI.com/Publication	=	0.999965	
+http://OpenCalais.com/Publishing_Company	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/Publishing_Company	http://AlchemyAPI.com/ComicBookPublisher	>	1.0	0.0
+http://OpenCalais.com/Publishing_Company	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/Publishing_Company	http://AlchemyAPI.com/Entertainment_Company	<	4.5e-05	0.0
+http://OpenCalais.com/Publishing_Company	http://AlchemyAPI.com/Manufacturing_Company	<	0.0	0.0
+http://OpenCalais.com/Publishing_Company	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Publishing_Company	http://AlchemyAPI.com/PrintMedia	<	0.0	0.0
+http://OpenCalais.com/Race_Car_Driver	http://AlchemyAPI.com/Athlete	<	1.0	0.0
+http://OpenCalais.com/Race_Car_Driver	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Race_Car_Driver	http://AlchemyAPI.com/Race_Car_Driver	=	1.0	
+http://OpenCalais.com/RadioNetwork	http://AlchemyAPI.com/BroadcastDistributor	=	1.7e-05	
+http://OpenCalais.com/RadioNetwork	http://AlchemyAPI.com/Facility	<	0.0	0.0
+http://OpenCalais.com/RadioNetwork	http://AlchemyAPI.com/Media_Device	<	0.0	0.0
+http://OpenCalais.com/RadioNetwork	http://AlchemyAPI.com/Organization	<	5.1e-05	0.0
+http://OpenCalais.com/RadioNetwork	http://AlchemyAPI.com/Telecommunications_Company	<	0.0	0.0
+http://OpenCalais.com/RadioStation	http://AlchemyAPI.com/BroadcastDistributor	<	0.999447	0.0
+http://OpenCalais.com/RadioStation	http://AlchemyAPI.com/Business_Organization	<	0.946597	0.0
+http://OpenCalais.com/RadioStation	http://AlchemyAPI.com/Entertainment_Company	<	1.5e-05	0.0
+http://OpenCalais.com/RadioStation	http://AlchemyAPI.com/Facility	<	8e-06	0.0
+http://OpenCalais.com/RadioStation	http://AlchemyAPI.com/Media_Device	<	0.0	0.0
+http://OpenCalais.com/RadioStation	http://AlchemyAPI.com/Organization	<	0.99982	0.0
+http://OpenCalais.com/RadioStation	http://AlchemyAPI.com/Telecommunications_Company	<	0.0	0.0
+http://OpenCalais.com/RecordLabel	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/RecordLabel	http://AlchemyAPI.com/ComicBookPublisher	>	0.0	0.0
+http://OpenCalais.com/RecordLabel	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/RecordLabel	http://AlchemyAPI.com/Entertainment_Company	<	1.0	0.0
+http://OpenCalais.com/RecordLabel	http://AlchemyAPI.com/Manufacturing_Company	<	0.0	0.0
+http://OpenCalais.com/RecordLabel	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/RecordLabel	http://AlchemyAPI.com/Producer	<	0.0	0.0
+http://OpenCalais.com/RecordLabel	http://AlchemyAPI.com/RecordLabel	=	1.0	
+http://OpenCalais.com/RecordProducer	http://AlchemyAPI.com/Artist	<	2e-06	0.0
+http://OpenCalais.com/RecordProducer	http://AlchemyAPI.com/ComicBookPublisher	>	0.0	0.0
+http://OpenCalais.com/RecordProducer	http://AlchemyAPI.com/Entertainment_Company	<	0.0	0.0
+http://OpenCalais.com/RecordProducer	http://AlchemyAPI.com/Film_Production_Company	=	0.0	
+http://OpenCalais.com/RecordProducer	http://AlchemyAPI.com/MusicalArtist	<	0.0	0.0
+http://OpenCalais.com/RecordProducer	http://AlchemyAPI.com/Person	<	0.999993	0.0
+http://OpenCalais.com/RecordProducer	http://AlchemyAPI.com/Producer	=	1e-06	
+http://OpenCalais.com/RecordProducer	http://AlchemyAPI.com/Television_Production_Company	<	0.0	0.0
+http://OpenCalais.com/RecordingEngineer	http://AlchemyAPI.com/Artist	<	0.0	0.0
+http://OpenCalais.com/RecordingEngineer	http://AlchemyAPI.com/Business_Person	<	0.0	0.0
+http://OpenCalais.com/RecordingEngineer	http://AlchemyAPI.com/Engineer	<	0.974043	0.0
+http://OpenCalais.com/RecordingEngineer	http://AlchemyAPI.com/Musician	<	0.0	0.0
+http://OpenCalais.com/RecordingEngineer	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/RecordingEngineer	http://AlchemyAPI.com/Technologist	<	0.0	0.0
+http://OpenCalais.com/Region	http://AlchemyAPI.com/AdministrativeDivision	=	0.119203	
+http://OpenCalais.com/Region	http://AlchemyAPI.com/Continent	>	8.5e-05	0.0
+http://OpenCalais.com/Region	http://AlchemyAPI.com/Desert	>	1e-06	0.0
+http://OpenCalais.com/Region	http://AlchemyAPI.com/District	=	0.0	
+http://OpenCalais.com/Region	http://AlchemyAPI.com/EnglishCivilParish	>	0.029312	0.0
+http://OpenCalais.com/Region	http://AlchemyAPI.com/GeographicFeature	<	0.979668	0.0
+http://OpenCalais.com/Region	http://AlchemyAPI.com/Location	<	0.999995	0.0
+http://OpenCalais.com/Region	http://AlchemyAPI.com/Neighborhood	>	0.005911	0.0
+http://OpenCalais.com/Region	http://AlchemyAPI.com/Prefecture	>	0.999089	0.0
+http://OpenCalais.com/Region	http://AlchemyAPI.com/Region	=	0.99992	
+http://OpenCalais.com/Region	http://AlchemyAPI.com/SchoolDistrict	>	0.0	0.0
+http://OpenCalais.com/Region	http://AlchemyAPI.com/SpanishAutonomousCommunity	>	1.0	0.0
+http://OpenCalais.com/Region	http://AlchemyAPI.com/State	>	0.407333	0.0
+http://OpenCalais.com/Region	http://AlchemyAPI.com/StateOrCounty	>	0.999898	0.0
+http://OpenCalais.com/Region	http://AlchemyAPI.com/U/S/_City	>	9e-06	0.0
+http://OpenCalais.com/Region	http://AlchemyAPI.com/USState	>	0.999999	0.0
+http://OpenCalais.com/Religion	http://AlchemyAPI.com/Religion	=	1.0	
+http://OpenCalais.com/Religion	http://AlchemyAPI.com/Religious_Organization	>	0.000626	0.0
+http://OpenCalais.com/ReligiousOrganization	http://AlchemyAPI.com/EnglishCivilParish	>	0.0	0.0
+http://OpenCalais.com/ReligiousOrganization	http://AlchemyAPI.com/Non-ProfitOrganisation	<	0.000626	0.0
+http://OpenCalais.com/ReligiousOrganization	http://AlchemyAPI.com/Nonprofit_Organization	<	0.001927	0.0
+http://OpenCalais.com/ReligiousOrganization	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/ReligiousOrganization	http://AlchemyAPI.com/Religion	<	0.000804	0.0
+http://OpenCalais.com/ReligiousOrganization	http://AlchemyAPI.com/Religious_Organization	=	1.0	
+http://OpenCalais.com/Religious_Building	http://AlchemyAPI.com/Building	<	1.0	0.0
+http://OpenCalais.com/Religious_Building	http://AlchemyAPI.com/Facility	<	0.999447	0.0
+http://OpenCalais.com/Religious_Building	http://AlchemyAPI.com/GeographicFeature	<	0.0	0.0
+http://OpenCalais.com/Religious_Building	http://AlchemyAPI.com/Location	<	0.999999	0.0
+http://OpenCalais.com/Religious_Building	http://AlchemyAPI.com/Structure	<	0.999971	0.0
+http://OpenCalais.com/Retailer	http://AlchemyAPI.com/Automotive_Company	>	1e-06	0.0
+http://OpenCalais.com/Retailer	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/Retailer	http://AlchemyAPI.com/ComicBookPublisher	>	0.001927	0.0
+http://OpenCalais.com/Retailer	http://AlchemyAPI.com/Company	<	0.999999	0.0
+http://OpenCalais.com/Retailer	http://AlchemyAPI.com/Facility	<	0.0	0.0
+http://OpenCalais.com/Retailer	http://AlchemyAPI.com/Food_Company	>	0.00071	0.0
+http://OpenCalais.com/Retailer	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Retailer	http://AlchemyAPI.com/Railway_Company	>	0.0	0.0
+http://OpenCalais.com/Retailer	http://AlchemyAPI.com/RecordLabel	>	0.0	0.0
+http://OpenCalais.com/Retailer	http://AlchemyAPI.com/WineProducer	>	2.8e-05	0.0
+http://OpenCalais.com/River	http://AlchemyAPI.com/Body_of_Water	<	1.0	0.0
+http://OpenCalais.com/River	http://AlchemyAPI.com/GeographicFeature	<	1.0	0.0
+http://OpenCalais.com/River	http://AlchemyAPI.com/Location	<	0.999988	0.0
+http://OpenCalais.com/River	http://AlchemyAPI.com/Substance	<	0.0	0.0
+http://OpenCalais.com/Road	http://AlchemyAPI.com/Facility	<	0.0	0.0
+http://OpenCalais.com/Road	http://AlchemyAPI.com/GeographicFeature	<	0.002183	0.0
+http://OpenCalais.com/Road	http://AlchemyAPI.com/Location	<	0.999196	0.0
+http://OpenCalais.com/Road	http://AlchemyAPI.com/Street	=	0.993307	
+http://OpenCalais.com/Road	http://AlchemyAPI.com/Structure	<	0.0	0.0
+http://OpenCalais.com/RocketManufacturer	http://AlchemyAPI.com/Aerospace_Company	<	1.0	0.0
+http://OpenCalais.com/RocketManufacturer	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/RocketManufacturer	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/RocketManufacturer	http://AlchemyAPI.com/Energy_Company	<	0.0	0.0
+http://OpenCalais.com/RocketManufacturer	http://AlchemyAPI.com/Inventor	<	0.0	0.0
+http://OpenCalais.com/RocketManufacturer	http://AlchemyAPI.com/Manufacturing_Company	<	1.0	0.0
+http://OpenCalais.com/RocketManufacturer	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/RocketManufacturer	http://AlchemyAPI.com/Technology_Company	<	0.999374	0.0
+http://OpenCalais.com/RugbyPlayer	http://AlchemyAPI.com/Athlete	<	1.0	0.0
+http://OpenCalais.com/RugbyPlayer	http://AlchemyAPI.com/Football_Player	<	0.0	0.0
+http://OpenCalais.com/RugbyPlayer	http://AlchemyAPI.com/Rugby_Player	=	1.0	
+http://OpenCalais.com/Saint	http://AlchemyAPI.com/Deity	<	0.0	0.0
+http://OpenCalais.com/Saint	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Saint	http://AlchemyAPI.com/ReligiousLeader	<	0.999955	0.0
+http://OpenCalais.com/Saint	http://AlchemyAPI.com/Spiritual_Leader	<	0.939913	0.0
+http://OpenCalais.com/School	http://AlchemyAPI.com/Academic	<	0.0	0.0
+http://OpenCalais.com/School	http://AlchemyAPI.com/Building	<	0.001501	0.0
+http://OpenCalais.com/School	http://AlchemyAPI.com/Business_Organization	<	0.0	0.0
+http://OpenCalais.com/School	http://AlchemyAPI.com/Educational_Institution	<	1.0	0.0
+http://OpenCalais.com/School	http://AlchemyAPI.com/Facility	<	0.99883	0.0
+http://OpenCalais.com/School	http://AlchemyAPI.com/Location	<	0.993307	0.0
+http://OpenCalais.com/School	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/School	http://AlchemyAPI.com/Structure	<	0.0	0.0
+http://OpenCalais.com/School	http://AlchemyAPI.com/U	=	0.0	
+http://OpenCalais.com/SchoolFounder	http://AlchemyAPI.com/Business_Executive	<	0.0	0.0
+http://OpenCalais.com/SchoolFounder	http://AlchemyAPI.com/Business_Person	<	0.0	0.0
+http://OpenCalais.com/SchoolFounder	http://AlchemyAPI.com/OfficeHolder	<	0.0	0.0
+http://OpenCalais.com/SchoolFounder	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/SchoolFounder	http://AlchemyAPI.com/Philanthropist	<	0.0	0.0
+http://OpenCalais.com/Scientist	http://AlchemyAPI.com/Anthropologist	>	1.7e-05	0.0
+http://OpenCalais.com/Scientist	http://AlchemyAPI.com/Archaeologist	>	0.000203	0.0
+http://OpenCalais.com/Scientist	http://AlchemyAPI.com/Astronomer	>	1.0	0.0
+http://OpenCalais.com/Scientist	http://AlchemyAPI.com/Botanist	>	1.0	0.0
+http://OpenCalais.com/Scientist	http://AlchemyAPI.com/Chemist	>	1.0	0.0
+http://OpenCalais.com/Scientist	http://AlchemyAPI.com/ComputerDesigner	>	0.0	0.0
+http://OpenCalais.com/Scientist	http://AlchemyAPI.com/Nobel_Laureate	>	0.999769	0.0
+http://OpenCalais.com/Scientist	http://AlchemyAPI.com/Paleontologist	>	1.0	0.0
+http://OpenCalais.com/Scientist	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Scientist	http://AlchemyAPI.com/Physicist	>	1.0	0.0
+http://OpenCalais.com/Scientist	http://AlchemyAPI.com/Psychiatrist	>	0.0	0.0
+http://OpenCalais.com/Scientist	http://AlchemyAPI.com/Scientist	=	1.0	
+http://OpenCalais.com/ScottishCouncilArea	http://AlchemyAPI.com/AdministrativeDivision	<	1.0	0.0
+http://OpenCalais.com/ScottishCouncilArea	http://AlchemyAPI.com/District	<	0.002473	0.0
+http://OpenCalais.com/ScottishCouncilArea	http://AlchemyAPI.com/Executive_Body	<	0.0	0.0
+http://OpenCalais.com/ScottishCouncilArea	http://AlchemyAPI.com/GeographicFeature	<	0.997527	0.0
+http://OpenCalais.com/ScottishCouncilArea	http://AlchemyAPI.com/GovernmentAgency	<	0.0	0.0
+http://OpenCalais.com/ScottishCouncilArea	http://AlchemyAPI.com/Government_Agency	<	0.0	0.0
+http://OpenCalais.com/ScottishCouncilArea	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/ScottishCouncilArea	http://AlchemyAPI.com/Political_Organization	<	0.0	0.0
+http://OpenCalais.com/ScottishCouncilArea	http://AlchemyAPI.com/Prefecture	<	0.0	0.0
+http://OpenCalais.com/ScottishCouncilArea	http://AlchemyAPI.com/Region	<	0.99999	0.0
+http://OpenCalais.com/ScottishCouncilArea	http://AlchemyAPI.com/State	<	0.0	0.0
+http://OpenCalais.com/ScottishCouncilArea	http://AlchemyAPI.com/StateOrCounty	<	0.932453	0.0
+http://OpenCalais.com/Screenwriter	http://AlchemyAPI.com/Artist	<	0.000431	0.0
+http://OpenCalais.com/Screenwriter	http://AlchemyAPI.com/Author	<	0.999665	0.0
+http://OpenCalais.com/Screenwriter	http://AlchemyAPI.com/FilmWriter	=	1.0	
+http://OpenCalais.com/Screenwriter	http://AlchemyAPI.com/Screenwriter	=	1.0	
+http://OpenCalais.com/Sculptor	http://AlchemyAPI.com/Artist	<	1.0	0.0
+http://OpenCalais.com/Sculptor	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Sculptor	http://AlchemyAPI.com/Sculptor	=	1.0	
+http://OpenCalais.com/Sculptor	http://AlchemyAPI.com/VisualArtist	<	1.0	0.0
+http://OpenCalais.com/Senator	http://AlchemyAPI.com/Government_Person	<	1.0	0.0
+http://OpenCalais.com/Senator	http://AlchemyAPI.com/OfficeHolder	<	1.0	0.0
+http://OpenCalais.com/Senator	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Senator	http://AlchemyAPI.com/Politician	<	1.0	0.0
+http://OpenCalais.com/Senator	http://AlchemyAPI.com/U/S	<	0.245085	0.0
+http://OpenCalais.com/Senator	http://AlchemyAPI.com/U/S/Congressperson	<	0.999374	0.0
+http://OpenCalais.com/Senator	http://AlchemyAPI.com/U/S/_Politician	<	0.999999	0.0
+http://OpenCalais.com/ShoppingCenter	http://AlchemyAPI.com/Building	<	1.0	0.0
+http://OpenCalais.com/ShoppingCenter	http://AlchemyAPI.com/Business_Organization	<	0.009708	0.0
+http://OpenCalais.com/ShoppingCenter	http://AlchemyAPI.com/Facility	<	0.999998	0.0
+http://OpenCalais.com/ShoppingCenter	http://AlchemyAPI.com/GeographicFeature	<	0.0	0.0
+http://OpenCalais.com/ShoppingCenter	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/ShoppingCenter	http://AlchemyAPI.com/Organization	<	0.0	0.0
+http://OpenCalais.com/ShoppingCenter	http://AlchemyAPI.com/ShoppingCenter	=	1.0	
+http://OpenCalais.com/ShoppingCenter	http://AlchemyAPI.com/Structure	<	0.99593	0.0
+http://OpenCalais.com/Singer	http://AlchemyAPI.com/Artist	<	1.0	0.0
+http://OpenCalais.com/Singer	http://AlchemyAPI.com/MusicalArtist	<	1.0	0.0
+http://OpenCalais.com/Singer	http://AlchemyAPI.com/MusicalGroupMember	<	2e-06	0.0
+http://OpenCalais.com/Singer	http://AlchemyAPI.com/Musician	<	1.0	0.0
+http://OpenCalais.com/Singer	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Singer	http://AlchemyAPI.com/Singer	=	1.0	
+http://OpenCalais.com/Skyscraper	http://AlchemyAPI.com/Building	<	1.0	0.0
+http://OpenCalais.com/Skyscraper	http://AlchemyAPI.com/Facility	<	0.99593	0.0
+http://OpenCalais.com/Skyscraper	http://AlchemyAPI.com/GeographicFeature	<	0.0	0.0
+http://OpenCalais.com/Skyscraper	http://AlchemyAPI.com/Location	<	0.999769	0.0
+http://OpenCalais.com/Skyscraper	http://AlchemyAPI.com/Structure	<	1.0	0.0
+http://OpenCalais.com/Skyscraper	http://AlchemyAPI.com/U	<	0.0	0.0
+http://OpenCalais.com/SoccerClub	http://AlchemyAPI.com/Business_Organization	<	0.99982	0.0
+http://OpenCalais.com/SoccerClub	http://AlchemyAPI.com/Football_Team	=	1.0	
+http://OpenCalais.com/SoccerClub	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/SoccerClub	http://AlchemyAPI.com/ProfessionalSportsTeam	<	1.0	0.0
+http://OpenCalais.com/SoccerClub	http://AlchemyAPI.com/SoccerClub	=	1.0	
+http://OpenCalais.com/SoccerClub	http://AlchemyAPI.com/Soccer_Team	=	1.0	
+http://OpenCalais.com/SoccerClub	http://AlchemyAPI.com/Sport	<	0.0	0.0
+http://OpenCalais.com/SoccerClub	http://AlchemyAPI.com/SportsTeam	<	1.0	0.0
+http://OpenCalais.com/SoccerClub	http://AlchemyAPI.com/Sports_Organization	<	1.0	0.0
+http://OpenCalais.com/Soccer_Player	http://AlchemyAPI.com/Athlete	<	1.0	0.0
+http://OpenCalais.com/Soccer_Player	http://AlchemyAPI.com/Football_Player	=	0.999998	
+http://OpenCalais.com/Soccer_Player	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Soccer_Player	http://AlchemyAPI.com/Soccer_Player	=	1.0	
+http://OpenCalais.com/SoftwareDeveloper	http://AlchemyAPI.com/Business_Person	<	0.0	0.0
+http://OpenCalais.com/SoftwareDeveloper	http://AlchemyAPI.com/Engineer	<	0.999196	0.0
+http://OpenCalais.com/SoftwareDeveloper	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/SoftwareDeveloper	http://AlchemyAPI.com/RocketEngineDesigner	>	0.0	0.0
+http://OpenCalais.com/SoftwareDeveloper	http://AlchemyAPI.com/Technologist	<	0.997817	0.0
+http://OpenCalais.com/Songwriter	http://AlchemyAPI.com/Artist	<	0.999898	0.0
+http://OpenCalais.com/Songwriter	http://AlchemyAPI.com/Author	<	0.005911	0.0
+http://OpenCalais.com/Songwriter	http://AlchemyAPI.com/Composer	=	0.0	
+http://OpenCalais.com/Songwriter	http://AlchemyAPI.com/MusicalArtist	<	0.999985	0.0
+http://OpenCalais.com/Songwriter	http://AlchemyAPI.com/Musician	<	1.0	0.0
+http://OpenCalais.com/Songwriter	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Songwriter	http://AlchemyAPI.com/Songwriter	=	1.0	
+http://OpenCalais.com/SouthKoreanCity	http://AlchemyAPI.com/AdministrativeDivision	<	1.0	0.0
+http://OpenCalais.com/SouthKoreanCity	http://AlchemyAPI.com/City	<	1.0	0.0
+http://OpenCalais.com/SouthKoreanCity	http://AlchemyAPI.com/District	<	0.0	0.0
+http://OpenCalais.com/SouthKoreanCity	http://AlchemyAPI.com/GeographicFeature	<	0.999999	0.0
+http://OpenCalais.com/SouthKoreanCity	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/SouthKoreanCity	http://AlchemyAPI.com/Region	<	0.999986	0.0
+http://OpenCalais.com/SouthKoreanCity	http://AlchemyAPI.com/State	<	0.0	0.0
+http://OpenCalais.com/SouthKoreanCity	http://AlchemyAPI.com/StateOrCounty	<	0.0	0.0
+http://OpenCalais.com/SouthKoreanCity	http://AlchemyAPI.com/U/S	<	0.001501	0.0
+http://OpenCalais.com/SouthKoreanCity	http://AlchemyAPI.com/U/S/_City	<	0.99478	0.0
+http://OpenCalais.com/SpaceAgency	http://AlchemyAPI.com/Aerospace_Company	<	0.0	0.0
+http://OpenCalais.com/SpaceAgency	http://AlchemyAPI.com/Business_Organization	<	0.851953	0.0
+http://OpenCalais.com/SpaceAgency	http://AlchemyAPI.com/Executive_Body	<	0.0	0.0
+http://OpenCalais.com/SpaceAgency	http://AlchemyAPI.com/Facility	<	0.0	0.0
+http://OpenCalais.com/SpaceAgency	http://AlchemyAPI.com/GovernmentAgency	<	0.651355	0.0
+http://OpenCalais.com/SpaceAgency	http://AlchemyAPI.com/Government_Agency	<	0.999447	0.0
+http://OpenCalais.com/SpaceAgency	http://AlchemyAPI.com/International_Organization	<	0.001501	0.0
+http://OpenCalais.com/SpaceAgency	http://AlchemyAPI.com/Non-ProfitOrganisation	<	0.0	0.0
+http://OpenCalais.com/SpaceAgency	http://AlchemyAPI.com/Nonprofit_Organization	<	0.0	0.0
+http://OpenCalais.com/SpaceAgency	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/SpaceAgency	http://AlchemyAPI.com/Political_Organization	<	0.0	0.0
+http://OpenCalais.com/SpaceAgency	http://AlchemyAPI.com/ReportIssuingInstitution	<	0.0	0.0
+http://OpenCalais.com/SpaceAgency	http://AlchemyAPI.com/Research_Institution	<	5.1e-05	0.0
+http://OpenCalais.com/SpacecraftManufacturer	http://AlchemyAPI.com/Aerospace_Company	<	1.0	0.0
+http://OpenCalais.com/SpacecraftManufacturer	http://AlchemyAPI.com/AircraftDesigner	<	0.0	0.0
+http://OpenCalais.com/SpacecraftManufacturer	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/SpacecraftManufacturer	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/SpacecraftManufacturer	http://AlchemyAPI.com/Manufacturing_Company	<	1.0	0.0
+http://OpenCalais.com/SpacecraftManufacturer	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/SpacecraftManufacturer	http://AlchemyAPI.com/Technology_Company	<	0.999769	0.0
+http://OpenCalais.com/Spiritual_Leader	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Spiritual_Leader	http://AlchemyAPI.com/ReligiousLeader	=	0.999999	
+http://OpenCalais.com/Spiritual_Leader	http://AlchemyAPI.com/Spiritual_Leader	=	1.0	
+http://OpenCalais.com/Sport	http://AlchemyAPI.com/Basketball_Player	>	0.0	0.0
+http://OpenCalais.com/Sport	http://AlchemyAPI.com/Field_Hockey_Player	>	0.0	0.0
+http://OpenCalais.com/Sport	http://AlchemyAPI.com/Football_Player	>	0.0	0.0
+http://OpenCalais.com/Sport	http://AlchemyAPI.com/Hockey_Player	>	0.0	0.0
+http://OpenCalais.com/Sport	http://AlchemyAPI.com/Olympic_Sport	>	1.0	0.0
+http://OpenCalais.com/Sport	http://AlchemyAPI.com/ProfessionalSportsTeam	>	0.001927	0.0
+http://OpenCalais.com/Sport	http://AlchemyAPI.com/Rugby_Competition	>	0.999998	0.0
+http://OpenCalais.com/Sport	http://AlchemyAPI.com/Rugby_Player	>	0.0	0.0
+http://OpenCalais.com/Sport	http://AlchemyAPI.com/SoccerClub	>	0.000804	0.0
+http://OpenCalais.com/Sport	http://AlchemyAPI.com/Soccer_Player	>	0.0	0.0
+http://OpenCalais.com/Sport	http://AlchemyAPI.com/Sport	=	1.0	
+http://OpenCalais.com/Sport	http://AlchemyAPI.com/SportsTeam	>	7e-06	0.0
+http://OpenCalais.com/Sport	http://AlchemyAPI.com/Sports_Conference	>	3.1e-05	0.0
+http://OpenCalais.com/Sport	http://AlchemyAPI.com/Sports_Executive	>	0.0	0.0
+http://OpenCalais.com/Sport	http://AlchemyAPI.com/Sports_League	>	0.999704	0.0
+http://OpenCalais.com/Sport	http://AlchemyAPI.com/Sports_Official	>	0.0	0.0
+http://OpenCalais.com/Sport	http://AlchemyAPI.com/Sports_Organization	>	8e-06	0.0
+http://OpenCalais.com/Sport	http://AlchemyAPI.com/Track_and_Field_Athlete	>	0.0	0.0
+http://OpenCalais.com/SportingEvent	http://AlchemyAPI.com/Event	<	1.0	0.0
+http://OpenCalais.com/SportingEvent	http://AlchemyAPI.com/Rugby_Competition	>	1.0	0.0
+http://OpenCalais.com/SportingEvent	http://AlchemyAPI.com/Sport	<	0.0	0.0
+http://OpenCalais.com/SportingEvent	http://AlchemyAPI.com/Sports_Conference	>	3e-06	0.0
+http://OpenCalais.com/SportsAssociation	http://AlchemyAPI.com/Business_Organization	<	0.99539	0.0
+http://OpenCalais.com/SportsAssociation	http://AlchemyAPI.com/Football_Team	>	0.999842	0.0
+http://OpenCalais.com/SportsAssociation	http://AlchemyAPI.com/Non-ProfitOrganisation	<	0.0	0.0
+http://OpenCalais.com/SportsAssociation	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/SportsAssociation	http://AlchemyAPI.com/ProfessionalSportsTeam	>	0.009708	0.0
+http://OpenCalais.com/SportsAssociation	http://AlchemyAPI.com/Professional_Association	<	0.182426	0.0
+http://OpenCalais.com/SportsAssociation	http://AlchemyAPI.com/SoccerClub	>	1.0	0.0
+http://OpenCalais.com/SportsAssociation	http://AlchemyAPI.com/SportsTeam	=	0.0	
+http://OpenCalais.com/SportsAssociation	http://AlchemyAPI.com/Sports_Conference	>	6e-06	0.0
+http://OpenCalais.com/SportsAssociation	http://AlchemyAPI.com/Sports_League	=	0.0	
+http://OpenCalais.com/SportsAssociation	http://AlchemyAPI.com/Sports_Organization	=	1.0	
+http://OpenCalais.com/SportsAssociation	http://AlchemyAPI.com/Trade_Association	<	0.0	0.0
+http://OpenCalais.com/SportsFacility	http://AlchemyAPI.com/Building	<	0.999998	0.0
+http://OpenCalais.com/SportsFacility	http://AlchemyAPI.com/Court	>	0.001325	0.0
+http://OpenCalais.com/SportsFacility	http://AlchemyAPI.com/Facility	<	1.0	0.0
+http://OpenCalais.com/SportsFacility	http://AlchemyAPI.com/GeographicFeature	<	0.0	0.0
+http://OpenCalais.com/SportsFacility	http://AlchemyAPI.com/Location	<	0.999998	0.0
+http://OpenCalais.com/SportsFacility	http://AlchemyAPI.com/SoccerClub	>	0.0	0.0
+http://OpenCalais.com/SportsFacility	http://AlchemyAPI.com/Sports_Venue	=	1.0	
+http://OpenCalais.com/SportsFacility	http://AlchemyAPI.com/Structure	<	0.00522	0.0
+http://OpenCalais.com/SportsLeagueAwardWinner	http://AlchemyAPI.com/Athlete	<	0.0	0.0
+http://OpenCalais.com/SportsLeagueAwardWinner	http://AlchemyAPI.com/Award	<	1.0	0.0
+http://OpenCalais.com/SportsLeagueAwardWinner	http://AlchemyAPI.com/AwardWinner	<	1.0	0.0
+http://OpenCalais.com/SportsOfficial	http://AlchemyAPI.com/Judge	>	0.0	0.0
+http://OpenCalais.com/SportsOfficial	http://AlchemyAPI.com/OfficeHolder	<	0.0	0.0
+http://OpenCalais.com/SportsOfficial	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/SportsOfficial	http://AlchemyAPI.com/Sports_Announcer	>	0.001501	0.0
+http://OpenCalais.com/SportsOfficial	http://AlchemyAPI.com/Sports_Official	=	1.0	
+http://OpenCalais.com/SportsTeam	http://AlchemyAPI.com/Baseball_Team	>	1.0	0.0
+http://OpenCalais.com/SportsTeam	http://AlchemyAPI.com/Basketball_Team	>	1.0	0.0
+http://OpenCalais.com/SportsTeam	http://AlchemyAPI.com/Business_Organization	<	0.977023	0.0
+http://OpenCalais.com/SportsTeam	http://AlchemyAPI.com/College_Basketball_Team	>	1.0	0.0
+http://OpenCalais.com/SportsTeam	http://AlchemyAPI.com/Cricket_Team	>	1.0	0.0
+http://OpenCalais.com/SportsTeam	http://AlchemyAPI.com/Football_Team	>	1.0	0.0
+http://OpenCalais.com/SportsTeam	http://AlchemyAPI.com/Hockey_Team	>	1.0	0.0
+http://OpenCalais.com/SportsTeam	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/SportsTeam	http://AlchemyAPI.com/ProfessionalSportsTeam	>	1.0	0.0
+http://OpenCalais.com/SportsTeam	http://AlchemyAPI.com/Rugby_Team	>	1.0	0.0
+http://OpenCalais.com/SportsTeam	http://AlchemyAPI.com/SoccerClub	>	1.0	0.0
+http://OpenCalais.com/SportsTeam	http://AlchemyAPI.com/Soccer_Team	>	1.0	0.0
+http://OpenCalais.com/SportsTeam	http://AlchemyAPI.com/SportsTeam	=	1.0	
+http://OpenCalais.com/SportsTeam	http://AlchemyAPI.com/Sports_Organization	<	1.0	0.0
+http://OpenCalais.com/Sports_Division	http://AlchemyAPI.com/Olympic_Sport	>	0.0	0.0
+http://OpenCalais.com/Sports_Division	http://AlchemyAPI.com/Organization	<	0.000911	0.0
+http://OpenCalais.com/Sports_Division	http://AlchemyAPI.com/Rugby_Competition	>	0.0	0.0
+http://OpenCalais.com/Sports_Division	http://AlchemyAPI.com/Sport	=	1e-06	
+http://OpenCalais.com/Sports_Division	http://AlchemyAPI.com/Sports_Conference	=	0.0	
+http://OpenCalais.com/Sports_Division	http://AlchemyAPI.com/Sports_League	=	0.0	
+http://OpenCalais.com/Sports_Division	http://AlchemyAPI.com/Sports_Organization	<	0.000158	4e-06
+http://OpenCalais.com/Sports_Organization	http://AlchemyAPI.com/Baseball_Team	>	1.0	0.0
+http://OpenCalais.com/Sports_Organization	http://AlchemyAPI.com/Business_Organization	<	0.989013	0.0
+http://OpenCalais.com/Sports_Organization	http://AlchemyAPI.com/College_Basketball_Team	>	1.0	0.0
+http://OpenCalais.com/Sports_Organization	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Sports_Organization	http://AlchemyAPI.com/ProfessionalSportsTeam	>	1.0	0.0
+http://OpenCalais.com/Sports_Organization	http://AlchemyAPI.com/SoccerClub	>	1.0	0.0
+http://OpenCalais.com/Sports_Organization	http://AlchemyAPI.com/SportsTeam	>	1.0	0.0
+http://OpenCalais.com/Sports_Organization	http://AlchemyAPI.com/Sports_Conference	>	0.999512	0.0
+http://OpenCalais.com/Sports_Organization	http://AlchemyAPI.com/Sports_League	>	0.999998	0.0
+http://OpenCalais.com/Sports_Organization	http://AlchemyAPI.com/Sports_Organization	=	1.0	
+http://OpenCalais.com/Sports_Venue	http://AlchemyAPI.com/Building	<	0.999998	0.0
+http://OpenCalais.com/Sports_Venue	http://AlchemyAPI.com/Court	>	8e-06	0.0
+http://OpenCalais.com/Sports_Venue	http://AlchemyAPI.com/Facility	<	0.999995	0.0
+http://OpenCalais.com/Sports_Venue	http://AlchemyAPI.com/GeographicFeature	<	0.0	0.0
+http://OpenCalais.com/Sports_Venue	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/Sports_Venue	http://AlchemyAPI.com/Sports_Venue	=	1.0	
+http://OpenCalais.com/Sports_Venue	http://AlchemyAPI.com/Structure	<	0.990292	0.0
+http://OpenCalais.com/Stadium	http://AlchemyAPI.com/Building	<	1.0	0.0
+http://OpenCalais.com/Stadium	http://AlchemyAPI.com/Facility	<	0.999999	0.0
+http://OpenCalais.com/Stadium	http://AlchemyAPI.com/GeographicFeature	<	0.0	0.0
+http://OpenCalais.com/Stadium	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/Stadium	http://AlchemyAPI.com/Sports_Venue	<	1.0	0.0
+http://OpenCalais.com/Stadium	http://AlchemyAPI.com/Structure	<	0.991423	0.0
+http://OpenCalais.com/State	http://AlchemyAPI.com/AdministrativeDivision	<	0.999999	3e-06
+http://OpenCalais.com/State	http://AlchemyAPI.com/GeographicFeature	<	0.946597	0.0
+http://OpenCalais.com/State	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/State	http://AlchemyAPI.com/Political_Organization	<	0.998299	0.0
+http://OpenCalais.com/State	http://AlchemyAPI.com/Prefecture	=	0.0	
+http://OpenCalais.com/State	http://AlchemyAPI.com/Region	<	0.562177	0.0
+http://OpenCalais.com/State	http://AlchemyAPI.com/SpanishAutonomousCommunity	>	0.999704	0.0
+http://OpenCalais.com/State	http://AlchemyAPI.com/State	=	4e-06	
+http://OpenCalais.com/State	http://AlchemyAPI.com/StateOrCounty	<	0.999447	6e-06
+http://OpenCalais.com/State	http://AlchemyAPI.com/USState	>	1.0	0.0
+http://OpenCalais.com/StateOrCounty	http://AlchemyAPI.com/AdministrativeDivision	<	1.0	0.0
+http://OpenCalais.com/StateOrCounty	http://AlchemyAPI.com/District	=	0.0	
+http://OpenCalais.com/StateOrCounty	http://AlchemyAPI.com/EnglishCivilParish	>	0.00018	0.0
+http://OpenCalais.com/StateOrCounty	http://AlchemyAPI.com/GeographicFeature	<	0.999934	0.0
+http://OpenCalais.com/StateOrCounty	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/StateOrCounty	http://AlchemyAPI.com/Prefecture	=	4e-06	
+http://OpenCalais.com/StateOrCounty	http://AlchemyAPI.com/Region	<	0.999957	0.0
+http://OpenCalais.com/StateOrCounty	http://AlchemyAPI.com/SpanishAutonomousCommunity	>	0.999934	0.0
+http://OpenCalais.com/StateOrCounty	http://AlchemyAPI.com/State	>	0.999999	4e-06
+http://OpenCalais.com/StateOrCounty	http://AlchemyAPI.com/StateOrCounty	=	1.0	
+http://OpenCalais.com/StateOrCounty	http://AlchemyAPI.com/USState	>	1.0	0.0
+http://OpenCalais.com/Steel_Company	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/Steel_Company	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/Steel_Company	http://AlchemyAPI.com/ManufacturingPlant	<	0.952574	0.0
+http://OpenCalais.com/Steel_Company	http://AlchemyAPI.com/Manufacturing_Company	<	1.0	0.0
+http://OpenCalais.com/Steel_Company	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Structure	http://AlchemyAPI.com/Building	>	1e-06	0.0
+http://OpenCalais.com/Structure	http://AlchemyAPI.com/Sports_Venue	>	0.0	0.0
+http://OpenCalais.com/Structure	http://AlchemyAPI.com/Structure	=	3e-06	
+http://OpenCalais.com/Surgeon	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Surgeon	http://AlchemyAPI.com/Physician	<	1.0	0.0
+http://OpenCalais.com/Surgeon	http://AlchemyAPI.com/U	<	0.0	0.0
+http://OpenCalais.com/TVActor	http://AlchemyAPI.com/Actor	<	1.0	0.0
+http://OpenCalais.com/TVActor	http://AlchemyAPI.com/Artist	<	0.00461	0.0
+http://OpenCalais.com/TVActor	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/TVActor	http://AlchemyAPI.com/Television_Personality	<	0.999965	0.0
+http://OpenCalais.com/TVCharacter	http://AlchemyAPI.com/Person	<	0.999999	0.0
+http://OpenCalais.com/TVCharacter	http://AlchemyAPI.com/Television_Personality	<	0.0	0.0
+http://OpenCalais.com/TVDirector	http://AlchemyAPI.com/Artist	<	0.00018	0.0
+http://OpenCalais.com/TVDirector	http://AlchemyAPI.com/Director	<	1.0	0.0
+http://OpenCalais.com/TVDirector	http://AlchemyAPI.com/FilmDirector	=	0.0	
+http://OpenCalais.com/TVDirector	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/TVDirector	http://AlchemyAPI.com/Television_Personality	<	0.201813	0.0
+http://OpenCalais.com/TVEpisode	http://AlchemyAPI.com/Event	<	0.0	0.0
+http://OpenCalais.com/TVEpisode	http://AlchemyAPI.com/Film	<	0.0	0.0
+http://OpenCalais.com/TVEpisode	http://AlchemyAPI.com/Movie	<	0.0	0.0
+http://OpenCalais.com/TVEpisode	http://AlchemyAPI.com/TVEpisode	=	1.0	
+http://OpenCalais.com/TVNetwork	http://AlchemyAPI.com/BroadcastDistributor	=	0.987568	
+http://OpenCalais.com/TVNetwork	http://AlchemyAPI.com/Business_Organization	<	0.999999	0.0
+http://OpenCalais.com/TVNetwork	http://AlchemyAPI.com/Entertainment_Company	<	0.99999	0.0
+http://OpenCalais.com/TVNetwork	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/TVNetwork	http://AlchemyAPI.com/TVChannel	=	1.0	
+http://OpenCalais.com/TVNetwork	http://AlchemyAPI.com/Television_Network	=	1.0	
+http://OpenCalais.com/TVNetwork	http://AlchemyAPI.com/Television_Station	=	0.851953	
+http://OpenCalais.com/TVPersonality	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/TVPersonality	http://AlchemyAPI.com/Sports_Announcer	>	0.999977	0.0
+http://OpenCalais.com/TVPersonality	http://AlchemyAPI.com/Television_Personality	=	1.0	
+http://OpenCalais.com/TVProducer	http://AlchemyAPI.com/Business_Organization	<	0.0	0.0
+http://OpenCalais.com/TVProducer	http://AlchemyAPI.com/Company	<	0.0	0.0
+http://OpenCalais.com/TVProducer	http://AlchemyAPI.com/Entertainment_Company	<	0.0	0.0
+http://OpenCalais.com/TVProducer	http://AlchemyAPI.com/Organization	<	0.0	0.0
+http://OpenCalais.com/TVProducer	http://AlchemyAPI.com/Producer	<	0.999997	0.0
+http://OpenCalais.com/TVProducer	http://AlchemyAPI.com/Television_Personality	<	2e-06	0.0
+http://OpenCalais.com/TVWriter	http://AlchemyAPI.com/Artist	<	0.000626	0.0
+http://OpenCalais.com/TVWriter	http://AlchemyAPI.com/Author	<	0.999992	0.0
+http://OpenCalais.com/TVWriter	http://AlchemyAPI.com/FilmWriter	=	0.0	
+http://OpenCalais.com/TVWriter	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/TVWriter	http://AlchemyAPI.com/Screenwriter	<	0.924142	0.0
+http://OpenCalais.com/TVWriter	http://AlchemyAPI.com/Television_Personality	<	0.0	0.0
+http://OpenCalais.com/Technology	http://AlchemyAPI.com/Aerospace_Company	>	1e-06	0.0
+http://OpenCalais.com/Technology	http://AlchemyAPI.com/AircraftDesigner	>	0.0	0.0
+http://OpenCalais.com/Technology	http://AlchemyAPI.com/Automobile	>	0.000335	0.0
+http://OpenCalais.com/Technology	http://AlchemyAPI.com/Automotive_Company	>	0.0	0.0
+http://OpenCalais.com/Technology	http://AlchemyAPI.com/ComputerDesigner	>	0.0	0.0
+http://OpenCalais.com/Technology	http://AlchemyAPI.com/Data_Storage_Medium	>	1.3e-05	0.0
+http://OpenCalais.com/Technology	http://AlchemyAPI.com/ElementDiscoverer	>	0.0	0.0
+http://OpenCalais.com/Technology	http://AlchemyAPI.com/Game_Console	>	0.798187	0.0
+http://OpenCalais.com/Technology	http://AlchemyAPI.com/Gaming_Company	>	0.0	0.0
+http://OpenCalais.com/Technology	http://AlchemyAPI.com/Media_Device	>	0.000804	0.0
+http://OpenCalais.com/Technology	http://AlchemyAPI.com/Software	>	0.99883	0.0
+http://OpenCalais.com/Technology	http://AlchemyAPI.com/Software_Company	>	1e-06	0.0
+http://OpenCalais.com/Technology	http://AlchemyAPI.com/Technology_Company	>	0.000123	0.0
+http://OpenCalais.com/Technology	http://AlchemyAPI.com/Telecommunications_Company	>	1e-06	0.0
+http://OpenCalais.com/TelevisionShow	http://AlchemyAPI.com/Product	<	0.0	0.0
+http://OpenCalais.com/TelevisionShow	http://AlchemyAPI.com/TVEpisode	>	2e-06	0.0
+http://OpenCalais.com/TelevisionShow	http://AlchemyAPI.com/Television_Show	=	1.0	
+http://OpenCalais.com/TelevisionStation	http://AlchemyAPI.com/BroadcastDistributor	<	0.999374	0.0
+http://OpenCalais.com/TelevisionStation	http://AlchemyAPI.com/Business_Organization	<	0.999992	0.0
+http://OpenCalais.com/TelevisionStation	http://AlchemyAPI.com/Entertainment_Company	<	0.999089	0.0
+http://OpenCalais.com/TelevisionStation	http://AlchemyAPI.com/Facility	<	0.119203	0.0
+http://OpenCalais.com/TelevisionStation	http://AlchemyAPI.com/Media_Device	<	0.0	0.0
+http://OpenCalais.com/TelevisionStation	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/TelevisionStation	http://AlchemyAPI.com/TVChannel	=	1.0	
+http://OpenCalais.com/TelevisionStation	http://AlchemyAPI.com/Telecommunications_Company	<	0.0	0.0
+http://OpenCalais.com/TelevisionStation	http://AlchemyAPI.com/Television_Network	<	4e-06	0.0
+http://OpenCalais.com/TelevisionStation	http://AlchemyAPI.com/Television_Station	=	1.0	
+http://OpenCalais.com/Television_Network	http://AlchemyAPI.com/BroadcastDistributor	=	0.990292	
+http://OpenCalais.com/Television_Network	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/Television_Network	http://AlchemyAPI.com/Entertainment_Company	<	0.999995	0.0
+http://OpenCalais.com/Television_Network	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/Television_Network	http://AlchemyAPI.com/TVChannel	=	1.0	
+http://OpenCalais.com/Television_Network	http://AlchemyAPI.com/Television_Network	=	1.0	
+http://OpenCalais.com/Television_Network	http://AlchemyAPI.com/Television_Station	>	0.962673	0.0
+http://OpenCalais.com/TheaterActor	http://AlchemyAPI.com/Actor	<	1.0	0.0
+http://OpenCalais.com/TheaterActor	http://AlchemyAPI.com/Artist	<	0.997527	0.0
+http://OpenCalais.com/TheaterActor	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/TheaterDirector	http://AlchemyAPI.com/Artist	<	0.99996	0.0
+http://OpenCalais.com/TheaterDirector	http://AlchemyAPI.com/Director	<	0.999997	0.0
+http://OpenCalais.com/TheaterDirector	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/TheatricalComposer	http://AlchemyAPI.com/Artist	<	1.0	0.0
+http://OpenCalais.com/TheatricalComposer	http://AlchemyAPI.com/Author	<	8e-06	0.0
+http://OpenCalais.com/TheatricalComposer	http://AlchemyAPI.com/Composer	<	1.0	0.0
+http://OpenCalais.com/TheatricalComposer	http://AlchemyAPI.com/MusicalArtist	<	1.0	0.0
+http://OpenCalais.com/TheatricalComposer	http://AlchemyAPI.com/Musician	<	1.0	0.0
+http://OpenCalais.com/TheatricalComposer	http://AlchemyAPI.com/Songwriter	<	1e-06	0.0
+http://OpenCalais.com/TheatricalLyricist	http://AlchemyAPI.com/Artist	<	0.999994	0.0
+http://OpenCalais.com/TheatricalLyricist	http://AlchemyAPI.com/Author	<	0.999842	0.0
+http://OpenCalais.com/TheatricalLyricist	http://AlchemyAPI.com/MusicalArtist	<	0.979668	0.0
+http://OpenCalais.com/TheatricalLyricist	http://AlchemyAPI.com/Musician	<	0.999982	0.0
+http://OpenCalais.com/TheatricalLyricist	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/TheatricalLyricist	http://AlchemyAPI.com/Poet	<	1e-06	0.0
+http://OpenCalais.com/TheatricalLyricist	http://AlchemyAPI.com/Songwriter	<	0.999925	0.0
+http://OpenCalais.com/TouristAttraction	http://AlchemyAPI.com/Cemetery	>	0.067547	0.0
+http://OpenCalais.com/TouristAttraction	http://AlchemyAPI.com/Facility	<	5.1e-05	0.0
+http://OpenCalais.com/TouristAttraction	http://AlchemyAPI.com/GeographicFeature	<	0.0	0.0
+http://OpenCalais.com/TouristAttraction	http://AlchemyAPI.com/Hotel	>	0.003594	0.0
+http://OpenCalais.com/TouristAttraction	http://AlchemyAPI.com/Lighthouse	>	0.999997	0.0
+http://OpenCalais.com/TouristAttraction	http://AlchemyAPI.com/Location	<	0.999976	0.0
+http://OpenCalais.com/TouristAttraction	http://AlchemyAPI.com/Museum	>	1.0	0.0
+http://OpenCalais.com/TouristAttraction	http://AlchemyAPI.com/ShoppingCenter	>	5.8e-05	0.0
+http://OpenCalais.com/TouristAttraction	http://AlchemyAPI.com/Sports_Venue	>	7.5e-05	0.0
+http://OpenCalais.com/TouristAttraction	http://AlchemyAPI.com/Structure	<	0.0	0.0
+http://OpenCalais.com/TradeUnion	http://AlchemyAPI.com/Advocacy_Group	<	0.999891	0.0
+http://OpenCalais.com/TradeUnion	http://AlchemyAPI.com/Business_Organization	<	1e-06	0.0
+http://OpenCalais.com/TradeUnion	http://AlchemyAPI.com/Executive_Body	<	0.0	0.0
+http://OpenCalais.com/TradeUnion	http://AlchemyAPI.com/Non-ProfitOrganisation	<	0.000488	0.0
+http://OpenCalais.com/TradeUnion	http://AlchemyAPI.com/Nonprofit_Organization	<	0.037327	0.0
+http://OpenCalais.com/TradeUnion	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/TradeUnion	http://AlchemyAPI.com/Political_Organization	<	0.999447	0.0
+http://OpenCalais.com/TradeUnion	http://AlchemyAPI.com/Professional_Association	<	0.0	0.0
+http://OpenCalais.com/TradeUnion	http://AlchemyAPI.com/U	=	0.0	
+http://OpenCalais.com/TransportOperator	http://AlchemyAPI.com/Aerospace_Company	>	0.00014	0.0
+http://OpenCalais.com/TransportOperator	http://AlchemyAPI.com/Airline	>	1.0	0.0
+http://OpenCalais.com/TransportOperator	http://AlchemyAPI.com/Automotive_Company	>	0.001032	0.0
+http://OpenCalais.com/TransportOperator	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/TransportOperator	http://AlchemyAPI.com/Company	<	0.99993	0.0
+http://OpenCalais.com/TransportOperator	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/TransportOperator	http://AlchemyAPI.com/Railway_Company	>	1.0	0.0
+http://OpenCalais.com/TropicalCyclone	http://AlchemyAPI.com/Event	<	0.999983	0.0
+http://OpenCalais.com/TropicalCyclone	http://AlchemyAPI.com/Hurricane	>	1.0	1e-05
+http://OpenCalais.com/U	http://AlchemyAPI.com/U	=	8e-06	
+http://OpenCalais.com/U	http://AlchemyAPI.com/U/S	>	0.99478	0.0
+http://OpenCalais.com/U	http://AlchemyAPI.com/U/S/Congressperson	>	0.998675	0.0
+http://OpenCalais.com/U	http://AlchemyAPI.com/U/S/_City	>	0.999851	0.0
+http://OpenCalais.com/U	http://AlchemyAPI.com/U/S/_Politician	>	0.999925	0.0
+http://OpenCalais.com/U	http://AlchemyAPI.com/USState	=	0.0	
+http://OpenCalais.com/U/S	http://AlchemyAPI.com/Country_Leader	<	0.0	0.0
+http://OpenCalais.com/U/S	http://AlchemyAPI.com/Government_Person	=	1e-06	
+http://OpenCalais.com/U/S	http://AlchemyAPI.com/OfficeHolder	<	3e-06	0.0
+http://OpenCalais.com/U/S	http://AlchemyAPI.com/Organization	<	0.0	0.0
+http://OpenCalais.com/U/S	http://AlchemyAPI.com/Person	<	0.006693	0.0
+http://OpenCalais.com/U/S	http://AlchemyAPI.com/Politician	=	5e-06	
+http://OpenCalais.com/U/S	http://AlchemyAPI.com/U	<	0.095349	0.000553
+http://OpenCalais.com/U/S	http://AlchemyAPI.com/U/S	=	0.0	
+http://OpenCalais.com/U/S	http://AlchemyAPI.com/U/S/Congressperson	>	1.0	0.0
+http://OpenCalais.com/U/S	http://AlchemyAPI.com/U/S/_City	>	0.012432	0.0
+http://OpenCalais.com/U/S	http://AlchemyAPI.com/U/S/_Politician	>	0.999665	1e-06
+http://OpenCalais.com/U/S/Congressperson	http://AlchemyAPI.com/Government_Person	<	0.437823	0.0
+http://OpenCalais.com/U/S/Congressperson	http://AlchemyAPI.com/OfficeHolder	<	0.851953	0.0
+http://OpenCalais.com/U/S/Congressperson	http://AlchemyAPI.com/Person	<	0.999739	0.0
+http://OpenCalais.com/U/S/Congressperson	http://AlchemyAPI.com/Politician	<	0.99992	0.0
+http://OpenCalais.com/U/S/Congressperson	http://AlchemyAPI.com/U	<	0.999991	0.0
+http://OpenCalais.com/U/S/Congressperson	http://AlchemyAPI.com/U/S	<	1.0	0.0
+http://OpenCalais.com/U/S/Congressperson	http://AlchemyAPI.com/U/S/Congressperson	=	1.0	
+http://OpenCalais.com/U/S/Congressperson	http://AlchemyAPI.com/U/S/_Politician	<	0.957912	0.0
+http://OpenCalais.com/UKOverseasTerritory	http://AlchemyAPI.com/AdministrativeDivision	<	0.999196	0.0
+http://OpenCalais.com/UKOverseasTerritory	http://AlchemyAPI.com/Country	<	0.999512	0.0
+http://OpenCalais.com/UKOverseasTerritory	http://AlchemyAPI.com/GeographicFeature	<	0.99539	0.0
+http://OpenCalais.com/UKOverseasTerritory	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/UKOverseasTerritory	http://AlchemyAPI.com/Political_Organization	<	0.0	0.0
+http://OpenCalais.com/UKOverseasTerritory	http://AlchemyAPI.com/Region	<	0.999869	0.0
+http://OpenCalais.com/UKOverseasTerritory	http://AlchemyAPI.com/State	<	1.2e-05	0.0
+http://OpenCalais.com/UKOverseasTerritory	http://AlchemyAPI.com/StateOrCounty	<	0.0	0.0
+http://OpenCalais.com/USCounty	http://AlchemyAPI.com/AdministrativeDivision	<	1.0	0.0
+http://OpenCalais.com/USCounty	http://AlchemyAPI.com/District	<	7e-06	0.0
+http://OpenCalais.com/USCounty	http://AlchemyAPI.com/GeographicFeature	<	0.999998	0.0
+http://OpenCalais.com/USCounty	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/USCounty	http://AlchemyAPI.com/Political_Organization	<	0.0	0.0
+http://OpenCalais.com/USCounty	http://AlchemyAPI.com/Region	<	0.999898	0.0
+http://OpenCalais.com/USCounty	http://AlchemyAPI.com/StateOrCounty	<	0.999996	0.0
+http://OpenCalais.com/USCounty	http://AlchemyAPI.com/U	<	0.0	0.0
+http://OpenCalais.com/USPresident	http://AlchemyAPI.com/Country_Leader	<	1.0	0.0
+http://OpenCalais.com/USPresident	http://AlchemyAPI.com/Executive_Body	<	0.0	0.0
+http://OpenCalais.com/USPresident	http://AlchemyAPI.com/Government_Person	<	1.0	0.0
+http://OpenCalais.com/USPresident	http://AlchemyAPI.com/OfficeHolder	<	1.0	0.0
+http://OpenCalais.com/USPresident	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/USPresident	http://AlchemyAPI.com/Politician	<	1.0	0.0
+http://OpenCalais.com/USPresident	http://AlchemyAPI.com/U/S	<	0.007577	0.0
+http://OpenCalais.com/USPresident	http://AlchemyAPI.com/U/S/_Politician	<	0.99996	0.0
+http://OpenCalais.com/USState	http://AlchemyAPI.com/AdministrativeDivision	<	1.0	0.0
+http://OpenCalais.com/USState	http://AlchemyAPI.com/GeographicFeature	<	0.999898	0.0
+http://OpenCalais.com/USState	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/USState	http://AlchemyAPI.com/Political_Organization	<	0.0	0.0
+http://OpenCalais.com/USState	http://AlchemyAPI.com/Region	<	0.999997	0.0
+http://OpenCalais.com/USState	http://AlchemyAPI.com/State	<	0.999969	0.0
+http://OpenCalais.com/USState	http://AlchemyAPI.com/StateOrCounty	<	0.999999	0.0
+http://OpenCalais.com/USState	http://AlchemyAPI.com/USState	=	1.0	
+http://OpenCalais.com/USTerritory	http://AlchemyAPI.com/AdministrativeDivision	<	0.99593	0.0
+http://OpenCalais.com/USTerritory	http://AlchemyAPI.com/GeographicFeature	<	0.99593	0.0
+http://OpenCalais.com/USTerritory	http://AlchemyAPI.com/Location	<	0.999999	0.0
+http://OpenCalais.com/USTerritory	http://AlchemyAPI.com/Political_Organization	<	0.0	0.0
+http://OpenCalais.com/USTerritory	http://AlchemyAPI.com/Region	<	0.998499	0.0
+http://OpenCalais.com/USTerritory	http://AlchemyAPI.com/State	=	0.0	
+http://OpenCalais.com/USTerritory	http://AlchemyAPI.com/StateOrCounty	<	1e-06	2.8e-05
+http://OpenCalais.com/USTerritory	http://AlchemyAPI.com/U	=	0.0	
+http://OpenCalais.com/USTerritory	http://AlchemyAPI.com/U/S/_City	>	0.0	0.0
+http://OpenCalais.com/USTerritory	http://AlchemyAPI.com/USState	>	0.731059	0.0
+http://OpenCalais.com/USVicePresident	http://AlchemyAPI.com/Cabinet_Member	<	0.990292	0.0
+http://OpenCalais.com/USVicePresident	http://AlchemyAPI.com/Country_Leader	<	0.99999	0.0
+http://OpenCalais.com/USVicePresident	http://AlchemyAPI.com/Executive_Body	<	0.0	0.0
+http://OpenCalais.com/USVicePresident	http://AlchemyAPI.com/Government_Person	<	1.0	0.0
+http://OpenCalais.com/USVicePresident	http://AlchemyAPI.com/OfficeHolder	<	1.0	0.0
+http://OpenCalais.com/USVicePresident	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/USVicePresident	http://AlchemyAPI.com/Politician	<	1.0	0.0
+http://OpenCalais.com/USVicePresident	http://AlchemyAPI.com/U/S	<	4e-05	0.0
+http://OpenCalais.com/USVicePresident	http://AlchemyAPI.com/U/S/_Politician	<	0.99929	0.0
+http://OpenCalais.com/Unitary_Authority	http://AlchemyAPI.com/AdministrativeDivision	<	1.0	0.0
+http://OpenCalais.com/Unitary_Authority	http://AlchemyAPI.com/District	<	0.0	0.0
+http://OpenCalais.com/Unitary_Authority	http://AlchemyAPI.com/Executive_Body	<	3e-06	0.0
+http://OpenCalais.com/Unitary_Authority	http://AlchemyAPI.com/GovernmentAgency	<	0.999869	0.0
+http://OpenCalais.com/Unitary_Authority	http://AlchemyAPI.com/Government_Agency	<	0.999769	0.0
+http://OpenCalais.com/Unitary_Authority	http://AlchemyAPI.com/Organization	<	0.999972	0.0
+http://OpenCalais.com/Unitary_Authority	http://AlchemyAPI.com/Political_Organization	<	0.99982	0.0
+http://OpenCalais.com/Unitary_Authority	http://AlchemyAPI.com/Prefecture	=	0.0	
+http://OpenCalais.com/Unitary_Authority	http://AlchemyAPI.com/Region	<	0.007577	0.0
+http://OpenCalais.com/Unitary_Authority	http://AlchemyAPI.com/State	<	0.0	0.0
+http://OpenCalais.com/Unitary_Authority	http://AlchemyAPI.com/StateOrCounty	<	0.000431	0.0
+http://OpenCalais.com/University	http://AlchemyAPI.com/Academic	<	0.0	0.0
+http://OpenCalais.com/University	http://AlchemyAPI.com/Business_Organization	<	2.4e-05	0.0
+http://OpenCalais.com/University	http://AlchemyAPI.com/College_Basketball_Team	>	0.0	0.0
+http://OpenCalais.com/University	http://AlchemyAPI.com/Educational_Institution	<	1.0	0.0
+http://OpenCalais.com/University	http://AlchemyAPI.com/Facility	<	0.705785	0.0
+http://OpenCalais.com/University	http://AlchemyAPI.com/Location	<	0.042088	0.0
+http://OpenCalais.com/University	http://AlchemyAPI.com/Non-ProfitOrganisation	<	0.0	0.0
+http://OpenCalais.com/University	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/University	http://AlchemyAPI.com/ReportIssuingInstitution	<	2e-06	0.000231
+http://OpenCalais.com/University	http://AlchemyAPI.com/Research_Institution	<	0.880797	0.0
+http://OpenCalais.com/University	http://AlchemyAPI.com/U	=	0.0	
+http://OpenCalais.com/Vehicle	http://AlchemyAPI.com/Automobile	>	1.0	0.0
+http://OpenCalais.com/Vehicle	http://AlchemyAPI.com/Product	<	1.3e-05	0.0
+http://OpenCalais.com/VentureFundedCompany	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/VentureFundedCompany	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/VentureFundedCompany	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/VideoGameActor	http://AlchemyAPI.com/Actor	<	0.999995	0.0
+http://OpenCalais.com/VideoGameActor	http://AlchemyAPI.com/Artist	<	4e-06	0.0
+http://OpenCalais.com/VideoGameActor	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/VideoGameDesigner	http://AlchemyAPI.com/Artist	<	0.148047	0.0
+http://OpenCalais.com/VideoGameDesigner	http://AlchemyAPI.com/Business_Person	<	5.8e-05	0.0
+http://OpenCalais.com/VideoGameDesigner	http://AlchemyAPI.com/Engineer	<	0.0	0.0
+http://OpenCalais.com/VideoGameDesigner	http://AlchemyAPI.com/Inventor	<	0.0	0.0
+http://OpenCalais.com/VideoGameDesigner	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/VideoGameDesigner	http://AlchemyAPI.com/Technologist	<	0.003594	0.0
+http://OpenCalais.com/VideoGameDeveloper	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/VideoGameDeveloper	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/VideoGameDeveloper	http://AlchemyAPI.com/Entertainment_Company	<	1.0	0.0
+http://OpenCalais.com/VideoGameDeveloper	http://AlchemyAPI.com/Gaming_Company	=	1.0	
+http://OpenCalais.com/VideoGameDeveloper	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/VideoGameDeveloper	http://AlchemyAPI.com/Producer	<	1e-06	0.0
+http://OpenCalais.com/VideoGameDeveloper	http://AlchemyAPI.com/Software_Company	<	1.0	0.0
+http://OpenCalais.com/VideoGameDeveloper	http://AlchemyAPI.com/Technologist	<	0.0	0.0
+http://OpenCalais.com/VideoGameDeveloper	http://AlchemyAPI.com/Technology_Company	<	0.999987	0.0
+http://OpenCalais.com/VideoGameEngineDeveloper	http://AlchemyAPI.com/Business_Organization	<	0.989013	0.0
+http://OpenCalais.com/VideoGameEngineDeveloper	http://AlchemyAPI.com/Company	<	0.999998	0.0
+http://OpenCalais.com/VideoGameEngineDeveloper	http://AlchemyAPI.com/ComputerDesigner	<	0.0	0.0
+http://OpenCalais.com/VideoGameEngineDeveloper	http://AlchemyAPI.com/Engineer	<	0.119203	0.0
+http://OpenCalais.com/VideoGameEngineDeveloper	http://AlchemyAPI.com/Entertainment_Company	<	0.00071	0.0
+http://OpenCalais.com/VideoGameEngineDeveloper	http://AlchemyAPI.com/Gaming_Company	<	0.348645	0.0
+http://OpenCalais.com/VideoGameEngineDeveloper	http://AlchemyAPI.com/Organization	<	0.999998	0.0
+http://OpenCalais.com/VideoGameEngineDeveloper	http://AlchemyAPI.com/Software	<	0.0	0.0
+http://OpenCalais.com/VideoGameEngineDeveloper	http://AlchemyAPI.com/Software_Company	<	0.999957	0.0
+http://OpenCalais.com/VideoGameEngineDeveloper	http://AlchemyAPI.com/Technologist	<	0.989013	0.0
+http://OpenCalais.com/VideoGameEngineDeveloper	http://AlchemyAPI.com/Technology_Company	<	0.999915	0.0
+http://OpenCalais.com/VideoGamePublisher	http://AlchemyAPI.com/Business_Organization	<	1.0	0.0
+http://OpenCalais.com/VideoGamePublisher	http://AlchemyAPI.com/Company	<	1.0	0.0
+http://OpenCalais.com/VideoGamePublisher	http://AlchemyAPI.com/Entertainment_Company	<	1.0	0.0
+http://OpenCalais.com/VideoGamePublisher	http://AlchemyAPI.com/Gaming_Company	=	0.999374	
+http://OpenCalais.com/VideoGamePublisher	http://AlchemyAPI.com/Manufacturing_Company	<	0.0	0.0
+http://OpenCalais.com/VideoGamePublisher	http://AlchemyAPI.com/Organization	<	1.0	0.0
+http://OpenCalais.com/VideoGamePublisher	http://AlchemyAPI.com/Software_Company	<	1.0	0.0
+http://OpenCalais.com/VideoGamePublisher	http://AlchemyAPI.com/Technology_Company	<	0.999447	0.0
+http://OpenCalais.com/VisualArtist	http://AlchemyAPI.com/Animator	>	0.984094	0.0
+http://OpenCalais.com/VisualArtist	http://AlchemyAPI.com/Artist	<	1.0	0.0
+http://OpenCalais.com/VisualArtist	http://AlchemyAPI.com/Cartoonist	>	1.0	0.0
+http://OpenCalais.com/VisualArtist	http://AlchemyAPI.com/Comics_Creator	>	0.952574	0.0
+http://OpenCalais.com/VisualArtist	http://AlchemyAPI.com/Fashion_Designer	>	0.0	0.0
+http://OpenCalais.com/VisualArtist	http://AlchemyAPI.com/FilmCinematographer	>	0.000488	0.0
+http://OpenCalais.com/VisualArtist	http://AlchemyAPI.com/FilmProductionDesigner	>	0.00071	0.0
+http://OpenCalais.com/VisualArtist	http://AlchemyAPI.com/Painter	>	1.0	0.0
+http://OpenCalais.com/VisualArtist	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/VisualArtist	http://AlchemyAPI.com/Photographer	>	1.0	0.0
+http://OpenCalais.com/VisualArtist	http://AlchemyAPI.com/Producer	<	0.0	0.0
+http://OpenCalais.com/VisualArtist	http://AlchemyAPI.com/Sculptor	>	1.0	0.0
+http://OpenCalais.com/VisualArtist	http://AlchemyAPI.com/VisualArtist	=	1.0	
+http://OpenCalais.com/Website	http://AlchemyAPI.com/Data_Storage_Medium	<	0.0	0.0
+http://OpenCalais.com/Website	http://AlchemyAPI.com/Website	=	1.0	
+http://OpenCalais.com/WelshPrincipalArea	http://AlchemyAPI.com/AdministrativeDivision	<	1.0	0.0
+http://OpenCalais.com/WelshPrincipalArea	http://AlchemyAPI.com/District	<	1e-06	0.0
+http://OpenCalais.com/WelshPrincipalArea	http://AlchemyAPI.com/GeographicFeature	<	0.99478	0.0
+http://OpenCalais.com/WelshPrincipalArea	http://AlchemyAPI.com/Location	<	1.0	0.0
+http://OpenCalais.com/WelshPrincipalArea	http://AlchemyAPI.com/Political_Organization	<	0.000626	0.0
+http://OpenCalais.com/WelshPrincipalArea	http://AlchemyAPI.com/Prefecture	<	0.0	0.0
+http://OpenCalais.com/WelshPrincipalArea	http://AlchemyAPI.com/Region	<	0.999934	0.0
+http://OpenCalais.com/WelshPrincipalArea	http://AlchemyAPI.com/State	<	1e-06	0.0
+http://OpenCalais.com/WelshPrincipalArea	http://AlchemyAPI.com/StateOrCounty	<	0.731059	0.0
+http://OpenCalais.com/WineRegion	http://AlchemyAPI.com/AdministrativeDivision	<	0.0	0.0
+http://OpenCalais.com/WineRegion	http://AlchemyAPI.com/District	<	0.0	0.0
+http://OpenCalais.com/WineRegion	http://AlchemyAPI.com/GeographicFeature	<	0.999089	0.0
+http://OpenCalais.com/WineRegion	http://AlchemyAPI.com/Location	<	0.999994	0.0
+http://OpenCalais.com/WineRegion	http://AlchemyAPI.com/Region	<	0.999981	0.0
+http://OpenCalais.com/Wrestler	http://AlchemyAPI.com/Athlete	<	1.0	0.0
+http://OpenCalais.com/Wrestler	http://AlchemyAPI.com/Martial_Artist	<	0.0	0.0
+http://OpenCalais.com/Wrestler	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Writer	http://AlchemyAPI.com/Artist	<	2.1e-05	0.0
+http://OpenCalais.com/Writer	http://AlchemyAPI.com/Author	=	1.0	
+http://OpenCalais.com/Writer	http://AlchemyAPI.com/Cartoonist	>	0.999969	0.0
+http://OpenCalais.com/Writer	http://AlchemyAPI.com/Comics_Creator	>	0.999769	0.0
+http://OpenCalais.com/Writer	http://AlchemyAPI.com/FilmWriter	>	1.0	0.0
+http://OpenCalais.com/Writer	http://AlchemyAPI.com/Journalist	>	0.998499	0.0
+http://OpenCalais.com/Writer	http://AlchemyAPI.com/Person	<	1.0	0.0
+http://OpenCalais.com/Writer	http://AlchemyAPI.com/Playwright	>	1.0	0.0
+http://OpenCalais.com/Writer	http://AlchemyAPI.com/Poet	>	0.999998	0.0
+http://OpenCalais.com/Writer	http://AlchemyAPI.com/Screenwriter	>	1.0	0.0
+http://OpenCalais.com/Writer	http://AlchemyAPI.com/Songwriter	>	0.999797	0.0

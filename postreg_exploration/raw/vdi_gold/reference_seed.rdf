@@ -1,0 +1,3618 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns="http://knowledgeweb.semanticweb.org/heterogeneity/alignment"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+<Alignment>
+  <xml>yes</xml>
+  <level>0</level>
+  <type>??</type>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10006"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33639"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10007"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262146"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10014"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e174112"/>
+      <relation>=</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10023"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10037"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10065"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e52638"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10066"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262156"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10067"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262156"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10068"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10088"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e180145"/>
+      <relation>=</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10109"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262156"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10110"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262156"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10124"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262146"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10125"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10131"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262179"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10132"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10133"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262172"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10134"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262172"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10135"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10136"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10137"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10138"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10139"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10140"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10141"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10142"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10143"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10144"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262156"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10145"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10151"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262163"/>
+      <relation>=</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10152"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10154"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10161"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262167"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10162"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262167"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10163"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262072"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10167"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10168"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10169"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10179"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10181"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e174113"/>
+      <relation>=</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10182"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262179"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10191"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33639"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10192"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33717"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10193"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33717"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10194"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33717"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10205"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33706"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10206"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33710"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10207"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33710"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10210"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33710"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10220"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e179847"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10223"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262208"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10233"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33706"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10234"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e177708"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10236"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e177708"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10237"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262172"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10238"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e177708"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10240"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33709"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10241"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33716"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10247"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e174065"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10260"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33716"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10261"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33716"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10262"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33716"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10278"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33710"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10281"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33717"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10283"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33715"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10294"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33578"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10303"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e61941"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10305"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33578"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10337"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10338"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10339"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e6781"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10340"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262171"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10341"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262171"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10342"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262171"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10343"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e6781"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10344"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262171"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10345"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10346"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e6781"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10347"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33656"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10348"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e6781"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10349"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e179850"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10350"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33644"/>
+      <relation>&gt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10350_65"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262166"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10350_66"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262166"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10351"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33646"/>
+      <relation>=</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10352"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262149"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10353"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e6781"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10354"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e6781"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10355"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e179850"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10356"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33684"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10357"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10358"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10359"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262162"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10360"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e38790"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10361"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33653"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10362"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262161"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10363"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262162"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10364"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262162"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10365"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10366"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10367"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10368"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10369"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10370"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10371"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33654"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10372"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10373"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10374"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10375"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10376"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10377"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10378"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10379"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33645"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10380"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33645"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10381"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33744"/>
+      <relation>=</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10382"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10383"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33654"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10384"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33654"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10385"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33654"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10386"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33650"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10387"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262172"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10388"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33638"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10389"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33654"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10390"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33654"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10391"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33640"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10392"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262146"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10393"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33640"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10394"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33640"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10395"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33640"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10396"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262152"/>
+      <relation>=</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10397"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e179851"/>
+      <relation>=</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10398"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262148"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10399"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10400"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10401"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10402"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e38659"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10403"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e38659"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10404"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e38659"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10405"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33654"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10406"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33654"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10489"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10490"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10492"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10497"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33643"/>
+      <relation>=</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10520"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e180090"/>
+      <relation>=</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10523"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262148"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10528"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e179852"/>
+      <relation>=</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10530"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33710"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10531"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33710"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10532"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e179850"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10533"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e179850"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10534"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e179850"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10535"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e179850"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10554"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33656"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10555"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33656"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10556"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262149"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10557"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262149"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10561"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33716"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10562"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e38789"/>
+      <relation>=</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10564"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e6781"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10565"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e6781"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10566"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e6781"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10567"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33644"/>
+      <relation>&gt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10567_65"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262166"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10567_66"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262166"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10568"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33644"/>
+      <relation>&gt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10568_65"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262166"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10568_66"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262166"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10569"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33644"/>
+      <relation>&gt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10569_65"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262166"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10569_66"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262166"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10570"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33640"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10571"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33640"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10572"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33640"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10573"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33640"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10574"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33640"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10575"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33640"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10576"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33640"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10577"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33640"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10578"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33640"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10579"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33640"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10580"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33640"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10584"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262161"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10585"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262161"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10586"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262161"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10593"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33653"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10594"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33653"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10602"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262161"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10603"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262161"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10604"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262161"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10605"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262161"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10609"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262161"/>
+      <relation>=</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10610"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33644"/>
+      <relation>&gt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10610_65"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262166"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10610_66"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262166"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10611"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33640"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10612"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33653"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10622"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e61941"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10634"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10644"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262170"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10646"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33710"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10647"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33710"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10648"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10649"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33709"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10650"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33710"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10651"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33710"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10652"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33709"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10653"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33717"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10654"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33717"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10655"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e174065"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10656"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e174065"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10657"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e174065"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10658"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e174065"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10659"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10660"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10661"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e174065"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10662"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33715"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10663"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262179"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10664"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10665"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33716"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10666"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10667"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262209"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10668"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262209"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10669"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262209"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10670"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262209"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10671"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262162"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10672"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262162"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10673"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262162"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10674"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262162"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10675"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262166"/>
+      <relation>=</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10676"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10677"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33715"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10678"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33650"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10679"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33710"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10684"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10685"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10686"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10704"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10748"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33654"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10749"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e177708"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10752"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33710"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10757"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e38658"/>
+      <relation>=</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10764"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262179"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10776"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262158"/>
+      <relation>=</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10801"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33654"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10812"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e173863"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10816"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33638"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10845"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e173863"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10859"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33716"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10903"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e9887"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10940"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e173830"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10941"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e173830"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10957"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262172"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v10958"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262172"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11009"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11012"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11022"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11047"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11048"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262208"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11052"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33716"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11053"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e174065"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11058"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33709"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11059"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33715"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11060"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33716"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11062"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11065"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11070"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e174065"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11084"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33709"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11090"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11134"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262072"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11136"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11137"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11148"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11215"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11216"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11223"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262205"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11224"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11233"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e6781"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11234"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33653"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11242"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11246"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11248"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11259"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11260"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262172"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11266"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33647"/>
+      <relation>=</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11288"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11290"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11291"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11292"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11293"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33710"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11294"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e174065"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11296"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11297"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262146"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11298"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e38790"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11299"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11300"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33654"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11301"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e174065"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11302"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e174062"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11303"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11309"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11310"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11311"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11313"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33654"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11314"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e174062"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11315"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262206"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11316"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262162"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11319"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11320"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262206"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11324"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11325"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11326"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e174065"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11329"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e177708"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11334"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33746"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11340"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11342"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11344"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e179850"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11346"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11348"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11349"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11355"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e38790"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11356"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11357"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262162"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11360"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e38790"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11361"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33639"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11366"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11379"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11390"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11393"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11396"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11399"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11400"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11401"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11409"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11410"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262172"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11411"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11413"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11414"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11425"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11433"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262088"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11438"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e42604"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11466"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262179"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11471"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11473"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11475"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33717"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11476"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33716"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11478"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33716"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11481"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11484"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33716"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11485"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33710"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11486"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e174065"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11487"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33715"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11488"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33716"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11489"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262206"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11490"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262205"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11499"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11512"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e179847"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11513"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e179847"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11514"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11515"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11521"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11528"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11535"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33700"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11551"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33710"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11555"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33710"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11556"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262208"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11557"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33715"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11558"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33716"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11559"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33716"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11560"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33715"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11576"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11581"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11603"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11604"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11605"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e174062"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11632"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262149"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11635"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e50459"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11636"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e50459"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11637"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e50459"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11638"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e50459"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11639"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e50459"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11640"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e50459"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11641"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e50459"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11642"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e50459"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11644"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262072"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11646"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11650"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11658"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33650"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11662"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33715"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11682"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11684"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11697"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262146"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11698"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262146"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11700"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11710"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11712"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11725"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e46094"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11734"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262207"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11738"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e46094"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11742"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262179"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11747"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33654"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11755"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262177"/>
+      <relation>=</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11761"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11766"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11770"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33710"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11780"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e177708"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11783"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11790"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33639"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11791"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262179"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11794"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11805"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33578"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11809"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11811"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33578"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11813"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11817"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11823"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11834"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11840"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262207"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11842"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e174065"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11847"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33716"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11848"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e63690"/>
+      <relation>=</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11865"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e174084"/>
+      <relation>=</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11877"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262176"/>
+      <relation>=</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11878"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e184616"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11880"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262172"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11882"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33650"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11883"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33650"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11891"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11895"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11897"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262150"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11901"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33717"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11936"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e179847"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11944"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33655"/>
+      <relation>=</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11945"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11947"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v11958"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262168"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v12056"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v12059"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v12060"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v12061"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v12065"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262170"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v12066"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e262170"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v12068"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e9887"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v12070"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v12071"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33578"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v12073"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v12074"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v12075"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e14769"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v12076"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e9887"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v12077"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33578"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v12078"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e33578"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource="http://vdi.de/kfz#v12095"/>
+      <entity2 rdf:resource="http://ebay.de/kfz#e46097"/>
+      <relation>&lt;</relation>
+      <measure rdf:datatype="xsd:float">1.0</measure>
+    </Cell>
+  </map>
+</Alignment>
+</rdf:RDF>
