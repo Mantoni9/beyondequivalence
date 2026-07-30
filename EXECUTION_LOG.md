@@ -187,14 +187,38 @@ Visibility → public; public-OK + eBay/VDI-Call liegen vor).
 
 ---
 
-## Offen (gated)
+## Phase 5 — Aufräumen ✅ (2026-07-30)
 
-- **Phase 4.2–4.4** — bei Antonio (Browser, `RELEASE_NOTES.md`).
-- **Phase 4.1** (Workbooks scrubben) — gated bis Lieferung; danach als Extra-Asset nachreichen.
-- **Phase 5** (OK liegt vor) startet **erst wenn BEIDES gilt**:
-  (a) `git fetch --tags` zeigt `v1.0-thesis` auf origin, UND
-  (b) Antonio bestätigt: alle Assets hochgeladen.
-  Dann: 5 Stale-Branches + `feat/stage2-relation-classifier` löschen (lokal+origin;
-  VERIFY-A/B waren grün), `experiment/stage1-query-swap` bleibt DAUERHAFT,
-  Zips → `~/Desktop/repo_archive_2026-07/`, Caches weg. Abschluss-VERIFY per frischem
-  Klon in /tmp; Ergebnis als letzter Log-Eintrag.
+**Gates beide grün:** (a) `git fetch --tags` → `v1.0-thesis` auf origin @ `7eb0aab`
+(= main-Tip); (b) Antonio bestätigt: Release live, alle Assets hochgeladen.
+
+**5.1 Branch-Löschung (lokal + origin):**
+- Gelöscht (lokal `-d` + origin `--delete`): `A-textverbalization`,
+  `C-bidirectional-consolidation`, `lora-subsumption-finetune`, `main-ablation-full`,
+  `t2-pin-validation` (alle als ancestor-of-main verifiziert).
+- `feat/stage2-relation-classifier`: origin gelöscht; lokal `-d` verweigert (Safety
+  gegen bereits gelöschten Remote-Ref), dann `-D` (verifiziert merged-to-HEAD/main).
+- Alter Swap-Remote-Name `origin/feat/stage1-swapped-retrieval` gelöscht (== `experiment/
+  stage1-query-swap` @ 45284c7, Commit bleibt erhalten). `git remote prune origin`.
+- **`experiment/stage1-query-swap` bleibt DAUERHAFT** (lokal + origin).
+- **Thesis-SHAs nach Löschung verifiziert erreichbar:** d11c97e/a24e146 (tags +
+  ancestor-of-main), e98c0b3 (tag `thesis-query-swap` + experiment-Branch). Commits leben.
+
+**5.3 Zip-Auslagerung:** 10 untracked Zips + hochgeladenes PDF (234 MB) →
+`~/Desktop/repo_archive_2026-07/`. Keine Zips mehr im Repo. **5.4 Caches:**
+`__pycache__` (root/scripts/tests/tracks) + `.pytest_cache` gelöscht (0 verbleibend).
+
+**ABSCHLUSS-VERIFY (frischer Klon `git@github.com:Mantoni9/beyondequivalence.git`
+→ /tmp):**
+- (1) README.md ✓ · (2) results-final/ ✓ (24 getrackte Dateien) · (3) Tags: die 4
+  thesis-relevanten (`thesis-stage1-ablation`, `thesis-query-swap`,
+  `thesis-matrix-analysis`, `v1.0-thesis`) + 2 alte ✓ · (4) d11c97e & a24e146
+  ancestor-of-main; e98c0b3 via Tag (nicht main — BY DESIGN Swap-Gate) ✓ ·
+  (5) origin-Branches: nur `main` + `experiment/stage1-query-swap` ✓ ·
+  (6) LICENSE / THIRD_PARTY_NOTICES / docs / data/gold-standard / postreg_exploration ✓ ·
+  (7) **pytest im Klon: 81 passed** ✓ (voll reproduzierbar aus dem Klon).
+
+**Repo-Finalisierung ABGESCHLOSSEN.** Offener Rest (nicht blockierend):
+- **Phase 4.1** Annotator-Workbooks — als Extra-Release-Asset nachreichen, sobald geliefert
+  (Slot in `RELEASE_NOTES.md` als „follow-up (pending)" markiert).
+- Archiv `~/Desktop/repo_archive_2026-07/` (234 MB) außerhalb des Repos aufbewahren.
