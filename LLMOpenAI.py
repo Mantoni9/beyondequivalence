@@ -1,3 +1,4 @@
+from concurrent.futures import ThreadPoolExecutor
 from typing import Any, Dict, List, Optional, Sequence, Set
 
 from openai import OpenAI
@@ -19,8 +20,30 @@ logger = logging.getLogger(__name__)
 class LLMOpenAI(LLMBase):
     """
     A wrapper around OpenAI API providing utilities for generation
-    and confidence estimation for binary (yes/no) style outputs.
-    Uses synchronous per-request calls.
+    and confidence estimation.
+
+    Concurrency model
+    -----------------
+    Per-request calls are dispatched through ``_chat_completions`` which
+    chooses one of three paths:
+
+      - ``batch_poll_interval`` set         → OpenAI Batch API
+                                              (file upload + poll, 24h window)
+      - ``max_concurrency`` > 1, len > 1    → ThreadPoolExecutor with
+                                              ``max_concurrency`` workers.
+                                              Order is preserved via index
+                                              tagging; per-request failures
+                                              return ``None`` so a single
+                                              bad call doesn't kill the batch.
+      - otherwise                           → sequential synchronous loop
+
+    The thread-pool path exists because vLLM continuous batching schedules
+    concurrent requests far more efficiently than vLLM's queue handling of
+    serial calls. The 2026-06-02 smoke run (job 255327) measured ~60 s per
+    sequential call on Llama-3.3-70B-AWQ + 2× A40 with ``--enforce-eager``
+    (decode at ~4 tok/s × ``max_new_tokens=256``). With ``max_concurrency=16``
+    we expect the equivalent wall time to drop ~10-16× since vLLM has KV
+    cache headroom for that many concurrent sequences.
     """
 
     def __init__(
@@ -29,9 +52,16 @@ class LLMOpenAI(LLMBase):
         api_key: Optional[str] = None,
         base_url: Optional[str] = None,
         batch_poll_interval: Optional[float] = None,
+        max_concurrency: int = 16,
+        extra_body: Optional[dict] = None,
     ):
         self.model_name = model_name
         self.batch_poll_interval = batch_poll_interval
+        self.max_concurrency = max(1, int(max_concurrency))
+        # Backend-specific request fields (e.g. gpt-oss reasoning_effort, or
+        # chat_template_kwargs={"enable_thinking": False} for hybrid reasoners).
+        # Rides every non-batch chat.completions.create() via extra_body.
+        self.extra_body = dict(extra_body) if extra_body else {}
         self._init_tokenizer()
         self._initialize_positive_negative_tokens()
 
@@ -111,9 +141,55 @@ class LLMOpenAI(LLMBase):
             completions.append(response)
         return completions
 
-    def _chat_completions(self, prompts: List[Prompt], **kwargs) -> List[ChatCompletion]:
+    def _chat_completions_parallel(
+        self, prompts: List[Prompt], **kwargs,
+    ) -> List[Optional[ChatCompletion]]:
+        """ThreadPoolExecutor over ``self.max_concurrency`` workers.
+
+        Input order is preserved in the returned list. A per-call exception
+        is logged and replaced by ``None`` in that slot so the surrounding
+        batch survives one bad request — downstream consumers must handle
+        ``None`` (see ``get_text_completion`` / ``get_text_completion_with_logprobs``).
+
+        ``httpx`` (the OpenAI client's transport) releases the GIL during
+        network I/O, so threads scale linearly for this workload.
+        """
+        n = len(prompts)
+        results: List[Optional[ChatCompletion]] = [None] * n
+
+        def _call(idx_prompt):
+            idx, prompt = idx_prompt
+            try:
+                resp = self.client.chat.completions.create(
+                    model=self.model_name,
+                    messages=prompt.to_messages(),
+                    **kwargs,
+                )
+                return idx, resp
+            except Exception as e:
+                logger.error(
+                    "Parallel chat-completion failed for prompt %d/%d: %s",
+                    idx + 1, n, e,
+                )
+                return idx, None
+
+        with ThreadPoolExecutor(max_workers=self.max_concurrency) as ex:
+            for idx, resp in ex.map(_call, list(enumerate(prompts))):
+                results[idx] = resp
+        return results
+
+    def _chat_completions(
+        self, prompts: List[Prompt], **kwargs,
+    ) -> List[Optional[ChatCompletion]]:
         if self.batch_poll_interval is not None:
             return self._chat_completions_batched(prompts, **kwargs)
+        # Inject backend-specific fields on the live (vLLM) paths only. The
+        # batched builder spreads **kwargs straight into the request body, where
+        # a nested extra_body would be wrong — but that path is unused here.
+        if self.extra_body:
+            kwargs.setdefault("extra_body", {}).update(self.extra_body)
+        if self.max_concurrency > 1 and len(prompts) > 1:
+            return self._chat_completions_parallel(prompts, **kwargs)
         return self._chat_completions_synchronous(prompts, **kwargs)
 
     # ------------------------------------------------------------------ #
@@ -130,6 +206,69 @@ class LLMOpenAI(LLMBase):
                 logger.error(f"Error generating completion: {e}")
                 completions.append("")
         return completions
+
+    def get_text_completion_with_logprobs(
+        self, prompts: List[Prompt], max_new_tokens: int = 256,
+        temperature: float = 0.0, top_p: Optional[float] = None,
+    ) -> List[Dict[str, Any]]:
+        """Text completion with per-token logprobs.
+
+        Decoding: ``temperature``/``top_p`` are configurable for the Stage-2
+        matrix (reasoners run at model-recommended temp>0; non-reasoners at
+        temp=0). Default temp=0.0 preserves the prior greedy behaviour.
+
+        Primary extraction path for Stage-2 multi-class relation classification:
+        reasoner models (gpt-oss, Gemma-4-thinking) emit chain-of-thought before
+        the answer, so first-token logit-comparison is structurally unfair.
+        Generation + parse is uniform across reasoner and non-reasoner models.
+
+        Returns one dict per prompt with::
+
+            {
+                "text":           full generated text (str),
+                "tokens":         per-token string of the chosen token (list[str]),
+                "token_logprobs": per-token logprob of the chosen token (list[float]),
+                "sum_logprob":    sum of token_logprobs (joint log-prob of the
+                                  greedy completion),
+                "n_tokens":       len(token_logprobs),
+            }
+
+        ``tokens`` is aligned 1:1 with ``token_logprobs`` so downstream code
+        can isolate the answer span (Stufe-B B2 answer-span mean-logprob).
+        On error per prompt: text="" and empty / zero numeric fields.
+        """
+        extra = {"top_p": top_p} if top_p is not None else {}
+        responses = self._chat_completions(
+            prompts, max_tokens=max_new_tokens, temperature=temperature,
+            logprobs=True, **extra,
+        )
+        out: List[Dict[str, Any]] = []
+        for response in responses:
+            try:
+                text = response.choices[0].message.content or ""
+                lp_obj = getattr(response.choices[0], "logprobs", None)
+                content = getattr(lp_obj, "content", None) if lp_obj is not None else None
+                if content:
+                    pairs = [(getattr(t, "token", ""), float(t.logprob))
+                             for t in content if t.logprob is not None]
+                    tokens = [tok for tok, _ in pairs]
+                    token_logprobs = [lp for _, lp in pairs]
+                else:
+                    tokens, token_logprobs = [], []
+                out.append({
+                    "text":           text,
+                    "tokens":         tokens,
+                    "token_logprobs": token_logprobs,
+                    "sum_logprob":    float(sum(token_logprobs)),
+                    "n_tokens":       len(token_logprobs),
+                })
+            except Exception as e:
+                logger.error(f"Error in get_text_completion_with_logprobs: {e}")
+                out.append({
+                    "text": "", "tokens": [], "token_logprobs": [],
+                    "sum_logprob": 0.0, "n_tokens": 0,
+                })
+        return out
 
     def get_confidence_first_token(self, prompts: List[Prompt]) -> List[float]:
         """Return P(yes) / (P(yes) + P(no)) derived from first-token logprobs."""

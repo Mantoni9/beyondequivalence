@@ -1,5 +1,13 @@
 # Thesis Methods Notes
 
+## Stage-2 Dev/Test-Protokoll (registriert 2026-06-12 — BINDEND für alles weitere Stage-2-Tuning)
+
+- **Dev = {g7-literature, g5-groceries}** · **Test = {mouse-human, g3-text, g1-web, g2-diseases}** — Test bleibt unangetastet bis zur finalen prä-registrierten Modell-Matrix.
+- **Rationale:** g7 und g5 sind die `>`-lastigen Fälle (g7: 52 von 82 gerichteten Gold-Paaren; g5: 113 von 127) — genau dort sitzt der zu attribuierende Subclass-Prior. **Ehrliche Offenlegung:** g7 ist KEIN unberührtes Dev-Set — die v2-Baseline (Run 255471) und die v3a/v3b-Iterationen liefen bereits auf g7; alle bisherigen Prompt-Entscheidungen sind also g7-informiert. g5 kommt als zweites, bisher Stage-2-unberührtes Dev-Dataset hinzu; die Konsistenz-Regel (Effekte müssen über g7 UND g5 gleichgerichtet sein) existiert, um g7-Tuning-Artefakte zu fangen.
+- **Regel:** Jeder Tuning-Run auf einem Test-Dataset macht dieses Protokoll ungültig. Keine Ausnahmen; die Test-Datasets erscheinen erst in der finalen Matrix wieder.
+- **Metrik-Konvention:** Alle Tuning-Metriken sind **reranker-konditional** (nur Gold-Paare, die im Stage-1-Kandidatenset vorhanden sind) — isoliert die Stage-2-Klassifikationsleistung von der Stage-1-Recall-Decke (auf `⊐` bindend, siehe Coverage-Befunde).
+- Stage-1-Kandidaten: die eingefrorenen d11c97e-TSVs (Qwen3-noLoRA / path_context / T2, top-20 pro Richtung). Der Query-Swap wurde getestet und NICHT adoptiert (Job 262057, RIDE-ALONG-Verdict) — es gibt keine neuen TSVs und keinen Bridge-Lauf; R0 (v2 auf g5) ist ein eigenständiger Baseline-Lauf.
+
 ## Versuchsaufbau (Stand 2026-05-03)
 
 Drei Hebel für Stage-1-Retrieval:
@@ -50,3 +58,11 @@ Die Ergebnisse werden im Limitations-Block als bimodaler Befund berichtet, nicht
 - Re-Training auf Qwen3 mit höherem Rang (r=64), niedrigerer Lernrate, oder layer-spezifischem Targeting (z.B. nur die letzten 8 Layer) zur Vermeidung der Pretrained-Adapter-Kollision. Würde testen, ob der Forgetting-Befund modell-spezifisch oder hyperparameter-spezifisch ist. Nicht im Stage-1-Scope.
 - LoRA-Adapter für Nemotron in eigenem Branch mergen, ohne Qwen3 — würde das positive Ergebnis isoliert in die Hauptablation tragen, kollidiert aber mit der ursprünglichen Branch-Disziplin (alle-oder-keinen-Merge). Antonio entscheidet bei Stage-2-Implementation.
 - Methodisches Side-Finding zu PEFT 0.19.1 (siehe Limitations-Block in `extract_lora_from_hybrid_save.py`): `inference_mode=True` in `adapter_config.json` deaktiviert beim Reload den Adapter ohne lautes Versagen; `.<adapter_name>.weight`-Suffix in den safetensors-Keys führt zu unsichtbaren `unexpected_keys` beim PeftModel-Load, weil `set_peft_model_state_dict` den Suffix selbst rein-mapped. Beide Findings sind reproduzierbar dokumentiert und für andere Researcher-Pipelines mit hand-rolled Adapter-Extraktion relevant.
+
+## Daten-Notiz: mouse-human Gold-Zählung (rohes File vs. Eval-Denominator)
+
+Beim Bidirektional-Validierungslauf fiel auf, dass die Gold-Zahlen für **mouse-human** je nach Messpunkt differieren: ein rohes `grep` der `<relation>`-Tags in `reference.rdf` ergibt **600 `<` / 671 `>` / 676 `=`** (1947 `<Cell>`-Blöcke), während die Evaluations-Pipeline mit **545 `<` / 612 `>` / 676 `=`** (1833 Korrespondenzen) rechnet.
+
+**Erklärung — kein Datenverlust, kein Filter:** `mouse-human/reference.rdf` enthält **114 exakte Duplikat-Cells** (55× `<`, 59× `>`, 0× `=`). `Alignment.add()` dedupliziert auf den Korrespondenz-Key `(source, target, relation)` (`Correspondence.key`), behält also die 1833 **distinct** Gold-Korrespondenzen. Es gibt **0** `(source, target)`-Paare mit widersprüchlichen Relationen — die Duplikate sind reine exakte Wiederholungen, keine Annotations-Konflikte. Es erscheint keine „Dropped non-evaluable"-Warnung, weil nichts als nicht-evaluierbar verworfen wird; die Wiederholungen werden von der Datenstruktur kollabiert.
+
+**Konsequenz für die Thesis:** Der korrekte Recall-Denominator ist die **distinct**-Zählung (545 `<` / 612 `>`); die rohe File-Zählung (600/671) ist durch Datei-Duplikate inflationiert. Nur mouse-human ist betroffen — die anderen fünf STROMA/TaSeR-Datasets (g1-web, g2-diseases, g3-text, g5-groceries, g7-literature) haben 0 Duplikate, dort sind rohe und distinct Zählung identisch.
