@@ -81,13 +81,57 @@ gewollte Konsequenz des Swap-Gates, nicht ein Fehlschlag).
 
 ---
 
-## Phase 2–5 — offen (Checkpoint)
+## Phase 2 — Klärungen ✅ (2026-07-30)
 
-- **Phase 2** (Klärungen: 8a22646-vs-a24e146, stage1_ablation_pooled.csv,
-  E16_18_evidence holen) — bereit, offline ausführbar.
-- **Phase 3.1/3.3/3.4** (results-final/, LICENSE, THIRD_PARTY, data/gold-standard) — bereit.
-- **Phase 3.2 README** — BLOCKIERT: Draft kommt nach `~/Desktop/benchmark/README.md`.
-- **Phase 4** — BLOCKIERT: kein `gh` CLI (→ Variante A: RELEASE_NOTES + Schritte
-  vorbereiten, Antonio führt im Browser aus); Annotator-Workbooks A/B/C + Abgabe-PDF
-  kommen in den Austauschordner.
-- **Phase 5** (Branch-Löschung, Zip-Auslagerung) — erst nach separatem, explizitem OK.
+**2.1 — 8a22646 vs a24e146:** a24e146-Fassung existiert direkt
+(`results/matrix_analysis_a24e146.{md,json}`, 2026-06-19; 3 identische Kopien,
+JSON-md5 `b5da2623`). a24e146 ist **ancestor** von 8a22646 (8a ist späterer
+Nachkomme mit Zusatzmetriken Micro-F1/conditional-Macro). **Keine Regeneration
+durchgeführt** → keine Regenerations-Divergenz. Divergenz-Check der geteilten Zellen:
+**Punktschätzer IDENTISCH** (g3-text Macro-cond: gemma 0.377/0.377, gpt-oss
+0.479/0.479, llama 0.229/0.229, mistral 0.233/0.233); **nur Bootstrap-CI-Klammern
+≤0.002 abweichend** (Resampling-Rauschen, Seeds [7,42,123]; keine Code-/Daten-/Seed-
+Divergenz der Metrik). Verdikt: Zahlen stimmen überein → a24e146 nach results-final/.
+CI-Notiz transparent an Antonio gemeldet (keine stille Auswahl).
+
+**2.2 — `stage1_ablation_pooled.csv`:** gebaut aus 96 `results/ablbi_*_d11c97e/metrics.json`
+(2 Embedder × 2 LoRA × 2 Verbalization-A × 2 Template-B × 6 Datasets), Felder
+subclass/superclass R@20 + R@10 + pooled_R20. → `results-final/`.
+
+**2.3 — `E16_18_evidence.tsv`** (2301 Zeilen) aus `~/Desktop/benchmark/cc_dumps_r4/`
+→ `results-final/`.
+
+## Phase 3.1 / 3.3 / 3.4 ✅ (2026-07-30)  — commit c2d5315
+
+**3.1 results-final/** (getrackt, kuratiert, klein — 236K): `matrix_analysis_a24e146.{md,json}`,
+`stage1_ablation_pooled.csv`, `E16_18_evidence.tsv`, `ltfp_audit_adjudicated_2026-07-19.tsv`,
+`stufeB_analysis.{md,json}`, `matrix_cells/<cell>/metrics.json` (16 Zellen, **keine**
+`predictions.tsv`), `README.md` (Index + a24/8a-Notiz).
+
+**3.3 LICENSE (MIT)** für Code + **THIRD_PARTY_NOTICES.md**: eigene Annotationen CC BY 4.0;
+eBay-Kategorien (§2) und VDI 4081 (§3) als Fremdmaterial; OAEI via Zenodo-DOI
+10.5281/zenodo.17091043 verlinkt, **nicht redistribuiert**. ⚠️ Copyright-Halter in
+LICENSE = "Antonio Markic" (Git-User zeigt "Anton Klevers" — **von Antonio bestätigen**).
+
+**3.4 data/gold-standard/** (getrackt via `.gitignore`-Negation `!data/gold-standard/`;
+1.5M): `reference_full.rdf` (2048), `reference_seed.rdf` (451), `ebay_kfz_target.owl`,
+`vdi_karosserie_source_pos.owl`, `subsumption_gold/` (TSV + derive-Skript + findings),
+`README.md` (Protokoll A/B/C, K1–K5, R1/R2, H1–H7-Verweis). Gold-Build-Skripte bereits
+in Phase 1 getrackt. ⚠️ eBay/VDI-OWL sind Fremd-Derivate → Redistributions-Freigabe vor
+"public" prüfen (in THIRD_PARTY_NOTICES §Summary vermerkt).
+
+**Push:** `d57886d..c2d5315` (main, forward-only).
+
+---
+
+## Offen (Checkpoint)
+
+- **Phase 3.2 README** — BLOCKIERT: Antonio hat README.md bereits als unversioniertes
+  File im Repo-Root angelegt; wird per separatem OK 1:1 übernommen, nur die zwei
+  `<!-- verify -->`-Stellen (Release-Link, Zahlenabgleich gegen results-final) aufgelöst.
+- **Phase 4** — kein `gh` CLI → **Variante A**: ich bereite `RELEASE_NOTES.md` +
+  Asset-Liste mit sha256 + exakte Browser-Schritte vor; Antonio erstellt Release +
+  setzt Topics/Description + public. Annotator-Workbooks A/B/C + Abgabe-PDF via Austauschordner.
+- **Phase 5** (Branch-Löschung lokal+origin, Zip-Auslagerung, Cache-Löschung) — erst
+  nach separatem, explizitem OK. `experiment/stage1-query-swap` bleibt DAUERHAFT.
+- **Offener Klärpunkt:** LICENSE-Copyright-Halter (Markic vs Klevers) — Antonio bestätigt.
