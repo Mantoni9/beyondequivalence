@@ -1,0 +1,10 @@
+Adjudikation Goldstandard — Anleitung für Annotator C,
+,
+Ausgangslage,"Zwei unabhängige Annotationen über dieselben 453 Karosserie-Pflicht-Baugruppen. A hat eine ZONEN-Logik gebaut (vorne/Mitte/hinten × außen/innen, plus Beleuchtung/Elektrik je Zone). B hat eine FUNKTIONS-Logik gebaut (Systeme: Beleuchtung, Schließsystem, Dichtungen, Stoßfängersystem, …). Beide sind fachlich kohärent, aber strukturell verschieden — daher stimmt keine Zeile auf allen Achsen exakt überein. Deine Aufgabe: pro Abweichung A oder B wählen (oder Beide/Eigene Lösung)."
+Empfohlener Workflow,"1) GRUNDSATZ (Blatt 'Muster', Zeile 2): entscheide den Grundstil der subClassOf-Hierarchie — Zonen (A), Funktionen (B) oder Mischung.
+2) MUSTER (Blatt 'Muster'): gleiche Abweichungen sind zu Mustern gebündelt (z.B. '27× A: Beleuchtung vorne vs. B: Leuchten-Komponenten'). Eine Entscheidung pro Muster gilt für alle zugehörigen Zeilen der jeweiligen Achse. Damit sind ~90% der Arbeit erledigt.
+3) EINZELFÄLLE (Blatt 'Entscheidungen'): nur dort eintragen, wo eine Zeile vom Muster abweichen soll. Zeilen-Entscheidung überschreibt Muster-Entscheidung."
+Entscheidungswerte,A = Wert von Annotator A übernehmen | B = Wert von Annotator B übernehmen | Beide = beide Angaben kombinieren (z.B. A-partOf UND B-subClassOf) | Eigene Lösung = eigenen Wert im Kommentar angeben.
+Anwendungslogik (für die Zusammenführung),"Je Achse (Hauptgruppe / subClassOf / partOf) gilt: Zeilen-Entscheidung > Muster-Entscheidung > (keine Abweichung ⇒ gemeinsamer Wert). Bei Konflikttyp A-LEER hat A nichts eingetragen — 'B' bestätigt Bs Zuordnung, sonst Eigene Lösung."
+Farblegende,Blau = Angaben von A | Gelb = Angaben von B | Orange = an dieser Stelle weichen A und B ab | Grün = deine Entscheidungsspalte.
+Hinweise,"77 Pflichtzeilen sind bei A leer (Konflikttyp A-LEER, am Ende des Entscheidungsblatts gruppiert). 'Erläuterung'-Spalten zeigen die Original-Begründungen beider Annotatoren. IDs dienen nur der Nachvollziehbarkeit — entscheide nach den Klartextnamen."

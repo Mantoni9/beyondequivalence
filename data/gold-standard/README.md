@@ -24,9 +24,9 @@ sources stay out of git.
 Two independent annotators (**A**, **B**) plus an adjudicator (**C**) produced the
 directed relations; annotation rules **K1–K5** (relation criteria) and **R1/R2**
 (reconciliation) governed the process; findings **H1–H7** are documented in the
-thesis. The three annotator workbooks (A / B / adjudication C), scrubbed and
-CSV-exported, are added under `annotation/` in a later finalization step — see
-`EXECUTION_LOG.md` Phase 4.1.
+thesis. The three annotator workbooks (A / B / adjudication C), **anonymized** and
+CSV-exported, are under [`annotation/`](annotation/) — see its README for the
+protocol and the privacy note.
 
 ## Licensing
 Own annotations (the mapping itself) → **CC BY 4.0**. Third-party taxonomy content

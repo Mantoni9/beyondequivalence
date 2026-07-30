@@ -1,0 +1,8 @@
+Achse,Beobachtete Übereinstimmung,Cohen's Kappa,Anmerkung
+Hauptgruppe_Final,0.954,0.634,5 Labels; A-Leerzeilen tragen die vorbelegte Original-Hauptgruppe.
+subClassOf-Parent (exakte ID),0.022,0.016,"Konservative Untergrenze: exakte IDs, KEINE Konzept-Äquivalenz zwischen A- und B-Kategorien unterstellt. Niedriger Wert reflektiert primär die Schema-Orthogonalität (Zonen vs. Funktionen), nicht Annotationsqualität."
+partOf-Parent (exakte ID),0.344,0.221,Exakte IDs inkl. beidseitig leer = Übereinstimmung.
+Relationsstruktur,0.386,0.088,"Labels: sub / part / beide / leer (A-leer als eigenes Label, zählt gem. Anleitung als Disagreement)."
+"Basis: alle 453 Pflichtzeilen, vor Adjudikation. Vollständige Zeilen-Übereinstimmung (alle Achsen): 0.",,,
+Nach C's Adjudikation kann Agreement zusätzlich auf Konzeptebene (gemappte Kategorien) berichtet werden — methodisch der aussagekräftigere Wert für die Thesis.,,,
+"A hat zusätzlich 318 optionale Zeilen annotiert (ohne B-Gegenstück, nicht adjudizierbar, nicht in dieser Liste).",,,

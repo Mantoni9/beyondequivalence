@@ -1,0 +1,50 @@
+Goldstandard-Hierarchie — Experte B,
+,
+Worum geht's,"Ihr baut zusammen mit einem zweiten Experten zwei unabhängige hierarchische Bäume über die 2.180 Baugruppen aus dem VDI-Katalog. Wichtig: ihr arbeitet getrennt und sollt euch NICHT vorher absprechen — Sinn der Übung ist, die Übereinstimmung zwischen euren Urteilen statistisch auszuwerten (Inter-Rater-Agreement). Eine dritte Person löst später die Stellen auf, an denen ihr unterschiedlich entschieden habt."
+Was ihr tun müsst,"Im Sheet ""Baugruppen"" gibt es pro Zeile eine Baugruppe (z.B. ""Bremsbelag"", ""Airbag"", ""Schiebedach""). Ihr tragt für jede Baugruppe ein, in welcher übergeordneten Kategorie sie hängt — entweder als ""ist eine Art von"" (subClassOf) oder als ""ist Teil von"" (partOf), oder beides.
+
+Pflicht: alle Baugruppen mit Schwerpunkt = ""Karosserie"" und (sobald vorhanden) Schwerpunkt = ""Partnerbetrieb"" müssen bearbeitet werden. Alles andere ist nice-to-have."
+subClassOf vs. partOf,"subClassOf = ""ist eine Art von"". Klassische Taxonomie. Beispiele:
+    • Scheibenbremse subClassOf Bremse
+    • Hauptscheinwerfer subClassOf Beleuchtung
+    • Frontstoßstange subClassOf Stoßstange
+
+partOf = ""ist Teil von"". Physische / mereologische Zerlegung. Beispiele:
+    • Bremsbelag partOf Bremsanlage
+    • Glühbirne partOf Hauptscheinwerfer
+    • Stoßstange partOf Karosserie
+
+Beides gleichzeitig ist erlaubt und oft natürlich. Bsp. ""Bremsbelag"":
+    • Parent_subClassOf = ""Bremsenkomponente"" (eine eurer neuen Zwischenkategorien)
+    • Parent_partOf    = ""Bremsanlage"" (auch eine neue Zwischenkategorie)
+
+Wenn nur eine Beziehung sinnvoll ist, lasst die andere Spalte leer. Aber: mindestens EINE der beiden ParentID-Spalten muss pro Zeile gefüllt sein (außer bei den 5 Hauptgruppen — die sind die Wurzel)."
+Was als Parent gültig ist,"Eine ParentID kann sein:
+    1. Eine Hauptgruppen-ID (1 bis 5) — siehe Sheet ""Hauptgruppen_Ref"".
+    2. Eine andere Baugruppen-ID (10000+) — z.B. wenn ein Zubehörteil Teil eines übergeordneten Baugruppen-Eintrags ist.
+    3. Eine eurer neuen Zwischenkategorien — die ihr im Sheet ""NeueZwischenkategorien"" definiert.
+
+Eine Baugruppe darf NICHT auf sich selbst oder auf einen ihrer Nachfolger verweisen (keine Zyklen)."
+Neue Zwischenkategorien anlegen,"Ihr dürft beliebig viele neue Zwischenkategorien einführen (""Bremsanlage"", ""Antriebsstrang"", ""Beleuchtung außen"", …). Tragt sie im Sheet ""NeueZwischenkategorien"" ein.
+
+Eure ID-Range: 21000–21999.
+Vergebt einfach durchlaufend: 21000, 21001, …
+
+Jede neue Zwischenkategorie braucht selbst auch einen Parent — also entweder eine Hauptgruppe (1–5) oder eine andere neue Zwischenkategorie. Auch hier: subClassOf-Parent, partOf-Parent, oder beide."
+Hauptgruppe ändern (Vorsicht),"In Spalte ""Hauptgruppe_Original"" steht die bestehende Zuordnung (1 Unterboden, 2 Motorraum, 3 Karosserie, 4 Innenraum, 5 Sonstige). In Spalte ""Hauptgruppe_Final"" könnt ihr sie ändern — aber nur bei absolut begründetem Fall, nicht nach Gusto. Wenn ihr ändert, muss in der Spalte ""Hauptgruppe_Begründung"" eine kurze Begründung stehen (sonst wirft das Validate-Skript einen Fehler)."
+Was tun bei Unsicherheit,"Tragt eure beste Schätzung ein und nutzt die Spalte ""Begründung_optional"" für einen kurzen Kommentar. Lasst Zellen NICHT einfach leer — leere Pflichtfelder zählen für die Auswertung wie ein Disagreement."
+Validierung vor Abgabe,"Lasst vor Abgabe das Skript validate.py über eure Datei laufen:
+    python validate.py VDI_GoldStandard_ExperteX.xlsx
+
+Das Skript prüft:
+    • alle Pflicht-Baugruppen haben mindestens eine ParentID
+    • alle ParentIDs existieren
+    • neue Zwischenkat-IDs liegen im erlaubten Range
+    • keine Zyklen im Baum
+    • Hauptgruppen-Änderungen haben Begründung"
+Spalten-Übersicht (Sheet Baugruppen),"Grau hinterlegt = nur Lesen (nicht ändern):
+    ID, Bezeichnung_DE, Synonyme_DE, Hauptgruppe_Original, Schwerpunkt
+
+Gelb hinterlegt = ihr füllt aus:
+    Hauptgruppe_Final, Hauptgruppe_Begründung,
+    Parent_subClassOf_ID, Parent_partOf_ID, Begründung_optional"

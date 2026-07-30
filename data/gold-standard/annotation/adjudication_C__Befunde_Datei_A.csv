@@ -1,0 +1,9 @@
+Technische & inhaltliche Befunde zur Datei von Annotator A (validate.py: 87 Fehler) — vor finaler Auswertung klären:
+• 77 Pflichtzeilen ohne ParentID (im Entscheidungsblatt als A-LEER geführt).
+• Zwischenkategorie-ID 30000 ('Fahrwerk/ Lenkung') außerhalb der erlaubten Range 20000–20999.
+• Kategorien 20023 ('HV Komponenten') und 20031 ('Bremsanlage') haben als subClassOf-Parent den Text 'Div' — keine gültige ID.
+• 13 Leuchten-/Stoßfängerteile hängen per partOf an der Lack-VARIANTE 10570 ('Stoßstange … mit NSW ohne Spoiler') statt an der generischen Stoßstange 10611 — vermutlich Versehen beim Ankern.
+"• 12 Scheinwerferkomponenten hängen per partOf an 10206 'Hauptfernscheinwerfer' statt 10210 'Hauptscheinwerfer' — Near-Miss, inhaltlich wohl dasselbe gemeint."
+"• Satz-Inversionen: 'Nebelscheinwerfer partOf Nebelscheinwerfersatz', 'Tagfahrleuchte partOf Tagfahrleuchtensatz', 'Felge Alu partOf Alufelgen Satz', 'Reifen partOf Kompletträder' — Ganzes/Teil hier umgekehrt zu Bs Lesart (Satz als Obermenge). Legitime, aber zu vereinheitlichende Modellierungsentscheidung."
+• 'Anhängerkupplung ohne E-Satz … partOf Anhängerkupplung mit E-Satz …' — Variante hängt an anderer Variante.
+"• AHK-Cluster: A verschiebt 7 Zeilen nach '5 Sonstige' (Zubehör-Argument), B belässt sie in 3 — Muster HG-001."

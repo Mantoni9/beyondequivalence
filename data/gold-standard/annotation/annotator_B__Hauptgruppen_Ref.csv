@@ -1,0 +1,6 @@
+ID,Bezeichnung,Beschreibung
+1,Unterboden,"Bauteile am und unter dem Fahrzeugrahmen (Achsen, Auspuffanlage, …)"
+2,Motorraum,"Bauteile im Motorraum (Motor, Kühlung, Einspritzung, …)"
+3,Karosserie,"Karosseriebauteile, Außenhaut, Anbauteile außen"
+4,Innenraum,"Innenraum (Sitze, Verkleidung, Bedienelemente, …)"
+5,Sonstige,Restkategorie

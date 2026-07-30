@@ -49,11 +49,15 @@ gold: reference_full/seed, eBay/VDI OWL, subsumption_gold). Regenerate + re-chec
 The **5 assets above are ready** for the initial release. The PDF was copied from
 the exchange folder (original: `Thesis___Beyond_Equivalence_..._Embeddings.pdf`).
 
-**Follow-up asset (pending — not required for the initial release):**
+**Follow-up asset (ready 2026-07-30 — optional extra on the existing release):**
 
 | asset | status | sha256 |
 |---|---|---|
-| annotator workbooks bundle (A/B/adjudication C, scrubbed) | ⬜ follow-up asset (pending) — Phase 4.1 (awaiting workbooks) | _TBD_ |
+| `annotation-workbooks-v1.zip` (Expert A/B/adjudication C, anonymized xlsx + CSV) | ✅ ready | `b8626274253d1016ab633937839f8dfc9603978e826b97e3d4ab6059fe5220bd` |
+
+The workbooks are also tracked in-repo under `data/gold-standard/annotation/`; the
+zip is an optional convenience asset. Add it to the existing v1.0-thesis release
+(no re-release needed).
 
 To checksum on arrival: `shasum -a 256 <file>`. Add it as an extra asset to the
 existing release once scrubbed (no re-release needed).
