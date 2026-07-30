@@ -20,8 +20,8 @@ paste, (B) the asset checksums, (C) the step-by-step.
 >
 > **Thesis-cited code revisions** (annotated tags):
 > - [`thesis-stage1-ablation`](https://github.com/Mantoni9/beyondequivalence/releases/tag/thesis-stage1-ablation) — `d11c97e`, Stage-1 ablation layer
-> - [`thesis-query-swap`](https://github.com/Mantoni9/beyondequivalence/releases/tag/thesis-query-swap) — `e98c0b3`, query-swap study + registration
-> - [`thesis-matrix-analysis`](https://github.com/Mantoni9/beyondequivalence/releases/tag/thesis-matrix-analysis) — `a24e146`, Stage-2 matrix analysis
+>   - [`thesis-query-swap`](https://github.com/Mantoni9/beyondequivalence/releases/tag/thesis-query-swap) — `e98c0b3`, query-swap study + registration
+>   - [`thesis-matrix-analysis`](https://github.com/Mantoni9/beyondequivalence/releases/tag/thesis-matrix-analysis) — `a24e146`, Stage-2 matrix analysis
 >
 > OAEI BeyondEquivalence benchmarks are not redistributed — obtain from Zenodo
 > (DOI 10.5281/zenodo.17091043). See `THIRD_PARTY_NOTICES.md` for eBay/VDI data terms.
@@ -65,24 +65,24 @@ existing release once scrubbed (no re-release needed).
 1. Confirm the **default branch is `main`** and it is at the intended tip
    (Settings → General → Default branch). The submission tip is the latest `main`
    commit at release time.
-2. Go to **Releases → Draft a new release**.
-3. **Choose a tag → create new tag `v1.0-thesis` on target `main`** (GitHub creates
-   the annotated tag on the current main tip when you publish).
-4. **Title:** `v1.0-thesis — thesis submission state`.
-5. **Description:** paste section **A** above (including the checksum table from **B**).
-6. **Attach assets** (drag the four ready zips + the PDF + workbook bundle once present):
-   - `thesis_results_final_2026-07-21.zip`
-   - `stage2_precision_E16_E17_E18_2026-07-22.zip`
-   - `sbert_e15_results_2026-07-17.zip`
-   - `gold-standard-v1.zip`
-   - `Markic_2026_BeyondEquivalence_thesis.pdf` (open slot)
-   - annotator-workbooks bundle (open slot)
-7. Leave **"Set as the latest release"** checked. **Publish release.**
-8. **Repo Description + Topics** (Settings / repo homepage "About" gear):
-   - Description: *Beyond Equivalence in E-Commerce — hierarchical category mapping with LLMs + embeddings (MSc thesis, Uni Mannheim 2026).*
-   - Topics: `ontology-matching`, `llm`, `oaei`, `master-thesis`
-9. **Public switch — DO NOT flip yet.** Only after the separate explicit GO and after
-   confirming `THIRD_PARTY_NOTICES.md` §2/§3 (eBay/VDI redistribution) is acceptable.
+   2. Go to **Releases → Draft a new release**.
+   3. **Choose a tag → create new tag `v1.0-thesis` on target `main`** (GitHub creates
+      the annotated tag on the current main tip when you publish).
+   4. **Title:** `v1.0-thesis — thesis submission state`.
+   5. **Description:** paste section **A** above (including the checksum table from **B**).
+   6. **Attach assets** (drag the four ready zips + the PDF + workbook bundle once present):
+      - `thesis_results_final_2026-07-21.zip`
+      - `stage2_precision_E16_E17_E18_2026-07-22.zip`
+      - `sbert_e15_results_2026-07-17.zip`
+      - `gold-standard-v1.zip`
+      - `Markic_2026_BeyondEquivalence_thesis.pdf` (open slot)
+      - annotator-workbooks bundle (open slot)
+   7. Leave **"Set as the latest release"** checked. **Publish release.**
+   8. **Repo Description + Topics** (Settings / repo homepage "About" gear):
+      - Description: *Beyond Equivalence in E-Commerce — hierarchical category mapping with LLMs + embeddings (MSc thesis, Uni Mannheim 2026).*
+      - Topics: `ontology-matching`, `llm`, `oaei`, `master-thesis`
+   9. **Public switch — DO NOT flip yet.** Only after the separate explicit GO and after
+      confirming `THIRD_PARTY_NOTICES.md` §2/§3 (eBay/VDI redistribution) is acceptable.
 
 After publishing, the README release link
 (`.../releases/tag/v1.0-thesis`) resolves live — no README edit needed.
@@ -92,6 +92,6 @@ After publishing, the README release link
 ### Notes
 - The three `thesis-*` tags are already pushed and independent of this release;
   they preserve the cited SHAs even if the release is edited.
-- Assets are large binaries kept out of git; they live in the repo working dir now
-  and move to `~/Desktop/repo_archive_2026-07/` in Phase 5 — **create the release
-  before Phase 5 archival**, or upload from the archive location.
+  - Assets are large binaries kept out of git; they live in the repo working dir now
+    and move to `~/Desktop/repo_archive_2026-07/` in Phase 5 — **create the release
+    before Phase 5 archival**, or upload from the archive location.
