@@ -167,13 +167,34 @@ daher "Anton Klevers"; die maßgebliche Autorschaft ist Antonio Markic.
 
 ---
 
-## Offen (Checkpoint)
+## Finale Freigaben (2026-07-30)
 
-- **Phase 4.1** (Annotator-Workbooks A/B/C scrubben + CSV-Export + annotation/-README) —
-  gated bis Workbooks im Austauschordner.
-- **Phase 4.2–4.4** (Release erstellen, Topics/Description, public) — Antonio im Browser
-  per `RELEASE_NOTES.md`; **public nur nach separatem OK**.
-- **Phase 5** (Branch-Löschung lokal+origin, Zip-Auslagerung nach `~/Desktop/repo_archive_2026-07/`,
-  Cache-Löschung) — erst nach separatem, explizitem OK. `experiment/stage1-query-swap`
-  bleibt DAUERHAFT. Hinweis: Release VOR Zip-Auslagerung erstellen (Assets liegen noch im Arbeitsdir).
-- **Klärpunkt:** LICENSE-Copyright-Halter = "Antonio Markic" (gehalten bis Bestätigung).
+**1. LICENSE-Name BESTÄTIGT:** Antonio Markic ist der Rechtsname; "Anton Klevers"
+ist ein reines Git-Config-Artefakt. LICENSE steht bereits korrekt. Git-Identität
+**nicht** umkonfiguriert (Konsistenz der Historie + Provenance-Vermerk oben genügt;
+optionale Änderung bewusst nicht angewandt, damit "sämtliche Commits = Anton Klevers"
+wahr bleibt). Klärpunkt geschlossen.
+
+**2. PDF-Asset gefüllt:** `Markic_2026_BeyondEquivalence_thesis.pdf` (2.0 MB) aus dem
+Austauschordner kopiert (Original: `Thesis___Beyond_Equivalence_..._Embeddings.pdf`),
+sha256 `1f3f6eeb2ea56b77f9f415ac72168e51e5a85f7ea3a466c71c51019687a28397`.
+RELEASE_NOTES.md-Slot gefüllt → **5 Ready-Assets**. Workbook-Bundle = follow-up
+(pending), Phase 4.1 bleibt gated. PDF bleibt untracked (Release-Asset, nicht committet).
+
+**Status: RELEASE BEREIT.** Antonio führt 4.2–4.4 im Browser aus (v1.0-thesis auf
+main-Tip, Body aus RELEASE_NOTES.md §A, 5 Assets hochladen, dann Settings →
+Visibility → public; public-OK + eBay/VDI-Call liegen vor).
+
+---
+
+## Offen (gated)
+
+- **Phase 4.2–4.4** — bei Antonio (Browser, `RELEASE_NOTES.md`).
+- **Phase 4.1** (Workbooks scrubben) — gated bis Lieferung; danach als Extra-Asset nachreichen.
+- **Phase 5** (OK liegt vor) startet **erst wenn BEIDES gilt**:
+  (a) `git fetch --tags` zeigt `v1.0-thesis` auf origin, UND
+  (b) Antonio bestätigt: alle Assets hochgeladen.
+  Dann: 5 Stale-Branches + `feat/stage2-relation-classifier` löschen (lokal+origin;
+  VERIFY-A/B waren grün), `experiment/stage1-query-swap` bleibt DAUERHAFT,
+  Zips → `~/Desktop/repo_archive_2026-07/`, Caches weg. Abschluss-VERIFY per frischem
+  Klon in /tmp; Ergebnis als letzter Log-Eintrag.

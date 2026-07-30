@@ -40,19 +40,23 @@ Ready assets (present, verified 2026-07-30):
 | `stage2_precision_E16_E17_E18_2026-07-22.zip` | 5.0 MB | `1cec08f67655bd3c1f5ec9f57e656e7fffaeab0b570b5bb66d308003cf01abea` |
 | `sbert_e15_results_2026-07-17.zip` | 9.9 MB | `a02d1b759d96448d49164055c828f1e01b3cc60ecfc9803abed8ae64233474da` |
 | `gold-standard-v1.zip` | 106 KB | `a444963f8221bc7890244329907353ee217a77209e749ef9ba30a032828e3f4f` |
+| `Markic_2026_BeyondEquivalence_thesis.pdf` | 2.0 MB | `1f3f6eeb2ea56b77f9f415ac72168e51e5a85f7ea3a466c71c51019687a28397` |
 
 `gold-standard-v1.zip` was built from the tracked `data/gold-standard/` (canonical
 gold: reference_full/seed, eBay/VDI OWL, subsumption_gold). Regenerate + re-checksum:
 `rm -f gold-standard-v1.zip && zip -rq gold-standard-v1.zip data/gold-standard && shasum -a 256 gold-standard-v1.zip`
 
-**Open asset slots (deliver via exchange folder, then re-checksum):**
+The **5 assets above are ready** for the initial release. The PDF was copied from
+the exchange folder (original: `Thesis___Beyond_Equivalence_..._Embeddings.pdf`).
+
+**Follow-up asset (pending — not required for the initial release):**
 
 | asset | status | sha256 |
 |---|---|---|
-| `Markic_2026_BeyondEquivalence_thesis.pdf` | ⬜ awaiting `~/Desktop/benchmark/` | _TBD_ |
-| annotator workbooks bundle (A/B/adjudication C, scrubbed) | ⬜ Phase 4.1 (awaiting workbooks) | _TBD_ |
+| annotator workbooks bundle (A/B/adjudication C, scrubbed) | ⬜ follow-up asset (pending) — Phase 4.1 (awaiting workbooks) | _TBD_ |
 
-To checksum on arrival: `shasum -a 256 <file>`.
+To checksum on arrival: `shasum -a 256 <file>`. Add it as an extra asset to the
+existing release once scrubbed (no re-release needed).
 
 ---
 
