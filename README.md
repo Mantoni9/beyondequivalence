@@ -23,8 +23,10 @@ eBay Germany vehicle-parts taxonomy.
   subclass role by presentation position. Order-invariant voting (B2) repairs an
   instruct model by +0.087 Macro-F1 at doubled cost without reaching the other
   class.
-- On the industrial reference, roughly nineteen of twenty correspondences are
-  directional and only about one in twenty is an equivalence. An equivalence-only
+- Of the 451 curated seed correspondences of the industrial reference, roughly
+  nineteen of twenty are directional and about one in twenty is an equivalence.
+  On the closure-expanded reference of 2,048 pairs the equivalence share falls
+  to about one percent, which makes the point stronger: an equivalence-only
   matcher is blind to nearly the entire mapping.
 
 ## Where the results are

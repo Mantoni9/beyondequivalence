@@ -134,9 +134,13 @@ aufgelöst** → deterministische URL `.../releases/tag/v1.0-thesis` (Zeile 35).
 - vdi "19/20 directional, 1/20 equivalence": = Seed-Ratio 429/451 dir + 22/451 eq ✓
 - Der 3. `<!-- verify -->` (BibTeX, Zeile 108) blieb wie im Draft (kein Library-Record;
   von dir nicht als aufzulösen benannt).
-- Minor-Notiz (kein Fix): "1 in 20 equivalence" gilt gegen die 451-Seed; gegen die
-  2048-Full ist Äquivalenz ~1/93 (Count 22 ist denominator-abhängig). Nur hedged
-  ("roughly/about") im Text — zur Info, nicht korrigiert.
+- Minor-Notiz (ursprünglich): "1 in 20 equivalence" gilt gegen die 451-Seed; gegen
+  die 2048-Full ist Äquivalenz ~1 % (22/2048). **Follow-up-Commit (2026-07-30):**
+  Headline-Finding 3 im README auf **Basis-Klarstellung Seed vs. Vollreferenz**
+  präzisiert (451-Seed: ~19/20 dir + ~1/20 eq; 2048-Full: eq-Anteil ~1 % → Argument
+  wird stärker). **Der Thesis-Satz bleibt unberührt (Druckstand)** — nur die README-
+  Formulierung geschärft. Verteidigungsnotiz für Antonio: die scheinbare Diskrepanz
+  ist reiner Bezugsrahmen (Seed-Denominator vs. Closure-Denominator), kein Zahlenfehler.
 
 ## Phase 4 — Vorbereitung ✅ (2026-07-30, ohne Austauschordner-Content)  — commit siehe unten
 
