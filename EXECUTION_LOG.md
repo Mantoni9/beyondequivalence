@@ -124,14 +124,52 @@ in Phase 1 getrackt. ⚠️ eBay/VDI-OWL sind Fremd-Derivate → Redistributions
 
 ---
 
+## Phase 3.2 — README ✅ (2026-07-30)  — commit 4fb7db5
+
+Antonios reviewter Draft (Repo-Root `README.md`) 1:1 übernommen. **Release-Link-Verify
+aufgelöst** → deterministische URL `.../releases/tag/v1.0-thesis` (Zeile 35).
+**Zahlenabgleich gegen results-final — alle Headline-Claims konsistent, keine Abweichung:**
+- dir-acc: reasoning 0.898–1.000 (≈"0.90–1.00"), instruct 0.211–0.766 ("0.21–0.77") ✓
+- B2 "+0.087": = B2(0.4210) − baseline_anchor(0.334) = **+0.0870** ✓ (nicht B2−B1=+0.074)
+- vdi "19/20 directional, 1/20 equivalence": = Seed-Ratio 429/451 dir + 22/451 eq ✓
+- Der 3. `<!-- verify -->` (BibTeX, Zeile 108) blieb wie im Draft (kein Library-Record;
+  von dir nicht als aufzulösen benannt).
+- Minor-Notiz (kein Fix): "1 in 20 equivalence" gilt gegen die 451-Seed; gegen die
+  2048-Full ist Äquivalenz ~1/93 (Count 22 ist denominator-abhängig). Nur hedged
+  ("roughly/about") im Text — zur Info, nicht korrigiert.
+
+## Phase 4 — Vorbereitung ✅ (2026-07-30, ohne Austauschordner-Content)  — commit siehe unten
+
+`RELEASE_NOTES.md` entworfen: (A) Release-Body inkl. Verweis auf die drei `thesis-*`-Tags
++ `v1.0-thesis`, (B) sha256-Checksummen, (C) Browser-Schrittfolge für Antonio.
+**Ready-Assets (sha256 berechnet):**
+- `thesis_results_final_2026-07-21.zip` (70M) `398b02e8…`
+- `stage2_precision_E16_E17_E18_2026-07-22.zip` (5.0M) `1cec08f6…`
+- `sbert_e15_results_2026-07-17.zip` (9.9M) `a02d1b75…`
+- `gold-standard-v1.zip` (106K, aus getracktem data/gold-standard/ gebaut) `a444963f…`
+**Offene Asset-Slots:** `Markic_2026_BeyondEquivalence_thesis.pdf`, Annotator-Workbook-Bundle
+(A/B/C) — sha256 bei Ankunft im Austauschordner.
+
+---
+
+## PROVENANCE-VERMERK — Git-Autor (Punkt 4)
+
+**Sämtliche Commits dieses Repos wurden unter der Git-Identität `Anton Klevers`
+erstellt** (`user.name=Anton Klevers`), während **Autor/Urheber der Arbeit
+Antonio Markic** ist (Thesis `Markic_2026_BeyondEquivalence`; LICENSE-Copyright =
+Antonio Markic). Die Diskrepanz ist gewollt belassen — die Git-Identität wird NICHT
+umkonfiguriert und die Historie NICHT umgeschrieben. `git blame`/`git log` zeigen
+daher "Anton Klevers"; die maßgebliche Autorschaft ist Antonio Markic.
+
+---
+
 ## Offen (Checkpoint)
 
-- **Phase 3.2 README** — BLOCKIERT: Antonio hat README.md bereits als unversioniertes
-  File im Repo-Root angelegt; wird per separatem OK 1:1 übernommen, nur die zwei
-  `<!-- verify -->`-Stellen (Release-Link, Zahlenabgleich gegen results-final) aufgelöst.
-- **Phase 4** — kein `gh` CLI → **Variante A**: ich bereite `RELEASE_NOTES.md` +
-  Asset-Liste mit sha256 + exakte Browser-Schritte vor; Antonio erstellt Release +
-  setzt Topics/Description + public. Annotator-Workbooks A/B/C + Abgabe-PDF via Austauschordner.
-- **Phase 5** (Branch-Löschung lokal+origin, Zip-Auslagerung, Cache-Löschung) — erst
-  nach separatem, explizitem OK. `experiment/stage1-query-swap` bleibt DAUERHAFT.
-- **Offener Klärpunkt:** LICENSE-Copyright-Halter (Markic vs Klevers) — Antonio bestätigt.
+- **Phase 4.1** (Annotator-Workbooks A/B/C scrubben + CSV-Export + annotation/-README) —
+  gated bis Workbooks im Austauschordner.
+- **Phase 4.2–4.4** (Release erstellen, Topics/Description, public) — Antonio im Browser
+  per `RELEASE_NOTES.md`; **public nur nach separatem OK**.
+- **Phase 5** (Branch-Löschung lokal+origin, Zip-Auslagerung nach `~/Desktop/repo_archive_2026-07/`,
+  Cache-Löschung) — erst nach separatem, explizitem OK. `experiment/stage1-query-swap`
+  bleibt DAUERHAFT. Hinweis: Release VOR Zip-Auslagerung erstellen (Assets liegen noch im Arbeitsdir).
+- **Klärpunkt:** LICENSE-Copyright-Halter = "Antonio Markic" (gehalten bis Bestätigung).
