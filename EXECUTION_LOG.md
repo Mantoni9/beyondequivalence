@@ -219,6 +219,35 @@ Visibility → public; public-OK + eBay/VDI-Call liegen vor).
   (7) **pytest im Klon: 81 passed** ✓ (voll reproduzierbar aus dem Klon).
 
 **Repo-Finalisierung ABGESCHLOSSEN.** Offener Rest (nicht blockierend):
-- **Phase 4.1** Annotator-Workbooks — als Extra-Release-Asset nachreichen, sobald geliefert
-  (Slot in `RELEASE_NOTES.md` als „follow-up (pending)" markiert).
 - Archiv `~/Desktop/repo_archive_2026-07/` (234 MB) außerhalb des Repos aufbewahren.
+
+---
+
+## Phase 4.1 — Annotator-Workbooks (nachgeliefert) ✅ (2026-07-30)  — commit 66dc63d
+
+Quelle: `~/Desktop/benchmark/vdi_gold/` (Originale unangetastet). Drei Workbooks
+scrubben → `data/gold-standard/annotation/` (17 getrackte Dateien: 3 anonymisierte
+.xlsx + 13 Per-Sheet-CSV + README).
+
+**PII-Inventur (read-only, vor Scrub):** keine versteckten Sheets, keine Kommentare.
+- Metadaten (alle 3): `creator` und `lastModifiedBy` trugen Klarnamen der Experten
+  bzw. des Autors → auf `anonymized` gesetzt (2 Felder je Datei).
+- Zellen: **genau 1 Treffer** — ein Firmenname in einem Instruktions-Text
+  (`annotator_B`, Anleitung) → `Partnerbetrieb`. Schwerpunkt-Spalte trug nur
+  None/„Karosserie" (kein Klarname als Datenwert).
+
+**Rollen-Mapping:** Datei-A → Expert A, Datei-B → Expert B, Adjudikation → Expert C.
+Die **vollständige Original→anonymisiert-Zuordnung (mit Klarnamen)** liegt untracked
+unter `~/Desktop/benchmark/vdi_gold/SCRUB_REVIEW_2026-07-30.md` für Antonios Review —
+**bewusst NICHT committet** (sonst wären die Namen wieder in der Historie).
+
+**Verify:** gescrubbte .xlsx (Metadaten=`anonymized`, 0 Zell-PII) und CSVs
+0 Rest-PII (Re-Scan gebecke/klevers/kempers/autorecycling); Release-Bundle
+`annotation-workbooks-v1.zip` (sha256 `b8626274…`) ebenfalls 0 PII → RELEASE_NOTES
+Follow-up-Slot auf „ready" gesetzt.
+
+**Hinweis (kein Leak):** „Markic" erscheint weiterhin bewusst öffentlich (Autorname
+in LICENSE/README/PDF-Dateiname) — Anonymisierungsziel waren die Domänen-Experten
+(A/C) + Firmenname, nicht der Autor. `VDI_5.5.6.xlsx` im Austauschordner ist die
+Gold-Quelle (kein Annotator-Workbook) und wurde hier NICHT eingebunden — bei Bedarf
+separat als data/gold-standard/-Quelle prüfen/scrubben.
